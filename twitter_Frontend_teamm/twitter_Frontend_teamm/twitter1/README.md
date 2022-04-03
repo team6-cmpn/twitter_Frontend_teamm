@@ -1,29 +1,3 @@
-# Edited by Fatmah
-
-## Installations:
-### npm i react-router-dom
-### npm install antd
-### npm install antd-css-utilities
-### npm install --save @ant-design/icons
-### npm install validator
-### npm i json-server
-### npm install axios
-
-## To run mock services:
-### npx json-server --watch db.json --port 8000
-
-## To test a test.js file:
-### npm test (nameofFile.test.js)
-
-
-
-
-
-
-
-
-
-
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

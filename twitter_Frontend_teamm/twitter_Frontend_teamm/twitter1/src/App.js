@@ -6,7 +6,8 @@ import React from 'react';
 import LogIn from './Components/LogIn';
 import ForgetPassword from './Components/forgetPassword';
 import GoogleSignUp from './Components/GoogleSignUp';
-
+import Explore from "./Components/Explore";
+import Home from "./Components/Home";
 
 
 
@@ -22,6 +23,8 @@ function App() {
           </Route>
           <Route path='/login' element={<LogIn/>}></Route>
           <Route path='/forgetpassword' element={<ForgetPassword/>}></Route>
+          <Route path="/home" element={<Home />} />
+          <Route path="/explore" element={<Explore />} />
         </Routes>
       </div>
     </Router>

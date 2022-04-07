@@ -1,0 +1,37 @@
+import React from "react";
+import "./settingsSubmenus.css"
+import { Link, useLocation } from "react-router-dom";
+import SubsettingsContent from "./SubsettingsContent";
+import { ChevronRight } from "@mui/icons-material";
+import { LockOutlined } from "@material-ui/icons";
+
+
+const SecurityandAcess = () => {
+    const [location] = React.useState(useLocation().pathname);
+
+    return (
+      <div className="settingsSubMenu">
+            <div className="SubMenuTitle">
+            <span>Security and account access</span>
+            </div>
+            <div className="submenu_discription">
+                <span>Manage your account's security and keep track of your account's usage including apps that you</span>
+                <br/>
+                <span>have connected to your account.</span>
+                <Link to="/Settings" style={{ textDecoration: "none", color:"inherit" }}>
+          <SubsettingsContent
+            Icon2={LockOutlined}
+            text="Security"
+            discrip="Manage your account's security.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
+            Icon={ChevronRight}
+            active={location === "/Settings" && true}
+          />
+        </Link>
+            </div>
+          
+      </div>
+    );
+  };
+  
+  export default SecurityandAcess;
+  

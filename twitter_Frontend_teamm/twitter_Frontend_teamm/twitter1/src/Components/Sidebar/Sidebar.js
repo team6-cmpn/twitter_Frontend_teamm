@@ -67,7 +67,7 @@ const Sidebar = () => {
           </a>
         </li>
         <li>
-          <a href="">
+          <a href="/Settings">
             <FiSettings className="icons" /> Settings & privacy
           </a>
         </li>

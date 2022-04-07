@@ -9,6 +9,7 @@ import GoogleSignUp from './Components/GoogleSignUp';
 import Explore from "./Components/Explore";
 import Home from "./Components/Home";
 import Notifications from './Components/Notifications';
+import  Settings  from './Components/Settings/Settings';
 
 
 
@@ -27,6 +28,8 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/explore" element={<Explore />} />
           <Route path="/Notifications" element={<Notifications />} />
+          <Route path="/Settings" element={<Settings />} />
+
           
         </Routes>
       </div>

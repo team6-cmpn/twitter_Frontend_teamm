@@ -50,7 +50,7 @@ const Sidebar = () => {
           </a>
         </li>
         <li>
-          <a href="">
+          <a href="/Notifications">
             <FaRegBell className="icons" /> Notifications
           </a>
         </li>

@@ -1,9 +1,9 @@
 .settingsSubMenu {
-    flex: 0.6;
     min-height: 100vh;
     height: max-content;
+    width:950px !important;
+    background-color:white;
     border-right: 1px solid #e6ecf0;
-
     
 
 }
@@ -11,8 +11,9 @@
 .SubMenuTitle {
     background-color:white;
     padding: 15px;
-    margin-right: 300px;
-    width: max-content;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     
 }
 
@@ -24,21 +25,11 @@
 
 }
 
-.submenu_discription >span{
+.submenu_discription >h3{
     font-size: 12px;
-    color:#536471;
-    margin-left: 10px;
     text-align: left;
-
-
-
-}
-.submenu_discription >h2{
     color:#536471;
-
-    font-size: 12px;
-    margin-left: 10px;
-    text-align: left;
+    padding: 15px;
 
 
 }
@@ -50,13 +41,12 @@
 }
 .SubsettingsContent{
     display: flex;
+    align-items: center;
     cursor: pointer;
-    width: max-content;
-    margin-top: 50px;
-    margin-left:-2px ;
+    width: 559px;
+    margin-top: 5px;
     height: 50px;
-    padding-left: 20px;
-    padding-right: -20px;
+    background-color:white;
     
 
 }  
@@ -65,8 +55,11 @@
 
 
     color: black;
-    fill:black;
+    align-items: center;  
     margin-top: 5px;
+    margin-left: 25px;
+
+
     
 
 
@@ -75,24 +68,31 @@
 
 .text_discrip{
     height: 50px;
+    width: max-content;
+    text-align: left;
+    margin-left: 25px;
+    margin-top: 16px;
+    
 }
 .text_discrip>h5{
+    margin-bottom: 20px;
     font-weight: normal;
     font-size: 15px;
-    text-align: left;
 }
 .text_discrip>h6{
+
+    margin-top: -27px;
+    width:max-content;
     color:#536471;
     font-weight: normal;
     font-size: 12px;
-    margin-top: -12px;
 
 }
 
 .leftArrowIcons{
 
-        margin-left: 15px;
-    margin-top: 15px;
+    margin-left: 40px;
+    margin-top: -1px;
     
 
 

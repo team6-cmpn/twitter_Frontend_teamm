@@ -4,7 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 import SubsettingsContent from "./SubsettingsContent";
 import { ChevronRight } from "@mui/icons-material";
 import VolumeOffOutlinedIcon from '@mui/icons-material/VolumeOffOutlined';
-const PrivacyandSafety = () => {
+const PrivacyAndSafety = () => {
     const [location] = React.useState(useLocation().pathname);
 
     return (
@@ -13,14 +13,13 @@ const PrivacyandSafety = () => {
             <span>Privacy and safety </span>
             </div>
             <div className="submenu_discription">
-                <span>Manage what information you see and share on Twitter.</span>
+                <h3>Manage what information you see and share on Twitter Your Twitter activity.</h3>
                 <br/>
-                <h2>Your Twitter activity</h2>
                 <Link to="/Settings" style={{ textDecoration: "none", color:"inherit" }}>
           <SubsettingsContent
             Icon2={VolumeOffOutlinedIcon}
             text="Mute and block"
-            discrip="Manage the accounts, words, and notifications that you've muted or blocked.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
+            discrip="Manage the accounts, words, and notifications that you've muted or blocked."
             Icon={ChevronRight}
             active={location === "/Settings" && true}
           />
@@ -31,4 +30,4 @@ const PrivacyandSafety = () => {
     );
   };
   
-  export default PrivacyandSafety;
+  export default PrivacyAndSafety;

@@ -10,6 +10,9 @@ import Explore from "./Components/Explore";
 import Home from "./Components/Home";
 import Notifications from './Components/Notifications';
 import  Settings  from './Components/Settings/Settings';
+import PrivacyAndSafety from './Components/Settings/PrivacyAndSafety';
+import YourAccount from './Components/Settings/YourAccount';
+import SecurityandAcess from './Components/Settings/SecurityAndAccess';
 
 
 
@@ -28,7 +31,11 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/explore" element={<Explore />} />
           <Route path="/Notifications" element={<Notifications />} />
-          <Route path="/Settings" element={<Settings />} />
+          <Route path="/Settings" element={<Settings />}>
+            <Route path="security-and-acess" element={<SecurityandAcess />}/>
+            <Route path="privacy-and-saftey" element={<PrivacyAndSafety />}/>
+            <Route path="your-account" element={<YourAccount />}/> 
+          </Route>
 
           
         </Routes>

@@ -16,15 +16,13 @@ const YourAccount = () => {
             <span>Your Account</span>
             </div>
             <div className="submenu_discription">
-                <span>See information about your account, download an archive of your data, or learn about  </span>
-                <br/>
-                <h2>&nbsp;&nbsp;your account deactivation options</h2>
+                <h3> See information about your account, download an archive of your data, or learn about your account deactivation options</h3>
             </div>
             <Link to="/Settings" style={{ textDecoration: "none", color:"inherit" }}>
           <SubsettingsContent
             Icon2={PersonOutlineOutlinedIcon}
             text="Account information"
-            discrip="See your account inforamtion like your phone numer and email address.&nbsp;&nbsp;&nbsp;"
+            discrip="See your account inforamtion like your phone numer and email address.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
             Icon={ChevronRightIcon}
             active={location === "/Settings" && true}
           />
@@ -33,7 +31,7 @@ const YourAccount = () => {
           <SubsettingsContent
             Icon2={Key}
             text="Change password"
-            discrip="Change your password at any time.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
+            discrip="Change your password at any time.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
             Icon={ChevronRightIcon}
             active={location === "/Settings" && true}
           />
@@ -42,7 +40,7 @@ const YourAccount = () => {
           <SubsettingsContent
             Icon2={HeartBrokenOutlined}
             text="Deactivate your account "
-            discrip="Find out how you can deactivate your account.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
+            discrip="Find out how you can deactivate your account.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
             Icon={ChevronRightIcon}
             active={location === "/Settings" && true}
           />

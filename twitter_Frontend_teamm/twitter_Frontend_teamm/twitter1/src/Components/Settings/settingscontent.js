@@ -3,7 +3,7 @@ import "./Settings.css";
 
 function SettingsContent({ Icon ,text, active }) {
   return (
-    <div className={`SettingsContent ${active && "SettingsContentActive"}`}>
+    <div className={`SettingsContent ${active && "SettingsContent--active"}`}>
       <span>{text}</span>
       <Icon className="leftArrIcons" active={active && true} />
       

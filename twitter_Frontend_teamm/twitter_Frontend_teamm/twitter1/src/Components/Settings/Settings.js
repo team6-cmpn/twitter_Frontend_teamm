@@ -7,11 +7,10 @@ import { Link, useLocation, Outlet } from "react-router-dom";
 import SettingsContent from "./settingscontent";
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import YourAccount from "./YourAccount";
-import SecurityandAcess from "./SecurityAndAccess"
-import PrivacyAndSafety from "./PrivacyAndSafety";
-import Sidebar from "../Sidebar/Sidebar";
+import MuteandBlock from "./MuteandBlock";
+
 function Settings(){
-  document.title = "Settings / Twitter";
+  document.title = "Your Account / Twitter";
   const [location] = React.useState(useLocation().pathname);
   let path = useLocation().pathname;
 
@@ -48,7 +47,7 @@ function Settings(){
 
             </div>
             {path === "/Settings" ? (
-        <YourAccount />
+        <MuteandBlock />
       ) : (
         <Outlet />
       )}

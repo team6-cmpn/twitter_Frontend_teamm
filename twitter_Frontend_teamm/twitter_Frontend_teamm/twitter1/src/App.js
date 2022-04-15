@@ -13,6 +13,7 @@ import  Settings  from './Components/Settings/Settings';
 import PrivacyAndSafety from './Components/Settings/PrivacyAndSafety';
 import YourAccount from './Components/Settings/YourAccount';
 import SecurityandAcess from './Components/Settings/SecurityAndAccess';
+import MuteandBlock from './Components/Settings/MuteandBlock';
 
 
 
@@ -33,9 +34,12 @@ function App() {
           <Route path="/Notifications" element={<Notifications />} />
           <Route path="/Settings" element={<Settings />}>
             <Route path="security-and-acess" element={<SecurityandAcess />}/>
+            <Route path="your-account" element={<YourAccount />}/>
             <Route path="privacy-and-saftey" element={<PrivacyAndSafety />}/>
-            <Route path="your-account" element={<YourAccount />}/> 
+            <Route path= "MuteandBlock" element ={<MuteandBlock/>}/>
+
           </Route>
+
 
           
         </Routes>

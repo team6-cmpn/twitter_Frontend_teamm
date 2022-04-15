@@ -99,3 +99,32 @@
 
 }
 
+.SettingsContentInMenus{
+    display: flex;
+    cursor: pointer;
+    margin-top: -15px;
+    height: 50px;
+    background-color:white;
+    justify-content: space-between;
+    align-items: left;
+    margin-bottom: 20px;
+
+}
+.SettingsContentInMenus >span{
+
+    margin-top: 15px;
+    font-weight: normal;
+    font-size: 14px;
+    margin-left: 15px;
+}
+.leftArrowIcons2{
+
+    margin-top: 12px;
+}
+
+.SettingsContentInMenus:hover {
+    
+    transition: color 100ms ease-out;
+    background-color:#F7F9F9;
+}
+

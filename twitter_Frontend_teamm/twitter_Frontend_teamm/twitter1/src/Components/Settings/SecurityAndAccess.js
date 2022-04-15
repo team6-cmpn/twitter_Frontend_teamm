@@ -8,6 +8,8 @@ import { LockOutlined } from "@material-ui/icons";
 
 const SecurityandAcess = () => {
     const [location] = React.useState(useLocation().pathname);
+    document.title = "Secuirty and access / Twitter";
+  
 
     return (
       <div className="settingsSubMenu">

@@ -4,33 +4,20 @@
     min-height: 100vh;
     height: max-content;
     background-color: #ffffff;
-    margin-left: 222px;
+    margin-left: 18.40%;
   }
   
   .notificationsTitle {
     padding: 15px;
     display: flex;
     align-items: center;
+    
   }
   .notificationsTitle > span {
     color: black;
     display: inline;
     font-size: 19px;
     font-weight: 800;
-  }
-  .notificationsTitle > .MuiSvgIcon-root {
-    margin-left: auto;
-    border-color:#1DA1F2;
-    color: #1DA1F2;
-    fill: #1DA1F2;
-    font-size: 19px;
-    padding: 5px;
-    font-weight: 700;
-    text-align: center;
-    border-radius: 9999px;
-  }
-  .notificationsTitle > .MuiSvgIcon-root:hover {
-    background-color:#1DA1F2;
   }
   .notificationsCategory {
     display: flex;

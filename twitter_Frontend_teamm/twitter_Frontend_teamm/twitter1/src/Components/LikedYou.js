@@ -15,9 +15,9 @@ const LikedYou = ({ likePost }) => {
         </div>
         <span>
           <b>{likePost.likeUser[0].displayName}</b> and{" "}
-          {likePost.likeUser.length - 1} others liked your reply
+          {likePost.likeUser.length - 1} others liked your Tweet
         </span>
-        <span>{likePost.post}</span>
+        <span>{likePost.Tweet}</span>
       </div>
     </div>
   );

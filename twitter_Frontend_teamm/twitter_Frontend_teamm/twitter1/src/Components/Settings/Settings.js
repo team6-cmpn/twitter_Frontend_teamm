@@ -47,7 +47,7 @@ function Settings(){
 
             </div>
             {path === "/Settings" ? (
-        <MuteandBlock />
+        <YourAccount />
       ) : (
         <Outlet />
       )}

@@ -31,35 +31,136 @@ function Notifications() {
                         </div>
                 </div>
                 <article>
-                  <FollowedYou
-                    followingUser={{
-                      userImage:
-                        "https://pbs.twimg.com/profile_images/1348390204810407937/BmUVaYGD_400x400.jpg",
-                      displayName: "Mohamed Fathy",
-                    }}
-                  />
-                  <LikedYou
+                {isAll ? (
+              <>
+                <FollowedYou
+                  followingUser={{
+                    userImage:
+                      "https://pbs.twimg.com/profile_images/1348390204810407937/BmUVaYGD_400x400.jpg",
+                    displayName: "MohamedFathy",
+                  }}
+                  
+                />
+                <FollowedYou
+                  followingUser={{
+                    userImage:
+                      "https://pbs.twimg.com/profile_images/1348390204810407937/BmUVaYGD_400x400.jpg",
+                    displayName: "MohamedFathy",
+                  }}
+                  
+                />
+                <FollowedYou
+                  followingUser={{
+                    userImage:
+                      "https://pbs.twimg.com/profile_images/1348390204810407937/BmUVaYGD_400x400.jpg",
+                    displayName: "MohamedFathy",
+                  }}
+                  
+                />
+                <FollowedYou
+                  followingUser={{
+                    userImage:
+                      "https://pbs.twimg.com/profile_images/1348390204810407937/BmUVaYGD_400x400.jpg",
+                    displayName: "MohamedFathy",
+                  }}
+                  
+                />
+                <FollowedYou
+                  followingUser={{
+                    userImage:
+                      "https://pbs.twimg.com/profile_images/1348390204810407937/BmUVaYGD_400x400.jpg",
+                    displayName: "MohamedFathy",
+                  }}
+                  
+                />
+                <FollowedYou
+                  followingUser={{
+                    userImage:
+                      "https://pbs.twimg.com/profile_images/1348390204810407937/BmUVaYGD_400x400.jpg",
+                    displayName: "MohamedFathy",
+                  }}
+                  
+                />
+                <FollowedYou
+                  followingUser={{
+                    userImage:
+                      "https://pbs.twimg.com/profile_images/1348390204810407937/BmUVaYGD_400x400.jpg",
+                    displayName: "MohamedFathy",
+                  }}
+                  
+                />
+                <FollowedYou
+                  followingUser={{
+                    userImage:
+                      "https://pbs.twimg.com/profile_images/1348390204810407937/BmUVaYGD_400x400.jpg",
+                    displayName: "MohamedFathy",
+                  }}
+                  
+                />
+                <FollowedYou
+                  followingUser={{
+                    userImage:
+                      "https://pbs.twimg.com/profile_images/1348390204810407937/BmUVaYGD_400x400.jpg",
+                    displayName: "MohamedFathy",
+                  }}
+                  
+                />
+                <FollowedYou
+                  followingUser={{
+                    userImage:
+                      "https://pbs.twimg.com/profile_images/1348390204810407937/BmUVaYGD_400x400.jpg",
+                    displayName: "MohamedFathy",
+                  }}
+                  
+                />
+                <FollowedYou
+                  followingUser={{
+                    userImage:
+                      "https://pbs.twimg.com/profile_images/1348390204810407937/BmUVaYGD_400x400.jpg",
+                    displayName: "MohamedFathy",
+                  }}
+                  
+                />
+                
+                <LikedYou
                   likePost={{
                     id: 1,
                     likeUser: [
                       {
-                        displayName: "Fathyjr",
+                        displayName: "Mohamed",
                         userImage:
-                          "https://pbs.twimg.com/profile_images/1348390204810407937/BmUVaYGD_400x400.jpg",
+                          "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg",
                       },
                       {
-                        displayName: "Fathyjr",
+                        displayName: "fathy",
                         userImage:
-                          "https://pbs.twimg.com/profile_images/1348390204810407937/BmUVaYGD_400x400.jpg",
-                      },{
-                        displayName: "Fathyjr",
+                          "https://abs.twimg.com/sticky/default_profile_images/default_profile_400x400.png",
+                      },
+                      {
+                        displayName: "jr",
                         userImage:
-                          "https://pbs.twimg.com/profile_images/1348390204810407937/BmUVaYGD_400x400.jpg",
+                          "https://pbs.twimg.com/profile_images/1278357302601347072/BGZIBPH9_200x200.jpg",
                       },
                     ],
-                    Tweet: "Hello Tweet.",
+                    post: "Hi tweet.",
                   }}
-                      />  
+                />
+                
+                
+              </>
+            ) : (
+              <>
+                <FollowedYou
+                  followingUser={{
+                    userImage:
+                      "https://pbs.twimg.com/profile_images/1348390204810407937/BmUVaYGD_400x400.jpg",
+                    displayName: "Mohamed Fathy",
+                  }}
+                />
+              </>
+            )
+                }
+         
                   </article>
                   
                   </div>

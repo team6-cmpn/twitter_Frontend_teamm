@@ -20,13 +20,13 @@ const PrivacyAndSafety = () => {
           
           <NavLink to={"../MuteandBlock"}>
           
-          <SubsettingsContent
-            Icon2={VolumeOffOutlinedIcon}
-            text="Mute and block"
-            discrip="Manage the accounts, words, and notifications that you've muted or blocked."
-            Icon={ChevronRight}
-          />
-          </NavLink>
+            <SubsettingsContent
+              Icon2={VolumeOffOutlinedIcon}
+              text="Mute and block"
+              discrip="Manage the accounts, words, and notifications that you've muted or blocked."
+              Icon={ChevronRight}
+            />
+            </NavLink>
             </div>
             <Outlet/>
 

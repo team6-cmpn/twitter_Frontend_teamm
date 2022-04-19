@@ -1,11 +1,11 @@
 import './App.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import StartPage from './Components/StartPage';
-import SignUp from './Components/SignUp';
+import StartPage from './Components/StartPage/StartPage';
+import SignUp from './Components/SignUp/SignUp';
 import React from 'react';
-import LogIn from './Components/LogIn';
-import ForgetPassword from './Components/forgetPassword';
-import GoogleSignUp from './Components/GoogleSignUp';
+import LogIn from './Components/SignIn/LogIn';
+import ForgetPassword from './Components/SignIn/forgetPassword';
+import GoogleSignUp from './Components/SignUp/GoogleSignUp';
 import Explore from "./Components/Explore";
 import Home from "./Components/Home";
 import Notifications from './Components/Notifications';

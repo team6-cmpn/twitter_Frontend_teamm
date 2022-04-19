@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: SignIn/LogIn.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: SignIn/LogIn.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import {useNavigate,Link} from "react-router-dom";
+import googleIcon from "../images/googleIcon.png"
+import React, {useState} from "react";
+import './LogIn.css';
+import "antd/dist/antd.css";
+import GoogleLogin from 'react-google-login';
+import { Modal,Form,Input} from "antd";
+import {TwitterOutlined,EyeInvisibleOutlined,EyeTwoTone} from '@ant-design/icons';
+import  * as mockAPI   from '../SignUp/mockRegistration';
+
+/**
+ *Log in
+ *allows a registered user to enter his/her username or email &amp; password
+ * @returns Login form
+ */
+function LogIn() {
+
+    const navigate = useNavigate();
+    const [isModalVisible, setModalVisible] = useState(false);
+    const [isModal2Visible, setModal2Visible] = useState(false);
+    const [btndisabled, setbtndisabled] = useState(true);
+    const [data, setData] = useState(null);
+    const [password, setPassword] = useState(null);
+   
+
+    function getData(val){
+      setData(val.target.value)
+    };
+
+    function getPassword(val){
+      setPassword(val.target.value)
+    };
+  
+
+    const onSubModel = (e, stateSub = true, stateMain = false) => {
+      setModalVisible(stateMain);
+      setModal2Visible(stateSub);
+    };
+    const responseGoogle = (response) => {
+      console.log(response);
+      // history ("/home");
+    }
+    function logInFailure (response) {
+      console.log(response);
+    }
+  
+    function logInSuccess (response) {
+      console.log('Login Success: currentUser:', response.profileObj);
+      navigate ("/home");
+    }
+
+    const buttonState = (changedValues, allValues) => {
+      if ( allValues.next !== undefined &amp;&amp;  allValues.next !== ''  ) {
+        
+        setbtndisabled(false);
+
+      } 
+      else{
+        
+        setbtndisabled(true);
+      
+      }
+    };
+
+    
+
+    var body={
+      data:data,
+      password:password
+    }
+   
+    function nextButtonAction(){
+
+      mockAPI.logInPost(body);
+     
+    }
+  
+   
+    return(
+      &lt;div>
+        &lt;Modal
+          title={&lt;TwitterOutlined style={{ fontSize: '200%',marginTop:'1px',color:'Dodgerblue'}} />}
+          style={{textAlign:"center"}}
+          okText='Next'
+          okButtonProps={{shape:'round' , size:'large', style:{width: 450,fontWeight:'bold',alignItems:'center',justifyContent:'center',
+          display:'flex'}}}
+          cancelButtonProps={{ style: { display: "none" } }}
+          visible={setModalVisible}
+          bodyStyle={{height: 490 ,font:'Helvetica',textAlign:'left'}}
+          width={500}
+          centered={true}
+          onCancel={() => navigate("/")}
+          footer={null}
+          maskClosable={false}  
+        >
+          &lt;span className="text4">Sign in to Twitter&lt;/span>
+          &lt;div>
+            &lt;GoogleLogin
+              clientId="335712697506-0rdelma7j4jgcc6bicuhnn20e2l8m0fm.apps.googleusercontent.com"
+              render={renderProps =>(&lt;button onClick={renderProps.onClick} disabled={renderProps.disabled} class="googleButton">
+              &lt;img className="imggoogle" alt='' src={googleIcon} >&lt;/img>
+              &lt;span >Sign in with Google&lt;/span>
+              &lt;/button>) }
+              buttonText="Login"
+              onSuccess={logInSuccess}
+              onFailure={logInFailure}
+              cookiePolicy={'single_host_origin'}
+            />
+            &lt;div>
+              &lt;div className="flex-parent2">
+                &lt;div className="flex-child-edge2">&lt;/div>
+                &lt;div className="flex-child-text2 tt2 ">or&lt;/div>
+                &lt;div className="flex-child-edge2">&lt;/div>
+              &lt;/div>
+            &lt;/div>
+
+            &lt;div>
+              &lt;Form onValuesChange={buttonState}>
+                &lt;Form.Item name='next'>
+                  &lt;Input style={{width:300,marginLeft:70,marginTop:1,height:50}} onChange={getData} placeholder="email or username">&lt;/Input>
+                &lt;/Form.Item>
+              &lt;/Form>
+
+              &lt;button className="googleButton button-color" disabled={btndisabled} onClick={()=>onSubModel()}>Next&lt;/button>
+              &lt;Link to='/forgetpassword'> &lt;button className="googleButton button2-color">Forget Password?&lt;/button>&lt;/Link>
+            &lt;/div>
+          
+            &lt;br/>
+            &lt;div>&lt;span className='txt3'>Dont have an account? &lt;/span>&lt;Link  to="/signup">Sign up&lt;/Link>&lt;/div>
+          
+          
+          &lt;/div>
+        &lt;/Modal>
+
+        &lt;Modal
+          title={&lt;TwitterOutlined style={{ fontSize: '200%',marginTop:'1px',color:'Dodgerblue'}} />}
+          style={{textAlign:"center"}}
+          okText='Next'
+          okButtonProps={{shape:'round' , size:'large', style:{width: 450,fontWeight:'bold',alignItems:'center',justifyContent:'center',
+          display:'flex'}}}
+          cancelButtonProps={{ style: { display: "none" } }}
+          visible={isModal2Visible}
+          bodyStyle={{height: 490 ,font:'Helvetica',textAlign:'left'}}
+          width={500}
+          centered={true}
+          onCancel={() => navigate("/")}
+          footer={null}
+          maskClosable={false}
+        >
+          &lt;span className="text3">Enter your password&lt;/span>
+          &lt;Form onValuesChange={buttonState}>
+            &lt;Form.Item name='password'>
+              &lt;Input.Password style={{width:450,height:50}} placeholder="Password" onChange={getPassword} iconRender={visible => (visible ? &lt;EyeTwoTone /> : &lt;EyeInvisibleOutlined />)}>&lt;/Input.Password>
+            &lt;/Form.Item>
+          &lt;/Form>
+          &lt;Link to='/forgetpassword'>Forget password?&lt;/Link>
+          &lt;div>&lt;button className="googleButton button3-color" onClick={()=>nextButtonAction()} >Log in&lt;/button>&lt;/div>
+          &lt;div>&lt;span className="txt3">Dont have an account? &lt;/span>&lt;Link  to="/signup">Sign up&lt;/Link>&lt;/div>
+        
+
+
+        &lt;/Modal>
+      &lt;/div>
+
+    );
+    
+}
+  
+  
+  
+export default LogIn;</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#ForgetPassword">ForgetPassword</a></li><li><a href="global.html#googlePost">googlePost</a></li><li><a href="global.html#googleProfilePost">googleProfilePost</a></li><li><a href="global.html#GoogleSignUp">GoogleSignUp</a></li><li><a href="global.html#LogIn">LogIn</a></li><li><a href="global.html#logInPost">logInPost</a></li><li><a href="global.html#post">post</a></li><li><a href="global.html#SignUp">SignUp</a></li><li><a href="global.html#StartPage">StartPage</a></li><li><a href="global.html#validateEmail">validateEmail</a></li><li><a href="global.html#validatePassword">validatePassword</a></li><li><a href="global.html#validateUserName">validateUserName</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Tue Apr 19 2022 03:56:40 GMT+0200 (Eastern European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

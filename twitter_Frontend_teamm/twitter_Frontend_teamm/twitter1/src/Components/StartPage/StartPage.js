@@ -1,17 +1,22 @@
 import './StartPage.css';
-import startPageImage from "./start.png"
-import googleIcon from "./googleIcon.png"
-import twitterBirdImage from "./bird.png"
+import startPageImage from "../images/start.png"
+import googleIcon from "../images/googleIcon.png"
+import twitterBirdImage from "../images/bird.png"
 import GoogleLogin from 'react-google-login';
 import {Link, Outlet,useNavigate } from "react-router-dom";
 import React from "react";
 import "antd/dist/antd.css";
-import  * as mockAPI   from './mockRegistration';
+import  * as mockAPI   from '../SignUp/mockRegistration';
 
 
 
+/**
+ *StartPage
+ * generates twitter's start page that includes the basic interface to access registration and/or log in
+ * @returns Start Page
+ */
 
-function StartPage(props){
+function StartPage(){
   const navigate= useNavigate();
 
   function logInFailure (response) {
@@ -22,7 +27,10 @@ function StartPage(props){
   function logInSuccess (response) {
     console.log('Login Success: currentUser:', response.profileObj);
     var body={
-      profile:response.profileObj
+      googleId:response.profileObj.googleId,
+      imageUrl:response.profileObj.imageUrl,
+      name:response.profileObj.name,
+      email:response.profileObj.email
     }
     mockAPI.googleProfilePost(body);
     // alert(`Logged in successfully welcome ${response.profileObj.name}. \n See console for full profile object.`);
@@ -35,16 +43,14 @@ function StartPage(props){
      
     <div className="flex-container">
       <div className="column"><img alt='' src={startPageImage}/></div>
-
         <div className="column">
           <img className="bird" alt='' src={twitterBirdImage} />
           <h1 className="textHeader">Happening now</h1>
           <span className="textBody">Join Twitter today.</span>
-
           <div className="row">
             <GoogleLogin
               clientId="335712697506-0rdelma7j4jgcc6bicuhnn20e2l8m0fm.apps.googleusercontent.com"
-              render={renderProps =>(<button onClick={renderProps.onClick} disabled={renderProps.disabled} className="button">
+              render={renderProps =>(<button id="googleButton" onClick={renderProps.onClick} disabled={renderProps.disabled} className="button">
               <img className="icon" alt='' src={googleIcon} />
               <span>Sign up with Google</span>
               </button> 
@@ -64,7 +70,7 @@ function StartPage(props){
             </div>
           
             <div className='row'>
-              <Link className="button btn-color"  to="/signup"><span>Sign up with phone or email</span></Link><Outlet />
+              <Link id="signUp" className="button btn-color"  to="/signup"><span>Sign up with phone or email</span></Link><Outlet />
             </div>
           
             <br/>
@@ -72,7 +78,7 @@ function StartPage(props){
             <div className='row'><span className='textBody_margin'>Already have an account?</span></div>
 
             <div className='row'>
-              <Link  className="button changebtncolor" to="/login"><span>Sign in</span> </Link>
+              <Link id="logIn" className="button changebtncolor" to="/login"><span>Sign in</span> </Link>
             </div>
           
           </div>

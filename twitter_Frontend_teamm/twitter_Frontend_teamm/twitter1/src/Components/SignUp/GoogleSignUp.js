@@ -7,7 +7,11 @@ import moment from 'moment'
 import {TwitterOutlined} from '@ant-design/icons';
 import  * as mockAPI   from './mockRegistration';
 
-
+/**
+ *GoogleSignUp
+ * allows a user to register with his/her google email account 
+ * @returns Google sign up modal
+ */
 
 function GoogleSignUp(){
 
@@ -112,7 +116,7 @@ function GoogleSignUp(){
             <Form.Item>
               <b>Date of birth</b>
               <p>This won't be public</p>
-              <DatePicker showTime={false} onChange={(value)=>setDate(value)} disabledDate={disabledDate} style={{ width: 450,height:50}}  />
+              <DatePicker id='date' showTime={false} onChange={(value)=>setDate(value)} disabledDate={disabledDate} style={{ width: 450,height:50}}  />
             </Form.Item>
         </Form>
 

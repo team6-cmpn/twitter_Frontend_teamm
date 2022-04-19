@@ -9,7 +9,7 @@ In the project directory, you can run:
 ### `npm run mock`
 To run json-server on port 8000
 
-### `npm run docs`
+### `npm run doc`
 To save your changes in functional documentation
 
 ### `npm start`

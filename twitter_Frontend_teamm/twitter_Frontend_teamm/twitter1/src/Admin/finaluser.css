@@ -1,3 +1,8 @@
+.admincontainer{
+    display: flex;
+    margin-top: 10px;
+}
+
 .UsersHome{
     flex: 4;
 }

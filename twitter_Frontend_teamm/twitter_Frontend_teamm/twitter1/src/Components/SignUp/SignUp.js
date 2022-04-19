@@ -7,16 +7,16 @@ import "antd/dist/antd.css";
 import moment from 'moment'
 import validator from 'validator'
 import  * as mockAPI   from './mockRegistration';
+import {validatePassword,validateEmail,validateUserName} from './Validate'
 
 
 
-
-
-
-
-
-
-function SignUp(props) {
+/**
+ *SignUp
+ * allows user to register through inputting their name,username,email,password, and birth date
+ * @returns Sign up modal
+ */
+function SignUp() {
 
   const navigate = useNavigate();
   const [isMainModalVisible, setMainModalVisible] = useState(false);
@@ -28,11 +28,13 @@ function SignUp(props) {
   const [userName, setUserName] = useState(null);
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
-  const [errorMessage, setErrorMessage] = useState('')
+  const [passwordError, setPasswordError] = useState('')
   const [emailError, setEmailError] = useState('')
   const [userNameError, setuserNameError] = useState('')
   const [date, setDate] = useState(null);
 
+  
+  
 
 
   
@@ -63,58 +65,32 @@ function SignUp(props) {
   function getEmail(val){
     setEmail(val.target.value)
   };
-  
+
   function getPassword(val){
     setPassword(val.target.value)
   };
+  function getPasswordValidation(val){
+    setPasswordError(validatePassword(val.target.value))
+  };
+  function getEmailValidation(val){
+    setEmailError(validateEmail(val.target.value))
+  };
 
+  function getUserNameValidation(val){
+    setuserNameError(validateUserName(val.target.value))
+  };
   
-
   function disabledDate(current) {
     // Can not select days after today and today in calendar of date of birth
     return current && current > moment().endOf('day');
   };
     
-  function validateEmail(e) {
-    var emailVal = e.target.value
-    if (validator.isEmail(emailVal)) {
-      setEmailError('')
-    } 
-    else {
-      setEmailError('Please enter a valid email')
-    }
-  };
+ 
   
-  function validateUserName(e){
-    var userNameVal=e.target.value
-    if (userNameVal[0] === '@') {
-      setuserNameError('')
-
-    }
-    else {
-      setuserNameError('Please start your username with @ symbol')
-    }
-
-  }
-
-  function validatePassword (value) {
-    if (validator.isStrongPassword(value, {
-      minLength: 8, minLowercase: 1,
-      minNumbers: 1,minUppercase: 0, minSymbols: 1
-    })) {
-      setErrorMessage('')
-    } 
-    else {
-      setErrorMessage('Your password needs to be at least 8 characters with at least 1 symbol.')
-    }
-  };
-  
-    
-
   function buttonState (changedValues, allValues) {
     if ( allValues.name !== undefined && allValues.username !== undefined && allValues.email !== undefined
        && allValues.password !== undefined && allValues.email !== '' && allValues.name !== '' 
-       && allValues.email !== '' && allValues.password !== '' && emailError==='' &&  errorMessage==='' && userNameError==='' ) {
+       && allValues.email !== '' && allValues.password !== '' && emailError==='' &&  passwordError==='' && userNameError==='' ) {
       setBtnDisabled(false);
     } 
     else {
@@ -128,15 +104,18 @@ function SignUp(props) {
 
   function SignUpButtonActions(){
     mockAPI.post(body);
+    mockAPI.backEndPost(body);
     onSubModal2();
   }
   var body={
     name:name,
     username:userName,
     email:email,
-    password:password,
-    date:date
+    dateOfBirth:date,
+    password:password
+    
   }
+ 
 
     
 
@@ -160,72 +139,69 @@ function SignUp(props) {
           onCancel={() => navigate("/")}
           >
           
-          <span className="text">Create your account</span>
-          <Form 
-          name='form1'
-          autoComplete="off"
-          onValuesChange={buttonState}
-          >
-            <Form.Item 
-              name="name"
-              rules={[{
-                required: true,
-                message: 'Whats your name?',
-              },
-              ]}
+            <span className="text">Create your account</span>
+            <Form 
+              name='form1'
+              autoComplete="off"
+              onValuesChange={buttonState}
             >
-                <Input style={{ height:40,marginTop:10}}  onChange={ getName} showCount maxLength={50} id='name' placeholder="Name" />
-            </Form.Item>
+              <Form.Item 
+                name="name"
+                rules={[{
+                  required: true,
+                  message: 'Whats your name?',
+                },
+                ]}
+              >
+                <Input style={{ height:40,marginTop:10}}  onChange={ getName} showCount maxLength={50} id="name" placeholder="Name" />
+              </Form.Item>
 
-            <Form.Item 
-              name="username"
-              rules={[{
-                required: true,
-                
-              },
-              ]} 
-            >
-              <span style={{color: 'red'}}>
-                <Input id="username" style={{ height:40}}   onChange={(e) => validateUserName(e)}  onKeyUp={getUserName}  maxLength={50}  placeholder="Username" />
-                {userNameError}
-              </span>
-            </Form.Item>
+              <Form.Item 
+                name="username"
+                rules={[{
+                  required: true,
+                },
+                ]} 
+              >
+                <span style={{color: 'red'}}>
+                  <Input id="username" style={{ height:40}}   onChange={getUserNameValidation}  onKeyUp={getUserName}  maxLength={50}  placeholder="Username" />
+                  {userNameError}
+                </span>
+              </Form.Item>
             
-            <Form.Item 
-              name="email"
-              rules={[{
-                required: true,
+              <Form.Item 
+                name="email"
+                rules={[{
+                  required: true,
                 // message: 'Please enter a valid email',
-              },
-              ]} 
-            >
-              <span style={{color: 'red'}}>
-                <Input id="email" style={{ height:40}}  onChange={(e) => validateEmail(e)}  onKeyUp={getEmail} maxLength={100}  placeholder="Email" />
-                {emailError}
-              </span>
-            </Form.Item>
-            <Form.Item 
-              name="password"
-              rules={[{
-                required: true,
-              },
-              ]} 
-            >
-              <span style={{color: 'red'}}>
-                <Input.Password   type='password'style={{ height:40}}  onChange={(e) => validatePassword(e.target.value)}   onKeyUp={getPassword}  id='pass' placeholder="password" iconRender={visible => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)} />
-               {errorMessage}
-              </span>
-            </Form.Item>
+                },
+                ]} 
+              >
+                <span style={{color: 'red'}}>
+                  <Input id="email" style={{ height:40}}  onChange={getEmailValidation}  onKeyUp={getEmail} maxLength={100}  placeholder="Email" />
+                  {emailError}
+                </span>
+              </Form.Item>
+              <Form.Item 
+                name="password"
+                rules={[{
+                  required: true,
+                },
+                ]} 
+              >
+                <span style={{color: 'red'}}>
+                  <Input.Password  id='password' type='password'style={{ height:40}}  onChange={getPasswordValidation}   onKeyUp={getPassword}    placeholder="password" iconRender={visible => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)} /> 
+                  {passwordError}
+                </span>
+              </Form.Item>
           
           
-            <b>Date of birth</b>
-            <p>This will not be shown publicly. Confirm your own age, even if this account is for a business, a pet, or something else.</p>
-            <Form.Item>
-              <DatePicker showTime={false} onChange={(value)=>setDate(value)} disabledDate={disabledDate} style={{ width: 450,height:50}}  />
-            </Form.Item>
-
-          </Form>
-
+              <b>Date of birth</b>
+              <p>This will not be shown publicly. Confirm your own age, even if this account is for a business, a pet, or something else.</p>
+              <Form.Item>
+                <DatePicker id='date2' showTime={false} onChange={(value)=>setDate(value)} disabledDate={disabledDate} style={{ width: 450,height:50}}  />
+              </Form.Item>
+            </Form>
         </Modal>
         
 

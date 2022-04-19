@@ -9,39 +9,39 @@ var wrongEmail='aa';
 var rightEmail='a@gmail.com';
 
 test('password is not strong or valid', () => {
-  expect(validatePassword(wrongPassword)).toEqual({
-  error:'Your password needs to be at least 8 characters with at least 1 symbol.'
-  });
+  expect(validatePassword(wrongPassword)).toEqual(
+  'Your password needs to be at least 8 characters with at least 1 symbol.'
+  );
 });
 
 test('password is strong', () => {
-  expect(validatePassword(rightPassword)).toEqual({
-  error:''
-  });
+  expect(validatePassword(rightPassword)).toEqual(
+  ''
+  );
 });
 
 test('username is not valid', () => {
-  expect(validateUserName(wrongUserName)).toEqual({
-  error:'Please start your username with @ symbol'
-  });
+  expect(validateUserName(wrongUserName)).toEqual(
+  'Please start your username with @ symbol'
+  );
 });
 
 test('username is not valid', () => {
-  expect(validateUserName(rightUserName)).toEqual({
-  error:''
-  });
+  expect(validateUserName(rightUserName)).toEqual(
+  ''
+  );
 });
 
 test('email is not valid', () => {
-  expect(validateEmail(wrongEmail)).toEqual({
-  error:'Please enter a valid email'
-  });
+  expect(validateEmail(wrongEmail)).toEqual(
+  'Please enter a valid email'
+  );
 });
 
 test('email is valid', () => {
-  expect(validateEmail(rightEmail)).toEqual({
-  error:''
-  });
+  expect(validateEmail(rightEmail)).toEqual(
+  ''
+  );
 });
 
 

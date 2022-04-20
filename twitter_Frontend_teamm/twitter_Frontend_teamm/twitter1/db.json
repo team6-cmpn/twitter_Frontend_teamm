@@ -1,4 +1,60 @@
 {
+  "LikePost":[{
+                 
+    "likeUser": [
+      {
+        "displayName": "Mohamed",
+        "userImage":
+          "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg"
+      },
+      {
+        "displayName": "fathy",
+        "userImage":
+          "https://abs.twimg.com/sticky/default_profile_images/default_profile_400x400.png"
+      },
+      {
+        "displayName": "jr",
+        "userImage":
+          "https://pbs.twimg.com/profile_images/1278357302601347072/BGZIBPH9_200x200.jpg"
+      }
+    ],
+    "post": "1st tweet."
+  },{
+                 
+    "likeUser": [
+      {
+        "displayName": "sayed",
+        "userImage":
+        "https://abs.twimg.com/sticky/default_profile_images/default_profile_400x400.png"
+      },
+      {
+        "displayName": "fathy",
+        "userImage":
+          "https://abs.twimg.com/sticky/default_profile_images/default_profile_400x400.png"
+      },
+      {
+        "displayName": "jr",
+        "userImage":
+          "https://pbs.twimg.com/profile_images/1278357302601347072/BGZIBPH9_200x200.jpg"
+      }
+    ],
+    "post": "2nd tweet."
+  }],
+
+  "followingUser":[
+  {
+
+    "userImage"  :"https://scontent.fcai19-3.fna.fbcdn.net/v/t39.30808-6/274049221_7163543843685886_7383761799122556778_n.jpg?_nc_cat=101&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=0dBX1VyTrYwAX96ZHeg&tn=BKObDnz2kPCU4vTV&_nc_ht=scontent.fcai19-3.fna&oh=00_AT9ygwes12RKTzfKQS8w-HciWtUqDNhQ_-wOHbR4OKr-rw&oe=62638630",
+    "displayName": "Mohamed Fathy"
+
+  },
+  {
+
+    "userImage"  :"https://scontent.fcai19-4.fna.fbcdn.net/v/t39.30808-6/236785599_3035825320021503_7464080102625445644_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=HyFNYOwCBqkAX9UBsKp&_nc_ht=scontent.fcai19-4.fna&oh=00_AT--rWAZhlXaYXVfTtEbKxUjyAMjE751uB0ZOvQXzlRVbA&oe=6263A65B",
+    "displayName": "Mahmoud ahmed fawzy"
+
+  }
+  ],
   "signUpUsers": [
     {
       "name": "Fatmah",

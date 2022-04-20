@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import "./Sidebar.css";
 import {
   FaTwitter,
@@ -18,14 +18,20 @@ import{
 import{
   FiSettings,
 } from "react-icons/fi";
-
+import { Modal} from "antd";
 import { Avatar, Button } from "@material-ui/core";
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import Explore from "../Explore";
 import { BrowserRouter as Router, Switch, Route, Redirect,} from "react-router-dom";
 import {Link} from "react-router-dom";
-const Sidebar = () => { 
+function Sidebar() { 
+  const [isModalVisible, setModalVisible] = useState(false);
+  const onSubModel = (stateMain = true) => {
+    setModalVisible(stateMain);
+     
+  };
   return (
+    
     <div className="sidebar">
       <ul>
         <li>
@@ -34,7 +40,7 @@ const Sidebar = () => {
           </a>
         </li>
         <li>
-          <a href="/">
+          <a href="/home">
             <FaHome className="icons logo" />
             Home
             {/* <Link to="/explore">Home</Link> */}
@@ -72,7 +78,7 @@ const Sidebar = () => {
           </a>
         </li>
         <div className="sidebar__Btn">
-          <a href="">Tweet</a>
+          <a > <button  id="tweet" className="tweet" onClick={()=>onSubModel()}>Tweet</button></a>
         </div>
         
     
@@ -82,9 +88,24 @@ const Sidebar = () => {
           </a>
         </li>
          {/* <Avatar className="icons"/>hhhhhh  <BiDotsHorizontal className="more"/> */}
-         
+          
         {/* </div> */}
       </ul>
+      
+      <Modal
+          title={<h1 style={{ fontSize: '200%',marginTop:'10px',color:'Dodgerblue'}}>Tweet </h1>}
+          style={{textAlign:"center"}}
+          cancelButtonProps={{ style: { display: "none" } }}
+          visible={isModalVisible}
+          bodyStyle={{height:200 ,font:'Helvetica',textAlign:'left'}}
+          width={800}
+          alignItems={top}
+          onCancel={() => setModalVisible(false)}
+          footer={null}
+          maskClosable={false}  
+        >
+      
+        </Modal>
     </div>
   );
 };

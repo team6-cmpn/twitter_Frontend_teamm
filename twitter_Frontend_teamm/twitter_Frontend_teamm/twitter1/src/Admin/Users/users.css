@@ -1,0 +1,63 @@
+.Users{
+  flex: 1;
+  box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+  -webkit-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+  padding: 20px;
+  margin-right: 20px;
+}
+
+.UsersTitle{
+  font-size: 22px;
+  font-weight: 600;
+}
+/* 
+.UsersImg{
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.UsersList{
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.UsersListItem{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 20px 0px;
+}
+
+.UserDesc{
+  display: flex;
+  flex-direction: column;
+}
+
+.UserName{
+  font-weight: 600;
+}
+
+.UserTitle{
+  font-weight: 300;
+  color: grey;
+}
+
+.UsersButton{
+  border-radius: 9999px;
+  border: 1px var(--blue) ;
+  color: var(--blue);
+  font-size: 15px;
+  font-weight: 700;
+  text-align: center;
+  padding: 5px 16px;
+  border-radius: 10px;
+  background-color: rgb(22, 153, 190);
+  cursor: pointer;
+}
+.UsersButton:hover{
+  background-color: red;
+} */

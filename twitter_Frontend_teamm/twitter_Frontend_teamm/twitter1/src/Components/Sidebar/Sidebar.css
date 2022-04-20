@@ -10,7 +10,10 @@
  .sidebar ul {
     list-style-type: none;
   }
-
+  .tweet{
+    background-color: #1da1f2;
+    border: #1da1f2;
+  }
   .sidebar ul li a {
     display: flex;
     align-items: center;

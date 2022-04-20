@@ -1,10 +1,11 @@
 import { Avatar } from "@material-ui/core";
-import React from "react";
+import React, {useState} from "react";
 import "./FriendSuggestionItem.css";
 import{
   MdVerified,
 } from "react-icons/md";
 function FriendSuggestionItem(props) {
+  const [stat, ToggleButton] = useState(false);
   return (
     // <div className="key">
     <div className="friendSuggestionsItem">
@@ -14,7 +15,13 @@ function FriendSuggestionItem(props) {
     
         <span className="user_name">@{props.username}</span>
         <div className="friendFollowButton">
-        Follow
+        <button className="butto" onClick={() => ToggleButton()} >
+				{ stat === false ? "Follow":"Following" }
+        
+				</button>
+			  {!stat }
+         
+        
       </div>
      
      

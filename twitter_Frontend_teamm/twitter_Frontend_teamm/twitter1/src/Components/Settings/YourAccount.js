@@ -5,7 +5,7 @@ import SubsettingsContent from "./SubsettingsContent";
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import PersonOutlineOutlinedIcon from '@material-ui/icons/PersonOutlineOutlined';
 import { HeartBrokenOutlined, Key } from "@mui/icons-material";
-const YourAccount = () => {
+const YourAccount = () => { 
     const [location] = React.useState(useLocation().pathname);
 
     return (

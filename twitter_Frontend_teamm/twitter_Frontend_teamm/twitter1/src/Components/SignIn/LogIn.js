@@ -68,6 +68,7 @@ function LogIn() {
     function nextButtonAction(){
 
       mockAPI.logInPost(body);
+      navigate ("/home");
      
     }
   

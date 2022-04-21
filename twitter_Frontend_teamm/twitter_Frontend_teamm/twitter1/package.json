@@ -23,6 +23,7 @@
     "react-elastic-carousel": "^0.11.5",
     "react-google-login": "^5.2.2",
     "react-icons": "^4.3.1",
+    "react-image-placeholder": "^1.0.4",
     "react-modal": "^3.14.4",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.0",

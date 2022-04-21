@@ -18,7 +18,8 @@ import FinalUser from "./Admin/FinalUser";
 import Statistics from "./Admin/statistics";
 import BlockForm from "./Admin/Users/BlockForm";
 import AdminHome from "./Admin/Home";
-
+import Profile from "./Components/Profile";
+import Followers from "./Components/Followers";
 function App() {
   return (
     <Router>
@@ -43,6 +44,8 @@ function App() {
           <Route path="/Users" element={<FinalUser />} />
           <Route path="/Statistics" element={<Statistics />} />
           <Route path="/BlockForm" element={<BlockForm />} />
+          <Route path="/profile"  element={<Profile />}> </Route> 
+          <Route path="/Followers" element={<Followers />}></Route>
         </Routes>
       </div>
     </Router>

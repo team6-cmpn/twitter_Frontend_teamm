@@ -13,8 +13,9 @@ const columns = [
     sortable: false,
     renderCell: (params) => (
       <img
-        style={{ height: 36, borderRadius: '50%' }}
+        style={{ width:36 ,height: 36, borderRadius: '50%' }}
         src={params.value}
+        alt="userimg"
       />
     ),
   },
@@ -36,7 +37,7 @@ const columns = [
     description: "This icon will block the user",
     width: 100,
     getActions: () => [
-      <GridActionsCellItem icon={<BlockIcon />} label="Block" />,
+      <GridActionsCellItem icon={<BlockIcon />} label="Block"/>,
     ],
   },
 ];
@@ -47,9 +48,9 @@ export default function AdminUsers() {
   const userlist=GetUserList()
   return (
     <div className="Users">
-      <span className="UsersTitle">Users List</span>
+      <span className="Userstitle">Users List</span>
       <div style={{ height: 600, width: "100%"}}>
-        <DataGrid rows={userlist} columns={columns} pageSize={9} />
+        <DataGrid rows={userlist} columns={columns} />
       </div>
     </div>
   );

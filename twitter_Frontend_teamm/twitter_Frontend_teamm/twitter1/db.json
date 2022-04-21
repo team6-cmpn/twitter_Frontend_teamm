@@ -150,5 +150,288 @@
       "email": "onlyprojects7@gmail.com",
       "id": 5
     }
+  ],
+
+  "StatisticsBlock": [
+    {
+      "TweetsPerDay": "50",
+      "TotalNumberOfTweets": "200",
+      "TotalNumberOfRetweets": "555"
+    },
+    {
+      "TweetsPerDay": "5",
+      "TotalNumberOfTweets": "2",
+      "TotalNumberOfRetweets": "5"
+    }
+  ],
+  "TopUsers": [
+    {
+      "imgurl": "https://scontent.fcai19-4.fna.fbcdn.net/v/t39.30808-6/236785599_3035825320021503_7464080102625445644_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=HyFNYOwCBqkAX9UBsKp&_nc_ht=scontent.fcai19-4.fna&oh=00_AT--rWAZhlXaYXVfTtEbKxUjyAMjE751uB0ZOvQXzlRVbA&oe=6263A65B",
+      "name": "Mahmoud Ahmed",
+      "username": "@fawzy"
+    },
+    {
+      "imgurl": "https://scontent.fcai19-4.fna.fbcdn.net/v/t39.30808-6/236785599_3035825320021503_7464080102625445644_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=HyFNYOwCBqkAX9UBsKp&_nc_ht=scontent.fcai19-4.fna&oh=00_AT--rWAZhlXaYXVfTtEbKxUjyAMjE751uB0ZOvQXzlRVbA&oe=6263A65B",
+      "name": "Mahmoud Ahmed",
+      "username": "@fawzy"
+    },
+    {
+      "imgurl": "https://scontent.fcai19-4.fna.fbcdn.net/v/t39.30808-6/236785599_3035825320021503_7464080102625445644_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=HyFNYOwCBqkAX9UBsKp&_nc_ht=scontent.fcai19-4.fna&oh=00_AT--rWAZhlXaYXVfTtEbKxUjyAMjE751uB0ZOvQXzlRVbA&oe=6263A65B",
+      "name": "Mahmoud Ahmed",
+      "username": "@fawzy"
+    },
+    {
+      "imgurl": "https://scontent.fcai19-4.fna.fbcdn.net/v/t39.30808-6/236785599_3035825320021503_7464080102625445644_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=HyFNYOwCBqkAX9UBsKp&_nc_ht=scontent.fcai19-4.fna&oh=00_AT--rWAZhlXaYXVfTtEbKxUjyAMjE751uB0ZOvQXzlRVbA&oe=6263A65B",
+      "name": "Mahmoud Ahmed",
+      "username": "@fawzy"
+    },
+    {
+      "imgurl": "https://scontent.fcai19-4.fna.fbcdn.net/v/t39.30808-6/236785599_3035825320021503_7464080102625445644_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=HyFNYOwCBqkAX9UBsKp&_nc_ht=scontent.fcai19-4.fna&oh=00_AT--rWAZhlXaYXVfTtEbKxUjyAMjE751uB0ZOvQXzlRVbA&oe=6263A65B",
+      "name": "Mahmoud Ahmed",
+      "username": "@fawzy"
+    }
+  ],
+  "TweetsPerMonth":[
+    {
+    "name": "June",
+    "Tweets": 10000,
+    "Retweets": 5000
+  },
+  {
+    "name": "July",
+    "Tweets": 3000,
+    "Retweets": 1398  },
+  {
+    "name": "August",
+    "Tweets": 2000,
+    "Retweets": 9800,
+    "amt": 2290
+  },
+  {
+    "name": "September",
+    "Tweets": 2780,
+    "Retweets": 3908
+  },
+  {
+    "name": "October",
+    "Tweets": 1890,
+    "Retweets": 4800
+  },
+  {
+    "name": "Novomber",
+    "Tweets": 2390,
+    "Retweets": 3800
+  },
+  {
+    "name": "December",
+    "Tweets": 3490,
+    "Retweets": 4300
+  }
+  ],
+  "AgesData" : [
+    { "name": "Ages(20-25)", "value": 500 },
+    { "name": "Ages(25-30)", "value": 300 },
+    { "name": "Ages(30-35)", "value": 300 },
+    { "name": "Ages(35-40)", "value": 200 },
+    { "name": "Ages(40-50)", "value": 278 },
+    { "name": "Ages(50-60)", "value": 189 }
+  ],
+  "UsersPerMonth": [
+    {
+      "name": "January",
+      "UserNum": 4000
+    },
+    {
+      "name": "February",
+      "UserNum": 3000
+    },
+    {
+      "name": "March",
+      "UserNum": 2000
+    },
+    {
+      "name": "April",
+      "UserNum": 2780
+    },
+    {
+      "name": "May",
+      "UserNum": 1890
+    },
+    {
+      "name": "June",
+      "UserNum": 2390
+    },
+    {
+      "name": "July",
+      "UserNum": 3490
+    }
+  ],
+  "SignedUpMethod":[
+    {
+      "name": "January",
+      "GoogleSign": 4000,
+      "FacebookSign": 2400
+    },
+    {
+      "name": "February",
+      "GoogleSign": 3000,
+      "FacebookSign": 1398
+    },
+    {
+      "name": "March",
+      "GoogleSign": 2000,
+      "FacebookSign": 9800
+    },
+    {
+      "name": "April",
+      "GoogleSign": 2780,
+      "FacebookSign": 3908
+    },
+    {
+      "name": "May",
+      "GoogleSign": 1890,
+      "FacebookSign": 4800
+    },
+    {
+      "name": "June",
+      "GoogleSign": 2390,
+      "FacebookSign": 3800
+    },
+    {
+      "name": "July",
+      "GoogleSign": 3490,
+      "FacebookSign": 4300
+      }
+  ],
+  "UserLists":[
+    {
+      "id": 1,
+      "lastName": "Mahmoud",
+      "firstName": "Jon",
+      "age": 35,
+      "avatar":
+        "https://scontent.fcai19-3.fna.fbcdn.net/v/t39.30808-6/236785599_3035825320021503_7464080102625445644_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=9983UR9VWakAX8wAiMY&_nc_ht=scontent.fcai19-3.fna&oh=00_AT8sowWMEAmmjJXHMsJKBcYmQPOlqgeEcy3ACWMx-hyY5Q&oe=625BBD5B"
+    },
+    {
+      "id": 2,
+      "lastName": "Lannister",
+      "firstName": "Cersei",
+      "age": 42,
+      "avatar":
+        "https://scontent.fcai19-3.fna.fbcdn.net/v/t39.30808-6/236785599_3035825320021503_7464080102625445644_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=9983UR9VWakAX8wAiMY&_nc_ht=scontent.fcai19-3.fna&oh=00_AT8sowWMEAmmjJXHMsJKBcYmQPOlqgeEcy3ACWMx-hyY5Q&oe=625BBD5B"
+    },
+    {
+      "id": 3,
+      "lastName": "Lannister",
+      "firstName": "Jaime",
+      "age": 45,
+      "avatar":
+        "https://scontent.fcai19-3.fna.fbcdn.net/v/t39.30808-6/236785599_3035825320021503_7464080102625445644_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=9983UR9VWakAX8wAiMY&_nc_ht=scontent.fcai19-3.fna&oh=00_AT8sowWMEAmmjJXHMsJKBcYmQPOlqgeEcy3ACWMx-hyY5Q&oe=625BBD5B"
+    },
+    {
+      "id": 4,
+      "lastName": "Stark",
+      "firstName": "Arya",
+      "age": 16,
+      "avatar":
+        "https://scontent.fcai19-3.fna.fbcdn.net/v/t39.30808-6/236785599_3035825320021503_7464080102625445644_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=9983UR9VWakAX8wAiMY&_nc_ht=scontent.fcai19-3.fna&oh=00_AT8sowWMEAmmjJXHMsJKBcYmQPOlqgeEcy3ACWMx-hyY5Q&oe=625BBD5B"
+    },
+    {
+      "id": 5,
+      "lastName": "Targaryen",
+      "firstName": "Daenerys",
+      "age": null,
+      "avatar":
+        "https://scontent.fcai19-3.fna.fbcdn.net/v/t39.30808-6/236785599_3035825320021503_7464080102625445644_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=9983UR9VWakAX8wAiMY&_nc_ht=scontent.fcai19-3.fna&oh=00_AT8sowWMEAmmjJXHMsJKBcYmQPOlqgeEcy3ACWMx-hyY5Q&oe=625BBD5B"
+    },
+  
+    {
+      "id": 7,
+      "lastName": "Clifford",
+      "firstName": "Ferrara",
+      "age": 44,
+      "avatar":
+        "https://scontent.fcai19-3.fna.fbcdn.net/v/t39.30808-6/236785599_3035825320021503_7464080102625445644_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=9983UR9VWakAX8wAiMY&_nc_ht=scontent.fcai19-3.fna&oh=00_AT8sowWMEAmmjJXHMsJKBcYmQPOlqgeEcy3ACWMx-hyY5Q&oe=625BBD5B"
+    },
+    {
+      "id": 8,
+      "lastName": "Frances",
+      "firstName": "Rossini",
+      "age": 36,
+      "avatar":
+        "https://scontent.fcai19-3.fna.fbcdn.net/v/t39.30808-6/236785599_3035825320021503_7464080102625445644_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=9983UR9VWakAX8wAiMY&_nc_ht=scontent.fcai19-3.fna&oh=00_AT8sowWMEAmmjJXHMsJKBcYmQPOlqgeEcy3ACWMx-hyY5Q&oe=625BBD5B"
+    },
+    {
+      "id": 9,
+      "lastName": "Roxie",
+      "firstName": "Harvey",
+      "age": 65,
+      "avatar":
+        "https://scontent.fcai19-3.fna.fbcdn.net/v/t39.30808-6/236785599_3035825320021503_7464080102625445644_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=9983UR9VWakAX8wAiMY&_nc_ht=scontent.fcai19-3.fna&oh=00_AT8sowWMEAmmjJXHMsJKBcYmQPOlqgeEcy3ACWMx-hyY5Q&oe=625BBD5B"
+    },  {
+      "id": 1,
+      "lastName": "Mahmoud",
+      "firstName": "Jon",
+      "age": 35,
+      "avatar":
+        "https://scontent.fcai19-3.fna.fbcdn.net/v/t39.30808-6/236785599_3035825320021503_7464080102625445644_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=9983UR9VWakAX8wAiMY&_nc_ht=scontent.fcai19-3.fna&oh=00_AT8sowWMEAmmjJXHMsJKBcYmQPOlqgeEcy3ACWMx-hyY5Q&oe=625BBD5B"
+    },
+    {
+      "id": 2,
+      "lastName": "Lannister",
+      "firstName": "Cersei",
+      "age": 42,
+      "avatar":
+        "https://scontent.fcai19-3.fna.fbcdn.net/v/t39.30808-6/236785599_3035825320021503_7464080102625445644_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=9983UR9VWakAX8wAiMY&_nc_ht=scontent.fcai19-3.fna&oh=00_AT8sowWMEAmmjJXHMsJKBcYmQPOlqgeEcy3ACWMx-hyY5Q&oe=625BBD5B"
+    },
+    {
+      "id": 3,
+      "lastName": "Lannister",
+      "firstName": "Jaime",
+      "age": 45,
+      "avatar":
+        "https://scontent.fcai19-3.fna.fbcdn.net/v/t39.30808-6/236785599_3035825320021503_7464080102625445644_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=9983UR9VWakAX8wAiMY&_nc_ht=scontent.fcai19-3.fna&oh=00_AT8sowWMEAmmjJXHMsJKBcYmQPOlqgeEcy3ACWMx-hyY5Q&oe=625BBD5B"
+    },
+    {
+      "id": 4,
+      "lastName": "Stark",
+      "firstName": "Arya",
+      "age": 16,
+      "avatar":
+        "https://scontent.fcai19-3.fna.fbcdn.net/v/t39.30808-6/236785599_3035825320021503_7464080102625445644_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=9983UR9VWakAX8wAiMY&_nc_ht=scontent.fcai19-3.fna&oh=00_AT8sowWMEAmmjJXHMsJKBcYmQPOlqgeEcy3ACWMx-hyY5Q&oe=625BBD5B"
+    },
+    {
+      "id": 5,
+      "lastName": "Targaryen",
+      "firstName": "Daenerys",
+      "age": null,
+      "avatar":
+        "https://scontent.fcai19-3.fna.fbcdn.net/v/t39.30808-6/236785599_3035825320021503_7464080102625445644_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=9983UR9VWakAX8wAiMY&_nc_ht=scontent.fcai19-3.fna&oh=00_AT8sowWMEAmmjJXHMsJKBcYmQPOlqgeEcy3ACWMx-hyY5Q&oe=625BBD5B"
+    },
+  
+    {
+      "id": 7,
+      "lastName": "Clifford",
+      "firstName": "Ferrara",
+      "age": 44,
+      "avatar":
+        "https://scontent.fcai19-3.fna.fbcdn.net/v/t39.30808-6/236785599_3035825320021503_7464080102625445644_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=9983UR9VWakAX8wAiMY&_nc_ht=scontent.fcai19-3.fna&oh=00_AT8sowWMEAmmjJXHMsJKBcYmQPOlqgeEcy3ACWMx-hyY5Q&oe=625BBD5B"
+    },
+    {
+      "id": 8,
+      "lastName": "Frances",
+      "firstName": "Rossini",
+      "age": 36,
+      "avatar":
+        "https://scontent.fcai19-3.fna.fbcdn.net/v/t39.30808-6/236785599_3035825320021503_7464080102625445644_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=9983UR9VWakAX8wAiMY&_nc_ht=scontent.fcai19-3.fna&oh=00_AT8sowWMEAmmjJXHMsJKBcYmQPOlqgeEcy3ACWMx-hyY5Q&oe=625BBD5B"
+    },
+    {
+      "id": 9,
+      "lastName": "Roxie",
+      "firstName": "Harvey",
+      "age": 65,
+      "avatar":
+        "https://scontent.fcai19-3.fna.fbcdn.net/v/t39.30808-6/236785599_3035825320021503_7464080102625445644_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=9983UR9VWakAX8wAiMY&_nc_ht=scontent.fcai19-3.fna&oh=00_AT8sowWMEAmmjJXHMsJKBcYmQPOlqgeEcy3ACWMx-hyY5Q&oe=625BBD5B"
+    }
   ]
 }

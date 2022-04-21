@@ -1,63 +1,17 @@
-.newUsers{
-    flex: 1;
-    box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
-    -webkit-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
-    -moz-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
-    padding: 20px;
-    margin-right: 20px;
+.newUsers {
+  flex: 1;
+  box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+  -webkit-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+  padding: 20px;
+  margin-right: 20px;
 }
-
-.newUsersTitle{
-    font-size: 22px;
-    font-weight: 600;
+.newUsersList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
-
-.newUsersImg{
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    object-fit: cover;
-}
-
-.newUsersList{
-    margin: 0;
-    padding: 0;
-    list-style: none;
-}
-
-.newUsersListItem{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin: 20px 0px;
-}
-
-.newUsersUser{
-    display: flex;
-    flex-direction: column;
-}
-
-.newUsersUsername{
-    font-weight: 600;
-}
-
-.newUsersUserTitle{
-    font-weight: 300;
-    color: grey
-}
-
-.newUsersButton{
-    display: flex;
-    align-items: center;
-    border: none;
-    border-radius: 10px;
-    padding: 7px 10px;
-    background-color: #eeeef7;
-    color: #555;
-    cursor: pointer;
-}
-
-.newUsersIcon{
-    font-size: 16px !important;
-    margin-right: 5px;
+.TopUserTitle {
+  font-size: 22px;
+  font-weight: 600;
 }

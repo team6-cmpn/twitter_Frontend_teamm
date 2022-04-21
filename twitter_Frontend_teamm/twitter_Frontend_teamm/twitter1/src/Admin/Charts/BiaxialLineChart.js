@@ -15,17 +15,21 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import "./biaxiallinechart.css";
-import { data,data2 } from "./dummyData";
+import { data2 } from "./dummyData";
+import { GetTweetsPerMonth } from "../MockRegistrationAdmin";
 
 export default function BiaxialLineChart() {
 
+  var TweetsPerMonth=GetTweetsPerMonth();
+  // console.log(datadb)
+  // console.log(data)
 
   return (
     <div className="chartone">
       <Carousel>
         <ResponsiveContainer width="100%" aspect={4 / 2}>
           <BarChart
-            data={data}
+            data={TweetsPerMonth}
             margin={{
               top: 5,
               right: 30,

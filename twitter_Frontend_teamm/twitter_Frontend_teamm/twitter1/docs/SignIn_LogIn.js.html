@@ -46,7 +46,7 @@ function LogIn() {
     const navigate = useNavigate();
     const [isModalVisible, setModalVisible] = useState(false);
     const [isModal2Visible, setModal2Visible] = useState(false);
-    const [btndisabled, setbtndisabled] = useState(true);
+    const [btnDisabled, setBtnDisabled] = useState(true);
     const [data, setData] = useState(null);
     const [password, setPassword] = useState(null);
    
@@ -79,14 +79,10 @@ function LogIn() {
 
     const buttonState = (changedValues, allValues) => {
       if ( allValues.next !== undefined &amp;&amp;  allValues.next !== ''  ) {
-        
-        setbtndisabled(false);
-
+        setBtnDisabled(false);
       } 
       else{
-        
-        setbtndisabled(true);
-      
+        setBtnDisabled(true);
       }
     };
 
@@ -125,7 +121,7 @@ function LogIn() {
           &lt;div>
             &lt;GoogleLogin
               clientId="335712697506-0rdelma7j4jgcc6bicuhnn20e2l8m0fm.apps.googleusercontent.com"
-              render={renderProps =>(&lt;button onClick={renderProps.onClick} disabled={renderProps.disabled} class="googleButton">
+              render={renderProps =>(&lt;button id='googleButton' onClick={renderProps.onClick} disabled={renderProps.disabled} class="googleButton">
               &lt;img className="imggoogle" alt='' src={googleIcon} >&lt;/img>
               &lt;span >Sign in with Google&lt;/span>
               &lt;/button>) }
@@ -145,16 +141,16 @@ function LogIn() {
             &lt;div>
               &lt;Form onValuesChange={buttonState}>
                 &lt;Form.Item name='next'>
-                  &lt;Input style={{width:300,marginLeft:70,marginTop:1,height:50}} onChange={getData} placeholder="email or username">&lt;/Input>
+                  &lt;Input id='emailOrUserName 'style={{width:300,marginLeft:70,marginTop:1,height:50}} onChange={getData} placeholder="email or username">&lt;/Input>
                 &lt;/Form.Item>
               &lt;/Form>
 
-              &lt;button className="googleButton button-color" disabled={btndisabled} onClick={()=>onSubModel()}>Next&lt;/button>
-              &lt;Link to='/forgetpassword'> &lt;button className="googleButton button2-color">Forget Password?&lt;/button>&lt;/Link>
+              &lt;button className="googleButton button-color" disabled={btnDisabled} onClick={()=>onSubModel()}>Next&lt;/button>
+              &lt;Link id='forgetPass' to='/forgetpassword'> &lt;button className="googleButton button2-color">Forget Password?&lt;/button>&lt;/Link>
             &lt;/div>
           
             &lt;br/>
-            &lt;div>&lt;span className='txt3'>Dont have an account? &lt;/span>&lt;Link  to="/signup">Sign up&lt;/Link>&lt;/div>
+            &lt;div>&lt;span className='txt3'>Dont have an account? &lt;/span>&lt;Link id='signUpRedirect' to="/signup">Sign up&lt;/Link>&lt;/div>
           
           
           &lt;/div>
@@ -178,12 +174,12 @@ function LogIn() {
           &lt;span className="text3">Enter your password&lt;/span>
           &lt;Form onValuesChange={buttonState}>
             &lt;Form.Item name='password'>
-              &lt;Input.Password style={{width:450,height:50}} placeholder="Password" onChange={getPassword} iconRender={visible => (visible ? &lt;EyeTwoTone /> : &lt;EyeInvisibleOutlined />)}>&lt;/Input.Password>
+              &lt;Input.Password id='password' style={{width:450,height:50}} placeholder="Password" onChange={getPassword} iconRender={visible => (visible ? &lt;EyeTwoTone /> : &lt;EyeInvisibleOutlined />)}>&lt;/Input.Password>
             &lt;/Form.Item>
           &lt;/Form>
-          &lt;Link to='/forgetpassword'>Forget password?&lt;/Link>
-          &lt;div>&lt;button className="googleButton button3-color" onClick={()=>nextButtonAction()} >Log in&lt;/button>&lt;/div>
-          &lt;div>&lt;span className="txt3">Dont have an account? &lt;/span>&lt;Link  to="/signup">Sign up&lt;/Link>&lt;/div>
+          &lt;Link id='forgetPassRedirect' to='/forgetpassword'>Forget password?&lt;/Link>
+          &lt;div>&lt;button id='nextButton' className="googleButton button3-color" onClick={()=>nextButtonAction()} >Log in&lt;/button>&lt;/div>
+          &lt;div>&lt;span className="txt3">Dont have an account? &lt;/span>&lt;Link id='signUpLink'  to="/signup">Sign up&lt;/Link>&lt;/div>
         
 
 
@@ -206,13 +202,13 @@ export default LogIn;</code></pre>
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#ForgetPassword">ForgetPassword</a></li><li><a href="global.html#googlePost">googlePost</a></li><li><a href="global.html#googleProfilePost">googleProfilePost</a></li><li><a href="global.html#GoogleSignUp">GoogleSignUp</a></li><li><a href="global.html#LogIn">LogIn</a></li><li><a href="global.html#logInPost">logInPost</a></li><li><a href="global.html#post">post</a></li><li><a href="global.html#SignUp">SignUp</a></li><li><a href="global.html#StartPage">StartPage</a></li><li><a href="global.html#validateEmail">validateEmail</a></li><li><a href="global.html#validatePassword">validatePassword</a></li><li><a href="global.html#validateUserName">validateUserName</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#ForgetPassword">ForgetPassword</a></li><li><a href="global.html#googlePost">googlePost</a></li><li><a href="global.html#googleProfilePost">googleProfilePost</a></li><li><a href="global.html#GoogleSignUp">GoogleSignUp</a></li><li><a href="global.html#LogIn">LogIn</a></li><li><a href="global.html#logInPost">logInPost</a></li><li><a href="global.html#Notifications">Notifications</a></li><li><a href="global.html#Post">Post</a></li><li><a href="global.html#post">post</a></li><li><a href="global.html#SignUp">SignUp</a></li><li><a href="global.html#StartPage">StartPage</a></li><li><a href="global.html#validateEmail">validateEmail</a></li><li><a href="global.html#validatePassword">validatePassword</a></li><li><a href="global.html#validateUserName">validateUserName</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Tue Apr 19 2022 03:56:40 GMT+0200 (Eastern European Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Fri Apr 22 2022 22:21:56 GMT+0200 (Eastern European Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

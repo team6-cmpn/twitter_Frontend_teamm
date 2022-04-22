@@ -56,3 +56,9 @@
     display: block;
     text-align: center;
   }
+  .model{
+    align-items: center;
+  }
+  .tweetshow{
+    padding-bottom: 10px;
+  }

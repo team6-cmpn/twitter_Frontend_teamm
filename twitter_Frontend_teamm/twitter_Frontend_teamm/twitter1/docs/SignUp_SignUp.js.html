@@ -167,75 +167,69 @@ function SignUp() {
           onCancel={() => navigate("/")}
           >
           
-          &lt;span className="text">Create your account&lt;/span>
-          &lt;Form 
-          name='form1'
-          autoComplete="off"
-          onValuesChange={buttonState}
-          >
-            &lt;Form.Item 
-              name="name"
-              rules={[{
-                required: true,
-                message: 'Whats your name?',
-              },
-              ]}
+            &lt;span className="text">Create your account&lt;/span>
+            &lt;Form 
+              name='form1'
+              autoComplete="off"
+              onValuesChange={buttonState}
             >
+              &lt;Form.Item 
+                name="name"
+                rules={[{
+                  required: true,
+                  message: 'Whats your name?',
+                },
+                ]}
+              >
                 &lt;Input style={{ height:40,marginTop:10}}  onChange={ getName} showCount maxLength={50} id="name" placeholder="Name" />
-            &lt;/Form.Item>
+              &lt;/Form.Item>
 
-            &lt;Form.Item 
-              name="username"
-              rules={[{
-                required: true,
-                
-              },
-              ]} 
-            >
-              &lt;span style={{color: 'red'}}>
-                &lt;Input id="username" style={{ height:40}}   onChange={getUserNameValidation}  onKeyUp={getUserName}  maxLength={50}  placeholder="Username" />
-                {userNameError}
-              &lt;/span>
-            &lt;/Form.Item>
+              &lt;Form.Item 
+                name="username"
+                rules={[{
+                  required: true,
+                },
+                ]} 
+              >
+                &lt;span style={{color: 'red'}}>
+                  &lt;Input id="username" style={{ height:40}}   onChange={getUserNameValidation}  onKeyUp={getUserName}  maxLength={50}  placeholder="Username" />
+                  {userNameError}
+                &lt;/span>
+              &lt;/Form.Item>
             
-            &lt;Form.Item 
-              name="email"
-              rules={[{
-                required: true,
+              &lt;Form.Item 
+                name="email"
+                rules={[{
+                  required: true,
                 // message: 'Please enter a valid email',
-              },
-              ]} 
-            >
-              &lt;span style={{color: 'red'}}>
-                &lt;Input id="email" style={{ height:40}}  onChange={getEmailValidation}  onKeyUp={getEmail} maxLength={100}  placeholder="Email" />
-                {emailError}
-              &lt;/span>
-            &lt;/Form.Item>
-            &lt;Form.Item 
-              name="password"
-              
-              rules={[{
-                required: true,
-              
-                
-              },
-              ]} 
-            >
-              &lt;span style={{color: 'red'}}>
-                &lt;Input.Password   type='password'style={{ height:40}}  onChange={getPasswordValidation}   onKeyUp={getPassword}    id="password" placeholder="password" iconRender={visible => (visible ? &lt;EyeTwoTone /> : &lt;EyeInvisibleOutlined />)} /> 
-                {passwordError}
-              &lt;/span>
-            &lt;/Form.Item>
+                },
+                ]} 
+              >
+                &lt;span style={{color: 'red'}}>
+                  &lt;Input id="email" style={{ height:40}}  onChange={getEmailValidation}  onKeyUp={getEmail} maxLength={100}  placeholder="Email" />
+                  {emailError}
+                &lt;/span>
+              &lt;/Form.Item>
+              &lt;Form.Item 
+                name="password"
+                rules={[{
+                  required: true,
+                },
+                ]} 
+              >
+                &lt;span style={{color: 'red'}}>
+                  &lt;Input.Password  id='password' type='password'style={{ height:40}}  onChange={getPasswordValidation}   onKeyUp={getPassword}    placeholder="password" iconRender={visible => (visible ? &lt;EyeTwoTone /> : &lt;EyeInvisibleOutlined />)} /> 
+                  {passwordError}
+                &lt;/span>
+              &lt;/Form.Item>
           
           
-            &lt;b>Date of birth&lt;/b>
-            &lt;p>This will not be shown publicly. Confirm your own age, even if this account is for a business, a pet, or something else.&lt;/p>
-            &lt;Form.Item>
-              &lt;DatePicker showTime={false} onChange={(value)=>setDate(value)} disabledDate={disabledDate} style={{ width: 450,height:50}}  />
-            &lt;/Form.Item>
-
-          &lt;/Form>
-
+              &lt;b>Date of birth&lt;/b>
+              &lt;p>This will not be shown publicly. Confirm your own age, even if this account is for a business, a pet, or something else.&lt;/p>
+              &lt;Form.Item>
+                &lt;DatePicker id='date2' showTime={false} onChange={(value)=>setDate(value)} disabledDate={disabledDate} style={{ width: 450,height:50}}  />
+              &lt;/Form.Item>
+            &lt;/Form>
         &lt;/Modal>
         
 
@@ -342,13 +336,13 @@ export default SignUp;
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#ForgetPassword">ForgetPassword</a></li><li><a href="global.html#googlePost">googlePost</a></li><li><a href="global.html#googleProfilePost">googleProfilePost</a></li><li><a href="global.html#GoogleSignUp">GoogleSignUp</a></li><li><a href="global.html#LogIn">LogIn</a></li><li><a href="global.html#logInPost">logInPost</a></li><li><a href="global.html#post">post</a></li><li><a href="global.html#SignUp">SignUp</a></li><li><a href="global.html#StartPage">StartPage</a></li><li><a href="global.html#validateEmail">validateEmail</a></li><li><a href="global.html#validatePassword">validatePassword</a></li><li><a href="global.html#validateUserName">validateUserName</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#ForgetPassword">ForgetPassword</a></li><li><a href="global.html#googlePost">googlePost</a></li><li><a href="global.html#googleProfilePost">googleProfilePost</a></li><li><a href="global.html#GoogleSignUp">GoogleSignUp</a></li><li><a href="global.html#LogIn">LogIn</a></li><li><a href="global.html#logInPost">logInPost</a></li><li><a href="global.html#Notifications">Notifications</a></li><li><a href="global.html#Post">Post</a></li><li><a href="global.html#post">post</a></li><li><a href="global.html#SignUp">SignUp</a></li><li><a href="global.html#StartPage">StartPage</a></li><li><a href="global.html#validateEmail">validateEmail</a></li><li><a href="global.html#validatePassword">validatePassword</a></li><li><a href="global.html#validateUserName">validateUserName</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Tue Apr 19 2022 03:56:40 GMT+0200 (Eastern European Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Fri Apr 22 2022 22:21:56 GMT+0200 (Eastern European Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

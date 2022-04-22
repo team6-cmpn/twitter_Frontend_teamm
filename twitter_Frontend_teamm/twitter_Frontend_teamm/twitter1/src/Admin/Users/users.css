@@ -7,9 +7,10 @@
   margin-right: 20px;
 }
 
-.UsersTitle{
-  font-size: 22px;
+.Userstitle{
+  font-size: 25px;
   font-weight: 600;
+  color: brown;
 }
 /* 
 .UsersImg{

@@ -15,17 +15,16 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import "./biaxiallinechart.css";
-import { data,data2 } from "./dummyData";
+import { GetTweetsPerMonth } from "../MockRegistrationAdmin";
 
 export default function BiaxialLineChart() {
-
-
+  var TweetsPerMonth = GetTweetsPerMonth();
   return (
     <div className="chartone">
       <Carousel>
         <ResponsiveContainer width="100%" aspect={4 / 2}>
           <BarChart
-            data={data}
+            data={TweetsPerMonth}
             margin={{
               top: 5,
               right: 30,
@@ -42,7 +41,7 @@ export default function BiaxialLineChart() {
             <Bar dataKey="Tweets" fill="#82ca9d" />
           </BarChart>
         </ResponsiveContainer>
-        <ResponsiveContainer width="100%" aspect={4 / 2}>
+        {/* <ResponsiveContainer width="100%" aspect={4 / 2}>
         <ComposedChart
           data={data2}
           margin={{
@@ -62,7 +61,7 @@ export default function BiaxialLineChart() {
           <Line type="monotone" dataKey="uv" stroke="#ff7300" />
           <Scatter dataKey="cnt" fill="red" />
         </ComposedChart>
-        </ResponsiveContainer>
+        </ResponsiveContainer> */}
       </Carousel>
     </div>
   );

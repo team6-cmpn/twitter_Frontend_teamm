@@ -13,76 +13,13 @@ import {
   LineChart,
   Line
 } from "recharts";
+import {GetNumberOfUsersOfMonth, GetSignedUpMethod} from "../../MockRegistrationAdmin";
 
-const data = [
-  {
-    name: "January",
-    UserNum: 4000,
-  },
-  {
-    name: "February",
-    UserNum: 3000,
-  },
-  {
-    name: "March",
-    UserNum: 2000,
-  },
-  {
-    name: "April",
-    UserNum: 2780,
-  },
-  {
-    name: "May",
-    UserNum: 1890,
-  },
-  {
-    name: "June",
-    UserNum: 2390,
-  },
-  {
-    name: "July",
-    UserNum: 3490,
-  },
-];
-const data2 = [
-  {
-    name: "January",
-    GoogleSign: 4000,
-    FacebookSign: 2400,
-  },
-  {
-    name: "February",
-    GoogleSign: 3000,
-    FacebookSign: 1398,
-  },
-  {
-    name: "March",
-    GoogleSign: 2000,
-    FacebookSign: 9800,
-  },
-  {
-    name: "April",
-    GoogleSign: 2780,
-    FacebookSign: 3908,
-  },
-  {
-    name: "May",
-    GoogleSign: 1890,
-    FacebookSign: 4800,
-  },
-  {
-    name: "June",
-    GoogleSign: 2390,
-    FacebookSign: 3800,
-  },
-  {
-    name: "July",
-    GoogleSign: 3490,
-    FacebookSign: 4300,
-    },
-];
+
 
 export default function UserNumChart() {
+  const usernumpermonth= GetNumberOfUsersOfMonth();
+  const signedupmethodnum=GetSignedUpMethod()
   return (
     <div className="charts">
       <div className="chart">
@@ -91,7 +28,7 @@ export default function UserNumChart() {
           <BarChart
             width={300}
             height={300}
-            data={data}
+            data={usernumpermonth}
             margin={{
               top: 5,
               right: 30,
@@ -114,7 +51,7 @@ export default function UserNumChart() {
           <LineChart
             width={500}
             height={300}
-            data={data2}
+            data={signedupmethodnum}
             margin={{
               top: 5,
               right: 30,

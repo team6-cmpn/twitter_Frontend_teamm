@@ -1,0 +1,49 @@
+.newUsersTitle {
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.newUsersImg {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.newUsersListItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 50px 0px;
+  border-bottom: 2px solid black;
+}
+
+.newUsersUser {
+  display: flex;
+  flex-direction: column;
+}
+
+.newUsersUsername {
+  font-weight: 600;
+  margin: 0px 20px;
+}
+
+.newUsersUserTitle {
+  font-weight: 300;
+  color: grey;
+}
+
+.newUsersButton {
+  display: flex;
+  align-items: center;
+  border: none;
+  border-radius: 10px;
+  padding: 7px 10px;
+  background-color: #eeeef7;
+  color: #555;
+  cursor: pointer;
+}
+
+.newUsersIcon {
+  font-size: 16px !important;
+  margin-right: 5px;
+}

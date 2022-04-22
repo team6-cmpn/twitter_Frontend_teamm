@@ -20,6 +20,7 @@ import{
 } from "react-icons/fi";
 import { Modal} from "antd";
 import { Avatar } from "@material-ui/core";
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 // import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 // import Explore from "../Explore";
 // import { BrowserRouter as Router, Switch, Route, Redirect,} from "react-router-dom";
@@ -85,6 +86,11 @@ function Sidebar() {
         <li>
           <a href="">
           <Avatar className="icons"/>Username  <BiDotsHorizontal className="more"/>
+          </a>
+        </li>
+        <li>
+          <a href="/adminPage">
+          <AdminPanelSettingsIcon className="icons"/>Admin  <BiDotsHorizontal className="more"/>
           </a>
         </li>
          {/* <Avatar className="icons"/>hhhhhh  <BiDotsHorizontal className="more"/> */}

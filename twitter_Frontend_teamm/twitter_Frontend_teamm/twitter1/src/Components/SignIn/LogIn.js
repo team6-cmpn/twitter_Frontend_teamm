@@ -6,7 +6,8 @@ import "antd/dist/antd.css";
 import GoogleLogin from 'react-google-login';
 import { Modal,Form,Input} from "antd";
 import {TwitterOutlined,EyeInvisibleOutlined,EyeTwoTone} from '@ant-design/icons';
-import  * as mockAPI   from '../SignUp/mockRegistration';
+import  mock  from '../SignUp/mockRegistration';
+import  * as BE  from '../SignUp/backEndRegistration';
 
 /**
  *Log in
@@ -21,6 +22,9 @@ function LogIn() {
     const [btnDisabled, setBtnDisabled] = useState(true);
     const [data, setData] = useState(null);
     const [password, setPassword] = useState(null);
+    const [apiResponseMessage, setApiResponseMessage] = useState();
+    const [googleApiResponseMessage, setGoogleApiResponseMessage] = useState();
+
    
 
     function getData(val){
@@ -36,6 +40,12 @@ function LogIn() {
       setModalVisible(stateMain);
       setModal2Visible(stateSub);
     };
+
+    const returnSubModal = (e, stateSub = true, stateMain = false) => {
+      setModalVisible(stateSub);
+      setModal2Visible(stateMain);
+    };
+  
     const responseGoogle = (response) => {
       console.log(response);
       // history ("/home");
@@ -46,7 +56,18 @@ function LogIn() {
   
     function logInSuccess (response) {
       console.log('Login Success: currentUser:', response.profileObj);
-      navigate ("/home");
+      var googlebody={
+      googleId:response.profileObj.googleId,
+      
+    }
+      const promise=BE.backEndGoogleLogIn(googlebody)
+      promise.then((message)=> {
+        // setGoogleApiResponseMessage(message)
+        if(message===''){navigate('/home');}
+        else {alert(message);}
+        
+     })
+      
     }
 
     const buttonState = (changedValues, allValues) => {
@@ -64,11 +85,20 @@ function LogIn() {
       data:data,
       password:password
     }
+    
    
     function nextButtonAction(){
+      const GotoHome = mock.logInPost(body);
+      const promise =  BE.backEndLogIn(body);
+      promise.then((message)=> {
+        setApiResponseMessage(message+'. You can re-enter your info by pressing on close (x) sign')
+        if(message===''){navigate('/home');}
+     })
 
-      mockAPI.logInPost(body);
-      navigate('/home');
+      // console.log(home);
+      // if (home==='false') {console.log('fe 2arf')}
+      // if (GotoHome || home) { navigate('/home'); }
+
      
     }
   
@@ -93,7 +123,7 @@ function LogIn() {
           <span className="text4">Sign in to Twitter</span>
           <div>
             <GoogleLogin
-              clientId="335712697506-0rdelma7j4jgcc6bicuhnn20e2l8m0fm.apps.googleusercontent.com"
+              clientId="335712697506-qcljv0u785qm93fk3ej1hg3ch3u5l9kj.apps.googleusercontent.com"
               render={renderProps =>(<button id='googleButton' onClick={renderProps.onClick} disabled={renderProps.disabled} class="googleButton">
               <img className="imggoogle" alt='' src={googleIcon} ></img>
               <span >Sign in with Google</span>
@@ -140,7 +170,7 @@ function LogIn() {
           bodyStyle={{height: 490 ,font:'Helvetica',textAlign:'left'}}
           width={500}
           centered={true}
-          onCancel={() => navigate("/")}
+          onCancel={() => returnSubModal()}
           footer={null}
           maskClosable={false}
         >
@@ -150,7 +180,8 @@ function LogIn() {
               <Input.Password id='password' style={{width:450,height:50}} placeholder="Password" onChange={getPassword} iconRender={visible => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}></Input.Password>
             </Form.Item>
           </Form>
-          <Link id='forgetPassRedirect' to='/forgetpassword'>Forget password?</Link>
+          <Link id='forgetPassRedirect' to='/forgetpassword'>Forget password?</Link><br></br>
+          <span style={{color: 'red',fontSize:'100',fontWeight:'bold'}}> {apiResponseMessage}</span> 
           <div><button id='nextButton' className="googleButton button3-color" onClick={()=>nextButtonAction()} >Log in</button></div>
           <div><span className="txt3">Dont have an account? </span><Link id='signUpLink'  to="/signup">Sign up</Link></div>
         

@@ -5,8 +5,8 @@ import "antd/dist/antd.css";
 import { DatePicker} from 'antd';
 import moment from 'moment'
 import {TwitterOutlined} from '@ant-design/icons';
-import  * as mockAPI   from './mockRegistration';
-
+import  mock  from './mockRegistration';
+import  * as BE  from './backEndRegistration';
 /**
  *GoogleSignUp
  * allows a user to register with his/her google email account 
@@ -24,6 +24,7 @@ function GoogleSignUp(){
   const [date, setDate] = useState(null);
   const [userName, setUserName] = useState(null);
   const [userNameError, setuserNameError] = useState('')
+  const [apiResponseMessage, setApiResponseMessage] = useState();
 
   const onValuesChange = (changedValues, allValues) => {
     if ( allValues.name !== undefined && allValues.name !== '' && allValues.username !== '' && allValues.username !== undefined  && userNameError==='') {
@@ -33,12 +34,21 @@ function GoogleSignUp(){
       setBtnDisabled(true);
     }
   };
-
+ 
   var body={
     name:name,
     username:userName,
     date:date
   }
+
+  var backEndBody={
+    googleId:localStorage.getItem('googleId'),
+    imageUrl:localStorage.getItem('imageUrl'),
+    name:localStorage.getItem('name'),
+    username:userName,
+    email:localStorage.getItem('email'),
+  }
+
   function getName(val){
     setName(val.target.value)
   };
@@ -61,15 +71,20 @@ function GoogleSignUp(){
  
   function signUpButtonAction(){
 
-    mockAPI.googlePost(body);
-    history('/home');
+    mock.googlePost(body);
+    const promise=BE.backEndGooglePost(backEndBody);
+    promise.then((message)=> {
+      setApiResponseMessage(message)
+      if(message===''){history('/home');}
+   })
+    
   }
 
   function disabledDate(current) {
     // Can not select days after today and today in calendar of date of birth
     return current && current > moment().endOf('day');
   };
-
+  
   
 
   
@@ -90,8 +105,9 @@ function GoogleSignUp(){
         type='circle'
         centered={true}
         maskClosable={false}
-        closable={false}
+        closable={true}
         onOk={() => signUpButtonAction() }
+        onCancel={()=>history('/')}
       >
 
         <span className="text">Fill some info</span>
@@ -111,8 +127,9 @@ function GoogleSignUp(){
               <span style={{color: 'red'}}>
                 <Input style={{ height:50}}  onChange={(e) => validateUserName(e)} onKeyUp={getUserName}  id='username' placeholder="Username" />
               {userNameError}</span>
+           
             </Form.Item>
-
+            <span style={{color: 'red',fontSize:'100',fontWeight:'bold'}}> {apiResponseMessage}</span> 
             <Form.Item>
               <b>Date of birth</b>
               <p>This won't be public</p>

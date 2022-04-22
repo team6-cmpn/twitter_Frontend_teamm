@@ -6,7 +6,7 @@ import GoogleLogin from 'react-google-login';
 import {Link, Outlet,useNavigate } from "react-router-dom";
 import React from "react";
 import "antd/dist/antd.css";
-import  * as mockAPI   from '../SignUp/mockRegistration';
+import  mock  from '../SignUp/mockRegistration';
 
 
 
@@ -26,13 +26,17 @@ function StartPage(){
 
   function logInSuccess (response) {
     console.log('Login Success: currentUser:', response.profileObj);
+    localStorage.setItem('googleId',response.profileObj.googleId);
+    localStorage.setItem('imageUrl',response.profileObj.imageUrl);
+    localStorage.setItem('name',response.profileObj.name);
+    localStorage.setItem('email',response.profileObj.email);
     var body={
       googleId:response.profileObj.googleId,
       imageUrl:response.profileObj.imageUrl,
       name:response.profileObj.name,
       email:response.profileObj.email
     }
-    mockAPI.googleProfilePost(body);
+    mock.googleProfilePost(body);
     // alert(`Logged in successfully welcome ${response.profileObj.name}. \n See console for full profile object.`);
     navigate ("/googlesignup");
   }
@@ -49,7 +53,7 @@ function StartPage(){
           <span className="textBody">Join Twitter today.</span>
           <div className="row">
             <GoogleLogin
-              clientId="335712697506-0rdelma7j4jgcc6bicuhnn20e2l8m0fm.apps.googleusercontent.com"
+              clientId="335712697506-cbjp3rmr384u9i6a13j898qbcp8bqp06.apps.googleusercontent.com"
               render={renderProps =>(<button id="googleButton" onClick={renderProps.onClick} disabled={renderProps.disabled} className="button">
               <img className="icon" alt='' src={googleIcon} />
               <span>Sign up with Google</span>

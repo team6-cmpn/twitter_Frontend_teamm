@@ -7,7 +7,7 @@ import "antd/dist/antd.css";
 import { Modal, Input, Checkbox, Form  } from "antd";
 import {TwitterOutlined} from '@ant-design/icons';
 import {validatePassword} from '../SignUp/Validate'
-
+import  * as BE  from '../SignUp/backEndRegistration';
 /**
  *Forget Password
  * allows users to reset their passwords after verifying them
@@ -25,10 +25,16 @@ function ForgetPassword(){
     const [btn2Disabled, setBtn2Disabled] = useState(true);
     const [passwordError, setPasswordError] = useState('')
     const [confirmPasswordError, setConfirmPasswordError] = useState('')
-    const [data, setData] = useState(null);
+    // const [data, setData] = useState(null);
     const [password, setPassword] = useState(null);
+    const [confirmPassword, setConfirmPassword] = useState(null);
+    const [userName, setUserName] = useState(null);
+    const [email, setEmail] = useState(null);
+    const [apiResponseMessage, setApiResponseMessage] = useState();
+    const [resetPasswordMessage, setResetPasswordMessage] = useState();
+
     const buttonState = (changedValues, allValues) => {
-      if ( allValues.next !== undefined &&  allValues.next !== ''  ) {
+      if ( allValues.next !== undefined &&  allValues.next !== '' && allValues.next2 !== undefined &&  allValues.next2 !== ''  ) {
         setBtnDisabled(false);
       } 
       else{
@@ -36,8 +42,8 @@ function ForgetPassword(){
       }
     };
     const buttonState2 = (changedValues, allValues) => {
-      if ( allValues.newpassword !== undefined &&  allValues.newpassword !== ''&&  allValues.confirmpassword !== ''
-       && allValues.confirmpassword !== undefined && passwordError===''&& confirmPasswordError==='' ) {
+      if ( allValues.newpassword !== undefined &&  allValues.newpassword !== '' &&  allValues.confirmpassword !== ''
+       && allValues.confirmpassword !== undefined && passwordError==='' && confirmPasswordError==='' ) {
         setBtn2Disabled(false);
       } 
       else{
@@ -61,8 +67,11 @@ function ForgetPassword(){
       model4Visible(stateMain);
       model5Visible(stateSub);
     };
-    function getData(val){
-      setData(val.target.value)
+    function getUserName(val){
+      setUserName(val.target.value)
+    };
+    function getEmail(val){
+      setEmail(val.target.value)
     };
     function getPasswordValidation(val){
       setPasswordError(validatePassword(val.target.value))
@@ -82,6 +91,35 @@ function ForgetPassword(){
       setPassword(val.target.value)
     };
 
+    function getConfirmPassword(val){
+      setConfirmPassword(val.target.value)
+    };
+    
+    var body={
+      username:userName,
+      email:email
+    }
+
+    var resetPasswordBody={
+      password:password,
+      confirmPassword:confirmPassword
+    }
+
+    function searchButtonAction(){
+      const promise =  BE.forgetPassword(body);
+      promise.then((message)=> {
+        setApiResponseMessage(message)
+        if(message===''){onSubModal();}
+     })
+    }
+
+    function resetPasswordButtonAction(){
+      const promise =  BE.resetPassword(resetPasswordBody);
+      promise.then((message)=> {
+        setResetPasswordMessage(message)
+        if(message===''){onSubModal4();}
+     })
+    }
 
     return(
 
@@ -99,16 +137,20 @@ function ForgetPassword(){
           width={500}
           centered={true}
           onCancel={() => history("/")}
-          onOk={() => onSubModal()}
+          onOk={() => searchButtonAction()}
           maskClosable={false}      
         >
           <span class='text3'>Find your Twitter Account</span>
           <div >
             <Form onValuesChange={buttonState}>
               <Form.Item name='next'>
-                <Input id='email' style={{width:450,marginLeft:5,marginTop:30,height:50}} onKeyUp={getData} placeholder="Enter your email or username"></Input>
+                <Input id='forgetPassUserName' style={{width:450,marginLeft:5,marginTop:30,height:50}} onKeyUp={getUserName} placeholder="Enter your username"></Input>
+              </Form.Item>
+              <Form.Item name='next2'>
+                <Input id='forgetPassEmail' style={{width:450,marginLeft:5,height:50}} onKeyUp={getEmail} placeholder="Enter your email "></Input>
               </Form.Item>
             </Form>
+            <span style={{color: 'dodgerBlue',fontSize:'100',fontWeight:'bold'}}> {apiResponseMessage}</span> 
           </div>
 
         
@@ -135,7 +177,7 @@ function ForgetPassword(){
           <div >
             <span>We found the following information associated with your account.</span>
             <br></br>
-            <span>Email a confirmation link to {data} </span>   
+            <span>Email a confirmation link to {email} </span>   
           </div>
         </Modal>
         <Modal
@@ -173,7 +215,7 @@ function ForgetPassword(){
           width={500}
           centered={true}
           onCancel={() => history("/")}
-          onOk={() =>onSubModal4()}
+          onOk={() =>resetPasswordButtonAction()}
           maskClosable={false}
         >
           <span class='text3'>Reset your password</span>
@@ -191,11 +233,12 @@ function ForgetPassword(){
                 </Form.Item>
                 <Form.Item name="confirmpassword">
                   <span style={{color: 'red'}}>
-                    <Input.Password id='confirmPass' style={{width:450,marginLeft:5,height:50}} onChange={getConfirmPasswordValidation}   placeholder="Enter your password one more time"></Input.Password>
+                    <Input.Password id='confirmPass' style={{width:450,marginLeft:5,height:50}} onChange={getConfirmPasswordValidation}  onKeyUp={getConfirmPassword} placeholder="Enter your password one more time"></Input.Password>
                     {confirmPasswordError}
                   </span>
                 </Form.Item>
               </Form>
+              <span style={{color: 'dodgerBlue',fontSize:'100',fontWeight:'bold'}}> {resetPasswordMessage}</span> 
             </div> 
           </div>
         </Modal>

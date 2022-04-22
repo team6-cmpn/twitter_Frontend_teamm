@@ -7,21 +7,30 @@ import Configure from '../../Configure'
  * @param  payload 
  * @returns sign up completion
  */
-export const post = async payload => {
-  try {
-    const response = await axios(`${Configure.mockURL}signUpUsers/`, {
-      method: 'post',
-      data: payload,
-    });
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
-};
+const mock={
+  
+  post : async (payload) => {
+    let go = false;
+    await axios
+      .post(`${Configure.mockURL}signUpUsers/`, {
+        data: payload,
+      })
+      .then((response) => {
+        console.log(response);
+        if (response.status === 201) {
+          go = true;
+        }
+       
+      });
 
-export const backEndPost=async payload=>{
+    return go;
+  },
 
-  let go = false;
+  
+
+   backEndPost:async( payload)=>{
+
+    let go = false;
     const {
       name, username, email, dateOfBirth, password,
     } = payload;
@@ -30,6 +39,7 @@ export const backEndPost=async payload=>{
 
         headers: {
           'content-type': 'application/json',
+          
         },
 
         name,
@@ -42,30 +52,85 @@ export const backEndPost=async payload=>{
         console.log(response);
         if (response.status === 201) {
           go = true;
-        } else if (response.status === 400) {
-          go = false;
         }
-      });
+      }).catch(error => {
+        console.log(error.response.data.message)
+        });
     return go;
-};
+},
 /**
  * logInpost
  * adds Login Form inputs 
  * @param payload 
  * @returns login form completion
  */
-export const logInPost = async payload => {
 
-  try {
-    const response = await axios(`${Configure.mockURL}logInUsers/`, {
-      method: 'post',
+ logInGet : async (payload) => {
+
+  let go = false;
+  await axios
+    .get(`${Configure.mockURL}signUpUsers/`, {
       data: payload,
+    })
+    .then((response) => {
+      console.log(response);
+      if (response.status === 201) {
+        go = true;
+      }
     });
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
-};
+
+  return go;
+},
+   logInPost : async (payload) => {
+
+    let go = false;
+    await axios
+      .post(`${Configure.mockURL}logInUsers/`, {
+        data: payload,
+      })
+      .then((response) => {
+        console.log(response);
+        if (response.status === 201) {
+          go = true;
+        }
+      });
+
+    return go;
+  },
+
+  backEndLogIn:async( payload)=>{
+
+    let go = false;
+    const {
+      data, password,
+    } = payload;
+    await axios
+      .post(`${Configure.backURL}auth/signin/`, {
+
+        headers: {
+          'content-type': 'application/json',
+        },
+
+        data,
+        password,
+      })
+      .then((response) => {
+        // console.log(response.data.message);
+        if (response.status === 200) {
+          
+          // go = true;
+          // localStorage.setItem('access token', response.data.accessToken);
+          console.log(response.data)
+        } else if (response.status === 401 ) {
+
+          go = false;
+          console.log(response.status);
+        }
+      }).catch(error => {
+          console.log(error.response.data.message)
+          });
+    return go;
+},
 
 /**
  * googlepost
@@ -73,18 +138,21 @@ export const logInPost = async payload => {
  * @param  payload 
  * @returns google sign up completion
  */
-export const googlePost = async payload => {
+   googlePost : async (payload) => {
 
-  try {
-    const response = await axios(`${Configure.mockURL}googleUsers/`, {
-      method: 'post',
-      data: payload,
-    });
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
-};
+    let go = false;
+    await axios
+      .post(`${Configure.mockURL}googleUsers/`, {
+        data: payload,
+      })
+      .then((response) => {
+        console.log(response);
+        if (response.status === 201) {
+          go = true;
+        }
+      });
+
+    return go;},
 
 // export const backEndGooglePost=async payload=>{
 
@@ -121,15 +189,21 @@ export const googlePost = async payload => {
  * @param payload 
  * @returns sign up completion
  */
-export const googleProfilePost = async payload => {
+   googleProfilePost : async (payload) => {
 
-  try {
-    const response = await axios(`${Configure.mockURL}googleProfiles/`, {
-      method: 'post',
-      data: payload,
-    });
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
+    let go = false;
+    await axios
+      .post(`${Configure.mockURL}googleProfiles/`, {
+        data: payload,
+      })
+      .then((response) => {
+        console.log(response);
+        if (response.status === 201) {
+          go = true;
+        }
+      });
+
+    return go;
+},
 };
+export default mock;

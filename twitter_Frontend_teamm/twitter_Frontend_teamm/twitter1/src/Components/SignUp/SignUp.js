@@ -209,7 +209,7 @@ function SignUp() {
           title={<TwitterOutlined style={{ fontSize: '200%',marginTop:'1px',color:'Dodgerblue'}} />}
           style={{textAlign:"center"}}
           okText='Next'
-          okButtonProps={{shape:'round' , size:'large', style:{width: 450,fontWeight:'bold',alignItems:'center',justifyContent:'center',
+          okButtonProps={{id:'nextButton3',shape:'round' , size:'large', style:{width: 450,fontWeight:'bold',alignItems:'center',justifyContent:'center',
           display:'flex'}}}
           cancelButtonProps={{ style: { display: "none" } }}
           visible={isSubModalVisible}
@@ -234,7 +234,7 @@ function SignUp() {
           title={<TwitterOutlined style={{ fontSize: '200%',marginTop:'1px',color:'Dodgerblue'}} />}
           style={{textAlign:"center"}}
           okText='Sign Up'
-          okButtonProps={{shape:'round' , size:'large', style:{width: 450,fontWeight:'bold',alignItems:'center',justifyContent:'center',
+          okButtonProps={{id:'signUpButton',shape:'round' , size:'large', style:{width: 450,fontWeight:'bold',alignItems:'center',justifyContent:'center',
           display:'flex'}}}
           cancelButtonProps={{ style: { display: "none" } }}
           visible={isSubModal2Visible}
@@ -271,7 +271,7 @@ function SignUp() {
           title={<TwitterOutlined style={{ fontSize: '200%',marginTop:'1px',color:'Dodgerblue'}} />}
           style={{textAlign:"center"}}
           okText='Next'
-          okButtonProps={{shape:'round' , disabled:false,size:'large', style:{width: 450,fontWeight:'bold',alignItems:'center',justifyContent:'center',
+          okButtonProps={{id:'verifyButton',shape:'round' , disabled:false,size:'large', style:{width: 450,fontWeight:'bold',alignItems:'center',justifyContent:'center',
           display:'flex'}}}
           cancelButtonProps={{ style: { display: "none" } }}
           visible={isSubModal3Visible}

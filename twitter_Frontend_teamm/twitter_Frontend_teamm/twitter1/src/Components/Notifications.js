@@ -7,7 +7,15 @@ import SettingsBox from "./SettingsBox/SettingsBox";
 import LikedYou from "./LikedYou";
 import getFollowingUsers from "./NotificationsMock";
 import {getLikedUsers} from "./NotificationsMock";
-
+/**
+ * [the notification component is mainly used to get the notifications from the server to the user to see it 
+ *  and it contains all the mentions and liked posts and followers you got and i made a menu to scoope on the mentioned posts only
+ * no need to scroll down to see the mentioned post you need to see
+ * ]
+ * @param [it doesnt take any parameters]
+ * @returns[it doesnt return any thing ]
+ * 
+ */
 function Notifications() {
   const [followingUser, setFollowingUser] = React.useState([]);
   const [LikedUser, setLikedUser] = React.useState([]);

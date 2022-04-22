@@ -68,6 +68,7 @@ function LogIn() {
     function nextButtonAction(){
 
       mockAPI.logInPost(body);
+      navigate('/home');
      
     }
   
@@ -78,7 +79,7 @@ function LogIn() {
           title={<TwitterOutlined style={{ fontSize: '200%',marginTop:'1px',color:'Dodgerblue'}} />}
           style={{textAlign:"center"}}
           okText='Next'
-          okButtonProps={{shape:'round' , size:'large', style:{width: 450,fontWeight:'bold',alignItems:'center',justifyContent:'center',
+          okButtonProps={{id:'nextbutton1',shape:'round' , size:'large', style:{width: 450,fontWeight:'bold',alignItems:'center',justifyContent:'center',
           display:'flex'}}}
           cancelButtonProps={{ style: { display: "none" } }}
           visible={setModalVisible}
@@ -132,7 +133,7 @@ function LogIn() {
           title={<TwitterOutlined style={{ fontSize: '200%',marginTop:'1px',color:'Dodgerblue'}} />}
           style={{textAlign:"center"}}
           okText='Next'
-          okButtonProps={{shape:'round' , size:'large', style:{width: 450,fontWeight:'bold',alignItems:'center',justifyContent:'center',
+          okButtonProps={{id:'nextbutton2',shape:'round' , size:'large', style:{width: 450,fontWeight:'bold',alignItems:'center',justifyContent:'center',
           display:'flex'}}}
           cancelButtonProps={{ style: { display: "none" } }}
           visible={isModal2Visible}

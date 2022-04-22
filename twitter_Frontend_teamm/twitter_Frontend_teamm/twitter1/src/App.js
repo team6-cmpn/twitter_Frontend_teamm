@@ -20,6 +20,7 @@ import BlockForm from "./Admin/Users/BlockForm";
 import AdminHome from "./Admin/Home";
 import Profile from "./Components/Profile";
 import Followers from "./Components/Followers";
+import Following from "./Components/Following";
 function App() {
   return (
     <Router>
@@ -46,6 +47,7 @@ function App() {
           <Route path="/BlockForm" element={<BlockForm />} />
           <Route path="/profile"  element={<Profile />}> </Route> 
           <Route path="/Followers" element={<Followers />}></Route>
+          <Route path="/Following" element={<Following />}></Route>
         </Routes>
       </div>
     </Router>

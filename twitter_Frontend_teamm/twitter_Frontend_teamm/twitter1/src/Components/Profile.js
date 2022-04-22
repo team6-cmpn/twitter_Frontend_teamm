@@ -39,7 +39,7 @@ function Profile(props){
                 });    
             }   
         }
-        const [name, setName] = useState(null)
+        const [name, setName] = useState('');
         const [bio, setBio] = useState(null)
         const [location, setLocation] = useState(null)
         const [website, setWebsite] = useState(null)
@@ -109,7 +109,7 @@ function Profile(props){
                     </div>
                     
                     <div className='FollowLink'>
-                        <Link to ="/Followers">  Following  </Link>
+                        <Link to ="/Following">  Following  </Link>
                     </div>
                     <br></br>
                     <br></br>
@@ -162,7 +162,7 @@ function Profile(props){
                         <label for="name">
                             
                                 <div>
-                                    <input class="TextBox" type="text" id="name" name="name"  onChange={getName} required minlength="0" showCount maxlength="50" size="50" placeholder="Name"></input>
+                                    <input value={name} className="TextBox" type="text" id="name" name="name"  onChange={e => setName(e.target.value)} required minlength="0" showCount maxlength="50" size="50" placeholder="Name"></input>
                                     
                                 </div>
                             
@@ -171,7 +171,7 @@ function Profile(props){
                         <label for="Bio">
                             
                                 <div>
-                                    <input class="BioTextBox" type="text" id="Bio" name="Bio" onChange={getBio} required minlength="0" showCount maxcount="160" size="160" placeholder="Bio"></input>
+                                    <input className="BioTextBox" type="text" id="Bio" name="Bio" onChange={getBio} required minlength="0" showCount maxcount="160" size="160" placeholder="Bio"></input>
                                 </div>
                             
                         </label>
@@ -179,7 +179,7 @@ function Profile(props){
                         <label for="Location">
                             
                                 <div>
-                                    <input class="TextBox" type="text" id="Location" name="Location" onChange={getLocation} required minlength="0" maxlength="30" size="30" placeholder="Location"></input>
+                                    <input  className="TextBox" type="text" id="Location" name="Location" onChange={getLocation} required minlength="0" maxlength="30" size="30" placeholder="Location"></input>
                                 </div>
                         
                         </label>
@@ -187,7 +187,7 @@ function Profile(props){
                         <label for="Website">
                         
                                 <div>
-                                    <input class="TextBox" type="text" id="Website" name="Website" onChange={getWebsite} required minlength="0" maxlength="100" size="100" placeholder="Website"></input>
+                                    <input className="TextBox" type="text" id="Website" name="Website" onChange={getWebsite} required minlength="0" maxlength="100" size="100" placeholder="Website"></input>
                                 </div>
                             
                         </label>

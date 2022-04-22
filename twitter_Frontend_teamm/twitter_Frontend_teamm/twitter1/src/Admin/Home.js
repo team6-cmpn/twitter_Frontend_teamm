@@ -6,7 +6,7 @@ import TopBar from "./TopBar";
 import AdminSideBar from "./AdminSideBar";
 export default function AdminHome() {
   return (
-    <div>
+    <div id="WelcomePage">
       <TopBar />
       <div className="admincontainer">
         <AdminSideBar />

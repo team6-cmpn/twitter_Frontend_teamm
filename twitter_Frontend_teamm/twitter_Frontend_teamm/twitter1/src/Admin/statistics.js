@@ -8,7 +8,7 @@ import AdminSideBar from "./AdminSideBar";
 
 export default function Statistics() {
   return (
-    <div>
+    <div id="StatisticsPage">
       <TopBar />
       <div className="admincontainer">
         <AdminSideBar />

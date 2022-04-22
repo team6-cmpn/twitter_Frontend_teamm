@@ -90,7 +90,7 @@ function Sidebar() {
           </a>
         </li>
         <li>
-          <a href="/adminPage">
+          <a href="/adminPage" id="AdminPageButton">
             <AdminPanelSettingsIcon className="icons" />
             Admin <BiDotsHorizontal className="more" />
           </a>

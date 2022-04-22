@@ -16,7 +16,7 @@ import GetNumUsers from "./MockRegistrationAdmin";
 export default function Twiiterstatistics() {
   var statistcs=GetNumUsers();
   return (
-    <div className="adminstatistics">
+    <div className="adminstatistics" id="TwitterStatisticsBlocks">
       <div className="adminstatisticsItem">
         <span className="adminstatisticsTitle">Number Of Tweets per day</span>
         <div className="staticsItemContainer">

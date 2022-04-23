@@ -153,9 +153,9 @@ function ForgetPassword(){
           title={<TwitterOutlined style={{ fontSize: '200%',marginTop:'1px',color:'Dodgerblue'}} />}
           style={{textAlign:"center"}}
           okText='Search'
-          okButtonProps={{shape:'round' , disabled:btnDisabled,size:'large', style:{width: 450,fontWeight:'bold',alignItems:'center',justifyContent:'center',
+          okButtonProps={{id:'passSearchButton',shape:'round' , disabled:btnDisabled,size:'large', style:{width: 450,fontWeight:'bold',alignItems:'center',justifyContent:'center',
           display:'flex',color:"white",backgroundColor:"black"}}}
-          cancelButtonProps={{ style: { display: "none" } }}
+          cancelButtonProps={{ id:'cancelbutton1',style: { display: "none" } }}
           visible={modelVisible}
           bodyStyle={{height: 390 ,font:'Helvetica',textAlign:'left'}}
           width={500}
@@ -184,9 +184,9 @@ function ForgetPassword(){
           style={{textAlign:"center"}}
           okText='Cancel'
           cancelText='Next'
-          okButtonProps={{shape:'round' , size:'large', style:{border:'none',width: 450,fontWeight:'bold',alignItems:'center',justifyContent:'center',
+          okButtonProps={{id:'backbutton',shape:'round' , size:'large', style:{border:'none',width: 450,fontWeight:'bold',alignItems:'center',justifyContent:'center',
           display:'flex',color:"black",backgroundColor:"white",marginLeft:2}}}
-          cancelButtonProps={{shape:'round' , size:'large', style:{width: 450,fontWeight:'bold',alignItems:'center',justifyContent:'center',
+          cancelButtonProps={{id:'nextbutton5',shape:'round' , size:'large', style:{width: 450,fontWeight:'bold',alignItems:'center',justifyContent:'center',
           display:'flex',color:"white",backgroundColor:"black"}}}
           visible={isModal2Visible}
           bodyStyle={{height: 390 ,font:'Helvetica',textAlign:'left'}}
@@ -208,9 +208,9 @@ function ForgetPassword(){
           title={<TwitterOutlined style={{ fontSize: '200%',marginTop:'1px',color:'Dodgerblue'}} />}
           style={{textAlign:"center"}}
           okText='Next'
-          okButtonProps={{shape:'round' , size:'large', style:{border:'none',marginTop:30,textDecoration:'underline',width: 450,fontWeight:'bold',alignItems:'center',justifyContent:'center',
+          okButtonProps={{id:'VerifycodeButton',shape:'round' , size:'large', style:{border:'none',marginTop:30,textDecoration:'underline',width: 450,fontWeight:'bold',alignItems:'center',justifyContent:'center',
           display:'flex',color:"black",backgroundColor:"white"}}}
-          cancelButtonProps={{ style: { display: "none" } }}
+          cancelButtonProps={{id:'cancelbutton2', style: { display: "none" } }}
           visible={isModal3Visible}
           bodyStyle={{height: 400 ,font:'Helvetica',textAlign:'left'}}
           width={500}
@@ -233,9 +233,9 @@ function ForgetPassword(){
           title={<TwitterOutlined style={{ fontSize: '200%',marginTop:'1px',color:'Dodgerblue'}} />}
           style={{textAlign:"center"}}
           okText='Reset password'
-          okButtonProps={{shape:'round' , size:'large',disabled:btn2Disabled, style:{border:'none',marginTop:30,width: 450,fontWeight:'bold',alignItems:'center',justifyContent:'center',
+          okButtonProps={{id:'ResetPassButton',shape:'round' , size:'large',disabled:btn2Disabled, style:{border:'none',marginTop:30,width: 450,fontWeight:'bold',alignItems:'center',justifyContent:'center',
           display:'flex',color:"white",backgroundColor:"black"}}}
-          cancelButtonProps={{ style: { display: "none" } }}
+          cancelButtonProps={{ id:'cancelButton3',style: { display: "none" } }}
           visible={isModal4Visible}
           bodyStyle={{height: 400 ,font:'Helvetica',textAlign:'left'}}
           width={500}

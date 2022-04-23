@@ -123,7 +123,7 @@ function LogIn() {
           <span className="text4">Sign in to Twitter</span>
           <div>
             <GoogleLogin
-              clientId="335712697506-qcljv0u785qm93fk3ej1hg3ch3u5l9kj.apps.googleusercontent.com"
+              clientId="667720928468-9o7ou05mbdh2o6qe97kericodua0nstq.apps.googleusercontent.com"
               render={renderProps =>(<button id='googleButton' onClick={renderProps.onClick} disabled={renderProps.disabled} class="googleButton">
               <img className="imggoogle" alt='' src={googleIcon} ></img>
               <span >Sign in with Google</span>

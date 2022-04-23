@@ -32,6 +32,8 @@ function ForgetPassword(){
     const [email, setEmail] = useState(null);
     const [apiResponseMessage, setApiResponseMessage] = useState();
     const [resetPasswordMessage, setResetPasswordMessage] = useState();
+    const [code, setCode] = useState();
+    const [mess, setMess] = useState();
 
     const buttonState = (changedValues, allValues) => {
       if ( allValues.next !== undefined &&  allValues.next !== '' && allValues.next2 !== undefined &&  allValues.next2 !== ''  ) {
@@ -94,6 +96,10 @@ function ForgetPassword(){
     function getConfirmPassword(val){
       setConfirmPassword(val.target.value)
     };
+
+    function getCode(val){
+      setCode(val.target.value)
+    };
     
     var body={
       username:userName,
@@ -104,7 +110,8 @@ function ForgetPassword(){
       password:password,
       confirmPassword:confirmPassword
     }
-
+    sessionStorage.setItem('password',password);
+    sessionStorage.setItem('confirmPassword',confirmPassword);
     function searchButtonAction(){
       const promise =  BE.forgetPassword(body);
       promise.then((message)=> {
@@ -113,6 +120,21 @@ function ForgetPassword(){
      })
     }
 
+    var verifyBody={
+      verificationCode:code,
+      
+    }
+    function verifyButtonAction(){
+      const promise=BE.verifyEmailForgetPassword(verifyBody);
+      console.log(promise);
+      promise.then((check)=> {
+        setMess(check)
+        if(check===true){onSubModal3();}
+       
+     })
+    }
+   
+
     function resetPasswordButtonAction(){
       const promise =  BE.resetPassword(resetPasswordBody);
       promise.then((message)=> {
@@ -120,6 +142,8 @@ function ForgetPassword(){
         if(message===''){onSubModal4();}
      })
     }
+
+
 
     return(
 
@@ -177,7 +201,7 @@ function ForgetPassword(){
           <div >
             <span>We found the following information associated with your account.</span>
             <br></br>
-            <span>Email a confirmation link to {email} </span>   
+            <span>Email a confirmation code to {email} </span>   
           </div>
         </Modal>
         <Modal
@@ -192,14 +216,16 @@ function ForgetPassword(){
           width={500}
           centered={true}
           onCancel={() => history("/")}
-          onOk={() =>onSubModal3()}
+          onOk={() =>verifyButtonAction()}
           maskClosable={false}
         >
           <span class='text3'>Check your email</span>
     
           <div >
-            <span>You'll receive a link to verify here so you can reset your account password.</span>
+            <span>You'll receive a code to verify here so you can reset your account password.</span>
             <br></br>
+            <Input style={{ height:40,marginTop:10}} onChange={getCode} id="code" placeholder="Code" />
+            {mess}
           </div>
         </Modal>
         <Modal

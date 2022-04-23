@@ -53,7 +53,7 @@ function StartPage(){
           <span className="textBody">Join Twitter today.</span>
           <div className="row">
             <GoogleLogin
-              clientId="335712697506-cbjp3rmr384u9i6a13j898qbcp8bqp06.apps.googleusercontent.com"
+              clientId="667720928468-9sks9k7jahgsbrth080d7d4se9vo0jue.apps.googleusercontent.com"
               render={renderProps =>(<button id="googleButton" onClick={renderProps.onClick} disabled={renderProps.disabled} className="button">
               <img className="icon" alt='' src={googleIcon} />
               <span>Sign up with Google</span>

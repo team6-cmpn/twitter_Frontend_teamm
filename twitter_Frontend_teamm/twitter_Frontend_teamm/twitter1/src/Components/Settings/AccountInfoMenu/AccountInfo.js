@@ -16,7 +16,7 @@ const AccountInformation = () => {
             </div>
             <div className="submenu_discription">
                 <br/>
-            <Link to="../MuteandBlock" style={{ textDecoration: "none", color:"inherit" }}>
+            <Link to="" style={{ textDecoration: "none", color:"inherit" }}>
           <AccountInfoMenuss
             text="Username"
             Icon={ChevronRight}

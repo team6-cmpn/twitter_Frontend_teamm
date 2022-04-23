@@ -35,20 +35,22 @@ function Notifications() {
 
   return (
     <SettingsBox>
-      <div className="Notimenu">
-        <div className="notificationsTitle">
+      <div className="Notimenu" id="NotificationMenu">
+        <div className="notificationsTitle" id="NotificationsTitle">
           <span>Notifications</span>
         </div>
-        <div className="notificationsCategory">
+        <div className="notificationsCategory" id="NotificationsCAT">
           <div
             className={isAll && "notificationActive"}
             onClick={() => setIsAll(true)}
+            id="AllButton "
           >
             <span>All</span>
           </div>
           <div
             className={!isAll && "notificationActive"}
             onClick={() => setIsAll(false)}
+            id="LikedButton"
           >
             <span>Liked</span>
           </div>

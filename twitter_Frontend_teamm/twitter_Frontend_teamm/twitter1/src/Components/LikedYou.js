@@ -5,7 +5,7 @@ import { Avatar } from "@material-ui/core";
 
 const LikedYou = ({ likePost }) => {
   return (
-    <div className="likedYou">
+    <div className="likedYou" id="likedyou">
       <FavoriteIcon />
       <div>
         <div>

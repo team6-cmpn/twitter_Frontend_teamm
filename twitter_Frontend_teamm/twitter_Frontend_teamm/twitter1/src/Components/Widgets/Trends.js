@@ -1,7 +1,7 @@
 import React, {useState}  from "react";
 //import "../Widgets.css";
 import "antd/dist/antd.css";
-import { FaSistrix } from "react-icons/fa";
+// import { FaSistrix } from "react-icons/fa";
 import FriendSuggestions from "./FriendSuggestions/FriendSuggestions";
 import TopicItem from "./Topics/Topics";
 import {Form,Input} from "antd";
@@ -34,18 +34,19 @@ function Trends (){
     
   }
   return (
-    <div >
+    <div className="hide_tr">
       <div className="trends__search">
       <Form  onValuesChange={buttonState}>
        <Form.Item name="hhh" >
         <Input
           onChange={getData}
+          id="searchbar"
           className="trend__control"
           placeholder="Search Twitter">
         </Input>
         </Form.Item>
         </Form>
-        <FaSistrix className="trend__icon search" />
+        {/* <FaSistrix className="trend__icon search" /> */}
       </div> 
       <div>
       <TopicItem />

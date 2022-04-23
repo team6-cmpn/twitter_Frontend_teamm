@@ -2,6 +2,8 @@
  .sidebar {
   width: 25%;
   position: fixed;
+  display:flex;
+  min-width: 0;
   left: 0;
   height: 100%;
   border-right: 1px solid #e6ecf0;
@@ -16,6 +18,9 @@
   }
   .sidebar ul li a {
     display: flex;
+    text-overflow: ellipsis;
+    white-space: wrap;
+    overflow: hidden;
     align-items: center;
     text-decoration: none;
     color: #000;
@@ -56,9 +61,12 @@
     display: block;
     text-align: center;
   }
-  .model{
-    align-items: center;
+  .t{
+    display:none;
   }
-  .tweetshow{
-    padding-bottom: 10px;
+  @media (min-width:1200px) {
+    .t{
+    display: inline;
+    }
+    
   }

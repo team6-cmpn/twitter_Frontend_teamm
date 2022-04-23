@@ -1,23 +1,25 @@
 import React, {useState} from "react";
-import './Explore.css';
+
 import './Home.css';
-import Sidebar from "./Sidebar/Sidebar";
-import { FaSistrix } from "react-icons/fa";
+// import Sidebar from "./Sidebar/Sidebar";
+// import { FaSistrix } from "react-icons/fa";
 import Trends from "./Widgets/Trends";
-import FriendSuggestions from "./Widgets/FriendSuggestions/FriendSuggestions";
-import TopicItem from "./Widgets/Topics/Topics";
+// import FriendSuggestions from "./Widgets/FriendSuggestions/FriendSuggestions";
+// import TopicItem from "./Widgets/Topics/Topics";
 import {Form,Input} from "antd";
-import { Avatar, Button } from "@material-ui/core";
-import LikedYou from "./LikedYou";
-import FollowedYou from "./FollowedYou";
+// import { Avatar, Button } from "@material-ui/core";
+// import LikedYou from "./LikedYou";
+// import FollowedYou from "./FollowedYou";
 import  * as mockAPI   from './mockSearch'; 
+import SettingsBox from "./SettingsBox/SettingsBox";
+import "./Notifications.css";
 function Explore() {
-  const [isDrawerBar, setIsDrawerBar] = React.useState(false);
+  // const [isDrawerBar, setIsDrawerBar] = React.useState(false);
   const [loading, setLoading] = React.useState(true);
   setTimeout(() => {
     setLoading(false);
     }, 2000);
-    const [filteredResults, setFilteredResults] = useState([]);
+    // const [filteredResults, setFilteredResults] = useState([]);
     const [section, setSection] = useState(1);
     const [data, setData] = useState(null);
     const [btndisabled, setbtndisabled] = useState(true);
@@ -66,15 +68,17 @@ function Explore() {
   // }
   
   return (
-    <div className="twitter">
-       <Sidebar />
-       <Form onValuesChange={buttonState}>
+    
+    <SettingsBox>
+    
+      
+       {/* <Form onValuesChange={buttonState}>
        <Form.Item name='n'>
        <Input  onChange={getData} className="trend__contr " placeholder="Search Twitter"></Input>
        </Form.Item>
        </Form>
        <FaSistrix className="trend s" />
-       <div><button onClick={()=>nextButtonAction()} >Search</button></div>
+       <div><button onClick={()=>nextButtonAction()} >Search</button></div> */}
        <article>
        {/* {searchTerm.length > 1  (
                     filteredResults.map((item) => {
@@ -109,31 +113,37 @@ function Explore() {
         </div>
         </div> */}
        {/* <SearchInput  placeholder="Search Twitter" /> */}
-            <div className="Expmenu">
-            
-                
-                <div className="exploreCategory">
+            <div className="Notimenu">
+           
+        <Form onValuesChange={buttonState}>
+       <Form.Item name='n'>
+       <Input  onChange={getData} id="search" className="trend__contr " placeholder="Search Twitter"></Input>
+       </Form.Item>
+       </Form>
+       {/* <FaSistrix className="trend s" /> */}
+       <div><button id="searchbutton" onClick={()=>nextButtonAction()} >Search</button></div> 
+                <div className="notificationsCategory">
                         <div
-                        className={section===1 && "exploreActive" }
+                        className={section===1 && "notificationActive" }
                         onClick={() => setSection(1)}
                         >
                         <span>Top</span>
                         </div>
                         <div
-                        className={section===2 && "exploreActive"}
+                        className={section===2 && "notificationActive"}
                         onClick={() => setSection(2)}
                         >
                         <span>Latest</span>
                         </div>
                         <div
-                        className={section === 3 &&  "exploreActive"}
+                        className={section === 3 &&  "notificationActive"}
                         onClick={() => setSection(3) }
                         
                         >
                         <span>People</span>
                         </div>
                         <div
-                        className={section===4 && "exploreActive"}
+                        className={section===4 && "notificationActive"}
                         onClick={() => setSection(4)}
                         >
                         <span>Photos</span>
@@ -144,14 +154,13 @@ function Explore() {
                      
                  </div> 
                       
-        <TopicItem />
-        <FriendSuggestions />
-
+       
         
-    </div>
+    
+    <Trends/>
+    </SettingsBox>
   );
 }
 export default Explore;
-
 
 

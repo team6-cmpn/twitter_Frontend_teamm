@@ -63,7 +63,7 @@
 }
 .trend__contr {
   border: none;
-  width: 48%;
+  width: 90%;
   
   
   outline: none;
@@ -71,5 +71,11 @@
   border-radius: 50px;
   padding: 15px 40px;
 }
-
-
+.hide_tr{
+  display: none;
+}
+@media (min-width:1200px) {
+  .hide_tr{
+  display: inline;
+  }
+}

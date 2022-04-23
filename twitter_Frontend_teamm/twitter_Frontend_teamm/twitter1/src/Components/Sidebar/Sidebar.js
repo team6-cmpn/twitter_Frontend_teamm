@@ -12,24 +12,26 @@ import {
   // FaMehBlank,
   // FaRegMehBlank
 } from "react-icons/fa";
-import {BiDotsHorizontal} from "react-icons/bi";
-import {FiSettings} from "react-icons/fi";
-import {Modal} from "antd";
-import {Avatar} from "@material-ui/core";
-import Home from "../Home";
-import Feed from "../homepage/Feed";
-import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
-import HeaderTweet from "../homepage/Header_Tweet";
+import{
+  BiDotsHorizontal
+}from "react-icons/bi"
+import{
+  FiSettings,
+} from "react-icons/fi";
+import { Modal} from "antd";
+import { Avatar, Button } from "@material-ui/core";
 // import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 // import Explore from "../Explore";
 // import { BrowserRouter as Router, Switch, Route, Redirect,} from "react-router-dom";
 // import {Link} from "react-router-dom";
-function Sidebar() {
+function Sidebar() { 
   const [isModalVisible, setModalVisible] = useState(false);
   const onSubModel = (stateMain = true) => {
     setModalVisible(stateMain);
+     
   };
   return (
+    
     <div className="sidebar">
       <ul>
         <li>
@@ -38,88 +40,79 @@ function Sidebar() {
           </a>
         </li>
         <li>
-          <a href="/Home">
+          <a href="/home">
             <FaHome className="icons logo" />
-            Home
-            {/* <Link to="/Home">Home</Link> */}
+            <div className="t">Home</div>
+            {/* <Link to="/explore">Home</Link> */}
           </a>
         </li>
         <li>
           <a href="/Explore">
-            <FaHashtag className="icons" />
-            Explore
+            <FaHashtag className="icons" /> 
+            <div className="t">Explore </div>
             {/* <Link to="/Explore">Explore</Link> */}
+            
             {/* <Route exact path="/" component={Home} /> */}
           </a>
         </li>
         <li>
           <a href="/Notifications">
-            <FaRegBell className="icons" /> Notifications
+            <FaRegBell className="icons" /> 
+            <div className="t">Notifications</div>
           </a>
         </li>
-
+        
         <li>
           <a href="">
-            <FaRegBookmark className="icons" /> Bookmarks
+            <FaRegBookmark className="icons" /> 
+            <div className="t">Bookmarks</div>
           </a>
         </li>
-
+        
         <li>
-          <a href="/profile">
-            <FaUserAlt className="icons" /> Profile
+          <a href="/Profile">
+            <FaUserAlt className="icons" /> 
+            <div className="t">Profile</div>
           </a>
         </li>
         <li>
           <a href="/Settings">
-            <FiSettings className="icons" /> Settings & privacy
+            <FiSettings className="icons" /> 
+            <div className="t">Settings & Privacy</div>
           </a>
         </li>
         <div className="sidebar__Btn">
-          <a>
-            {" "}
-            <button id="tweet" className="tweet" onClick={() => onSubModel()}>
-              Tweet
-            </button>
-          </a>
+          <a > <button  id="tweet" className="tweet" onClick={()=>onSubModel()}>Tweet</button></a>
         </div>
-
+        
+    
         <li>
           <a href="">
-            <Avatar className="icons" />
-            Username <BiDotsHorizontal className="more" />
+          <Avatar className="icons"/>
+          <div className="t">Username  <BiDotsHorizontal className="more"/></div>
           </a>
         </li>
-        <li>
-          <a href="/adminPage" id="AdminPageButton">
-            <AdminPanelSettingsIcon className="icons" />
-            Admin <BiDotsHorizontal className="more" />
-          </a>
-        </li>
-        {/* <Avatar className="icons"/>hhhhhh  <BiDotsHorizontal className="more"/> */}
-
+         {/* <Avatar className="icons"/>hhhhhh  <BiDotsHorizontal className="more"/> */}
+          
         {/* </div> */}
       </ul>
-
+      
       <Modal
-        title={
-          <h1
-            style={{fontSize: "200%", marginTop: "10px", color: "Dodgerblue"}}
-          >
-            Tweet{" "}
-          </h1>
-        }
-        style={{textAlign: "center"}}
-        cancelButtonProps={{style: {display: "none"}}}
-        visible={isModalVisible}
-        bodyStyle={{height: 200, font: "Helvetica", textAlign: "left"}}
-        width="50%"
-        alignItems={{top: Window}}
-        onCancel={() => setModalVisible(false)}
-        footer={null}
-        maskClosable={false}
-      ></Modal>
+          title={<h1 style={{ fontSize: '200%',marginTop:'10px',color:'Dodgerblue'}}>Tweet </h1>}
+          style={{textAlign:"center"}}
+          cancelButtonProps={{ style: { display: "none" } }}
+          visible={isModalVisible}
+          bodyStyle={{height:200 ,font:'Helvetica',textAlign:'left'}}
+          width={800}
+          alignItems={{top: Window}}
+          onCancel={() => setModalVisible(false)}
+          footer={null}
+          maskClosable={false}  
+        >
+      
+        </Modal>
     </div>
   );
-}
+};
 
 export default Sidebar;

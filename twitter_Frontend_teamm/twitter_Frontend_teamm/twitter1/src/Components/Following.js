@@ -8,27 +8,27 @@ function Following(){
     return(
         <div>
             <Sidebar />
-        <div id="FollowersTab" className="notificationsCategory">
-            <div
-            className={!isFollowers && "notificationActive"}
-            onClick={() => setIsFollowers(false)}
-            >
-            <span>Followers</span>
+            <div className='Expmenu'>
+                <div id="FollowersTab" className="notificationsCategory">
+                    <div
+                    className={!isFollowers && "notificationActive"}
+                    onClick={() => setIsFollowers(false)}
+                    >
+                    <span>Followers</span>
+                    </div>
+                    
+                    <div id="FollowingTab"
+                    className={isFollowers && "notificationActive"}
+                    onClick={() => setIsFollowers(true)}
+                    >
+                    <span>Following</span>
+                    </div>
+                    
+                </div>
+                <div > 
+                    <Trends />  
+                </div>
             </div>
-            
-            <div id="FollowingTab"
-            className={isFollowers && "notificationActive"}
-            onClick={() => setIsFollowers(true)}
-            >
-            <span>Following</span>
-            </div>
-            
-        </div>
-        <div > 
-      
-        
-      <Trends />  
-      </div>
       </div>
     )
 }

@@ -34,7 +34,9 @@ import {useNavigate} from "react-router-dom";
 import "antd/dist/antd.css";
 import moment from 'moment'
 import validator from 'validator'
-import  * as mockAPI   from './mockRegistration';
+import  mock  from './mockRegistration';
+import  * as BE  from './backEndRegistration';
+
 import {validatePassword,validateEmail,validateUserName} from './Validate'
 
 
@@ -60,7 +62,9 @@ function SignUp() {
   const [emailError, setEmailError] = useState('')
   const [userNameError, setuserNameError] = useState('')
   const [date, setDate] = useState(null);
-
+  const [apiResponseMessage, setApiResponseMessage] = useState();
+  const [mess, setMess] = useState();
+  const [code, setCode] = useState();
   
   
 
@@ -84,6 +88,13 @@ function SignUp() {
     setSubModal3Visible(stateSub);
   };
 
+  const returnSubModal = (e, stateSub = true, stateMain = false) => {
+    setMainModalVisible(stateSub);
+    setSubModal2Visible(stateMain);
+  };
+
+  
+
   function getName(val){
     setName(val.target.value)
   };
@@ -106,6 +117,10 @@ function SignUp() {
 
   function getUserNameValidation(val){
     setuserNameError(validateUserName(val.target.value))
+  };
+
+  function getCode(val){
+    setCode(val.target.value)
   };
   
   function disabledDate(current) {
@@ -131,17 +146,48 @@ function SignUp() {
   
 
   function SignUpButtonActions(){
-    mockAPI.post(body);
-    mockAPI.backEndPost(body);
-    onSubModal2();
+    const GotoComplete = mock.post(body);
+    const promise=BE.backEndPost(body);
+    console.log(promise);
+    promise.then((message)=> {
+      setApiResponseMessage(message+'. You can re-enter your info by pressing on close (x) sign')
+      if(message===''){onSubModal2();}
+      // if(result===false){
+      //   console.log('account with this email already exist');
+      //   setMess(go);
+      // }
+      // else if(result===true){
+      //   setMess('');
+      //   onSubModal2();
+      // }
+   })
   }
+  
   var body={
     name:name,
     username:userName,
     email:email,
     dateOfBirth:date,
     password:password
+  }
+
+  var verifyBody={
+    verificationCode:code,
     
+  }
+  function verifyButtonActions(){
+    const promise=BE.verifyEmail(verifyBody);
+    console.log(promise);
+    promise.then((message)=> {
+      setMess(message)
+      if(message===''){navigate("/home");}
+     
+   })
+  //   promise.then((result)=> {
+  //     console.log(result);
+  //     if(result===true){setMess('Verified.Click to proceed');navigate("/home");}
+  //     else if (result ===false){setMess('Plz verify');}
+  //  })
   }
  
 
@@ -229,6 +275,7 @@ function SignUp() {
               &lt;Form.Item>
                 &lt;DatePicker id='date2' showTime={false} onChange={(value)=>setDate(value)} disabledDate={disabledDate} style={{ width: 450,height:50}}  />
               &lt;/Form.Item>
+           
             &lt;/Form>
         &lt;/Modal>
         
@@ -237,7 +284,7 @@ function SignUp() {
           title={&lt;TwitterOutlined style={{ fontSize: '200%',marginTop:'1px',color:'Dodgerblue'}} />}
           style={{textAlign:"center"}}
           okText='Next'
-          okButtonProps={{shape:'round' , size:'large', style:{width: 450,fontWeight:'bold',alignItems:'center',justifyContent:'center',
+          okButtonProps={{id:'nextButton3',shape:'round' , size:'large', style:{width: 450,fontWeight:'bold',alignItems:'center',justifyContent:'center',
           display:'flex'}}}
           cancelButtonProps={{ style: { display: "none" } }}
           visible={isSubModalVisible}
@@ -262,44 +309,48 @@ function SignUp() {
           title={&lt;TwitterOutlined style={{ fontSize: '200%',marginTop:'1px',color:'Dodgerblue'}} />}
           style={{textAlign:"center"}}
           okText='Sign Up'
-          okButtonProps={{shape:'round' , size:'large', style:{width: 450,fontWeight:'bold',alignItems:'center',justifyContent:'center',
+          okButtonProps={{id:'signUpButton',shape:'round' , size:'large', style:{width: 450,fontWeight:'bold',alignItems:'center',justifyContent:'center',
           display:'flex'}}}
           cancelButtonProps={{ style: { display: "none" } }}
           visible={isSubModal2Visible}
           bodyStyle={{height: 530 ,font:'Helvetica',textAlign:'left'}}
           width={500}
           centered={true}
-          closable={false}
+          closable={true}
           maskClosable={false}
           onOk={() => SignUpButtonActions()}
+          onCancel={()=>returnSubModal()}
+          
         >
           &lt;span className="text">Create your account&lt;/span>
           &lt;br>&lt;/br>&lt;br>&lt;/br>
 
           &lt;span className="text8">Your @username is unique&lt;/span>&lt;br />&lt;br>&lt;/br>
           
+          &lt;Form>
+            &lt;Form.Item >
+              &lt;span>Username&lt;/span>
+              &lt;Input id='username2' disabled={true} value={userName} style={{ height:50}}  />
+            &lt;/Form.Item>
           
-          &lt;Form.Item >
-            &lt;span>Username&lt;/span>
-            &lt;Input id='username2' disabled={true} value={userName} style={{ height:50}}  />
-          &lt;/Form.Item>
-          
-          &lt;Form.Item>
-            &lt;span>Name&lt;/span>
-            &lt;Input id='name2'  disabled={true} value={name} style={{ height:50}} />
-          &lt;/Form.Item>
+            &lt;Form.Item>
+              &lt;span>Name&lt;/span>
+              &lt;Input id='name2'  disabled={true} value={name} style={{ height:50}} />
+            &lt;/Form.Item>
 
-          &lt;Form.Item>
-            &lt;span>Email&lt;/span>
-            &lt;Input id="email2"  disabled={true} value={email} style={{ height:50}} />
-          &lt;/Form.Item>
+            &lt;Form.Item>
+              &lt;span>Email&lt;/span>
+              &lt;Input id="email2"  disabled={true} value={email} style={{ height:50}} />
+            &lt;/Form.Item>
+              &lt;span style={{color: 'red',fontSize:'100',fontWeight:'bold'}}> {apiResponseMessage}&lt;/span> 
+          &lt;/Form>
           
         &lt;/Modal>
         &lt;Modal
           title={&lt;TwitterOutlined style={{ fontSize: '200%',marginTop:'1px',color:'Dodgerblue'}} />}
           style={{textAlign:"center"}}
           okText='Next'
-          okButtonProps={{shape:'round' , disabled:false,size:'large', style:{width: 450,fontWeight:'bold',alignItems:'center',justifyContent:'center',
+          okButtonProps={{id:'verifyButton',shape:'round' , disabled:false,size:'large', style:{width: 450,fontWeight:'bold',alignItems:'center',justifyContent:'center',
           display:'flex'}}}
           cancelButtonProps={{ style: { display: "none" } }}
           visible={isSubModal3Visible}
@@ -308,15 +359,16 @@ function SignUp() {
           centered={true}
           closable={false}
           maskClosable={false}
-          onOk={() => navigate("/home")}  
+          onOk={() => verifyButtonActions()}  
         >
    
-          &lt;span className="text">We sent you a link &lt;/span>
+          &lt;span className="text">We sent you a verfication code  &lt;/span>
           &lt;br>&lt;/br>
-          &lt;span>Click on the link to verify {email}&lt;/span>
-      
+          &lt;span>Write the code to verify {email}&lt;/span>
+          &lt;Input style={{ height:40,marginTop:10}} onChange={getCode} id="code" placeholder="Code" />
+          &lt;span>{mess}&lt;/span>
           &lt;br>&lt;/br>
-          &lt;span>Didn't recieve email?&lt;/span>
+          &lt;span>&lt;button onClick={()=>BE.resendEmail()}>Didn't recieve email?&lt;/button>&lt;/span>
         &lt;/Modal>
 
       &lt;/div>
@@ -336,13 +388,13 @@ export default SignUp;
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#ForgetPassword">ForgetPassword</a></li><li><a href="global.html#googlePost">googlePost</a></li><li><a href="global.html#googleProfilePost">googleProfilePost</a></li><li><a href="global.html#GoogleSignUp">GoogleSignUp</a></li><li><a href="global.html#LogIn">LogIn</a></li><li><a href="global.html#logInPost">logInPost</a></li><li><a href="global.html#Notifications">Notifications</a></li><li><a href="global.html#Post">Post</a></li><li><a href="global.html#post">post</a></li><li><a href="global.html#SignUp">SignUp</a></li><li><a href="global.html#StartPage">StartPage</a></li><li><a href="global.html#validateEmail">validateEmail</a></li><li><a href="global.html#validatePassword">validatePassword</a></li><li><a href="global.html#validateUserName">validateUserName</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#ForgetPassword">ForgetPassword</a></li><li><a href="global.html#GoogleSignUp">GoogleSignUp</a></li><li><a href="global.html#LogIn">LogIn</a></li><li><a href="global.html#mock">mock</a></li><li><a href="global.html#Notifications">Notifications</a></li><li><a href="global.html#Post">Post</a></li><li><a href="global.html#Profile">Profile</a></li><li><a href="global.html#SignUp">SignUp</a></li><li><a href="global.html#StartPage">StartPage</a></li><li><a href="global.html#validateEmail">validateEmail</a></li><li><a href="global.html#validatePassword">validatePassword</a></li><li><a href="global.html#validateUserName">validateUserName</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Fri Apr 22 2022 22:21:56 GMT+0200 (Eastern European Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Sat Apr 23 2022 17:57:13 GMT+0200 (Eastern European Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

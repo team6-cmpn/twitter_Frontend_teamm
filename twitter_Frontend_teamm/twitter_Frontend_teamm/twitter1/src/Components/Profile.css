@@ -37,6 +37,9 @@
   width: 450px;
   height: 60px;
 }
+.Arrow{
+  padding-right: 16px;
+}
 
 .BioTextBox {
   border-radius: 5px;
@@ -89,22 +92,7 @@
   cursor: pointer;
 }
 
-.Month {
-  border-radius: 5px;
-  border-style: solid;
-  border-color: rgb(206, 206, 206);
-  padding: 20px;
-  width: 200px;
-  height: 60px;
-}
-.Day {
-  border-radius: 5px;
-  border-style: solid;
-  border-color: rgb(206, 206, 206);
-  padding: 20px;
-  width: 100px;
-  height: 60px;
-}
+
 
 .form__img-input-container {
   position: relative;
@@ -171,11 +159,12 @@ to be able to see the preview of the image. */
   border: 10px white solid;
 }
 
-/* .ant-modal-header {
-  border-bottom: 2px solid transparent;
-  position: relative;
+.ant-modal-content {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
-.ant-modal-header:after {
+/* .ant-modal-header:after {
   content: "";
   position: absolute;
   left: 0;

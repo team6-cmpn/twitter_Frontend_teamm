@@ -8,12 +8,19 @@ import "antd/dist/antd.css";
 import { Link } from 'react-router-dom';
 import { DatePicker } from 'antd';
 import   * as mockAPI   from './ProfileMock';
+import  getUsernames    from './ProfileMock';
 import Trends from "./Widgets/Trends";
 import Sidebar from "./Sidebar/Sidebar";
-function Profile(props){
-    function onChange(date, dateString) {
-        console.log(date, dateString);
-    }
+import {GrLocation} from "react-icons/gr"
+import {BiLink, BiArrowBack} from "react-icons/bi"
+
+/**Profile
+ * Shows User profile layout and enables user to edit profile info
+ *  
+ * @returns (Layout of profile and edit profile modal)
+ */
+function Profile(){
+    const [date, setDate] = useState(null);
     const [isMainModalVisible, setMainModalVisible] = useState(false);
     const [isTab, setIsTab] = useState(1);
     
@@ -29,6 +36,13 @@ function Profile(props){
             });    
         }   
     }
+    const [Username, setUsernames] = React.useState([]);
+    React.useEffect(() => {
+    (async () => {
+        const resp = await getUsernames();
+        setUsernames(resp);
+      })();
+    }, []);
     const [name, setName] = useState('');
     const [bio, setBio] = useState(null)
     const [location, setLocation] = useState(null)
@@ -51,27 +65,41 @@ function Profile(props){
         bio: editbio,
         location: editlocation,
         website: editwebsite,
+        date:date,
         img: {alt,src},
     }
-
-
 
     return(
         <div>
             <Sidebar />
             <div className='Expmenu'>
-                <div>  
+                <div> 
+                    <div className="notificationsTitle" id="ProfileTitle">
+                        <BiArrowBack ></BiArrowBack>
+                        <span>Profile</span>
+                    </div> 
                     <div>
                         <div>
                             <img id="img" src={src} alt={alt} className="form-img__img-preview"/>
                         </div>
-                        
                         <div id="bioName" className='Username'> {name}</div>
                         <br></br>
+                       <div> 
+                           {Object.keys(Username).map((user, index) => {
+                            return (
+                                <div>
+                                    {Username[user].User} ;
+                                
+                                </div> )
+                            })}
+                        </div> 
                         <div id="bioBio" className='Bio'>{bio}</div>
                         <br></br>
+                        <GrLocation className='Bio'></GrLocation>
                         <div id="bioLocation" className='Bio'>{location}</div>
+                        
                         <br></br>
+                        <BiLink className='Bio'></BiLink>
                         <div id="bioWebsite" className='Bio'>{website}</div>
 
                         <br></br>
@@ -79,7 +107,7 @@ function Profile(props){
                         <button id="editButton" class="ButtonEditProfile" onClick={()=>setMainModalVisible(true)}><span>Edit Profile</span></button>
                         </div>
                         <br></br>
-                        <div id="followers"className='FollowLink'>
+                        <div id="followers"className="FollowLink">
                             <Link to ="/Followers">Followers </Link>
                         </div>
                         
@@ -115,7 +143,7 @@ function Profile(props){
                             </div>
                     </div>
                         <div>
-                            <Modal style={{height: 50}} title={<div><h3>Edit profile</h3><button onClick={()=> SaveButtonActions()} class="ButtonSave">Save</button></div>} bodyStyle={{overflowY:'scroll'}} visible={isMainModalVisible} onCancel={()=>setMainModalVisible(false)}  footer={null}> 
+                            <Modal className="ant-modal-content"  title={<div><h3>Edit profile</h3><button onClick={()=> SaveButtonActions()} class="ButtonSave">Save</button></div>} bodyStyle={{overflowY:'scroll'}} visible={isMainModalVisible} onCancel={()=>setMainModalVisible(false)}  footer={null}> 
 
                             <div className="form__img-input-container">
                                 <input 
@@ -171,7 +199,7 @@ function Profile(props){
                             
                                     <div>
                                         <h4> Birthdate </h4>
-                                        <DatePicker id= "date" style={{ width:450, borderRadius: 5, height:50, borderStyle: 'solid'}} onChange={onChange} />
+                                        <DatePicker id= "date" style={{ width:450, borderRadius: 5, height:50, borderStyle: 'solid'}} onChange={setDate} />
                                         {/* <input class="Month" type="text" id="month" name="month" size="50" placeholder="Month"></input>
                                         <input class="Day" type="text" id="day" name="day" size="50" placeholder="Day"></input>
                                         <input class="Day" type="text" id="year" name="year" size="50" placeholder="year"></input> */}

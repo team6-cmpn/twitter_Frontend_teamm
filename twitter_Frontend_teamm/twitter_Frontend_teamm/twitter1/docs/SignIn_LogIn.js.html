@@ -34,7 +34,8 @@ import "antd/dist/antd.css";
 import GoogleLogin from 'react-google-login';
 import { Modal,Form,Input} from "antd";
 import {TwitterOutlined,EyeInvisibleOutlined,EyeTwoTone} from '@ant-design/icons';
-import  * as mockAPI   from '../SignUp/mockRegistration';
+import  mock  from '../SignUp/mockRegistration';
+import  * as BE  from '../SignUp/backEndRegistration';
 
 /**
  *Log in
@@ -49,6 +50,9 @@ function LogIn() {
     const [btnDisabled, setBtnDisabled] = useState(true);
     const [data, setData] = useState(null);
     const [password, setPassword] = useState(null);
+    const [apiResponseMessage, setApiResponseMessage] = useState();
+    const [googleApiResponseMessage, setGoogleApiResponseMessage] = useState();
+
    
 
     function getData(val){
@@ -64,6 +68,12 @@ function LogIn() {
       setModalVisible(stateMain);
       setModal2Visible(stateSub);
     };
+
+    const returnSubModal = (e, stateSub = true, stateMain = false) => {
+      setModalVisible(stateSub);
+      setModal2Visible(stateMain);
+    };
+  
     const responseGoogle = (response) => {
       console.log(response);
       // history ("/home");
@@ -74,7 +84,18 @@ function LogIn() {
   
     function logInSuccess (response) {
       console.log('Login Success: currentUser:', response.profileObj);
-      navigate ("/home");
+      var googlebody={
+      googleId:response.profileObj.googleId,
+      
+    }
+      const promise=BE.backEndGoogleLogIn(googlebody)
+      promise.then((message)=> {
+        // setGoogleApiResponseMessage(message)
+        if(message===''){navigate('/home');}
+        else {alert(message);}
+        
+     })
+      
     }
 
     const buttonState = (changedValues, allValues) => {
@@ -92,10 +113,20 @@ function LogIn() {
       data:data,
       password:password
     }
+    
    
     function nextButtonAction(){
+      const GotoHome = mock.logInPost(body);
+      const promise =  BE.backEndLogIn(body);
+      promise.then((message)=> {
+        setApiResponseMessage(message+'. You can re-enter your info by pressing on close (x) sign')
+        if(message===''){navigate('/home');}
+     })
 
-      mockAPI.logInPost(body);
+      // console.log(home);
+      // if (home==='false') {console.log('fe 2arf')}
+      // if (GotoHome || home) { navigate('/home'); }
+
      
     }
   
@@ -106,7 +137,7 @@ function LogIn() {
           title={&lt;TwitterOutlined style={{ fontSize: '200%',marginTop:'1px',color:'Dodgerblue'}} />}
           style={{textAlign:"center"}}
           okText='Next'
-          okButtonProps={{shape:'round' , size:'large', style:{width: 450,fontWeight:'bold',alignItems:'center',justifyContent:'center',
+          okButtonProps={{id:'nextbutton1',shape:'round' , size:'large', style:{width: 450,fontWeight:'bold',alignItems:'center',justifyContent:'center',
           display:'flex'}}}
           cancelButtonProps={{ style: { display: "none" } }}
           visible={setModalVisible}
@@ -120,7 +151,7 @@ function LogIn() {
           &lt;span className="text4">Sign in to Twitter&lt;/span>
           &lt;div>
             &lt;GoogleLogin
-              clientId="335712697506-0rdelma7j4jgcc6bicuhnn20e2l8m0fm.apps.googleusercontent.com"
+              clientId="335712697506-qcljv0u785qm93fk3ej1hg3ch3u5l9kj.apps.googleusercontent.com"
               render={renderProps =>(&lt;button id='googleButton' onClick={renderProps.onClick} disabled={renderProps.disabled} class="googleButton">
               &lt;img className="imggoogle" alt='' src={googleIcon} >&lt;/img>
               &lt;span >Sign in with Google&lt;/span>
@@ -160,14 +191,14 @@ function LogIn() {
           title={&lt;TwitterOutlined style={{ fontSize: '200%',marginTop:'1px',color:'Dodgerblue'}} />}
           style={{textAlign:"center"}}
           okText='Next'
-          okButtonProps={{shape:'round' , size:'large', style:{width: 450,fontWeight:'bold',alignItems:'center',justifyContent:'center',
+          okButtonProps={{id:'nextbutton2',shape:'round' , size:'large', style:{width: 450,fontWeight:'bold',alignItems:'center',justifyContent:'center',
           display:'flex'}}}
           cancelButtonProps={{ style: { display: "none" } }}
           visible={isModal2Visible}
           bodyStyle={{height: 490 ,font:'Helvetica',textAlign:'left'}}
           width={500}
           centered={true}
-          onCancel={() => navigate("/")}
+          onCancel={() => returnSubModal()}
           footer={null}
           maskClosable={false}
         >
@@ -177,7 +208,8 @@ function LogIn() {
               &lt;Input.Password id='password' style={{width:450,height:50}} placeholder="Password" onChange={getPassword} iconRender={visible => (visible ? &lt;EyeTwoTone /> : &lt;EyeInvisibleOutlined />)}>&lt;/Input.Password>
             &lt;/Form.Item>
           &lt;/Form>
-          &lt;Link id='forgetPassRedirect' to='/forgetpassword'>Forget password?&lt;/Link>
+          &lt;Link id='forgetPassRedirect' to='/forgetpassword'>Forget password?&lt;/Link>&lt;br>&lt;/br>
+          &lt;span style={{color: 'red',fontSize:'100',fontWeight:'bold'}}> {apiResponseMessage}&lt;/span> 
           &lt;div>&lt;button id='nextButton' className="googleButton button3-color" onClick={()=>nextButtonAction()} >Log in&lt;/button>&lt;/div>
           &lt;div>&lt;span className="txt3">Dont have an account? &lt;/span>&lt;Link id='signUpLink'  to="/signup">Sign up&lt;/Link>&lt;/div>
         
@@ -202,13 +234,13 @@ export default LogIn;</code></pre>
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#ForgetPassword">ForgetPassword</a></li><li><a href="global.html#googlePost">googlePost</a></li><li><a href="global.html#googleProfilePost">googleProfilePost</a></li><li><a href="global.html#GoogleSignUp">GoogleSignUp</a></li><li><a href="global.html#LogIn">LogIn</a></li><li><a href="global.html#logInPost">logInPost</a></li><li><a href="global.html#Notifications">Notifications</a></li><li><a href="global.html#Post">Post</a></li><li><a href="global.html#post">post</a></li><li><a href="global.html#SignUp">SignUp</a></li><li><a href="global.html#StartPage">StartPage</a></li><li><a href="global.html#validateEmail">validateEmail</a></li><li><a href="global.html#validatePassword">validatePassword</a></li><li><a href="global.html#validateUserName">validateUserName</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#ForgetPassword">ForgetPassword</a></li><li><a href="global.html#GoogleSignUp">GoogleSignUp</a></li><li><a href="global.html#LogIn">LogIn</a></li><li><a href="global.html#mock">mock</a></li><li><a href="global.html#Notifications">Notifications</a></li><li><a href="global.html#Post">Post</a></li><li><a href="global.html#Profile">Profile</a></li><li><a href="global.html#SignUp">SignUp</a></li><li><a href="global.html#StartPage">StartPage</a></li><li><a href="global.html#validateEmail">validateEmail</a></li><li><a href="global.html#validatePassword">validatePassword</a></li><li><a href="global.html#validateUserName">validateUserName</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Fri Apr 22 2022 22:21:56 GMT+0200 (Eastern European Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Sat Apr 23 2022 17:57:13 GMT+0200 (Eastern European Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

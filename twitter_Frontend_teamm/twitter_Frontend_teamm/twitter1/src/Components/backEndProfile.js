@@ -2,7 +2,7 @@
 // import Configure from '../../Configure'
 // import React, {useState} from 'react';
 
-// export const backEndPost=async payload=>{
+// export const backEndProfile=async payload=>{
 //     var message;
 //       const {
 //         name, username, email, dateOfBirth, password,

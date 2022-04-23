@@ -15,18 +15,18 @@ export default function AdminSideBar() {
           <h3 className="adminsidebarTitle">Dashboard</h3>
           <ul className="adminsidebarList">
             <li className="adminsidebarListItem active ">
-              <a href="adminPage">
+              <a href="adminPage" id="AdminHomePage">
                 <HomeIcon className="adminsidebarIcon" />
                 Admin Home
               </a>
             </li>
-            <li className="adminsidebarListItem">
+            <li className="adminsidebarListItem" id="ADminStatistics">
               <a href="Statistics">
                 <Timeline className="adminsidebarIcon" />
                 Statistics
               </a>
             </li>
-            <li className="adminsidebarListItem">
+            <li className="adminsidebarListItem" id="AdminUsers">
               <a href="Users">
                 <GroupIcon className="adminsidebarIcon" />
                 Users

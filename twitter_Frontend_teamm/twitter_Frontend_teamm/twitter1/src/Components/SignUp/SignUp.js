@@ -6,7 +6,9 @@ import {useNavigate} from "react-router-dom";
 import "antd/dist/antd.css";
 import moment from 'moment'
 import validator from 'validator'
-import  * as mockAPI   from './mockRegistration';
+import  mock  from './mockRegistration';
+import  * as BE  from './backEndRegistration';
+
 import {validatePassword,validateEmail,validateUserName} from './Validate'
 
 
@@ -32,7 +34,9 @@ function SignUp() {
   const [emailError, setEmailError] = useState('')
   const [userNameError, setuserNameError] = useState('')
   const [date, setDate] = useState(null);
-
+  const [apiResponseMessage, setApiResponseMessage] = useState();
+  const [mess, setMess] = useState();
+  const [code, setCode] = useState();
   
   
 
@@ -56,6 +60,13 @@ function SignUp() {
     setSubModal3Visible(stateSub);
   };
 
+  const returnSubModal = (e, stateSub = true, stateMain = false) => {
+    setMainModalVisible(stateSub);
+    setSubModal2Visible(stateMain);
+  };
+
+  
+
   function getName(val){
     setName(val.target.value)
   };
@@ -78,6 +89,10 @@ function SignUp() {
 
   function getUserNameValidation(val){
     setuserNameError(validateUserName(val.target.value))
+  };
+
+  function getCode(val){
+    setCode(val.target.value)
   };
   
   function disabledDate(current) {
@@ -103,17 +118,48 @@ function SignUp() {
   
 
   function SignUpButtonActions(){
-    mockAPI.post(body);
-    mockAPI.backEndPost(body);
-    onSubModal2();
+    const GotoComplete = mock.post(body);
+    const promise=BE.backEndPost(body);
+    console.log(promise);
+    promise.then((message)=> {
+      setApiResponseMessage(message+'. You can re-enter your info by pressing on close (x) sign')
+      if(message===''){onSubModal2();}
+      // if(result===false){
+      //   console.log('account with this email already exist');
+      //   setMess(go);
+      // }
+      // else if(result===true){
+      //   setMess('');
+      //   onSubModal2();
+      // }
+   })
   }
+  
   var body={
     name:name,
     username:userName,
     email:email,
     dateOfBirth:date,
     password:password
+  }
+
+  var verifyBody={
+    verificationCode:code,
     
+  }
+  function verifyButtonActions(){
+    const promise=BE.verifyEmail(verifyBody);
+    console.log(promise);
+    promise.then((message)=> {
+      setMess(message)
+      if(message===''){navigate("/home");}
+     
+   })
+  //   promise.then((result)=> {
+  //     console.log(result);
+  //     if(result===true){setMess('Verified.Click to proceed');navigate("/home");}
+  //     else if (result ===false){setMess('Plz verify');}
+  //  })
   }
  
 
@@ -201,6 +247,7 @@ function SignUp() {
               <Form.Item>
                 <DatePicker id='date2' showTime={false} onChange={(value)=>setDate(value)} disabledDate={disabledDate} style={{ width: 450,height:50}}  />
               </Form.Item>
+           
             </Form>
         </Modal>
         
@@ -209,7 +256,7 @@ function SignUp() {
           title={<TwitterOutlined style={{ fontSize: '200%',marginTop:'1px',color:'Dodgerblue'}} />}
           style={{textAlign:"center"}}
           okText='Next'
-          okButtonProps={{shape:'round' , size:'large', style:{width: 450,fontWeight:'bold',alignItems:'center',justifyContent:'center',
+          okButtonProps={{id:'nextButton3',shape:'round' , size:'large', style:{width: 450,fontWeight:'bold',alignItems:'center',justifyContent:'center',
           display:'flex'}}}
           cancelButtonProps={{ style: { display: "none" } }}
           visible={isSubModalVisible}
@@ -234,44 +281,48 @@ function SignUp() {
           title={<TwitterOutlined style={{ fontSize: '200%',marginTop:'1px',color:'Dodgerblue'}} />}
           style={{textAlign:"center"}}
           okText='Sign Up'
-          okButtonProps={{shape:'round' , size:'large', style:{width: 450,fontWeight:'bold',alignItems:'center',justifyContent:'center',
+          okButtonProps={{id:'signUpButton',shape:'round' , size:'large', style:{width: 450,fontWeight:'bold',alignItems:'center',justifyContent:'center',
           display:'flex'}}}
           cancelButtonProps={{ style: { display: "none" } }}
           visible={isSubModal2Visible}
           bodyStyle={{height: 530 ,font:'Helvetica',textAlign:'left'}}
           width={500}
           centered={true}
-          closable={false}
+          closable={true}
           maskClosable={false}
           onOk={() => SignUpButtonActions()}
+          onCancel={()=>returnSubModal()}
+          
         >
           <span className="text">Create your account</span>
           <br></br><br></br>
 
           <span className="text8">Your @username is unique</span><br /><br></br>
           
+          <Form>
+            <Form.Item >
+              <span>Username</span>
+              <Input id='username2' disabled={true} value={userName} style={{ height:50}}  />
+            </Form.Item>
           
-          <Form.Item >
-            <span>Username</span>
-            <Input id='username2' disabled={true} value={userName} style={{ height:50}}  />
-          </Form.Item>
-          
-          <Form.Item>
-            <span>Name</span>
-            <Input id='name2'  disabled={true} value={name} style={{ height:50}} />
-          </Form.Item>
+            <Form.Item>
+              <span>Name</span>
+              <Input id='name2'  disabled={true} value={name} style={{ height:50}} />
+            </Form.Item>
 
-          <Form.Item>
-            <span>Email</span>
-            <Input id="email2"  disabled={true} value={email} style={{ height:50}} />
-          </Form.Item>
+            <Form.Item>
+              <span>Email</span>
+              <Input id="email2"  disabled={true} value={email} style={{ height:50}} />
+            </Form.Item>
+              <span style={{color: 'red',fontSize:'100',fontWeight:'bold'}}> {apiResponseMessage}</span> 
+          </Form>
           
         </Modal>
         <Modal
           title={<TwitterOutlined style={{ fontSize: '200%',marginTop:'1px',color:'Dodgerblue'}} />}
           style={{textAlign:"center"}}
           okText='Next'
-          okButtonProps={{shape:'round' , disabled:false,size:'large', style:{width: 450,fontWeight:'bold',alignItems:'center',justifyContent:'center',
+          okButtonProps={{id:'verifyButton',shape:'round' , disabled:false,size:'large', style:{width: 450,fontWeight:'bold',alignItems:'center',justifyContent:'center',
           display:'flex'}}}
           cancelButtonProps={{ style: { display: "none" } }}
           visible={isSubModal3Visible}
@@ -280,15 +331,16 @@ function SignUp() {
           centered={true}
           closable={false}
           maskClosable={false}
-          onOk={() => navigate("/home")}  
+          onOk={() => verifyButtonActions()}  
         >
    
-          <span className="text">We sent you a link </span>
+          <span className="text">We sent you a verfication code  </span>
           <br></br>
-          <span>Click on the link to verify {email}</span>
-      
+          <span>Write the code to verify {email}</span>
+          <Input style={{ height:40,marginTop:10}} onChange={getCode} id="code" placeholder="Code" />
+          <span>{mess}</span>
           <br></br>
-          <span>Didn't recieve email?</span>
+          <span><button onClick={()=>BE.resendEmail()}>Didn't recieve email?</button></span>
         </Modal>
 
       </div>

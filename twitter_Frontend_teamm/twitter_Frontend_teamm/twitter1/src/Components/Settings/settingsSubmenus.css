@@ -65,6 +65,28 @@
 
 }
 
+.Accountinfo_discrip{
+
+    height: 50px;
+    width: max-content;
+    text-align: left;
+    margin-left: 25px;
+    margin-top: 5px;
+    
+}
+.Accountinfo_discrip>h5{
+    margin-bottom: 10%;
+    font-weight: normal;
+    font-size: 15px;
+
+}
+.Accountinfo_discrip>h6{
+    margin-top: -15%;
+    width:max-content;
+    color:#536471;
+    font-weight: normal;
+    font-size: 12px;
+}
 
 .text_discrip{
     height: 50px;

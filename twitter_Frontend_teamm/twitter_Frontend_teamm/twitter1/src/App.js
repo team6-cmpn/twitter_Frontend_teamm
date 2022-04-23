@@ -21,6 +21,7 @@ import AdminHome from "./Admin/Home";
 import Profile from "./Components/Profile";
 import Followers from "./Components/Followers";
 import Following from "./Components/Following";
+import AccountInformation from "./Components/Settings/AccountInfoMenu/AccountInfo";
 function App() {
   return (
     <Router>
@@ -40,6 +41,7 @@ function App() {
             <Route path="your-account" element={<YourAccount />} />
             <Route path="privacy-and-saftey" element={<PrivacyAndSafety />} />
             <Route path="MuteandBlock" element={<MuteandBlock />} />
+            <Route path="Your-twitter-data" element={<AccountInformation/>}/>
           </Route>
           <Route path="/adminPage" element={<AdminHome />} />
           <Route path="/Users" element={<FinalUser />} />

@@ -6,7 +6,7 @@ import { useContext } from 'react';
 
 export default function Topbar() {
   return (
-    <div className="topbar">
+    <div className="topbar" id="AdminTopBar">
       <div className="topbarWrapper">
         <div className="topLeft">
           <span className="logo">Admin</span>

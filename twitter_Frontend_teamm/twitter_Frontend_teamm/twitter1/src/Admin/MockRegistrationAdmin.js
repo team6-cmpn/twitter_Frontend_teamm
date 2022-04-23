@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import Configure from "../Configure";
 
 function GetNumUsers() {
   const [statistcs, setstatistics] = useState([]);
@@ -86,16 +87,20 @@ export function GetSignedUpMethod() {
 }
 
 export function GetUserList() {
-  const [userlist, setUserList] = useState([]);
 
-  useEffect(() => {
-    fetch("http://localhost:8000/UserLists")
-      .then((res) => res.json())
+
+    let response = fetch(`${Configure.backURL}admin/dashBoard`, {
+      headers: {
+        "content-type": "application/json",
+      },
+    })
+      .then((res) => {
+        console.log("response gowa")
+        return res.json()})
       .then((result) => {
-        setUserList(result);
       });
-  }, []);
-  return userlist;
+      console.log("response bara")
+      console.log(response)
 }
 
 export default GetNumUsers;

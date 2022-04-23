@@ -18,13 +18,13 @@ const YourAccount = () => {
             <div className="submenu_discription">
                 <h3> See information about your account, download an archive of your data, or learn about your account deactivation options</h3>
             </div>
-            <Link to="/Settings" style={{ textDecoration: "none", color:"inherit" }}>
+            <Link to="../Your-twitter-data" style={{ textDecoration: "none", color:"inherit" }}>
           <SubsettingsContent
             Icon2={PersonOutlineOutlinedIcon}
             text="Account information"
             discrip="See your account inforamtion like your phone numer and email address.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
             Icon={ChevronRightIcon}
-            active={location === "/Settings" && true}
+            active={location === "/" && true}
           />
         </Link>
         <Link to="/Settings" style={{ textDecoration: "none", color:"inherit" }}>

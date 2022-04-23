@@ -15,7 +15,7 @@ function NewUsers() {
     })();
   }, []);
   return (
-    <article>
+    <article id="TopFiveUsersWithMostFollowers">
       <div className="newUsers">
       <span className="TopUserTitle"> Top 5 People With Most Followers</span>
         <ul className="newUsersList">

@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // import Configure from '../../Configure'
-export const post = async payload => {
+export const Profile = async payload => {
     try {
       const response = await axios(`http://localhost:8000/Users`, {
         method: 'post',

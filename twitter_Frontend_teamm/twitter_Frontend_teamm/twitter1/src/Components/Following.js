@@ -1,10 +1,14 @@
 import './Notifications.css'
 import React from 'react';
 import  { useState } from 'react';
+import Trends from "./Widgets/Trends";
+import Sidebar from "./Sidebar/Sidebar";
 function Following(){
     const [isFollowers, setIsFollowers] = useState(true);
     return(
-        <div className="notificationsCategory">
+        <div>
+            <Sidebar />
+        <div id="FollowersTab" className="notificationsCategory">
             <div
             className={!isFollowers && "notificationActive"}
             onClick={() => setIsFollowers(false)}
@@ -12,7 +16,7 @@ function Following(){
             <span>Followers</span>
             </div>
             
-            <div id="Following"
+            <div id="FollowingTab"
             className={isFollowers && "notificationActive"}
             onClick={() => setIsFollowers(true)}
             >
@@ -20,6 +24,12 @@ function Following(){
             </div>
             
         </div>
+        <div > 
+      
+        
+      <Trends />  
+      </div>
+      </div>
     )
 }
  

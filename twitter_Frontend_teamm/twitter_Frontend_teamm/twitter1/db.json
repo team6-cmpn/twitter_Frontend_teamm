@@ -189,7 +189,82 @@
         "src": "blob:http://localhost:3000/c6d638ef-99af-42e2-8868-4d2d635fd089"
       },
       "id": 5
-    }],
+    },
+    {
+      "name": "",
+      "bio": null,
+      "location": null,
+      "website": null,
+      "img": {},
+      "id": 6
+    },
+    {
+      "name": "Menna",
+      "bio": null,
+      "location": null,
+      "website": null,
+      "img": {
+        "alt": "Screenshot (1).png",
+        "src": "blob:http://localhost:3000/e26010d9-cd96-436a-8888-241fa7424824"
+      },
+      "id": 7
+    },
+    {
+      "name": "Dina",
+      "bio": null,
+      "location": null,
+      "website": null,
+      "img": {
+        "alt": "Screenshot (1).png",
+        "src": "blob:http://localhost:3000/e26010d9-cd96-436a-8888-241fa7424824"
+      },
+      "id": 8
+    },
+    {
+      "name": "Dina",
+      "bio": null,
+      "location": null,
+      "website": null,
+      "img": {
+        "alt": "Screenshot (1).png",
+        "src": "blob:http://localhost:3000/e26010d9-cd96-436a-8888-241fa7424824"
+      },
+      "id": 9
+    },
+    {
+      "name": "Elham",
+      "bio": null,
+      "location": null,
+      "website": null,
+      "img": {
+        "alt": "13b45239a123d6b066f03ed9155695c2.jpg",
+        "src": "blob:http://localhost:3000/c46d9d62-7811-4734-9a12-af5f9fa23c99"
+      },
+      "id": 10
+    },
+    {
+      "name": "Elham",
+      "bio": null,
+      "location": null,
+      "website": null,
+      "img": {
+        "alt": "13b45239a123d6b066f03ed9155695c2.jpg",
+        "src": "blob:http://localhost:3000/c46d9d62-7811-4734-9a12-af5f9fa23c99"
+      },
+      "id": 11
+    },
+    {
+      "name": "",
+      "bio": null,
+      "location": null,
+      "website": null,
+      "img": {
+        "alt": "13b45239a123d6b066f03ed9155695c2.jpg",
+        "src": "blob:http://localhost:3000/ae7f463e-858c-4a9c-8a67-c2dc23e70894"
+      },
+      "id": 12
+    }
+  ],
   "StatisticsBlock": [
     {
       "TweetsPerDay": "50",
@@ -229,50 +304,69 @@
       "username": "@fawzy"
     }
   ],
-  "TweetsPerMonth":[
+  "TweetsPerMonth": [
     {
-    "name": "June",
-    "Tweets": 10000,
-    "Retweets": 5000
-  },
-  {
-    "name": "July",
-    "Tweets": 3000,
-    "Retweets": 1398  },
-  {
-    "name": "August",
-    "Tweets": 2000,
-    "Retweets": 9800,
-    "amt": 2290
-  },
-  {
-    "name": "September",
-    "Tweets": 2780,
-    "Retweets": 3908
-  },
-  {
-    "name": "October",
-    "Tweets": 1890,
-    "Retweets": 4800
-  },
-  {
-    "name": "Novomber",
-    "Tweets": 2390,
-    "Retweets": 3800
-  },
-  {
-    "name": "December",
-    "Tweets": 3490,
-    "Retweets": 4300
-  }
+      "name": "June",
+      "Tweets": 10000,
+      "Retweets": 5000
+    },
+    {
+      "name": "July",
+      "Tweets": 3000,
+      "Retweets": 1398
+    },
+    {
+      "name": "August",
+      "Tweets": 2000,
+      "Retweets": 9800,
+      "amt": 2290
+    },
+    {
+      "name": "September",
+      "Tweets": 2780,
+      "Retweets": 3908
+    },
+    {
+      "name": "October",
+      "Tweets": 1890,
+      "Retweets": 4800
+    },
+    {
+      "name": "Novomber",
+      "Tweets": 2390,
+      "Retweets": 3800
+    },
+    {
+      "name": "December",
+      "Tweets": 3490,
+      "Retweets": 4300
+    }
   ],
-  "AgesData" : [
-    { "name": "Ages(20-25)", "value": 500 },
-    { "name": "Ages(25-30)", "value": 300 },
-    { "name": "Ages(30-35)", "value": 300 },
-    { "name": "Ages(35-40)", "value": 200 },
-    { "name": "Ages(40-50)", "value": 278 },
-    { "name": "Ages(50-60)", "value": 189 }
+  "AgesData": [
+    {
+      "name": "Ages(20-25)",
+      "value": 500
+    },
+    {
+      "name": "Ages(25-30)",
+      "value": 300
+    },
+    {
+      "name": "Ages(30-35)",
+      "value": 300
+    },
+    {
+      "name": "Ages(35-40)",
+      "value": 200
+    },
+    {
+      "name": "Ages(40-50)",
+      "value": 278
+    },
+    {
+      "name": "Ages(50-60)",
+      "value": 189
+    }
   ],
   "UsersPerMonth": [
     {
@@ -304,7 +398,7 @@
       "UserNum": 3490
     }
   ],
-  "SignedUpMethod":[
+  "SignedUpMethod": [
     {
       "name": "January",
       "GoogleSign": 4000,
@@ -339,137 +433,120 @@
       "name": "July",
       "GoogleSign": 3490,
       "FacebookSign": 4300
-      }
+    }
   ],
-  "UserLists":[
+  "UserLists": [
     {
       "id": 1,
       "lastName": "Mahmoud",
       "firstName": "Jon",
       "age": 35,
-      "avatar":
-        "https://scontent.fcai19-3.fna.fbcdn.net/v/t39.30808-6/236785599_3035825320021503_7464080102625445644_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=9983UR9VWakAX8wAiMY&_nc_ht=scontent.fcai19-3.fna&oh=00_AT8sowWMEAmmjJXHMsJKBcYmQPOlqgeEcy3ACWMx-hyY5Q&oe=625BBD5B"
+      "avatar": "https://scontent.fcai19-3.fna.fbcdn.net/v/t39.30808-6/236785599_3035825320021503_7464080102625445644_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=9983UR9VWakAX8wAiMY&_nc_ht=scontent.fcai19-3.fna&oh=00_AT8sowWMEAmmjJXHMsJKBcYmQPOlqgeEcy3ACWMx-hyY5Q&oe=625BBD5B"
     },
     {
       "id": 2,
       "lastName": "Lannister",
       "firstName": "Cersei",
       "age": 42,
-      "avatar":
-        "https://scontent.fcai19-3.fna.fbcdn.net/v/t39.30808-6/236785599_3035825320021503_7464080102625445644_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=9983UR9VWakAX8wAiMY&_nc_ht=scontent.fcai19-3.fna&oh=00_AT8sowWMEAmmjJXHMsJKBcYmQPOlqgeEcy3ACWMx-hyY5Q&oe=625BBD5B"
+      "avatar": "https://scontent.fcai19-3.fna.fbcdn.net/v/t39.30808-6/236785599_3035825320021503_7464080102625445644_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=9983UR9VWakAX8wAiMY&_nc_ht=scontent.fcai19-3.fna&oh=00_AT8sowWMEAmmjJXHMsJKBcYmQPOlqgeEcy3ACWMx-hyY5Q&oe=625BBD5B"
     },
     {
       "id": 3,
       "lastName": "Lannister",
       "firstName": "Jaime",
       "age": 45,
-      "avatar":
-        "https://scontent.fcai19-3.fna.fbcdn.net/v/t39.30808-6/236785599_3035825320021503_7464080102625445644_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=9983UR9VWakAX8wAiMY&_nc_ht=scontent.fcai19-3.fna&oh=00_AT8sowWMEAmmjJXHMsJKBcYmQPOlqgeEcy3ACWMx-hyY5Q&oe=625BBD5B"
+      "avatar": "https://scontent.fcai19-3.fna.fbcdn.net/v/t39.30808-6/236785599_3035825320021503_7464080102625445644_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=9983UR9VWakAX8wAiMY&_nc_ht=scontent.fcai19-3.fna&oh=00_AT8sowWMEAmmjJXHMsJKBcYmQPOlqgeEcy3ACWMx-hyY5Q&oe=625BBD5B"
     },
     {
       "id": 4,
       "lastName": "Stark",
       "firstName": "Arya",
       "age": 16,
-      "avatar":
-        "https://scontent.fcai19-3.fna.fbcdn.net/v/t39.30808-6/236785599_3035825320021503_7464080102625445644_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=9983UR9VWakAX8wAiMY&_nc_ht=scontent.fcai19-3.fna&oh=00_AT8sowWMEAmmjJXHMsJKBcYmQPOlqgeEcy3ACWMx-hyY5Q&oe=625BBD5B"
+      "avatar": "https://scontent.fcai19-3.fna.fbcdn.net/v/t39.30808-6/236785599_3035825320021503_7464080102625445644_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=9983UR9VWakAX8wAiMY&_nc_ht=scontent.fcai19-3.fna&oh=00_AT8sowWMEAmmjJXHMsJKBcYmQPOlqgeEcy3ACWMx-hyY5Q&oe=625BBD5B"
     },
     {
       "id": 5,
       "lastName": "Targaryen",
       "firstName": "Daenerys",
       "age": null,
-      "avatar":
-        "https://scontent.fcai19-3.fna.fbcdn.net/v/t39.30808-6/236785599_3035825320021503_7464080102625445644_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=9983UR9VWakAX8wAiMY&_nc_ht=scontent.fcai19-3.fna&oh=00_AT8sowWMEAmmjJXHMsJKBcYmQPOlqgeEcy3ACWMx-hyY5Q&oe=625BBD5B"
+      "avatar": "https://scontent.fcai19-3.fna.fbcdn.net/v/t39.30808-6/236785599_3035825320021503_7464080102625445644_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=9983UR9VWakAX8wAiMY&_nc_ht=scontent.fcai19-3.fna&oh=00_AT8sowWMEAmmjJXHMsJKBcYmQPOlqgeEcy3ACWMx-hyY5Q&oe=625BBD5B"
     },
-  
     {
       "id": 6,
       "lastName": "Clifford",
       "firstName": "Ferrara",
       "age": 44,
-      "avatar":
-        "https://scontent.fcai19-3.fna.fbcdn.net/v/t39.30808-6/236785599_3035825320021503_7464080102625445644_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=9983UR9VWakAX8wAiMY&_nc_ht=scontent.fcai19-3.fna&oh=00_AT8sowWMEAmmjJXHMsJKBcYmQPOlqgeEcy3ACWMx-hyY5Q&oe=625BBD5B"
+      "avatar": "https://scontent.fcai19-3.fna.fbcdn.net/v/t39.30808-6/236785599_3035825320021503_7464080102625445644_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=9983UR9VWakAX8wAiMY&_nc_ht=scontent.fcai19-3.fna&oh=00_AT8sowWMEAmmjJXHMsJKBcYmQPOlqgeEcy3ACWMx-hyY5Q&oe=625BBD5B"
     },
     {
       "id": 7,
       "lastName": "Frances",
       "firstName": "Rossini",
       "age": 36,
-      "avatar":
-        "https://scontent.fcai19-3.fna.fbcdn.net/v/t39.30808-6/236785599_3035825320021503_7464080102625445644_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=9983UR9VWakAX8wAiMY&_nc_ht=scontent.fcai19-3.fna&oh=00_AT8sowWMEAmmjJXHMsJKBcYmQPOlqgeEcy3ACWMx-hyY5Q&oe=625BBD5B"
+      "avatar": "https://scontent.fcai19-3.fna.fbcdn.net/v/t39.30808-6/236785599_3035825320021503_7464080102625445644_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=9983UR9VWakAX8wAiMY&_nc_ht=scontent.fcai19-3.fna&oh=00_AT8sowWMEAmmjJXHMsJKBcYmQPOlqgeEcy3ACWMx-hyY5Q&oe=625BBD5B"
     },
     {
       "id": 8,
       "lastName": "Roxie",
       "firstName": "Harvey",
       "age": 65,
-      "avatar":
-        "https://scontent.fcai19-3.fna.fbcdn.net/v/t39.30808-6/236785599_3035825320021503_7464080102625445644_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=9983UR9VWakAX8wAiMY&_nc_ht=scontent.fcai19-3.fna&oh=00_AT8sowWMEAmmjJXHMsJKBcYmQPOlqgeEcy3ACWMx-hyY5Q&oe=625BBD5B"
-    },  {
+      "avatar": "https://scontent.fcai19-3.fna.fbcdn.net/v/t39.30808-6/236785599_3035825320021503_7464080102625445644_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=9983UR9VWakAX8wAiMY&_nc_ht=scontent.fcai19-3.fna&oh=00_AT8sowWMEAmmjJXHMsJKBcYmQPOlqgeEcy3ACWMx-hyY5Q&oe=625BBD5B"
+    },
+    {
       "id": 9,
       "lastName": "Mahmoud",
       "firstName": "Jon",
       "age": 35,
-      "avatar":
-        "https://scontent.fcai19-3.fna.fbcdn.net/v/t39.30808-6/236785599_3035825320021503_7464080102625445644_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=9983UR9VWakAX8wAiMY&_nc_ht=scontent.fcai19-3.fna&oh=00_AT8sowWMEAmmjJXHMsJKBcYmQPOlqgeEcy3ACWMx-hyY5Q&oe=625BBD5B"
+      "avatar": "https://scontent.fcai19-3.fna.fbcdn.net/v/t39.30808-6/236785599_3035825320021503_7464080102625445644_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=9983UR9VWakAX8wAiMY&_nc_ht=scontent.fcai19-3.fna&oh=00_AT8sowWMEAmmjJXHMsJKBcYmQPOlqgeEcy3ACWMx-hyY5Q&oe=625BBD5B"
     },
     {
       "id": 10,
       "lastName": "Lannister",
       "firstName": "Cersei",
       "age": 42,
-      "avatar":
-        "https://scontent.fcai19-3.fna.fbcdn.net/v/t39.30808-6/236785599_3035825320021503_7464080102625445644_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=9983UR9VWakAX8wAiMY&_nc_ht=scontent.fcai19-3.fna&oh=00_AT8sowWMEAmmjJXHMsJKBcYmQPOlqgeEcy3ACWMx-hyY5Q&oe=625BBD5B"
+      "avatar": "https://scontent.fcai19-3.fna.fbcdn.net/v/t39.30808-6/236785599_3035825320021503_7464080102625445644_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=9983UR9VWakAX8wAiMY&_nc_ht=scontent.fcai19-3.fna&oh=00_AT8sowWMEAmmjJXHMsJKBcYmQPOlqgeEcy3ACWMx-hyY5Q&oe=625BBD5B"
     },
     {
       "id": 11,
       "lastName": "Lannister",
       "firstName": "Jaime",
       "age": 45,
-      "avatar":
-        "https://scontent.fcai19-3.fna.fbcdn.net/v/t39.30808-6/236785599_3035825320021503_7464080102625445644_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=9983UR9VWakAX8wAiMY&_nc_ht=scontent.fcai19-3.fna&oh=00_AT8sowWMEAmmjJXHMsJKBcYmQPOlqgeEcy3ACWMx-hyY5Q&oe=625BBD5B"
+      "avatar": "https://scontent.fcai19-3.fna.fbcdn.net/v/t39.30808-6/236785599_3035825320021503_7464080102625445644_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=9983UR9VWakAX8wAiMY&_nc_ht=scontent.fcai19-3.fna&oh=00_AT8sowWMEAmmjJXHMsJKBcYmQPOlqgeEcy3ACWMx-hyY5Q&oe=625BBD5B"
     },
     {
       "id": 12,
       "lastName": "Stark",
       "firstName": "Arya",
       "age": 16,
-      "avatar":
-        "https://scontent.fcai19-3.fna.fbcdn.net/v/t39.30808-6/236785599_3035825320021503_7464080102625445644_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=9983UR9VWakAX8wAiMY&_nc_ht=scontent.fcai19-3.fna&oh=00_AT8sowWMEAmmjJXHMsJKBcYmQPOlqgeEcy3ACWMx-hyY5Q&oe=625BBD5B"
+      "avatar": "https://scontent.fcai19-3.fna.fbcdn.net/v/t39.30808-6/236785599_3035825320021503_7464080102625445644_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=9983UR9VWakAX8wAiMY&_nc_ht=scontent.fcai19-3.fna&oh=00_AT8sowWMEAmmjJXHMsJKBcYmQPOlqgeEcy3ACWMx-hyY5Q&oe=625BBD5B"
     },
     {
       "id": 13,
       "lastName": "Targaryen",
       "firstName": "Daenerys",
       "age": null,
-      "avatar":
-        "https://scontent.fcai19-3.fna.fbcdn.net/v/t39.30808-6/236785599_3035825320021503_7464080102625445644_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=9983UR9VWakAX8wAiMY&_nc_ht=scontent.fcai19-3.fna&oh=00_AT8sowWMEAmmjJXHMsJKBcYmQPOlqgeEcy3ACWMx-hyY5Q&oe=625BBD5B"
+      "avatar": "https://scontent.fcai19-3.fna.fbcdn.net/v/t39.30808-6/236785599_3035825320021503_7464080102625445644_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=9983UR9VWakAX8wAiMY&_nc_ht=scontent.fcai19-3.fna&oh=00_AT8sowWMEAmmjJXHMsJKBcYmQPOlqgeEcy3ACWMx-hyY5Q&oe=625BBD5B"
     },
-  
     {
       "id": 14,
       "lastName": "Clifford",
       "firstName": "Ferrara",
       "age": 44,
-      "avatar":
-        "https://scontent.fcai19-3.fna.fbcdn.net/v/t39.30808-6/236785599_3035825320021503_7464080102625445644_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=9983UR9VWakAX8wAiMY&_nc_ht=scontent.fcai19-3.fna&oh=00_AT8sowWMEAmmjJXHMsJKBcYmQPOlqgeEcy3ACWMx-hyY5Q&oe=625BBD5B"
+      "avatar": "https://scontent.fcai19-3.fna.fbcdn.net/v/t39.30808-6/236785599_3035825320021503_7464080102625445644_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=9983UR9VWakAX8wAiMY&_nc_ht=scontent.fcai19-3.fna&oh=00_AT8sowWMEAmmjJXHMsJKBcYmQPOlqgeEcy3ACWMx-hyY5Q&oe=625BBD5B"
     },
     {
       "id": 16,
       "lastName": "Frances",
       "firstName": "Rossini",
       "age": 36,
-      "avatar":
-        "https://scontent.fcai19-3.fna.fbcdn.net/v/t39.30808-6/236785599_3035825320021503_7464080102625445644_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=9983UR9VWakAX8wAiMY&_nc_ht=scontent.fcai19-3.fna&oh=00_AT8sowWMEAmmjJXHMsJKBcYmQPOlqgeEcy3ACWMx-hyY5Q&oe=625BBD5B"
+      "avatar": "https://scontent.fcai19-3.fna.fbcdn.net/v/t39.30808-6/236785599_3035825320021503_7464080102625445644_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=9983UR9VWakAX8wAiMY&_nc_ht=scontent.fcai19-3.fna&oh=00_AT8sowWMEAmmjJXHMsJKBcYmQPOlqgeEcy3ACWMx-hyY5Q&oe=625BBD5B"
     },
     {
       "id": 15,
       "lastName": "Roxie",
       "firstName": "Harvey",
       "age": 65,
-      "avatar":
-        "https://scontent.fcai19-3.fna.fbcdn.net/v/t39.30808-6/236785599_3035825320021503_7464080102625445644_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=9983UR9VWakAX8wAiMY&_nc_ht=scontent.fcai19-3.fna&oh=00_AT8sowWMEAmmjJXHMsJKBcYmQPOlqgeEcy3ACWMx-hyY5Q&oe=625BBD5B"
+      "avatar": "https://scontent.fcai19-3.fna.fbcdn.net/v/t39.30808-6/236785599_3035825320021503_7464080102625445644_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=9983UR9VWakAX8wAiMY&_nc_ht=scontent.fcai19-3.fna&oh=00_AT8sowWMEAmmjJXHMsJKBcYmQPOlqgeEcy3ACWMx-hyY5Q&oe=625BBD5B"
     }
   ]
 }

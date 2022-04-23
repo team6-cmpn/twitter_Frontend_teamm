@@ -26,7 +26,7 @@ test('username is not valid', () => {
   );
 });
 
-test('username is not valid', () => {
+test('username is valid', () => {
   expect(validateUserName(rightUserName)).toEqual(
   ''
   );

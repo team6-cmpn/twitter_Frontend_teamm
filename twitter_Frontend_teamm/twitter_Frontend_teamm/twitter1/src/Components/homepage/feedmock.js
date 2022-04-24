@@ -1,6 +1,5 @@
 import axios from "axios";
 import Configure from "../../Configure";
-import React, {useState, useEffect} from "react";
 
 export const gettweet = async (payload) => {
   try {
@@ -25,19 +24,6 @@ export const getcontenttweet = async (payload) => {
     throw error;
   }
 };
-
-// export function GetPostTweet() {
-//   const [posttweet, setPostTweet] = useState([]);
-
-//   useEffect(() => {
-//     fetch("http://localhost:8000/posttweet")
-//       .then((res) => res.json())
-//       .then((result) => {
-//         setPostTweet(result);
-//       });
-//   }, []);
-//   return posttweet;
-// }
 
 export async function GetPostTweet() {
   let response = "";
@@ -75,7 +61,7 @@ export async function GetPostLikes() {
   let response = "";
   try {
     response = await axios
-      .get("http://localhost:8000/likes")
+      .get(`${Configure.mockURL}likes/`)
       .then((res) => res.data);
     console.log(response);
     return response;
@@ -101,3 +87,23 @@ export const PostLikes = async (payload) => {
     throw error;
   }
 };
+
+export async function GetUserContent() {
+  let response = "";
+  try {
+    response = await axios
+      .get(`${Configure.mockURL}usercontent/`)
+      .then((res) => res.data);
+    console.log(response);
+    return response;
+  } catch (error) {
+    if (error.response) {
+      /*
+       * The request was made and the server responded with a
+       * status code that falls out of the range of 2xx
+       */
+      return error.response;
+    }
+  }
+  return response;
+}

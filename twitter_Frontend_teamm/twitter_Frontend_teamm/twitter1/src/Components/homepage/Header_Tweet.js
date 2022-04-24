@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import "./feed.css";
 import {Button} from "@mui/material";
 import ImageOutlinedIcon from "@mui/icons-material/ImageOutlined";
@@ -6,14 +6,25 @@ import EmojiEmotionsOutlinedIcon from "@mui/icons-material/EmojiEmotionsOutlined
 import Tooltip from "@mui/material/Tooltip";
 import "emoji-mart/css/emoji-mart.css";
 import {Picker} from "emoji-mart";
-import * as mockAPI from "./feedmock";
+import * as mocked from "./feedmock";
+import * as backend from "./backendFeed";
 
 //import Tweetarea from "./textinput"
-
+/**
+ *function of header tweet
+ * @param {*} props
+ * @returns layout of header tweet
+ *
+ */
 function Tweetbox(props) {
   const [input, setinput] = useState("");
   const [mentions, setmentions] = useState("");
   const [showEmoji, setShowEmoji] = useState(false);
+  const [content, getcontent] = useState([]);
+  /**
+   *
+   * @param {*} e
+   */
 
   const addEmoji = (e) => {
     let sym = e.unified.split("-");
@@ -23,20 +34,41 @@ function Tweetbox(props) {
     setinput(input + emoji);
   };
 
+  useEffect(() => {
+    (async () => {
+      const resp = await mocked.GetUserContent();
+      getcontent(resp);
+    })();
+  }, []);
+  /**
+   *
+   * @param {*} event
+   */
+
   function submitTweet(event) {
-    props.onAdd(input + "   " + mentions);
-    props.onmention(mentions);
     setinput("");
     setmentions("");
-    mockAPI.tweetmock(body);
-    event.preventDefault();
-    console.log(input + "," + mentions);
-  }
+    const tweet = backend.tweetmock(body);
 
+    //mocked.tweetmock(body);
+    //props.onAdd(input + "  " + mentions);
+    // console.log(tweet);
+    //props.onmention(mentions);
+    event.preventDefault();
+    //console.log(input + "," + mentions);
+  }
+  localStorage.setItem("input_set", input);
+  localStorage.setItem("mention_set", mentions);
   var body = {
-    tweet: input,
+    text: input,
     mentions: mentions,
   };
+  // id: 123,
+  //login user id
+  /**
+   *conditioning mentions
+   * @param {*} value
+   */
 
   function inputmention(value) {
     if (value[0] !== "@") {
@@ -45,6 +77,7 @@ function Tweetbox(props) {
       setmentions(value);
     }
   }
+  //console.log(content);
 
   //<Tweetarea onChange={(e) => setTweet(e.target.value)}  />
   return (
@@ -52,10 +85,9 @@ function Tweetbox(props) {
       <div className="paddedin">
         <form className="app">
           <div className="img_circle">
-            <img
-              src="https://images.unsplash.com/photo-1516727003284-a96541e51e9c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
-              alt=""
-            />
+            {content.map((tweetItem, index) => {
+              return <img src={tweetItem.avatar} alt="" />;
+            })}
           </div>
           <div className="tweetBox__input">
             <textarea
@@ -79,7 +111,7 @@ function Tweetbox(props) {
           ></input>
         </div>
 
-        <div className="app">
+        <div className="app border">
           <div className="iconbar">
             <Button id="button choose image " className="iconss">
               <Tooltip title="image">
@@ -88,7 +120,7 @@ function Tweetbox(props) {
             </Button>
 
             <Button
-              id="button choose emojis"
+              key="button choose emojis"
               className="emojisicon"
               onClick={() => setShowEmoji(!showEmoji)}
             >

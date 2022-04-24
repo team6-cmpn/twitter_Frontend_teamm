@@ -87,20 +87,22 @@ export function GetSignedUpMethod() {
 }
 
 export function GetUserList() {
+  const [userlist, setUserList] = useState([]);
 
-
-    let response = fetch(`${Configure.backURL}admin/dashBoard`, {
-      headers: {
-        "content-type": "application/json",
-      },
-    })
-      .then((res) => {
-        console.log("response gowa")
-        return res.json()})
+  useEffect(() => {
+    fetch(`${Configure.backURL}admin/dashBoard`, {
+          headers: {
+            "Content-Type": "application/json; charset=utf-8",
+            "x-access-token": `${localStorage.getItem("token")}`,
+          },
+        })
+      .then((res) => res.json())
       .then((result) => {
+        setUserList(result);
       });
-      console.log("response bara")
-      console.log(response)
-}
+  }, []);
 
+  console.log("users",userlist)
+  return userlist;
+}
 export default GetNumUsers;

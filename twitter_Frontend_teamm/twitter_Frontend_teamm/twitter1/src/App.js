@@ -18,9 +18,9 @@ import FinalUser from "./Admin/FinalUser";
 import Statistics from "./Admin/statistics";
 import BlockForm from "./Admin/Users/BlockForm";
 import AdminHome from "./Admin/Home";
-import Profile from "./Components/Profile";
-import Followers from "./Components/Followers";
-import Following from "./Components/Following";
+import Profile from "./Components/Profile/Profile";
+import Followers from "./Components/Profile/Followers";
+import Following from "./Components/Profile/Following";
 import AccountInformation from "./Components/Settings/AccountInfoMenu/AccountInfo";
 function App() {
   return (

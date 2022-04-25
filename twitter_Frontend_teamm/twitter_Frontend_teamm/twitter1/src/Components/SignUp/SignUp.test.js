@@ -10,7 +10,7 @@ var rightEmail='a@gmail.com';
 
 test('password is not strong or valid', () => {
   expect(validatePassword(wrongPassword)).toEqual(
-  'Your password needs to be at least 8 characters with at least 1 symbol.'
+  'Your password needs to be at least 8 characters with at least 1 symbol & 1 UpperCase.'
   );
 });
 
@@ -26,7 +26,7 @@ test('username is not valid', () => {
   );
 });
 
-test('username is valid', () => {
+test('username is not valid', () => {
   expect(validateUserName(rightUserName)).toEqual(
   ''
   );

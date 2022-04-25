@@ -1,5 +1,5 @@
 import './Profile.css'
-import './Notifications.css'
+import '../Notifications.css'
 import React from 'react';
 import  { useState} from 'react';
 import placeholder from 'react-image-placeholder';
@@ -9,10 +9,11 @@ import { Link } from 'react-router-dom';
 import { DatePicker } from 'antd';
 import   * as mockAPI   from './ProfileMock';
 import  getUsernames    from './ProfileMock';
-import Trends from "./Widgets/Trends";
-import Sidebar from "./Sidebar/Sidebar";
+import Trends from "../Widgets/Trends";
+import Sidebar from "../Sidebar/Sidebar";
 import {GrLocation} from "react-icons/gr"
 import {BiLink, BiArrowBack} from "react-icons/bi"
+import {getUserInfo} from './backEndProfile'
 
 /**Profile
  * Shows User profile layout and enables user to edit profile info
@@ -51,6 +52,7 @@ function Profile(){
     const [editbio, setEditBio] = useState(null)
     const [editlocation, setEditLocation] = useState(null)
     const [editwebsite, setEditWebsite] = useState(null)
+    const [Item, setItem] = useState();
 
     function SaveButtonActions(){
     mockAPI.Profile(body);
@@ -68,6 +70,9 @@ function Profile(){
         date:date,
         img: {alt,src},
     }
+    const user=getUserInfo();
+    user.then(data=>{setItem(data)});
+    console.log(Item);
 
     return(
         <div>
@@ -82,9 +87,9 @@ function Profile(){
                         <div>
                             <img id="img" src={src} alt={alt} className="form-img__img-preview"/>
                         </div>
-                        <div id="bioName" className='Username'> {name}</div>
+                        <div id="bioName" className='name'> {name}</div>
                         <br></br>
-                       <div> 
+                       <div className='Username'> 
                            {Object.keys(Username).map((user, index) => {
                             return (
                                 <div>
@@ -93,6 +98,8 @@ function Profile(){
                                 </div> )
                             })}
                         </div> 
+                        <div className='Username'>{Item}</div>
+                        <br></br>
                         <div id="bioBio" className='Bio'>{bio}</div>
                         <br></br>
                         <GrLocation className='Bio'></GrLocation>

@@ -57,17 +57,24 @@
   padding-left: 16px;
   
 }
-.Username{
+.name{
   display:inline;
   font-size: 20px;
   font-weight: 700;
   position: relative;
-  right: 240px;
+  right: 210px;
+  
 }
 .Bio{
   display:inline;
   position: relative;
-  right: 255px;
+  right: 220px;
+  text-align:left;
+}
+.Username{
+  display:inline;
+  position: relative;
+  right: 220px;
 }
 .ButtonEditProfile {
   display:inline;

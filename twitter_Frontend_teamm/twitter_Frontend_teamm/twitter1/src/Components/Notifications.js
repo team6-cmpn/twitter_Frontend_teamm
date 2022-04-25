@@ -6,7 +6,10 @@ import FollowedYou from "./FollowedYou";
 import SettingsBox from "./SettingsBox/SettingsBox";
 import LikedYou from "./LikedYou";
 import getFollowingUsers from "./NotificationsMock";
+import { GetPostTweet } from "./homepage/feedmock";
 import {getLikedUsers} from "./NotificationsMock";
+import Post from "./homepage/Post";
+import { RecoilRoot } from "recoil";
 /**
  * [the notification component is mainly used to get the notifications from the server to the user to see it 
  *  and it contains all the mentions and liked posts and followers you got and i made a menu to scoope on the mentioned posts only
@@ -19,10 +22,15 @@ import {getLikedUsers} from "./NotificationsMock";
 function Notifications() {
   const [followingUser, setFollowingUser] = React.useState([]);
   const [LikedUser, setLikedUser] = React.useState([]);
-  
+  const [twetted, postedtweet] = React.useState([]);
+
   const [isAll, setIsAll] = React.useState(true);
   document.title = "Notifications / Twitter";
   React.useEffect(() => {
+    (async () => {
+      const resp = await GetPostTweet();
+      postedtweet(resp);
+    })();
     (async () => {
       const resp = await getFollowingUsers();
       setFollowingUser(resp);
@@ -34,6 +42,7 @@ function Notifications() {
   }, []);
 
   return (
+    <RecoilRoot>
     <SettingsBox>
       <div className="Notimenu" id="NotificationMenu">
         <div className="notificationsTitle" id="NotificationsTitle">
@@ -50,9 +59,9 @@ function Notifications() {
           <div
             className={!isAll && "notificationActive"}
             onClick={() => setIsAll(false)}
-            id="LikedButton"
+            id="MentionsButton"
           >
-            <span>Liked</span>
+            <span>Mentions</span>
           </div>
         </div>
         <article>
@@ -64,12 +73,31 @@ function Notifications() {
               {LikedUser.map((userNotification, index) => (
               <LikedYou key={index} likePost={userNotification} />
               ))}
+               {twetted.map((userlist, index) => (
+            <Post
+              key={index}
+              displayName={userlist.displayName}
+              username={userlist.username}
+              text={userlist.text}
+              image={userlist.image}
+              avatar={userlist.avatar}
+              date={userlist.date}
+            />
+          ))}
             </>
           ) : (
             <>
-              {LikedUser.map((userNotification, index) => (
-              <LikedYou key={index} likePost={userNotification} />
-              ))}
+             {twetted.map((userlist, index) => (
+            <Post
+              key={index}
+              displayName={userlist.displayName}
+              username={userlist.username}
+              text={userlist.text}
+              image={userlist.image}
+              avatar={userlist.avatar}
+              date={userlist.date}
+            />
+          ))}
             </>
           )}
         </article>
@@ -77,6 +105,7 @@ function Notifications() {
 
       <Trends />
     </SettingsBox>
+    </RecoilRoot>
   );
 }
 export default Notifications;

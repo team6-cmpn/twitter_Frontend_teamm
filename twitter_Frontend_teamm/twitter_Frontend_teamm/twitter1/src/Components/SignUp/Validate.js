@@ -10,12 +10,12 @@ var validatePassword=(value)=> {
   var error='';
   if (validator.isStrongPassword(value, {
     minLength: 8, minLowercase: 1,
-    minNumbers: 1,minUppercase: 0, minSymbols: 1
+    minNumbers: 1,minUppercase: 1, minSymbols: 1
   })) {
     error='';
   } 
   else {
-    error='Your password needs to be at least 8 characters with at least 1 symbol.';
+    error='Your password needs to be at least 8 characters with at least 1 symbol & 1 UpperCase.';
   }
   
   return (error);

@@ -1,8 +1,8 @@
-import './Notifications.css'
+import '../Notifications.css'
 import React from 'react';
 import  { useState } from 'react';
-import Trends from "./Widgets/Trends";
-import Sidebar from "./Sidebar/Sidebar";
+import Trends from "../Widgets/Trends";
+import Sidebar from "../Sidebar/Sidebar";
 function Following(){
     const [isFollowers, setIsFollowers] = useState(true);
     return(

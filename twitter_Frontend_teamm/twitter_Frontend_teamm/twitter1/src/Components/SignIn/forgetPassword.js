@@ -32,6 +32,8 @@ function ForgetPassword(){
     const [email, setEmail] = useState(null);
     const [apiResponseMessage, setApiResponseMessage] = useState();
     const [resetPasswordMessage, setResetPasswordMessage] = useState();
+    const [code, setCode] = useState();
+    const [mess, setMess] = useState();
 
     const buttonState = (changedValues, allValues) => {
       if ( allValues.next !== undefined &&  allValues.next !== '' && allValues.next2 !== undefined &&  allValues.next2 !== ''  ) {
@@ -94,6 +96,10 @@ function ForgetPassword(){
     function getConfirmPassword(val){
       setConfirmPassword(val.target.value)
     };
+
+    function getCode(val){
+      setCode(val.target.value)
+    };
     
     var body={
       username:userName,
@@ -104,7 +110,8 @@ function ForgetPassword(){
       password:password,
       confirmPassword:confirmPassword
     }
-
+    sessionStorage.setItem('password',password);
+    sessionStorage.setItem('confirmPassword',confirmPassword);
     function searchButtonAction(){
       const promise =  BE.forgetPassword(body);
       promise.then((message)=> {
@@ -112,6 +119,21 @@ function ForgetPassword(){
         if(message===''){onSubModal();}
      })
     }
+
+    var verifyBody={
+      verificationCode:code,
+      
+    }
+    function verifyButtonAction(){
+      const promise=BE.verifyEmailForgetPassword(verifyBody);
+      console.log(promise);
+      promise.then((check)=> {
+        setMess(check)
+        if(check===true){onSubModal3();}
+       
+     })
+    }
+   
 
     function resetPasswordButtonAction(){
       const promise =  BE.resetPassword(resetPasswordBody);
@@ -121,6 +143,8 @@ function ForgetPassword(){
      })
     }
 
+
+
     return(
 
 
@@ -129,9 +153,9 @@ function ForgetPassword(){
           title={<TwitterOutlined style={{ fontSize: '200%',marginTop:'1px',color:'Dodgerblue'}} />}
           style={{textAlign:"center"}}
           okText='Search'
-          okButtonProps={{shape:'round' , disabled:btnDisabled,size:'large', style:{width: 450,fontWeight:'bold',alignItems:'center',justifyContent:'center',
+          okButtonProps={{id:'passSearchButton',shape:'round' , disabled:btnDisabled,size:'large', style:{width: 450,fontWeight:'bold',alignItems:'center',justifyContent:'center',
           display:'flex',color:"white",backgroundColor:"black"}}}
-          cancelButtonProps={{ style: { display: "none" } }}
+          cancelButtonProps={{ id:'cancelbutton1',style: { display: "none" } }}
           visible={modelVisible}
           bodyStyle={{height: 390 ,font:'Helvetica',textAlign:'left'}}
           width={500}
@@ -160,9 +184,9 @@ function ForgetPassword(){
           style={{textAlign:"center"}}
           okText='Cancel'
           cancelText='Next'
-          okButtonProps={{shape:'round' , size:'large', style:{border:'none',width: 450,fontWeight:'bold',alignItems:'center',justifyContent:'center',
+          okButtonProps={{id:'backbutton',shape:'round' , size:'large', style:{border:'none',width: 450,fontWeight:'bold',alignItems:'center',justifyContent:'center',
           display:'flex',color:"black",backgroundColor:"white",marginLeft:2}}}
-          cancelButtonProps={{shape:'round' , size:'large', style:{width: 450,fontWeight:'bold',alignItems:'center',justifyContent:'center',
+          cancelButtonProps={{id:'nextbutton5',shape:'round' , size:'large', style:{width: 450,fontWeight:'bold',alignItems:'center',justifyContent:'center',
           display:'flex',color:"white",backgroundColor:"black"}}}
           visible={isModal2Visible}
           bodyStyle={{height: 390 ,font:'Helvetica',textAlign:'left'}}
@@ -177,29 +201,31 @@ function ForgetPassword(){
           <div >
             <span>We found the following information associated with your account.</span>
             <br></br>
-            <span>Email a confirmation link to {email} </span>   
+            <span>Email a confirmation code to {email} </span>   
           </div>
         </Modal>
         <Modal
           title={<TwitterOutlined style={{ fontSize: '200%',marginTop:'1px',color:'Dodgerblue'}} />}
           style={{textAlign:"center"}}
           okText='Next'
-          okButtonProps={{shape:'round' , size:'large', style:{border:'none',marginTop:30,textDecoration:'underline',width: 450,fontWeight:'bold',alignItems:'center',justifyContent:'center',
+          okButtonProps={{id:'VerifycodeButton',shape:'round' , size:'large', style:{border:'none',marginTop:30,textDecoration:'underline',width: 450,fontWeight:'bold',alignItems:'center',justifyContent:'center',
           display:'flex',color:"black",backgroundColor:"white"}}}
-          cancelButtonProps={{ style: { display: "none" } }}
+          cancelButtonProps={{id:'cancelbutton2', style: { display: "none" } }}
           visible={isModal3Visible}
           bodyStyle={{height: 400 ,font:'Helvetica',textAlign:'left'}}
           width={500}
           centered={true}
           onCancel={() => history("/")}
-          onOk={() =>onSubModal3()}
+          onOk={() =>verifyButtonAction()}
           maskClosable={false}
         >
           <span class='text3'>Check your email</span>
     
           <div >
-            <span>You'll receive a link to verify here so you can reset your account password.</span>
+            <span>You'll receive a code to verify here so you can reset your account password.</span>
             <br></br>
+            <Input style={{ height:40,marginTop:10}} onChange={getCode} id="code" placeholder="Code" />
+            {mess}
           </div>
         </Modal>
         <Modal
@@ -207,9 +233,9 @@ function ForgetPassword(){
           title={<TwitterOutlined style={{ fontSize: '200%',marginTop:'1px',color:'Dodgerblue'}} />}
           style={{textAlign:"center"}}
           okText='Reset password'
-          okButtonProps={{shape:'round' , size:'large',disabled:btn2Disabled, style:{border:'none',marginTop:30,width: 450,fontWeight:'bold',alignItems:'center',justifyContent:'center',
+          okButtonProps={{id:'ResetPassButton',shape:'round' , size:'large',disabled:btn2Disabled, style:{border:'none',marginTop:30,width: 450,fontWeight:'bold',alignItems:'center',justifyContent:'center',
           display:'flex',color:"white",backgroundColor:"black"}}}
-          cancelButtonProps={{ style: { display: "none" } }}
+          cancelButtonProps={{ id:'cancelButton3',style: { display: "none" } }}
           visible={isModal4Visible}
           bodyStyle={{height: 400 ,font:'Helvetica',textAlign:'left'}}
           width={500}

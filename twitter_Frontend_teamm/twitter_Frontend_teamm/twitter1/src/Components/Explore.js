@@ -1,5 +1,5 @@
-import React, {useState} from "react";
-
+import React, {useState, useEffect} from "react";
+import {RecoilRoot} from "recoil";
 import './Home.css';
 // import Sidebar from "./Sidebar/Sidebar";
 // import { FaSistrix } from "react-icons/fa";
@@ -13,14 +13,31 @@ import {Form,Input} from "antd";
 import  * as mockAPI   from './mockSearch'; 
 import SettingsBox from "./SettingsBox/SettingsBox";
 import "./Notifications.css";
+import  * as BE  from './backEndSearch';
+import Post from "./homepage/Post";
+import * as mocked from "./homepage/feedmock";
 function Explore() {
   // const [isDrawerBar, setIsDrawerBar] = React.useState(false);
   const [loading, setLoading] = React.useState(true);
+  const [tweets, showTweet] = useState([]);
+  const [twetted, postedtweet] = useState([]);
+  function addTweet(newTweet) {
+    showTweet((prevTweet) => {
+      return [newTweet, ...prevTweet];
+    });
+  }
+  useEffect(() => {
+    (async () => {
+      const resp = await mocked.GetPostTweet();
+      postedtweet(resp);
+    })();
+  }, []);
   setTimeout(() => {
     setLoading(false);
     }, 2000);
     // const [filteredResults, setFilteredResults] = useState([]);
     const [section, setSection] = useState(1);
+    const [item,setItem] = useState();
     const [data, setData] = useState(null);
     const [btndisabled, setbtndisabled] = useState(true);
     const buttonState = (changedValues, allValues) => {
@@ -50,16 +67,30 @@ function Explore() {
   function getData(val){
    setData(val.target.value)
    };
+  
+  // var d = data.toString();
+  // if(typeof data === 'string')
+  // {
+  //   console.log(data[0]);
+  // }else{
+  //   console.log('str is not a string');
+  // }
 
+  localStorage.setItem("searchData",data);
+  
    var body={
     data:data
     
   }
-  console.log(data)
+  //console.log(d);
+  //console.log(data)
 
   function nextButtonAction(){
 
-    mockAPI.searchh(body);
+    //mockAPI.searchh(body);
+    const promise=BE.backEndTop(body);
+    promise.then((text)=>{setItem(text)})
+    console.log(promise);
     // history('/home');
   }
   // function ch(){
@@ -80,6 +111,7 @@ function Explore() {
        <FaSistrix className="trend s" />
        <div><button onClick={()=>nextButtonAction()} >Search</button></div> */}
        <article>
+       
        {/* {searchTerm.length > 1  (
                     filteredResults.map((item) => {
                         return (
@@ -149,8 +181,53 @@ function Explore() {
                         <span>Photos</span>
                         </div>
                 </div>
-                 
-                  
+                
+        {/* {tweets.map((tweetItem, index) => {
+          return (
+            <Post
+              displayName="mai"
+              username="@mai gamda"
+              text={tweetItem}
+              id="123"
+              post="false"
+              avatar="https://images.unsplash.com/photo-1516727003284-a96541e51e9c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
+            />
+          ); 
+        })} */}
+                <article>
+          {section===1 ? (
+            <>
+            {item}
+          {/* {twetted.map((userlist, index) => (
+            <Post
+              key={index}
+              displayName={userlist.displayName}
+              username={userlist.username}
+              text={userlist.text}
+              image={userlist.image}
+              avatar={userlist.avatar}
+              date={userlist.date}
+            />
+          ))} */}
+            </>
+          ) : (
+            <>
+            {item}
+          {/* {twetted.map((userlist, index) => (
+            <Post
+              key={index}
+              displayName={userlist.displayName}
+              username={userlist.username}
+              text={userlist.text}
+              image={userlist.image}
+              avatar={userlist.avatar}
+              date={userlist.date}
+            />
+          ))} */}
+            </>
+          )}
+        </article>
+              
                      
                  </div> 
                       
@@ -162,5 +239,4 @@ function Explore() {
   );
 }
 export default Explore;
-
 

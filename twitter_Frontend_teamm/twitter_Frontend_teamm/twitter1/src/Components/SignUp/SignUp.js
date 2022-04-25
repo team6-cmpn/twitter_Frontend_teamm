@@ -152,7 +152,7 @@ function SignUp() {
     console.log(promise);
     promise.then((message)=> {
       setMess(message)
-      if(message===''){navigate("/home");}
+      if(message===''){navigate("/login");}
      
    })
   //   promise.then((result)=> {
@@ -340,7 +340,7 @@ function SignUp() {
           <Input style={{ height:40,marginTop:10}} onChange={getCode} id="code" placeholder="Code" />
           <span>{mess}</span>
           <br></br>
-          <span><button onClick={()=>BE.resendEmail()}>Didn't recieve email?</button></span>
+          <span><button id='resendEmail' className='resendButton' onClick={()=>BE.resendEmail()}>Didn't recieve email?</button></span>
         </Modal>
 
       </div>

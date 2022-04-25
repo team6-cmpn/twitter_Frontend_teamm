@@ -19,8 +19,11 @@ const columns = [
       />
     ),
   },
-  { field: "firstName", headerName: "First name", width: 130 },
-  { field: "lastName", headerName: "Last name", width: 130 },
+  { field: "name", headerName: "Name", width: 130 },
+  { field: "username", headerName: "UserName", width: 130 },
+  { field: "followers", headerName: "Followers", width: 130 },
+  { field: "dateOfBirth", headerName: "Date Of Birth", width: 130 },
+
   {
     field: "fullName",
     headerName: "Full name",
@@ -46,11 +49,12 @@ const columns = [
 
 export default function AdminUsers() {
   const userlist=GetUserList()
+  console.log(userlist._id)
   return (
     <div className="Users">
       <span className="Userstitle">Users List</span>
       <div style={{ height: 600, width: "100%"}}>
-        <DataGrid rows={userlist} columns={columns} />
+        <DataGrid getRowId={userlist => userlist._id} rows={userlist} columns={columns} />
       </div>
     </div>
   );

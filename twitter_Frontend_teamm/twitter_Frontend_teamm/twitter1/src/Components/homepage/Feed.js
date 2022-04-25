@@ -15,6 +15,7 @@ import {getTweet} from "./backendFeed";
  */
 
 function Feed(subreddit) {
+  const [username, setusername] = useState([]);
   const [tweets, showTweet] = useState([]);
   const [mention, setmention] = useState();
   const [date, setdate] = useState();
@@ -36,11 +37,13 @@ function Feed(subreddit) {
       getcontent(resp);
     })();
   }, []);
+
   console.log(twetted.text);
   const tweeted_user = backend.getTweet();
   tweeted_user.then((text) => {
     setItem(text.text);
     setmention(text.mention);
+    //setusername(text.username);
     console.log(mention);
     //console.log(tweet.id);
   });
@@ -54,7 +57,7 @@ function Feed(subreddit) {
       <RecoilRoot>
         <Post
           //displayName={item.displayName}
-          //username={item.username}
+          //username={username}
           //avatar={userlist.}
           mention={mention}
           text={text_tweet}

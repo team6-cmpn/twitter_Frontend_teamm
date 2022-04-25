@@ -1,7 +1,7 @@
 import axios from "axios";
 import Configure from "../../Configure";
 
-export async function tweetmock() {
+export async function Post_Tweet() {
   var messgae;
   const body = {
     text: localStorage.getItem("input_set"),
@@ -34,6 +34,55 @@ export async function getTweet() {
   var id = sessionStorage.getItem("ID_tweet");
   await axios
     .get(`${Configure.backURL}tweets/show/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        "x-access-token": `${localStorage.getItem("token")}`,
+      },
+    })
+    .then((response) => {
+      console.log(response);
+      if (response.status === 200) {
+        messgae = response.data;
+        console.log(response.data);
+      }
+    })
+    .catch((error) => {
+      messgae = error.response.data.message;
+    });
+
+  return messgae;
+}
+export async function likePost() {
+  var messgae;
+
+  var id = sessionStorage.getItem("ID_tweet");
+  await axios
+    .post(`${Configure.backURL}tweets/favorites/create/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        "x-access-token": `${localStorage.getItem("token")}`,
+      },
+    })
+    .then((response) => {
+      console.log(response);
+      if (response.status === 200) {
+        messgae = response.data;
+        console.log(response.data);
+      }
+    })
+    .catch((error) => {
+      messgae = error.response.data.message;
+    });
+
+  return messgae;
+}
+
+export async function dislikePost() {
+  var messgae;
+
+  var id = sessionStorage.getItem("ID_tweet");
+  await axios
+    .post(`${Configure.backURL}tweets/favorites/destroy/${id}`, {
       headers: {
         "Content-Type": "application/json",
         "x-access-token": `${localStorage.getItem("token")}`,

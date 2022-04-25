@@ -48,14 +48,8 @@ function Tweetbox(props) {
   function submitTweet(event) {
     setinput("");
     setmentions("");
-    const tweet = backend.tweetmock(body);
-
-    //mocked.tweetmock(body);
-    //props.onAdd(input + "  " + mentions);
-    // console.log(tweet);
-    //props.onmention(mentions);
+    const tweet = backend.Post_Tweet(body);
     event.preventDefault();
-    //console.log(input + "," + mentions);
   }
   localStorage.setItem("input_set", input);
   localStorage.setItem("mention_set", mentions);

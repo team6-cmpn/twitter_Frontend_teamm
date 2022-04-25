@@ -48,11 +48,9 @@ const Post = ({
     if (liked === false) {
       //post is liked
       setLiked(true);
-      //mocked.PostLikes(likes.length + 1);
     } else if (liked === true) {
       //post disliked
       setLiked(false);
-      // mocked.PostLikes(likes.length - 1);
     }
   };
   var body = {
@@ -97,9 +95,7 @@ const Post = ({
             <img className="post__body__img" src={image} alt="" />
             <div className="post__footer">
               <div className="blocked likeall">
-                {likes.length > 0 && (
-                  <span className="count">{likes.length + count}</span>
-                )}
+                {count > 0 && <span className="count">{count}</span>}
                 <button
                   id="like and dislike button"
                   className="likeall"

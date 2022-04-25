@@ -5,6 +5,10 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  --twitter-background: white;
+  --twitter-border:#e6ecf0;
+  --twitter-blue:#1d9cf0;
+  --icon: rgb(106, 107, 121);
 }
 
 code {

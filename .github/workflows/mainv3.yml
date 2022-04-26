@@ -9,7 +9,7 @@ env:
     REPO_NAME: code
 jobs:
 #First we will see the application build or not , then we will deploy in EC2
-  build:
+  # build:
     
     # runs-on: ubuntu-latest  # runner name : (ubuntu latest version) 
     # steps:
@@ -27,7 +27,7 @@ jobs:
     #   run: docker push pierrebassily/code:latest
 
   Deploy:
-    needs: testing
+ 
     runs-on: ubuntu-latest
     
     steps:

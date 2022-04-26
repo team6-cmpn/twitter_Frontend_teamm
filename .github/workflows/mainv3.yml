@@ -11,23 +11,23 @@ jobs:
 #First we will see the application build or not , then we will deploy in EC2
   # build:
     
-    # runs-on: ubuntu-latest  # runner name : (ubuntu latest version) 
-    # steps:
+  #   runs-on: ubuntu-latest  # runner name : (ubuntu latest version) 
+  #   steps:
      
-    # - uses: actions/checkout@v2 # first action : checkout source code
-    # - name: docker login
-    #   run: | # log into docker hub account
-    #     docker login -u $DOCKER_USER -p $DOCKER_PASSWORD  
-    # - name: Get current date # get the date of the build
-    #   id: date
-    #   run: echo "::set-output name=date::$(date +'%Y-%m-%d--%M-%S')"
-    # - name: Build the Docker image # push The image to the docker hub
-    #   run: docker build . --file Dockerfile --tag pierrebassily/code:latest
-    # - name: Docker Pushsed
-    #   run: docker push pierrebassily/code:latest
+  #   - uses: actions/checkout@v2 # first action : checkout source code
+  #   - name: docker login
+  #     run: | # log into docker hub account
+  #       docker login -u $DOCKER_USER -p $DOCKER_PASSWORD  
+  #   - name: Get current date # get the date of the build
+  #     id: date
+  #     run: echo "::set-output name=date::$(date +'%Y-%m-%d--%M-%S')"
+  #   - name: Build the Docker image # push The image to the docker hub
+  #     run: docker build . --file Dockerfile --tag pierrebassily/code:latest
+  #   - name: Docker Pushsed
+  #     run: docker push pierrebassily/code:latest
 
   Deploy:
- 
+    # needs: build
     runs-on: ubuntu-latest
     
     steps:
@@ -61,3 +61,6 @@ jobs:
         run: cat ~/Fetch.sh | ssh staging
 
  
+# sudo docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+#               sudo docker pull $DOCKER_USER/$REPO_NAME:${{ steps.date.outputs.date }}
+#               sudo docker run -p 8080:80 -t $DOCKER_USER/$REPO_NAME:${{ steps.date.outputs.date }}

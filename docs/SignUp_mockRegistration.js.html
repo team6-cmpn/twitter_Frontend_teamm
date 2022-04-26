@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: SignUp/mockRegistration.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: SignUp/mockRegistration.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import axios from 'axios';
+import Configure from '../../Configure'
+
+/**
+ * Mock Registration forms
+ * 
+ * connects to a mock service, json-server,to post registration forms into a mock database
+ * @returns mock api integration
+ */
+const mock={
+  
+  post : async (payload) => {
+    let go = false;
+    await axios
+      .post(`${Configure.mockURL}signUpUsers/`, {
+        data: payload,
+      })
+      .then((response) => {
+        console.log(response);
+        if (response.status === 201) {
+          go = true;
+        }
+       
+      });
+
+    return go;
+  },
+
+  
+
+   backEndPost:async( payload)=>{
+  backEndPost:async( payload)=>{
+
+    let go = false;
+    const {
+      name, username, email, dateOfBirth, password,
+    } = payload;
+    await axios
+      .post(`${Configure.backURL}auth/signup/`, {
+
+        headers: {
+          'content-type': 'application/json',
+          
+        },
+
+        name,
+        username,
+        email,
+        dateOfBirth,
+        password,
+      })
+      .then((response) => {
+        console.log(response);
+        if (response.status === 201) {
+          go = true;
+        }
+      }).catch(error => {
+        console.log(error.response.data.message)
+        });
+    return go;
+},
+/**
+ * logInpost
+ * adds Login Form inputs 
+ * @param payload 
+ * @returns login form completion
+ */
+
+ logInGet : async (payload) => {
+
+  let go = false;
+  await axios
+    .get(`${Configure.mockURL}signUpUsers/`, {
+      data: payload,
+    })
+    .then((response) => {
+      console.log(response);
+      if (response.status === 201) {
+        go = true;
+      }
+    });
+
+  return go;
+},
+   logInPost : async (payload) => {
+
+    let go = false;
+    await axios
+      .post(`${Configure.mockURL}logInUsers/`, {
+        data: payload,
+      })
+      .then((response) => {
+        console.log(response);
+        if (response.status === 201) {
+          go = true;
+        }
+      });
+
+    return go;
+  },
+
+  backEndLogIn:async( payload)=>{
+
+    let go = false;
+    const {
+      data, password,
+    } = payload;
+    await axios
+      .post(`${Configure.backURL}auth/signin/`, {
+
+        headers: {
+          'content-type': 'application/json',
+        },
+
+        data,
+        password,
+      })
+      .then((response) => {
+        // console.log(response.data.message);
+        if (response.status === 200) {
+          
+          // go = true;
+          // localStorage.setItem('access token', response.data.accessToken);
+          console.log(response.data)
+        } else if (response.status === 401 ) {
+
+          go = false;
+          console.log(response.status);
+        }
+      }).catch(error => {
+          console.log(error.response.data.message)
+          });
+    return go;
+},
+
+/**
+ * googlepost
+ * adds GoogleSignUp Modal inputs 
+ * @param  payload 
+ * @returns google sign up completion
+ */
+        }
+      }).catch(error => {
+        console.log(error.response.data.message)
+        });
+    return go;
+},
+
+ 
+  logInPost : async (payload) => {
+
+    let go = false;
+    await axios
+      .post(`${Configure.mockURL}logInUsers/`, {
+        data: payload,
+      })
+      .then((response) => {
+        console.log(response);
+        if (response.status === 201) {
+          go = true;
+        }
+      });
+
+    return go;
+  },
+
+  
+   googlePost : async (payload) => {
+
+    let go = false;
+    await axios
+      .post(`${Configure.mockURL}googleUsers/`, {
+        data: payload,
+      })
+      .then((response) => {
+        console.log(response);
+        if (response.status === 201) {
+          go = true;
+        }
+      });
+
+    return go;},
+
+// export const backEndGooglePost=async payload=>{
+
+//   let go = false;
+//     const {
+//       googleId, username, email, dateOfBirth, password,
+//     } = payload;
+//     await axios
+//       .post(`${Configure.backURL}OAuth/google/signup/`, {
+
+//         headers: {
+//           'content-type': 'application/json',
+//         },
+
+//         name,
+//         username,
+//         email,
+//         dateOfBirth,
+//         password,
+//       })
+//       .then((response) => {
+//         console.log(response);
+//         if (response.status === 201) {
+//           go = true;
+//         } else if (response.status === 400) {
+//           go = false;
+//         }
+//       });
+//     return go;
+// };
+/**
+ * googleProfilePost
+ * adds to list of google accounts' profiles 
+ * @param payload 
+ * @returns sign up completion
+ */
+
+
+   googleProfilePost : async (payload) => {
+
+    let go = false;
+    await axios
+      .post(`${Configure.mockURL}googleProfiles/`, {
+        data: payload,
+      })
+      .then((response) => {
+        console.log(response);
+        if (response.status === 201) {
+          go = true;
+        }
+      });
+
+    return go;
+},
+};
+export default mock;</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#ForgetPassword">ForgetPassword</a></li><li><a href="global.html#GoogleSignUp">GoogleSignUp</a></li><li><a href="global.html#LogIn">LogIn</a></li><li><a href="global.html#mock">mock</a></li><li><a href="global.html#Notifications">Notifications</a></li><li><a href="global.html#Post">Post</a></li><li><a href="global.html#Profile">Profile</a></li><li><a href="global.html#SignUp">SignUp</a></li><li><a href="global.html#StartPage">StartPage</a></li><li><a href="global.html#validateEmail">validateEmail</a></li><li><a href="global.html#validatePassword">validatePassword</a></li><li><a href="global.html#validateUserName">validateUserName</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#backEndGoogleLogIn">backEndGoogleLogIn</a></li><li><a href="global.html#backEndGooglePost">backEndGooglePost</a></li><li><a href="global.html#backEndLogIn">backEndLogIn</a></li><li><a href="global.html#backEndPost">backEndPost</a></li><li><a href="global.html#ForgetPassword">ForgetPassword</a></li><li><a href="global.html#forgetPassword">forgetPassword</a></li><li><a href="global.html#GoogleSignUp">GoogleSignUp</a></li><li><a href="global.html#LogIn">LogIn</a></li><li><a href="global.html#mock">mock</a></li><li><a href="global.html#resendEmail">resendEmail</a></li><li><a href="global.html#resetPassword">resetPassword</a></li><li><a href="global.html#SignUp">SignUp</a></li><li><a href="global.html#StartPage">StartPage</a></li><li><a href="global.html#validateEmail">validateEmail</a></li><li><a href="global.html#validatePassword">validatePassword</a></li><li><a href="global.html#validateUserName">validateUserName</a></li><li><a href="global.html#verifyEmail">verifyEmail</a></li><li><a href="global.html#verifyEmailForgetPassword">verifyEmailForgetPassword</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Sat Apr 23 2022 17:57:13 GMT+0200 (Eastern European Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Sat Apr 23 2022 08:47:36 GMT+0200 (Eastern European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

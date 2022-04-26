@@ -1,0 +1,95 @@
+.friendSuggestionsItem {
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+ 
+}
+.n{
+  white-space: nowrap;
+  flex-direction: column;
+  line-height: 19px;
+}
+.user_name {
+  margin-top: 30px;
+  margin-left: 0px;
+  position: fixed;
+
+  flex-direction: column;
+  line-height: 19px;
+  text-align: left;
+  color: silver;
+  font-size: 14px;
+  font-weight: 300;
+  margin: 2px 40px ;
+  padding-top: 15px;
+  
+}
+.butto{
+  background-color: #000;
+  border: #000;
+}
+.img{
+  padding-bottom: 20px;
+}
+.friendFollowButton {
+  background: #000;
+  color: #fff;
+  position: fixed;
+  display: flex;
+  align-self: right;
+  border-radius: 9999px;
+  font-size: 15px;
+  font-weight: 700;
+  margin-left: 220px;
+  
+  padding: 5px 16px;
+}
+
+
+.verify {
+  margin-left: 3px;
+  color: #1da1f2;
+}
+
+
+.keywor {
+  
+  position: fixed;
+  bottom: -40px;
+  right: 0;
+  width: 30%;
+  padding: 20px 20px;
+  margin-top: 20px;
+} 
+
+.key {
+  background: #d6d9db79;   
+  padding: 15px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+}
+.keyword__heading {
+  font-size: 20px;
+  text-align: left;
+  border-bottom: 1px solid #e6ecf0;
+  padding-bottom: 8px;
+}
+.side {
+  width: 50%;
+  right: 0;
+  height: 100%;
+  color: aqua; 
+}
+.side ul {
+  list-style-type: none;
+}
+.side ul li a {
+  
+  text-decoration: none;
+  color: #000;
+  font-weight: 700;
+  font-size: 18px;
+ 
+}

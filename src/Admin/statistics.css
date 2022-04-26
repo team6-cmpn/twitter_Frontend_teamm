@@ -1,0 +1,14 @@
+.admincontainer{
+    display: flex;
+    margin-top: 10px;
+}
+
+.satisticshome{
+    flex: 4;
+}
+
+.statwidgets{
+    width:40%;
+    display: flex;
+    margin: 20px;
+}

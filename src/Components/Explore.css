@@ -1,0 +1,88 @@
+.Expmenu {
+    flex: 0.6;
+    border-right: 1px solid #e6ecf0;
+    min-height: 100vh;
+    height: max-content;
+    background-color: #ffffff;
+    width: 580px;
+    margin-left: 320px;
+    margin-top: 10px;
+  }
+  
+  
+  .notificationsTitle {
+    background-color:#ffffff;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+  }
+  .notificationsTitle > span {
+    color: black;
+    display: inline;
+    font-size: 19px;
+    font-weight: 800;
+  }
+  .SettingsIcon {
+    margin-left: auto;
+    color: black;
+    font-size: 15px;
+    padding: 5px;
+    font-weight: 700;
+    display: flex;
+    border-radius: 99px;
+  }
+  .SettingsIcon:hover {
+    background-color:darkgrey;
+  }
+  .exploreCategory {
+    display: flex;
+    flex: 1;
+    border-bottom: 1px solid #e6ecf0;
+
+  }
+  .exploreCategory > div {
+    flex: 0.5;
+    text-align: center;
+    color: #5D6D79;
+    display: inline;
+    font-size: 15px;
+    font-weight: 700;
+    padding: 15px;
+    
+  }
+  .exploreActive {
+    border-bottom: 2px  solid #1DA1F2;
+  }
+  .exploreActive > span {
+    color:#5D6D79;
+  }
+  .exploreCategory > div:hover {
+    background-color: #EFF3F4;
+    
+  }
+   
+  .notificationsTitle .MuiAvatar-root {
+    display: none;
+  }
+  @media (min-width: 0) and (max-width: 450px) {
+    .notificationsTitle .MuiAvatar-root {
+      display: block;
+      margin-right: 20px;
+      height: 32px;
+      width: 32px;
+    }
+    article {
+      min-height: 100vh;
+    }
+  }
+  .trend {
+    position: absolute;
+    top: 18px;
+    left: 340px;
+  }
+  .s {
+    font-size: 20px;
+    color: silver;
+  }

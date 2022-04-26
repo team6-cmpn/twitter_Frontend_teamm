@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: SignIn/LogIn.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: SignIn/LogIn.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import {useNavigate,Link} from "react-router-dom";
+import googleIcon from "../images/googleIcon.png"
+import React, {useState} from "react";
+import './LogIn.css';
+import "antd/dist/antd.css";
+import GoogleLogin from 'react-google-login';
+import { Modal,Form,Input} from "antd";
+import {TwitterOutlined,EyeInvisibleOutlined,EyeTwoTone} from '@ant-design/icons';
+import  mock  from '../SignUp/mockRegistration';
+import  * as BE  from '../SignUp/backEndRegistration';
+
+/**
+ *Log in
+ *allows a registered user to enter his/her username or email &amp; password
+ * @returns Login form
+ */
+function LogIn() {
+
+    const navigate = useNavigate();
+    const [isModalVisible, setModalVisible] = useState(false);
+    const [isModal2Visible, setModal2Visible] = useState(false);
+    const [btnDisabled, setBtnDisabled] = useState(true);
+    const [data, setData] = useState(null);
+    const [password, setPassword] = useState(null);
+    const [apiResponseMessage, setApiResponseMessage] = useState();
+    const [googleApiResponseMessage, setGoogleApiResponseMessage] = useState();
+
+   
+
+    function getData(val){
+      setData(val.target.value)
+    };
+
+    function getPassword(val){
+      setPassword(val.target.value)
+    };
+  
+
+    const onSubModel = (e, stateSub = true, stateMain = false) => {
+      setModalVisible(stateMain);
+      setModal2Visible(stateSub);
+    };
+
+    const returnSubModal = (e, stateSub = true, stateMain = false) => {
+      setModalVisible(stateSub);
+      setModal2Visible(stateMain);
+    };
+  
+    const responseGoogle = (response) => {
+      console.log(response);
+      // history ("/home");
+    }
+    function logInFailure (response) {
+      console.log(response);
+    }
+  
+    function logInSuccess (response) {
+      console.log('Login Success: currentUser:', response.profileObj);
+      var googlebody={
+      googleId:response.profileObj.googleId,
+      
+    }
+      const promise=BE.backEndGoogleLogIn(googlebody)
+      promise.then((message)=> {
+        // setGoogleApiResponseMessage(message)
+        if(message===''){navigate('/home');}
+        else {alert(message);}
+        
+     })
+      
+    }
+
+    const buttonState = (changedValues, allValues) => {
+      if ( allValues.next !== undefined &amp;&amp;  allValues.next !== ''  ) {
+        setBtnDisabled(false);
+      } 
+      else{
+        setBtnDisabled(true);
+      }
+    };
+
+    
+
+    var body={
+      data:data,
+      password:password
+    }
+    
+   
+    function nextButtonAction(){
+      const GotoHome = mock.logInPost(body);
+      const promise =  BE.backEndLogIn(body);
+      promise.then((message)=> {
+        setApiResponseMessage(message+'. You can re-enter your info by pressing on close (x) sign')
+        if(message===''){navigate('/home');}
+     })
+
+      // console.log(home);
+      // if (home==='false') {console.log('fe 2arf')}
+      // if (GotoHome || home) { navigate('/home'); }
+
+     
+    }
+  
+   
+    return(
+      &lt;div>
+        &lt;Modal
+          title={&lt;TwitterOutlined style={{ fontSize: '200%',marginTop:'1px',color:'Dodgerblue'}} />}
+          style={{textAlign:"center"}}
+          okText='Next'
+          okButtonProps={{id:'nextbutton1',shape:'round' , size:'large', style:{width: 450,fontWeight:'bold',alignItems:'center',justifyContent:'center',
+          display:'flex'}}}
+          cancelButtonProps={{ style: { display: "none" } }}
+          visible={setModalVisible}
+          bodyStyle={{height: 490 ,font:'Helvetica',textAlign:'left'}}
+          width={500}
+          centered={true}
+          onCancel={() => navigate("/")}
+          footer={null}
+          maskClosable={false}  
+        >
+          &lt;span className="text4">Sign in to Twitter&lt;/span>
+          &lt;div>
+            &lt;GoogleLogin
+              clientId="335712697506-qcljv0u785qm93fk3ej1hg3ch3u5l9kj.apps.googleusercontent.com"
+              render={renderProps =>(&lt;button id='googleButton' onClick={renderProps.onClick} disabled={renderProps.disabled} class="googleButton">
+              &lt;img className="imggoogle" alt='' src={googleIcon} >&lt;/img>
+              &lt;span >Sign in with Google&lt;/span>
+              &lt;/button>) }
+              buttonText="Login"
+              onSuccess={logInSuccess}
+              onFailure={logInFailure}
+              cookiePolicy={'single_host_origin'}
+            />
+            &lt;div>
+              &lt;div className="flex-parent2">
+                &lt;div className="flex-child-edge2">&lt;/div>
+                &lt;div className="flex-child-text2 tt2 ">or&lt;/div>
+                &lt;div className="flex-child-edge2">&lt;/div>
+              &lt;/div>
+            &lt;/div>
+
+            &lt;div>
+              &lt;Form onValuesChange={buttonState}>
+                &lt;Form.Item name='next'>
+                  &lt;Input id='emailOrUserName 'style={{width:300,marginLeft:70,marginTop:1,height:50}} onChange={getData} placeholder="email or username">&lt;/Input>
+                &lt;/Form.Item>
+              &lt;/Form>
+
+              &lt;button className="googleButton button-color" disabled={btnDisabled} onClick={()=>onSubModel()}>Next&lt;/button>
+              &lt;Link id='forgetPass' to='/forgetpassword'> &lt;button className="googleButton button2-color">Forget Password?&lt;/button>&lt;/Link>
+            &lt;/div>
+          
+            &lt;br/>
+            &lt;div>&lt;span className='txt3'>Dont have an account? &lt;/span>&lt;Link id='signUpRedirect' to="/signup">Sign up&lt;/Link>&lt;/div>
+          
+          
+          &lt;/div>
+        &lt;/Modal>
+
+        &lt;Modal
+          title={&lt;TwitterOutlined style={{ fontSize: '200%',marginTop:'1px',color:'Dodgerblue'}} />}
+          style={{textAlign:"center"}}
+          okText='Next'
+          okButtonProps={{id:'nextbutton2',shape:'round' , size:'large', style:{width: 450,fontWeight:'bold',alignItems:'center',justifyContent:'center',
+          display:'flex'}}}
+          cancelButtonProps={{ style: { display: "none" } }}
+          visible={isModal2Visible}
+          bodyStyle={{height: 490 ,font:'Helvetica',textAlign:'left'}}
+          width={500}
+          centered={true}
+          onCancel={() => returnSubModal()}
+          footer={null}
+          maskClosable={false}
+        >
+          &lt;span className="text3">Enter your password&lt;/span>
+          &lt;Form onValuesChange={buttonState}>
+            &lt;Form.Item name='password'>
+              &lt;Input.Password id='password' style={{width:450,height:50}} placeholder="Password" onChange={getPassword} iconRender={visible => (visible ? &lt;EyeTwoTone /> : &lt;EyeInvisibleOutlined />)}>&lt;/Input.Password>
+            &lt;/Form.Item>
+          &lt;/Form>
+          &lt;Link id='forgetPassRedirect' to='/forgetpassword'>Forget password?&lt;/Link>&lt;br>&lt;/br>
+          &lt;span style={{color: 'red',fontSize:'100',fontWeight:'bold'}}> {apiResponseMessage}&lt;/span> 
+          &lt;div>&lt;button id='nextButton' className="googleButton button3-color" onClick={()=>nextButtonAction()} >Log in&lt;/button>&lt;/div>
+          &lt;div>&lt;span className="txt3">Dont have an account? &lt;/span>&lt;Link id='signUpLink'  to="/signup">Sign up&lt;/Link>&lt;/div>
+        
+
+
+        &lt;/Modal>
+      &lt;/div>
+
+    );
+    
+}
+  
+  
+  
+export default LogIn;</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#ForgetPassword">ForgetPassword</a></li><li><a href="global.html#GoogleSignUp">GoogleSignUp</a></li><li><a href="global.html#LogIn">LogIn</a></li><li><a href="global.html#mock">mock</a></li><li><a href="global.html#Notifications">Notifications</a></li><li><a href="global.html#Post">Post</a></li><li><a href="global.html#Profile">Profile</a></li><li><a href="global.html#SignUp">SignUp</a></li><li><a href="global.html#StartPage">StartPage</a></li><li><a href="global.html#validateEmail">validateEmail</a></li><li><a href="global.html#validatePassword">validatePassword</a></li><li><a href="global.html#validateUserName">validateUserName</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Sat Apr 23 2022 17:57:13 GMT+0200 (Eastern European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

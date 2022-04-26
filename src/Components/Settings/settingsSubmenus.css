@@ -1,0 +1,152 @@
+.settingsSubMenu {
+    min-height: 100vh;
+    height: max-content;
+    width:950px !important;
+    background-color:white;
+    border-right: 1px solid #e6ecf0;
+    
+
+}
+
+.SubMenuTitle {
+    background-color:white;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+}
+
+.SubMenuTitle > span{
+    color: black;
+    display: inline;
+    font-size: 19px;
+    font-weight: 800;
+
+}
+
+.submenu_discription >h3{
+    font-size: 12px;
+    text-align: left;
+    color:#536471;
+    padding: 15px;
+
+
+}
+
+.SubsettingsContent:hover {
+    
+    transition: color 100ms ease-out;
+    background-color:#F7F9F9;
+}
+.SubsettingsContent{
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    width: 559px;
+    margin-top: 5px;
+    height: 50px;
+    background-color:white;
+    
+
+}  
+
+.SubsettingsIcons{
+
+
+    color: black;
+    align-items: center;  
+    margin-top: 5px;
+    margin-left: 25px;
+
+
+    
+
+
+}
+
+.Accountinfo_discrip{
+
+    height: 50px;
+    width: max-content;
+    text-align: left;
+    margin-left: 25px;
+    margin-top: 5px;
+    
+}
+.Accountinfo_discrip>h5{
+    margin-bottom: 10%;
+    font-weight: normal;
+    font-size: 15px;
+
+}
+.Accountinfo_discrip>h6{
+    margin-top: -15%;
+    width:max-content;
+    color:#536471;
+    font-weight: normal;
+    font-size: 12px;
+}
+
+.text_discrip{
+    height: 50px;
+    width: max-content;
+    text-align: left;
+    margin-left: 25px;
+    margin-top: 16px;
+    
+}
+.text_discrip>h5{
+    margin-bottom: 20px;
+    font-weight: normal;
+    font-size: 15px;
+}
+.text_discrip>h6{
+
+    margin-top: -27px;
+    width:max-content;
+    color:#536471;
+    font-weight: normal;
+    font-size: 12px;
+
+}
+
+.leftArrowIcons{
+
+    margin-left: 40px;
+    margin-top: -1px;
+    
+
+
+
+}
+
+.SettingsContentInMenus{
+    display: flex;
+    cursor: pointer;
+    margin-top: -15px;
+    height: 50px;
+    background-color:white;
+    justify-content: space-between;
+    align-items: left;
+    margin-bottom: 20px;
+
+}
+.SettingsContentInMenus >span{
+
+    margin-top: 15px;
+    font-weight: normal;
+    font-size: 14px;
+    margin-left: 15px;
+}
+.leftArrowIcons2{
+
+    margin-top: 12px;
+}
+
+.SettingsContentInMenus:hover {
+    
+    transition: color 100ms ease-out;
+    background-color:#F7F9F9;
+}
+

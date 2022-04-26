@@ -1,0 +1,30 @@
+.text {
+  text-align: center;
+  /* margin-left: 120px; */
+  font-size: 25px;
+  font-weight: bold;
+  font-family: "Georgia Pro Black";
+}
+.text8 {
+  
+  /* margin-left: 120px; */
+  font-size: 15px;
+  font-family: "Arial";
+  margin-top:30px;
+  margin-bottom:30px;
+}
+
+.resendButton {
+  
+  /* margin-left: 120px; */
+  
+  background: white;
+  color: dodgerblue;
+  border-radius: 30px;
+  margin-top: 10px;
+  font-size: 15px;
+  font-weight: bold;
+  line-height: 30px;
+  border:none;
+  text-decoration: underline;
+}

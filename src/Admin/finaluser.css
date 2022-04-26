@@ -1,0 +1,30 @@
+.admincontainer {
+  display: flex;
+  margin-top: 10px;
+}
+
+.UsersHome {
+  flex: 4;
+}
+.UserWidget {
+  display: flex;
+  flex-direction: space-around;
+}
+.UserChart {
+  width: 50%;
+  height: 50%;
+  display: flex;
+  margin-top: 100px;
+}
+
+.Charts {
+  flex-direction: column;
+}
+.UserPlotting {
+  flex-direction: row;
+}
+.agecharttitle {
+  font-size: 25px;
+  font-weight: 600;
+  color: red;
+}

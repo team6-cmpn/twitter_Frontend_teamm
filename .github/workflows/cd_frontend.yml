@@ -29,7 +29,7 @@ jobs:
 
 
   Deploy:
-    needs: testing
+    needs: build
     runs-on: ubuntu-latest
     
     steps:

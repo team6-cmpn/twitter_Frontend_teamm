@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const searchh = async payload => {
-  const URL = `http://localhost:8000/search`;
+  const URL = `http://www.twi-jay.xyz:8000/search`;
   try {
     const response = await axios(URL, {
       method: 'post',

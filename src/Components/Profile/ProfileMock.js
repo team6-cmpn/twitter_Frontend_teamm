@@ -3,7 +3,7 @@ import axios from 'axios';
 // import Configure from '../../Configure'
 export const Profile = async payload => {
     try {
-      const response = await axios(`http://localhost:8000/Users`, {
+      const response = await axios(`http://www.twi-jay.xyz:8000/Users`, {
         method: 'post',
         data: payload,
       });
@@ -15,7 +15,7 @@ export const Profile = async payload => {
   export default async function getUsernames() {
     let response = '';
     try {
-      response = await axios.get('http://localhost:8000/Usernames').then((res) => res.data);
+      response = await axios.get('http://www.twi-jay.xyz:8000/Usernames').then((res) => res.data);
       return (response);
     } catch (error) {
       if (error.response) {
@@ -32,7 +32,7 @@ export const Profile = async payload => {
   //   const [Username, setUsername] = useState([]);
   
   //   useEffect(() => {
-  //     fetch("http://localhost:8000/Usernames")
+  //     fetch("http://www.twi-jay.xyz:8000/Usernames")
   //       .then((res) => res.json())
   //       .then((result) => {
   //         setUsername(result);

@@ -6,7 +6,7 @@ import GetNumUsers from "./MockRegistrationAdmin";
 
 // var datanum=GetReques()
 // var num = GetRequest();
-// fetch('http://localhost:8000/numberofusers')
+// fetch('http://www.twi-jay.xyz:8000/numberofusers')
 //   .then((res) => res.json())
 //   .then((result) => {
 //     // we received our list of posts

@@ -6,7 +6,7 @@ import axios from 'axios';
 export default async function getFollowingUsers() {
     let response = '';
     try {
-      response = await axios.get('http://localhost:8000/followingUser').then((res) => res.data);
+      response = await axios.get('http://www.twi-jay.xyz:8000/followingUser').then((res) => res.data);
       return (response);
     } catch (error) {
       if (error.response) {
@@ -24,7 +24,7 @@ export default async function getFollowingUsers() {
  export  async function getLikedUsers() {
     let response = '';
     try {
-      response = await axios.get('http://localhost:8000/LikePost').then((res) => res.data);
+      response = await axios.get('http://www.twi-jay.xyz:8000/LikePost').then((res) => res.data);
       return (response);
     } catch (error) {
       if (error.response) {

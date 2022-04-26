@@ -6,7 +6,7 @@ function GetNumUsers() {
   const [statistcs, setstatistics] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:8000/StatisticsBlock")
+    fetch("http://www.twi-jay.xyz:8000/StatisticsBlock")
       .then((res) => res.json())
       .then((result) => {
         setstatistics(result[0]);
@@ -19,7 +19,7 @@ export async function getTopUsers() {
   let response = "";
   try {
     response = await axios
-      .get("http://localhost:8000/TopUsers")
+      .get("http://www.twi-jay.xyz:8000/TopUsers")
       .then((res) => res.data);
     console.log(response);
     return response;
@@ -39,7 +39,7 @@ export function GetTweetsPerMonth() {
   const [tweetspermonth, setTweetsPerMonth] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:8000/TweetsPerMonth")
+    fetch("http://www.twi-jay.xyz:8000/TweetsPerMonth")
       .then((res) => res.json())
       .then((result) => {
         setTweetsPerMonth(result);
@@ -52,7 +52,7 @@ export function GetAgesRanges() {
   const [agesrange, setAgesRange] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:8000/AgesData")
+    fetch("http://www.twi-jay.xyz:8000/AgesData")
       .then((res) => res.json())
       .then((result) => {
         setAgesRange(result);
@@ -64,7 +64,7 @@ export function GetNumberOfUsersOfMonth() {
   const [userpermonth, setUserPerMonth] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:8000/UsersPerMonth")
+    fetch("http://www.twi-jay.xyz:8000/UsersPerMonth")
       .then((res) => res.json())
       .then((result) => {
         setUserPerMonth(result);
@@ -77,7 +77,7 @@ export function GetSignedUpMethod() {
   const [signedupmethodnumber, setSignedUpMethod] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:8000/SignedUpMethod")
+    fetch("http://www.twi-jay.xyz:8000/SignedUpMethod")
       .then((res) => res.json())
       .then((result) => {
         setSignedUpMethod(result);

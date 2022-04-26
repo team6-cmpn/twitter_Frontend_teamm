@@ -29,7 +29,7 @@ export async function GetPostTweet() {
   let response = "";
   try {
     response = await axios
-      .get("http://localhost:8000/posttweet")
+      .get("http://www.twi-jay.xyz:8000/posttweet")
       .then((res) => res.data);
     console.log(response);
     return response;

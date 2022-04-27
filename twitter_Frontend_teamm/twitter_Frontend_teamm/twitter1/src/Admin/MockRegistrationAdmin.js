@@ -1,19 +1,7 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Configure from "../Configure";
-
-function GetNumUsers() {
-  const [statistcs, setstatistics] = useState([]);
-
-  useEffect(() => {
-    fetch("http://localhost:8000/StatisticsBlock")
-      .then((res) => res.json())
-      .then((result) => {
-        setstatistics(result[0]);
-      });
-  }, []);
-  return [statistcs];
-}
+import React from "react";
 
 export async function getTopUsers() {
   let response = "";
@@ -36,7 +24,7 @@ export async function getTopUsers() {
 }
 
 export function GetTweetsPerMonth() {
-  const [tweetspermonth, setTweetsPerMonth] = useState([]);
+  const [tweetspermonth, setTweetsPerMonth] = React.useState([]);
 
   useEffect(() => {
     fetch("http://localhost:8000/TweetsPerMonth")
@@ -48,20 +36,100 @@ export function GetTweetsPerMonth() {
   return tweetspermonth;
 }
 
-export function GetAgesRanges() {
-  const [agesrange, setAgesRange] = useState([]);
+export function GetDashBoard() {
+  const [dashBoard, setDashBoard] = React.useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:8000/AgesData")
-      .then((res) => res.json())
-      .then((result) => {
-        setAgesRange(result);
+    const fetchProduct=async ()=>{
+      const dashBoard= await axios.get(`${Configure.backURL}admin/dashBoard`, {
+        headers: {
+          "Content-Type": "application/json; charset=utf-8",
+          "x-access-token": `${localStorage.getItem("token")}`,
+        },
       });
+      setDashBoard(dashBoard.data)
+      };
+      fetchProduct();
   }, []);
-  return agesrange;
+  if (!dashBoard) return null;
+  return dashBoard;
 }
+// function Trial() {
+//   const [product, setProduct] = React.useState(null);
+
+//   useEffect(() => {
+//     const fetchProduct = async () => {
+//       const product = await axios.get(`/api/products`);
+//       setProduct(product.data);
+//     };
+
+//     fetchProduct();
+//   }, []);
+
+//   // render nothing during the time product is loading
+//   if (!product) return null;
+
+//   return <>render product</>;
+// }
+export function GetDashBoardTry() {
+  const [dashBoard, setDashBoard] = React.useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await fetch(`${Configure.backURL}admin/dashBoard`, {
+        headers: {
+          "Content-Type": "application/json; charset=utf-8",
+          "x-access-token": `${localStorage.getItem("token")}`,
+        },
+      });
+      const dashBoard = await data.json();
+      setDashBoard(dashBoard);
+    };
+
+    fetchData();
+
+    return dashBoard;
+  });
+}
+
+// export function GetDashBoard() {
+//   const [dashBoard, setDashBoard] = React.useState([]);
+
+//   useEffect(() => {
+//     const fetchData = async () => {
+//     const data = await fetch(`${Configure.backURL}admin/dashBoard`, {
+//       headers: {
+//         "Content-Type": "application/json; charset=utf-8",
+//         "x-access-token": `${localStorage.getItem("token")}`,
+//       }
+
+// const dashBoard = await data.json();
+// setDashBoard(dashBoard);
+//     return dashBoard;
+//       });
+// }
+// })
+// }
+
+// export function GetDashBoard() {
+//   const [dashBoard, setDashBoard] = React.useState([]);
+
+//   useEffect(() => {
+//     const fetchData = async () => {
+//     const data = await fetch(`${Configure.backURL}admin/dashBoard`, {
+//       headers: {
+//         "Content-Type": "application/json; charset=utf-8",
+//         "x-access-token": `${localStorage.getItem("token")}`,
+//       },
+//     });
+// const dashBoard = await data.json();
+// setDashBoard(dashBoard);
+//     return dashBoard;
+// }
+// })
+// }
 export function GetNumberOfUsersOfMonth() {
-  const [userpermonth, setUserPerMonth] = useState([]);
+  const [userpermonth, setUserPerMonth] = React.useState([]);
 
   useEffect(() => {
     fetch("http://localhost:8000/UsersPerMonth")
@@ -74,7 +142,7 @@ export function GetNumberOfUsersOfMonth() {
 }
 
 export function GetSignedUpMethod() {
-  const [signedupmethodnumber, setSignedUpMethod] = useState([]);
+  const [signedupmethodnumber, setSignedUpMethod] = React.useState([]);
 
   useEffect(() => {
     fetch("http://localhost:8000/SignedUpMethod")
@@ -87,22 +155,21 @@ export function GetSignedUpMethod() {
 }
 
 export function GetUserList() {
-  const [userlist, setUserList] = useState([]);
+  const [userlist, setUserList] = React.useState([]);
 
   useEffect(() => {
-    fetch(`${Configure.backURL}admin/dashBoard`, {
-          headers: {
-            "Content-Type": "application/json; charset=utf-8",
-            "x-access-token": `${localStorage.getItem("token")}`,
-          },
-        })
+    fetch(`${Configure.backURL}admin/showUsers`, {
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+        "x-access-token": `${localStorage.getItem("token")}`,
+      },
+    })
       .then((res) => res.json())
       .then((result) => {
         setUserList(result);
       });
   }, []);
 
-  console.log("users",userlist)
+  console.log("users", userlist);
   return userlist;
 }
-export default GetNumUsers;

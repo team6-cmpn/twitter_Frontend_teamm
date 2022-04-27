@@ -1,4 +1,4 @@
-import React, { PureComponent } from "react";
+import React from "react";
 import "./usernumchart.css";
 import {
   BarChart,
@@ -11,15 +11,30 @@ import {
   Legend,
   ResponsiveContainer,
   LineChart,
-  Line
+  Line,
 } from "recharts";
-import {GetNumberOfUsersOfMonth, GetSignedUpMethod} from "../../MockRegistrationAdmin";
+import {
+  GetNumberOfUsersOfMonth,
+  GetSignedUpMethod,
+  GetDashBoard,
+} from "../../MockRegistrationAdmin";
+import {Chart as ChartJs,BarElement} from 'chart.js'
 
-
+ChartJs.register(
+  BarElement
+)
 
 export default function UserNumChart() {
-  const usernumpermonth= GetNumberOfUsersOfMonth();
-  const signedupmethodnum=GetSignedUpMethod()
+   const usernumpermonth = GetNumberOfUsersOfMonth();
+   console.log(usernumpermonth)
+  const signedupmethodnum = GetSignedUpMethod();
+  var UserNumberMonthBack = GetDashBoard();
+  var chartdata1=UserNumberMonthBack[3]?.users_Per_Month[0]?._id
+  // console.log("total",total)
+  // console.log("stat", UserNumberMonthBack);
+  console.log("datacahrt",UserNumberMonthBack);
+  // console.log("nameaxis",namexaxis?.total)
+
   return (
     <div className="charts">
       <div className="chart">
@@ -28,7 +43,7 @@ export default function UserNumChart() {
           <BarChart
             width={300}
             height={300}
-            data={usernumpermonth}
+            data={chartdata1}
             margin={{
               top: 5,
               right: 30,
@@ -37,11 +52,11 @@ export default function UserNumChart() {
             }}
           >
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
-            <YAxis />
+            <XAxis dataKey={chartdata1?.month}/>
+            <YAxis  />
             <Tooltip />
             <Legend />
-            <Bar dataKey="UserNum" fill="#82ca9d" />
+            <Bar dataKey={chartdata1?.year} fill="#82ca9d" />
           </BarChart>
         </ResponsiveContainer>
       </div>

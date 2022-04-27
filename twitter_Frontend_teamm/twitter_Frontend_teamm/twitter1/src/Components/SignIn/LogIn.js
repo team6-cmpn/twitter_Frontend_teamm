@@ -148,7 +148,7 @@ function LogIn() {
                 </Form.Item>
               </Form>
 
-              <button className="googleButton button-color" disabled={btnDisabled} onClick={()=>onSubModel()}>Next</button>
+              <button id='nexttButton' className="googleButton button-color" disabled={btnDisabled} onClick={()=>onSubModel()}>Next</button>
               <Link id='forgetPass' to='/forgetpassword'> <button className="googleButton button2-color">Forget Password?</button></Link>
             </div>
           

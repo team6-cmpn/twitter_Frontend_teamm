@@ -50,7 +50,11 @@ function Tweetbox(props) {
     setmentions("");
     const tweet = backend.Post_Tweet(body);
     event.preventDefault();
+    if (showEmoji) {
+      setShowEmoji(!showEmoji);
+    }
   }
+
   localStorage.setItem("input_set", input);
   localStorage.setItem("mention_set", mentions);
   var body = {

@@ -32,36 +32,35 @@ const Post = ({
   tweeted_id,
 }) => {
   const [liked, setLiked] = useState(false);
-  const [likes, setLikes] = useState([]);
-
-  useEffect(() => {
-    (async () => {
-      const resp = await mocked.GetPostLikes();
-      setLikes(resp);
-    })();
-  }, []);
+  const [like_no, setcount] = useState([]);
+  //const [likes, setLikes] = useState([]);
+  //const [dislikes, setdisLikes] = useState([]);
 
   /**
    * function like post toggle like button
    */
+
   const likePost = async () => {
     if (liked === false) {
       //post is liked
+      const like_post = backend.likePost();
+      like_post.then((text) => {
+        setcount(text.favorite_count);
+      });
       setLiked(true);
     } else if (liked === true) {
       //post disliked
+      const dislike_post = backend.dislikePost();
+      dislike_post.then((text) => {
+        setcount(text.favorite_count);
+      });
       setLiked(false);
     }
   };
-  var body = {
-    likes: 5,
-    id: 15,
-  };
 
   const [isOpen, setIsOpen] = useRecoilState(modalState);
-  const [count, setCount] = useState(0);
+
   const user_tweet = backend.getTweet();
-  var tweeted_id = user_tweet.id;
 
   return (
     <div className="border">
@@ -89,13 +88,18 @@ const Post = ({
             <div className="post__tweet">
               <span class="input" role="textbox" contenteditable>
                 {text}
+                {"  "}
                 {mention}
               </span>
             </div>
-            <img className="post__body__img" src={image} alt="" />
+            <img
+              className="post__body__img rounded-2xl max-h-[700px] object-cover mr-2"
+              src={image}
+              alt=""
+            />
             <div className="post__footer">
               <div className="blocked likeall">
-                {count > 0 && <span className="count">{count}</span>}
+                {like_no > 0 && <span className="count">{like_no}</span>}
                 <button
                   id="like and dislike button"
                   className="likeall"
@@ -106,12 +110,9 @@ const Post = ({
                 >
                   <div className="  icon ">
                     {liked ? (
-                      <HeartIconFilled
-                        onClick={() => setCount(count - 1)}
-                        className="liked"
-                      />
+                      <HeartIconFilled className="liked" />
                     ) : (
-                      <HeartIcon onClick={() => setCount(count + 1)} />
+                      <HeartIcon />
                     )}
                   </div>
                 </button>

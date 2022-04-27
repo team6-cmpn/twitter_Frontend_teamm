@@ -44,6 +44,7 @@ export async function getTweet() {
       if (response.status === 200) {
         messgae = response.data;
         console.log(response.data);
+        localStorage.setItem("ID", response.data._id);
       }
     })
     .catch((error) => {
@@ -54,10 +55,10 @@ export async function getTweet() {
 }
 export async function likePost() {
   var messgae;
-
-  var id = sessionStorage.getItem("ID_tweet");
+  var id = localStorage.getItem("ID");
+  const body = {};
   await axios
-    .post(`${Configure.backURL}tweets/favorites/create/${id}`, {
+    .post(`${Configure.backURL}tweets/favorites/create/${id}`, body, {
       headers: {
         "Content-Type": "application/json",
         "x-access-token": `${localStorage.getItem("token")}`,
@@ -79,10 +80,10 @@ export async function likePost() {
 
 export async function dislikePost() {
   var messgae;
-
-  var id = sessionStorage.getItem("ID_tweet");
+  var id = localStorage.getItem("ID");
+  const body = {};
   await axios
-    .post(`${Configure.backURL}tweets/favorites/destroy/${id}`, {
+    .post(`${Configure.backURL}tweets/favorites/destroy/${id}`, body, {
       headers: {
         "Content-Type": "application/json",
         "x-access-token": `${localStorage.getItem("token")}`,

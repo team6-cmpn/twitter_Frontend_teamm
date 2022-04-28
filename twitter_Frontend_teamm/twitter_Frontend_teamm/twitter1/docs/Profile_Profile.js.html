@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Profile/Profile.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Profile/Profile.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import './Profile.css'
+import '../Notifications.css'
+import React from 'react';
+import  { useState} from 'react';
+import placeholder from 'react-image-placeholder';
+import { Modal } from 'antd';
+import "antd/dist/antd.css";
+import { Link } from 'react-router-dom';
+import { DatePicker } from 'antd';
+import   * as mockAPI   from './ProfileMock';
+import  getUsernames    from './ProfileMock';
+import Trends from "../Widgets/Trends";
+import Sidebar from "../Sidebar/Sidebar";
+import {GrLocation} from "react-icons/gr"
+import {BiLink, BiArrowBack} from "react-icons/bi"
+import {getUserInfo} from './backEndProfile'
+
+/**Profile
+ * Shows User profile layout and enables user to edit profile info
+ *  
+ * @returns (Layout of profile and edit profile modal)
+ */
+function Profile(){
+    const [date, setDate] = useState(null);
+    const [isMainModalVisible, setMainModalVisible] = useState(false);
+    const [isTab, setIsTab] = useState(1);
+    
+    const [{alt, src}, setImg] = useState({
+        src: placeholder,
+    });
+
+    const handleImg = (e) => {
+        if(e.target.files[0]) {
+            setImg({
+                src: URL.createObjectURL(e.target.files[0]),
+                alt: e.target.files[0].name
+            });    
+        }   
+    }
+    const [Username, setUsernames] = React.useState([]);
+    React.useEffect(() => {
+    (async () => {
+        const resp = await getUsernames();
+        setUsernames(resp);
+      })();
+    }, []);
+    const [name, setName] = useState('');
+    const [bio, setBio] = useState(null)
+    const [location, setLocation] = useState(null)
+    const [website, setWebsite] = useState(null)
+    const [editname, setEditName] = useState('');
+    const [editbio, setEditBio] = useState(null)
+    const [editlocation, setEditLocation] = useState(null)
+    const [editwebsite, setEditWebsite] = useState(null)
+    const [Item, setItem] = useState();
+
+    function SaveButtonActions(){
+    mockAPI.Profile(body);
+    setMainModalVisible(false);
+    setName(editname);
+    setBio(editbio);
+    setLocation(editlocation);
+    setWebsite(editwebsite);
+    }
+    var body={
+        name: editname,
+        bio: editbio,
+        location: editlocation,
+        website: editwebsite,
+        date:date,
+        img: {alt,src},
+    }
+    const user=getUserInfo();
+    user.then(data=>{setItem(data)});
+    console.log(Item);
+
+    return(
+        &lt;div>
+            &lt;Sidebar />
+            &lt;div className='Expmenu'>
+                &lt;div> 
+                    &lt;div className="notificationsTitle" id="ProfileTitle">
+                        &lt;BiArrowBack >&lt;/BiArrowBack>
+                        &lt;span>Profile&lt;/span>
+                    &lt;/div> 
+                    &lt;div>
+                        &lt;div>
+                            &lt;img id="img" src={src} alt={alt} className="form-img__img-preview"/>
+                        &lt;/div>
+                        &lt;div id="bioName" className='name'> {name}&lt;/div>
+                        &lt;br>&lt;/br>
+                       &lt;div className='Username'> 
+                           {Object.keys(Username).map((user, index) => {
+                            return (
+                                &lt;div>
+                                    {Username[user].User} ;
+                                
+                                &lt;/div> )
+                            })}
+                        &lt;/div> 
+                        &lt;div className='Username'>{Item}&lt;/div>
+                        &lt;br>&lt;/br>
+                        &lt;div id="bioBio" className='Bio'>{bio}&lt;/div>
+                        &lt;br>&lt;/br>
+                        &lt;GrLocation className='Bio'>&lt;/GrLocation>
+                        &lt;div id="bioLocation" className='Bio'>{location}&lt;/div>
+                        
+                        &lt;br>&lt;/br>
+                        &lt;BiLink className='Bio'>&lt;/BiLink>
+                        &lt;div id="bioWebsite" className='Bio'>{website}&lt;/div>
+
+                        &lt;br>&lt;/br>
+                        &lt;div>
+                        &lt;button id="editButton" class="ButtonEditProfile" onClick={()=>setMainModalVisible(true)}>&lt;span>Edit Profile&lt;/span>&lt;/button>
+                        &lt;/div>
+                        &lt;br>&lt;/br>
+                        &lt;div id="followers"className="FollowLink">
+                            &lt;Link to ="/Followers">Followers &lt;/Link>
+                        &lt;/div>
+                        
+                        &lt;div id="following" className='FollowLink'>
+                            &lt;Link to ="/Following">  Following  &lt;/Link>
+                        &lt;/div>
+                        &lt;br>&lt;/br>
+                        &lt;br>&lt;/br>
+                        &lt;div className="notificationsCategory">
+                            &lt;div id="tweets"
+                            className={isTab === 1 &amp;&amp; "notificationActive"}
+                            onClick={() => setIsTab(1) }
+                            >
+                            &lt;span>Tweets&lt;/span>
+                            &lt;/div>
+                            &lt;div id="tweets&amp;replies"
+                            className={isTab === 2 &amp;&amp; "notificationActive"}
+                            onClick={() => setIsTab(2)}
+                            >
+                            &lt;span>Tweets &amp; Replies&lt;/span>
+                            &lt;/div>
+                            &lt;div id="Media"
+                            className={isTab === 3 &amp;&amp; "notificationActive"}
+                            onClick={() => setIsTab(3)}
+                            >
+                            &lt;span>Media&lt;/span>
+                            &lt;/div>
+                            &lt;div id="likes"
+                            className={isTab === 4 &amp;&amp; "notificationActive" }
+                            onClick={() => setIsTab(4) }
+                            >
+                            &lt;span>Likes&lt;/span>
+                            &lt;/div>
+                    &lt;/div>
+                        &lt;div>
+                            &lt;Modal className="ant-modal-content"  title={&lt;div>&lt;h3>Edit profile&lt;/h3>&lt;button onClick={()=> SaveButtonActions()} class="ButtonSave">Save&lt;/button>&lt;/div>} bodyStyle={{overflowY:'scroll'}} visible={isMainModalVisible} onCancel={()=>setMainModalVisible(false)}  footer={null}> 
+
+                            &lt;div className="form__img-input-container">
+                                &lt;input 
+                                    type="file" 
+                                    accept=".png, .jpg, .jpeg" 
+                                    id="photo" 
+                                    className="visually-hidden"
+                                    onChange={handleImg}
+                                />
+                                &lt;label htmlFor="photo" className="form-img__file-label">
+                                    &lt;svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="#56ceef" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
+                                        &lt;path d="M5.52 19c.64-2.2 1.84-3 3.22-3h6.52c1.38 0 2.58.8 3.22 3" />
+                                        &lt;circle cx="12" cy="10" r="3" />
+                                        &lt;circle cx="12" cy="12" r="10" />
+                                    &lt;/svg>
+                                &lt;/label>
+                                &lt;img src={src} alt={alt} className="form-img__img-preview"/>
+                            &lt;/div> 
+                            &lt;label for="name">
+                                
+                                    &lt;div>
+                                        &lt;input value={editname} className="TextBox" type="text" id="name" name="name"  onChange={e => setEditName(e.target.value)} required minlength="0" showCount maxlength="50" size="50" placeholder="Name">&lt;/input>
+                                        
+                                    &lt;/div>
+                                
+                            &lt;/label>
+                            &lt;br>&lt;/br>
+                            &lt;label for="Bio">
+                                
+                                    &lt;div>
+                                        &lt;input value={editbio} className="BioTextBox" type="text" id="Bio" name="Bio" onChange={e => setEditBio(e.target.value)} required minlength="0" showCount maxcount="160" size="160" placeholder="Bio">&lt;/input>
+                                    &lt;/div>
+                                
+                            &lt;/label>
+                            &lt;br>&lt;/br>
+                            &lt;label for="Location">
+                                
+                                    &lt;div>
+                                        &lt;input value={editlocation} className="TextBox" type="text" id="Location" name="Location" onChange={e => setEditLocation(e.target.value)} required minlength="0" maxlength="30" size="30" placeholder="Location">&lt;/input>
+                                    &lt;/div>
+                            
+                            &lt;/label>
+                            &lt;br>&lt;/br>
+                            &lt;label for="Website">
+                            
+                                    &lt;div>
+                                        &lt;input value={editwebsite} className="TextBox" type="text" id="Website" name="Website" onChange={e => setEditWebsite(e.target.value)} required minlength="0" maxlength="100" size="100" placeholder="Website">&lt;/input>
+                                    &lt;/div>
+                                
+                            &lt;/label>
+                            &lt;br>&lt;/br>
+                            &lt;label for="Birthdate">
+                            
+                                    &lt;div>
+                                        &lt;h4> Birthdate &lt;/h4>
+                                        &lt;DatePicker id= "date" style={{ width:450, borderRadius: 5, height:50, borderStyle: 'solid'}} onChange={setDate} />
+                                        {/* &lt;input class="Month" type="text" id="month" name="month" size="50" placeholder="Month">&lt;/input>
+                                        &lt;input class="Day" type="text" id="day" name="day" size="50" placeholder="Day">&lt;/input>
+                                        &lt;input class="Day" type="text" id="year" name="year" size="50" placeholder="year">&lt;/input> */}
+                                    
+                                    &lt;/div>
+                                
+                            &lt;/label>
+                        
+                        
+                        &lt;/Modal>
+                &lt;/div>
+        
+        
+            &lt;/div>
+            &lt;/div>
+            &lt;div > 
+        
+            
+            &lt;Trends />  
+            &lt;/div>
+            &lt;/div>
+        &lt;/div>
+    )
+}
+ 
+
+
+export default Profile;</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#backEndGoogleLogIn">backEndGoogleLogIn</a></li><li><a href="global.html#backEndGooglePost">backEndGooglePost</a></li><li><a href="global.html#backEndLatest">backEndLatest</a></li><li><a href="global.html#backEndLogIn">backEndLogIn</a></li><li><a href="global.html#backEndPeople">backEndPeople</a></li><li><a href="global.html#backEndPost">backEndPost</a></li><li><a href="global.html#backEndTop">backEndTop</a></li><li><a href="global.html#Explore">Explore</a></li><li><a href="global.html#Feed">Feed</a></li><li><a href="global.html#ForgetPassword">ForgetPassword</a></li><li><a href="global.html#forgetPassword">forgetPassword</a></li><li><a href="global.html#FriendSuggestions">FriendSuggestions</a></li><li><a href="global.html#GoogleSignUp">GoogleSignUp</a></li><li><a href="global.html#LogIn">LogIn</a></li><li><a href="global.html#mock">mock</a></li><li><a href="global.html#Notifications">Notifications</a></li><li><a href="global.html#Post">Post</a></li><li><a href="global.html#Profile">Profile</a></li><li><a href="global.html#resendEmail">resendEmail</a></li><li><a href="global.html#resetPassword">resetPassword</a></li><li><a href="global.html#Sidebar">Sidebar</a></li><li><a href="global.html#SignUp">SignUp</a></li><li><a href="global.html#StartPage">StartPage</a></li><li><a href="global.html#Topics">Topics</a></li><li><a href="global.html#Trends">Trends</a></li><li><a href="global.html#Tweetbox">Tweetbox</a></li><li><a href="global.html#validateEmail">validateEmail</a></li><li><a href="global.html#validatePassword">validatePassword</a></li><li><a href="global.html#validateUserName">validateUserName</a></li><li><a href="global.html#verifyEmail">verifyEmail</a></li><li><a href="global.html#verifyEmailForgetPassword">verifyEmailForgetPassword</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Fri Apr 29 2022 00:59:38 GMT+0200 (Eastern European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

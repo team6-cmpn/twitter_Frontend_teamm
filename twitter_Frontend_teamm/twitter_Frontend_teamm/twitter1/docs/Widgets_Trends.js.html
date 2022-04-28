@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: SignUp/Validate.js</title>
+    <title>JSDoc: Source: Widgets/Trends.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: SignUp/Validate.js</h1>
+    <h1 class="page-title">Source: Widgets/Trends.js</h1>
 
     
 
@@ -26,66 +26,70 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import validator from 'validator'
+            <pre class="prettyprint source linenums"><code>import React, {useState}  from "react";
+//import "../Widgets.css";
+import "antd/dist/antd.css";
+// import { FaSistrix } from "react-icons/fa";
+import FriendSuggestions from "./FriendSuggestions/FriendSuggestions";
+import TopicItem from "./Topics/Topics";
+import {Form,Input} from "antd";
+//import "./FriendSuggestions/FriendSuggestionItem/FriendSuggestionItem.css";
+/**Trends
+ * Shows search bar &amp; topics &amp; friendsuggetion
+ *  
+ * @returns (Layout of search &amp; topics &amp; friendsuggetion compnents)
+*/
+function Trends (){
 
-/**
- *validatePassword
- *checks that the user's input is a strong password with a minimum length of 8 characters and at least one symbol and one number 
- * @param {string} value -password input from user
- * @returns {string} -password error validating message
- */
-var validatePassword=(value)=> {
-  var error='';
-  if (validator.isStrongPassword(value, {
-    minLength: 8, minLowercase: 1,
-    minNumbers: 1,minUppercase: 1, minSymbols: 1
-  })) {
-    error='';
-  } 
-  else {
-    error='Your password needs to be at least 8 characters with at least 1 symbol &amp; 1 UpperCase.';
+  const [data, setData] = useState(null);
+  const [btndisabled, setbtndisabled] = useState(true);
+  const buttonState = (changedValues, allValues) => {
+    //allValues[1]=&lt;h1>hiiiyasta&lt;/h1>;
+    if ( allValues.ne !== undefined &amp;&amp;  allValues.ne !== ''  ) {
+      
+      setbtndisabled(false);
+     
+      
+    } 
+    else{
+      
+      
+      setbtndisabled(true);
+      
+      console.log(allValues);
+    }
+  };
+  function getData(val){
+   setData(val.target.value)
+   };
+  var body={
+    data:data
+    
   }
-  
-  return (error);
-}
-
-/**
- *validateEmail
- *checks that the user's email input is valid and contains @ symbol 
- * @param {string} value -email input from user
- * @returns {string} -Email error validating message
- */
-var validateEmail=(value)=> {
-  var error='';
-  if (validator.isEmail(value)) {
-    error='';
-  } 
-  else {
-    error='Please enter a valid email';
-  }
-  return (error);
+  return (
+    &lt;div className="hide_tr">
+      &lt;div className="trends__search">
+      &lt;Form  onValuesChange={buttonState}>
+       &lt;Form.Item name="hhh" >
+        &lt;Input
+          onChange={getData}
+          id="searchbar"
+          className="trend__control"
+          placeholder="Search Twitter">
+        &lt;/Input>
+        &lt;/Form.Item>
+        &lt;/Form>
+        {/* &lt;FaSistrix className="trend__icon search" /> */}
+      &lt;/div> 
+      &lt;div>
+      &lt;TopicItem />
+      &lt;FriendSuggestions />
+      &lt;/div>
+    &lt;/div>
+  );
 };
 
-/**
- *validateUserName
- *checks that the user's username input starts with @ symbol
- * @param {string} value -username input from user
- * @returns {string} -Username error validating message
- */
-function validateUserName(value){
-  var error='';
-  if (value[0] == '@') {
-    error='';
-
-  }
-  else {
-    error='Please start your username with @ symbol';
-  }
-  return (error);
-
-};
-
-export {validatePassword,validateEmail,validateUserName};</code></pre>
+export default Trends;</code></pre>
         </article>
     </section>
 

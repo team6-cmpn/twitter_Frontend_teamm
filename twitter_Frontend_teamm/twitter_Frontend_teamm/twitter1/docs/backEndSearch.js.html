@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: SignUp/Validate.js</title>
+    <title>JSDoc: Source: backEndSearch.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: SignUp/Validate.js</h1>
+    <h1 class="page-title">Source: backEndSearch.js</h1>
 
     
 
@@ -26,66 +26,112 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import validator from 'validator'
+            <pre class="prettyprint source linenums"><code>import axios from 'axios';
+import Configure from '../Configure'
 
 /**
- *validatePassword
- *checks that the user's input is a strong password with a minimum length of 8 characters and at least one symbol and one number 
- * @param {string} value -password input from user
- * @returns {string} -password error validating message
+ *Search top BE Integration
+ *
+ *get search top data from BE server
+ * 
+ * @returns {string} -message from BE
  */
-var validatePassword=(value)=> {
-  var error='';
-  if (validator.isStrongPassword(value, {
-    minLength: 8, minLowercase: 1,
-    minNumbers: 1,minUppercase: 1, minSymbols: 1
-  })) {
-    error='';
-  } 
-  else {
-    error='Your password needs to be at least 8 characters with at least 1 symbol &amp; 1 UpperCase.';
-  }
-  
-  return (error);
-}
+export async function backEndTop(){
+    const body = {};
+    var message;
+      console.log(localStorage.getItem("searchData"))
+      await axios
+        .get(`${Configure.backURL}search/top?text=${localStorage.getItem("searchData")}`, body,
+        {
+          // params: {
+            
+          //   'text string': `${localStorage.getItem("searchData")}`,
+          // },
+        })
+        .then((response) => {
+          console.log(response);
+          if (response.status === 200) {
+            message = response.data.tweets[0].text;
+            console.log(message);
+        }
+       
+       console.log(response.data); 
+      }).catch(error => {
+          //console.log(error);
+          message = error.response.data.message;
+          console.log(message);
+          });
+    return message;
+  };
 
 /**
- *validateEmail
- *checks that the user's email input is valid and contains @ symbol 
- * @param {string} value -email input from user
- * @returns {string} -Email error validating message
+ *Search people BE Integration
+ *
+ *get search people data from BE server
+ * 
+ * @returns {string} -message from BE
  */
-var validateEmail=(value)=> {
-  var error='';
-  if (validator.isEmail(value)) {
-    error='';
-  } 
-  else {
-    error='Please enter a valid email';
-  }
-  return (error);
-};
 
-/**
- *validateUserName
- *checks that the user's username input starts with @ symbol
- * @param {string} value -username input from user
- * @returns {string} -Username error validating message
+export async function backEndPeople(){
+  const body = {};
+  var message;
+      await axios
+        .get(`${Configure.backURL}search/people?text=${localStorage.getItem("searchData")}`,body,
+         {
+
+         })
+        
+        .then((response) => {
+          console.log(response);
+          if (response.status === 200) {
+            message = response.data.tweets[0].text;
+            console.log(message);
+        } 
+        else if (response.status=== 404){
+          console.log(message);
+        }
+      }).catch(error => {
+        message = error.response.data.message;
+        console.log(message);
+         
+          });
+    return message;
+    };
+
+  /**
+ *search latest BE Integration
+ *
+ * get search latest data from BE server
+ *
+ * @returns {string} -message from BE
  */
-function validateUserName(value){
-  var error='';
-  if (value[0] == '@') {
-    error='';
 
-  }
-  else {
-    error='Please start your username with @ symbol';
-  }
-  return (error);
+export async function backEndLatest(){
+  const body = {};
+  var message;
+      
+      await axios
+        .get(`${Configure.backURL}search/latest/?text=${localStorage.getItem("searchData")}`,body,
+        {
 
-};
-
-export {validatePassword,validateEmail,validateUserName};</code></pre>
+        })
+       
+       .then((response) => {
+         console.log(response);
+         if (response.status === 200) {
+           message = response.data.tweets[0].text;
+           console.log(message);
+       } 
+       else if (response.status=== 404){
+         console.log(message);
+       }
+     }).catch(error => {
+       message = error.response.data.message;
+       console.log(message);
+        
+         });
+   return message;
+   };</code></pre>
         </article>
     </section>
 

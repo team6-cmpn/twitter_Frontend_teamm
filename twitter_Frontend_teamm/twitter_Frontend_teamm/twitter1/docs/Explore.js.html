@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Explore.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Explore.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, {useState, useEffect} from "react";
+// import {RecoilRoot} from "recoil";
+import './Home.css';
+// import Sidebar from "./Sidebar/Sidebar";
+// import { FaSistrix } from "react-icons/fa";
+import Trends from "./Widgets/Trends";
+// import FriendSuggestions from "./Widgets/FriendSuggestions/FriendSuggestions";
+// import TopicItem from "./Widgets/Topics/Topics";
+import {Form,Input} from "antd";
+// import { Avatar, Button } from "@material-ui/core";
+// import LikedYou from "./LikedYou";
+// import FollowedYou from "./FollowedYou";
+// import  * as mockAPI   from './mockSearch'; 
+import SettingsBox from "./SettingsBox/SettingsBox";
+import "./Notifications.css";
+import  * as BE  from './backEndSearch';
+// import Post from "./homepage/Post";
+import * as mocked from "./homepage/feedmock";
+/**Explore
+ * Shows explore page for the user 
+ *  
+ * @returns (Layout of explore page)
+ */
+ 
+function Explore() {
+  // const [isDrawerBar, setIsDrawerBar] = React.useState(false);
+  const [loading, setLoading] = React.useState(true);
+  const [tweets, showTweet] = useState([]);
+  const [twetted, postedtweet] = useState([]);
+  function addTweet(newTweet) {
+    showTweet((prevTweet) => {
+      return [newTweet, ...prevTweet];
+    });
+  }
+  useEffect(() => {
+    (async () => {
+      const resp = await mocked.GetPostTweet();
+      postedtweet(resp);
+    })();
+  }, []);
+  setTimeout(() => {
+    setLoading(false);
+    }, 2000);
+    // const [filteredResults, setFilteredResults] = useState([]);
+    const [section, setSection] = useState(1);
+    const [item,setItem] = useState();
+    const [data, setData] = useState(null);
+    const [btndisabled, setbtndisabled] = useState(true);
+    const buttonState = (changedValues, allValues) => {
+    if ( allValues.n !== undefined &amp;&amp;  allValues.n !== ''  ) {
+      
+      setbtndisabled(false);
+
+    } 
+    else{
+      
+      setbtndisabled(true);
+    
+    }
+  };
+  // const searchData = (value) => {
+  //   setSearchTerm(value)
+  //   if (searchTerm !== '') {
+  //       const filteredData = APIData.filter((item) => {
+  //           return Object.values(item).join('').toLowerCase().includes(searchTerm.toLowerCase())
+  //       })
+  //       setFilteredResults(filteredData)
+  //   }
+  //   else {
+        
+  //   }
+// }
+  function getData(val){
+   setData(val.target.value)
+   };
+  
+  // var d = data.toString();
+  // if(typeof data === 'string')
+  // {
+  //   console.log(data[0]);
+  // }else{
+  //   console.log('str is not a string');
+  // }
+
+  localStorage.setItem("searchData",data);
+  
+   var body={
+    data:data
+    
+  }
+  //console.log(d);
+  //console.log(data)
+
+  function nextButtonAction(){
+
+    //mockAPI.searchh(body);
+    const promise=BE.backEndTop(body);
+    promise.then((text)=>{setItem(text)})
+    console.log(promise);
+    // history('/home');
+  }
+  // function ch(){
+  //   getData();
+  //   nextButtonAction();
+  // }
+  
+  return (
+    
+    &lt;SettingsBox>
+    
+      
+       {/* &lt;Form onValuesChange={buttonState}>
+       &lt;Form.Item name='n'>
+       &lt;Input  onChange={getData} className="trend__contr " placeholder="Search Twitter">&lt;/Input>
+       &lt;/Form.Item>
+       &lt;/Form>
+       &lt;FaSistrix className="trend s" />
+       &lt;div>&lt;button onClick={()=>nextButtonAction()} >Search&lt;/button>&lt;/div> */}
+       &lt;article>
+       
+       {/* {searchTerm.length > 1  (
+                    filteredResults.map((item) => {
+                        return (
+                            
+                          &lt;div>      
+                            &lt;FollowedYou>{item.displayName}&lt;/FollowedYou>
+                            
+                         &lt;/div>       
+                         
+                        )
+                    })
+       )}  */}
+       &lt;/article>      
+       {/* &lt;div className="feed">
+        
+          &lt;div
+            onClick={() => setIsDrawerBar(false)}
+            className="drawerBarPanel"
+          />
+        
+        &lt;DrawerBar active={isDrawerBar} /> 
+        &lt;div className="explore-header">
+          &lt;div onClick={() => setIsDrawerBar(true)}>
+            &lt;Avatar src="https://avatars.githubusercontent.com/u/38807255?s=460&amp;u=deb087d587be7f6a4000e4e710ec4d1daa6fde84&amp;v=4" />
+          &lt;/div>
+          &lt;SearchInput placeholder="Search Twitter" />
+          &lt;SettingsIcon /> 
+        &lt;/div>
+        &lt;div className="exploreContent">
+          {loading ? &lt;Loading /> : &lt;TopicItem />}
+        &lt;/div>
+        &lt;/div> */}
+       {/* &lt;SearchInput  placeholder="Search Twitter" /> */}
+            &lt;div className="Notimenu">
+           
+        &lt;Form onValuesChange={buttonState}>
+       &lt;Form.Item name='n'>
+       &lt;Input  onChange={getData} id="search" className="trend__contr " placeholder="Search Twitter">&lt;/Input>
+       &lt;/Form.Item>
+       &lt;/Form>
+       {/* &lt;FaSistrix className="trend s" /> */}
+       &lt;div>&lt;button id="searchbutton" onClick={()=>nextButtonAction()} >Search&lt;/button>&lt;/div> 
+                &lt;div className="notificationsCategory">
+                        &lt;div
+                        className={section===1 &amp;&amp; "notificationActive" }
+                        onClick={() => setSection(1)}
+                        >
+                        &lt;span>Top&lt;/span>
+                        &lt;/div>
+                        &lt;div
+                        className={section===2 &amp;&amp; "notificationActive"}
+                        onClick={() => setSection(2)}
+                        >
+                        &lt;span>Latest&lt;/span>
+                        &lt;/div>
+                        &lt;div
+                        className={section === 3 &amp;&amp;  "notificationActive"}
+                        onClick={() => setSection(3) }
+                        
+                        >
+                        &lt;span>People&lt;/span>
+                        &lt;/div>
+                        &lt;div
+                        className={section===4 &amp;&amp; "notificationActive"}
+                        onClick={() => setSection(4)}
+                        >
+                        &lt;span>Photos&lt;/span>
+                        &lt;/div>
+                &lt;/div>
+                
+        {/* {tweets.map((tweetItem, index) => {
+          return (
+            &lt;Post
+              displayName="mai"
+              username="@mai gamda"
+              text={tweetItem}
+              id="123"
+              post="false"
+              avatar="https://images.unsplash.com/photo-1516727003284-a96541e51e9c?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=870&amp;q=80"
+            />
+          ); 
+        })} */}
+                &lt;article>
+          {section===1 ? (
+            &lt;>
+            {item}
+          {/* {twetted.map((userlist, index) => (
+            &lt;Post
+              key={index}
+              displayName={userlist.displayName}
+              username={userlist.username}
+              text={userlist.text}
+              image={userlist.image}
+              avatar={userlist.avatar}
+              date={userlist.date}
+            />
+          ))} */}
+            &lt;/>
+          ) : (
+            &lt;>
+            {item}
+          {/* {twetted.map((userlist, index) => (
+            &lt;Post
+              key={index}
+              displayName={userlist.displayName}
+              username={userlist.username}
+              text={userlist.text}
+              image={userlist.image}
+              avatar={userlist.avatar}
+              date={userlist.date}
+            />
+          ))} */}
+            &lt;/>
+          )}
+        &lt;/article>
+              
+                     
+                 &lt;/div> 
+                      
+       
+        
+    
+    &lt;Trends/>
+    &lt;/SettingsBox>
+  );
+}
+export default Explore;
+
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#backEndGoogleLogIn">backEndGoogleLogIn</a></li><li><a href="global.html#backEndGooglePost">backEndGooglePost</a></li><li><a href="global.html#backEndLatest">backEndLatest</a></li><li><a href="global.html#backEndLogIn">backEndLogIn</a></li><li><a href="global.html#backEndPeople">backEndPeople</a></li><li><a href="global.html#backEndPost">backEndPost</a></li><li><a href="global.html#backEndTop">backEndTop</a></li><li><a href="global.html#Explore">Explore</a></li><li><a href="global.html#Feed">Feed</a></li><li><a href="global.html#ForgetPassword">ForgetPassword</a></li><li><a href="global.html#forgetPassword">forgetPassword</a></li><li><a href="global.html#FriendSuggestions">FriendSuggestions</a></li><li><a href="global.html#GoogleSignUp">GoogleSignUp</a></li><li><a href="global.html#LogIn">LogIn</a></li><li><a href="global.html#mock">mock</a></li><li><a href="global.html#Notifications">Notifications</a></li><li><a href="global.html#Post">Post</a></li><li><a href="global.html#Profile">Profile</a></li><li><a href="global.html#resendEmail">resendEmail</a></li><li><a href="global.html#resetPassword">resetPassword</a></li><li><a href="global.html#Sidebar">Sidebar</a></li><li><a href="global.html#SignUp">SignUp</a></li><li><a href="global.html#StartPage">StartPage</a></li><li><a href="global.html#Topics">Topics</a></li><li><a href="global.html#Trends">Trends</a></li><li><a href="global.html#Tweetbox">Tweetbox</a></li><li><a href="global.html#validateEmail">validateEmail</a></li><li><a href="global.html#validatePassword">validatePassword</a></li><li><a href="global.html#validateUserName">validateUserName</a></li><li><a href="global.html#verifyEmail">verifyEmail</a></li><li><a href="global.html#verifyEmailForgetPassword">verifyEmailForgetPassword</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Fri Apr 29 2022 00:59:38 GMT+0200 (Eastern European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

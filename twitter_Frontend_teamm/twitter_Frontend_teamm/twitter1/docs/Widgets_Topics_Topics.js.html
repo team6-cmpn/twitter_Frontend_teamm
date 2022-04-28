@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: SignUp/Validate.js</title>
+    <title>JSDoc: Source: Widgets/Topics/Topics.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: SignUp/Validate.js</h1>
+    <h1 class="page-title">Source: Widgets/Topics/Topics.js</h1>
 
     
 
@@ -26,66 +26,83 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import validator from 'validator'
-
-/**
- *validatePassword
- *checks that the user's input is a strong password with a minimum length of 8 characters and at least one symbol and one number 
- * @param {string} value -password input from user
- * @returns {string} -password error validating message
+            <pre class="prettyprint source linenums"><code>import React from "react";
+//import "../FriendSuggestions/FriendSuggestionItem/FriendSuggestionItem.css";
+import TopicItem from "./TopicItem/TopicItem";
+import "./TopicItem/TopicItem.css";
+/**Topics
+ * Shows topics for user
+ *  
+ * @returns (Layout of topics)
  */
-var validatePassword=(value)=> {
-  var error='';
-  if (validator.isStrongPassword(value, {
-    minLength: 8, minLowercase: 1,
-    minNumbers: 1,minUppercase: 1, minSymbols: 1
-  })) {
-    error='';
-  } 
-  else {
-    error='Your password needs to be at least 8 characters with at least 1 symbol &amp; 1 UpperCase.';
-  }
-  
-  return (error);
+function Topics() {
+  return (
+    
+    &lt;div className="keywords">
+    &lt;div className="key">
+      &lt;div className="keyword__heading">
+        &lt;h4>Trends for you&lt;/h4>
+      &lt;/div>
+      &lt;TopicItem
+        category="Trending"
+        title="Vodafone"
+        numberoftweet="131K Tweets"
+      />
+      &lt;TopicItem
+        category=""
+        title="FIFA World Cup"
+        numberoftweet="5M Tweets"
+      />
+      &lt;TopicItem
+        category=""
+        title="Egypt"
+        numberoftweet="13M Tweets"
+      />
+      {/* &lt;div className="side"> */}
+      {/* &lt;ul>
+      &lt;li> 
+      &lt;a href=""> 
+      
+       &lt;/a>
+      &lt;/li>
+      &lt;/ul>
+      &lt;ul>
+      &lt;li>
+      &lt;a href="">
+      &lt;TopicItem
+        category=""
+        title="HTML"
+        numberoftweet="13.1K Tweets"
+      />
+      &lt;/a>
+      &lt;/li>
+      &lt;/ul>
+      &lt;ul>
+      &lt;li>
+      &lt;a href="">
+      &lt;TopicItem
+        category=""
+        title="Css"
+        numberoftweet="13.1K Tweets"
+      />
+      &lt;/a>
+      &lt;/li>
+      &lt;/ul>
+
+      &lt;/div> */}
+      {/* &lt;TopicItem
+        category="Programming · Trending"
+        title="HTML"
+        numberoftweet="13.1K"
+      /> */}
+      
+    &lt;/div>
+    &lt;/div>
+  );
 }
 
-/**
- *validateEmail
- *checks that the user's email input is valid and contains @ symbol 
- * @param {string} value -email input from user
- * @returns {string} -Email error validating message
- */
-var validateEmail=(value)=> {
-  var error='';
-  if (validator.isEmail(value)) {
-    error='';
-  } 
-  else {
-    error='Please enter a valid email';
-  }
-  return (error);
-};
-
-/**
- *validateUserName
- *checks that the user's username input starts with @ symbol
- * @param {string} value -username input from user
- * @returns {string} -Username error validating message
- */
-function validateUserName(value){
-  var error='';
-  if (value[0] == '@') {
-    error='';
-
-  }
-  else {
-    error='Please start your username with @ symbol';
-  }
-  return (error);
-
-};
-
-export {validatePassword,validateEmail,validateUserName};</code></pre>
+export default Topics;
+</code></pre>
         </article>
     </section>
 

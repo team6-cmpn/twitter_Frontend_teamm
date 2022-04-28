@@ -26,20 +26,17 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
-import FavoriteIcon from "@material-ui/icons/FavoriteBorder";
-import PublishIcon from "@material-ui/icons/Publish";
-import DeleteIcon from "@mui/icons-material/Delete";
-import React, {useState, useEffect} from "react";
+            <pre class="prettyprint source linenums"><code>import React, {useState, useEffect} from "react";
 import "./feed.css";
 import {modalState, postIdState} from "../atoms/modalAtom";
 import {useRecoilState} from "recoil";
 import {HeartIcon as HeartIconFilled} from "@heroicons/react/solid";
 import {HeartIcon, ShareIcon, TrashIcon} from "@heroicons/react/outline";
 import * as mocked from "./feedmock";
+import * as backend from "./backendFeed";
 
 /**
- * const componnt post
+ * post componnt
  * @param {string} displayName,
  * @param {string} username,
  * @param {string} date,
@@ -47,7 +44,7 @@ import * as mocked from "./feedmock";
  *  @param {string} text,
  *  @param {string}avatar,
  *  @param {boolean}id,
- * return rendereing component layout of poststhat show in feed
+ * @return rendereing component layout of poststhat show in feed
  */
 const Post = ({
   displayName,
@@ -56,56 +53,50 @@ const Post = ({
   image,
   text,
   avatar,
-  id,
+  id_user,
+  mention,
   post,
   postPage,
+  tweeted_id,
 }) => {
   const [liked, setLiked] = useState(false);
-  const [likes, setLikes] = useState([]);
+  const [like_no, setcount] = useState([]);
+  //const [likes, setLikes] = useState([]);
+  //const [dislikes, setdisLikes] = useState([]);
 
-  useEffect(() => {
-    (async () => {
-      const resp = await mocked.GetPostLikes();
-      setLikes(resp);
-    })();
-  }, []);
   /**
    * function like post toggle like button
    */
+
   const likePost = async () => {
     if (liked === false) {
       //post is liked
+      const like_post = backend.likePost();
+      like_post.then((text) => {
+        setcount(text.favorite_count);
+      });
       setLiked(true);
-      mocked.PostLikes(likes.length + 1);
-
-      console.log(likes.length);
     } else if (liked === true) {
       //post disliked
+      const dislike_post = backend.dislikePost();
+      dislike_post.then((text) => {
+        setcount(text.favorite_count);
+      });
       setLiked(false);
-      mocked.PostLikes(likes.length - 1);
-      console.log(likes);
     }
   };
-  var body = {
-    likes: 5,
-    id: 15,
-  };
-
-  // function likedd() {
-  //   if (count === 1) setCount(false);
-  //   else setCount(count + 1);
-  // }
 
   const [isOpen, setIsOpen] = useRecoilState(modalState);
 
-  var uid = "123";
+  const user_tweet = backend.getTweet();
+
   return (
     &lt;div className="border">
       &lt;div className="post">
         &lt;div className="img_circle">
           &lt;span>
             &lt;img
-              id="user imag "
+              key="user imag "
               src={avatar}
               onerror="this.style.display='none'"
               alt=""
@@ -125,14 +116,18 @@ const Post = ({
             &lt;div className="post__tweet">
               &lt;span class="input" role="textbox" contenteditable>
                 {text}
+                {"  "}
+                {mention}
               &lt;/span>
             &lt;/div>
-            &lt;img className="post__body__img" src={image} alt="" />
+            &lt;img
+              className="post__body__img rounded-2xl max-h-[700px] object-cover mr-2"
+              src={image}
+              alt=""
+            />
             &lt;div className="post__footer">
               &lt;div className="blocked likeall">
-                {likes.length > 0 &amp;&amp; (
-                  &lt;span className="count">{likes.length}&lt;/span>
-                )}
+                {like_no > 0 &amp;&amp; &lt;span className="count">{like_no}&lt;/span>}
                 &lt;button
                   id="like and dislike button"
                   className="likeall"
@@ -151,7 +146,7 @@ const Post = ({
                 &lt;/button>
               &lt;/div>
 
-              {uid === id ? (
+              {tweeted_id === id_user ? (
                 &lt;div
                   onClick={(e) => {
                     e.stopPropagation();
@@ -192,13 +187,13 @@ export default Post;
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#ForgetPassword">ForgetPassword</a></li><li><a href="global.html#GoogleSignUp">GoogleSignUp</a></li><li><a href="global.html#LogIn">LogIn</a></li><li><a href="global.html#mock">mock</a></li><li><a href="global.html#Notifications">Notifications</a></li><li><a href="global.html#Post">Post</a></li><li><a href="global.html#Profile">Profile</a></li><li><a href="global.html#SignUp">SignUp</a></li><li><a href="global.html#StartPage">StartPage</a></li><li><a href="global.html#validateEmail">validateEmail</a></li><li><a href="global.html#validatePassword">validatePassword</a></li><li><a href="global.html#validateUserName">validateUserName</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#backEndGoogleLogIn">backEndGoogleLogIn</a></li><li><a href="global.html#backEndGooglePost">backEndGooglePost</a></li><li><a href="global.html#backEndLatest">backEndLatest</a></li><li><a href="global.html#backEndLogIn">backEndLogIn</a></li><li><a href="global.html#backEndPeople">backEndPeople</a></li><li><a href="global.html#backEndPost">backEndPost</a></li><li><a href="global.html#backEndTop">backEndTop</a></li><li><a href="global.html#Explore">Explore</a></li><li><a href="global.html#Feed">Feed</a></li><li><a href="global.html#ForgetPassword">ForgetPassword</a></li><li><a href="global.html#forgetPassword">forgetPassword</a></li><li><a href="global.html#FriendSuggestions">FriendSuggestions</a></li><li><a href="global.html#GoogleSignUp">GoogleSignUp</a></li><li><a href="global.html#LogIn">LogIn</a></li><li><a href="global.html#mock">mock</a></li><li><a href="global.html#Notifications">Notifications</a></li><li><a href="global.html#Post">Post</a></li><li><a href="global.html#Profile">Profile</a></li><li><a href="global.html#resendEmail">resendEmail</a></li><li><a href="global.html#resetPassword">resetPassword</a></li><li><a href="global.html#Sidebar">Sidebar</a></li><li><a href="global.html#SignUp">SignUp</a></li><li><a href="global.html#StartPage">StartPage</a></li><li><a href="global.html#Topics">Topics</a></li><li><a href="global.html#Trends">Trends</a></li><li><a href="global.html#Tweetbox">Tweetbox</a></li><li><a href="global.html#validateEmail">validateEmail</a></li><li><a href="global.html#validatePassword">validatePassword</a></li><li><a href="global.html#validateUserName">validateUserName</a></li><li><a href="global.html#verifyEmail">verifyEmail</a></li><li><a href="global.html#verifyEmailForgetPassword">verifyEmailForgetPassword</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Sat Apr 23 2022 17:57:13 GMT+0200 (Eastern European Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Fri Apr 29 2022 00:59:38 GMT+0200 (Eastern European Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: SignUp/Validate.js</title>
+    <title>JSDoc: Source: Widgets/FriendSuggestions/FriendSuggestions.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: SignUp/Validate.js</h1>
+    <h1 class="page-title">Source: Widgets/FriendSuggestions/FriendSuggestions.js</h1>
 
     
 
@@ -26,66 +26,86 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import validator from 'validator'
-
-/**
- *validatePassword
- *checks that the user's input is a strong password with a minimum length of 8 characters and at least one symbol and one number 
- * @param {string} value -password input from user
- * @returns {string} -password error validating message
+            <pre class="prettyprint source linenums"><code>import React from "react";
+//import "./FriendSuggestions.css";
+import FriendSuggestionItem from "./FriendSuggestionItem/FriendSuggestionItem";
+/**FriendSuggestions
+ * Shows friends suggetions for the user
+ *  
+ * @returns (Layout of friends suggetion)
  */
-var validatePassword=(value)=> {
-  var error='';
-  if (validator.isStrongPassword(value, {
-    minLength: 8, minLowercase: 1,
-    minNumbers: 1,minUppercase: 1, minSymbols: 1
-  })) {
-    error='';
-  } 
-  else {
-    error='Your password needs to be at least 8 characters with at least 1 symbol &amp; 1 UpperCase.';
-  }
-  
-  return (error);
+function FriendSuggestions() {
+  return (
+    &lt;div className="keywor">
+    &lt;div  className="key">
+      &lt;div className="keyword__heading">
+        &lt;h4>Who to follow&lt;/h4>
+      &lt;/div>
+      &lt;div>
+        &lt;br/>
+      &lt;/div>
+      
+      &lt;FriendSuggestionItem
+        username="Dr Magdi"  
+        displayName="Magdi Yaakob"
+        image="https://myhero.com/images/guest/g277272/hero103155/Magdi-Yacoub.jpg"
+      />
+       &lt;div>
+        &lt;br/>
+      &lt;/div>
+      
+      &lt;FriendSuggestionItem
+        username="William Henry Gates"
+        displayName="Bill Gates"
+        image="https://static.techspot.com/images2/news/bigimage/2020/03/2020-03-14-image-4-j.webp"
+      />
+       &lt;div>
+        &lt;br/>
+      &lt;/div>
+      
+       &lt;FriendSuggestionItem
+        username="Steven Paul Jobs"
+        displayName="Steve Jobs"
+        image="https://cdn.vox-cdn.com/thumbor/o7bA0tOZDGi-Y7reXlBHcOXC180=/0x137:575x520/920x613/filters:focal(0x137:575x520):format(webp)/cdn.vox-cdn.com/assets/695120/jobs_hero20110329.png"
+      />
+      {/* &lt;div className="side">
+      &lt;ul>
+      &lt;li>
+      &lt;a href="">
+      
+       &lt;/a>
+      &lt;/li>
+      &lt;/ul>
+      &lt;ul>
+      &lt;li>
+      &lt;a href="">
+      &lt;FriendSuggestionItem
+        username="gitH"
+        displayName="Billll Gatesss"
+        image="https://static.techspot.com/images2/news/bigimage/2020/03/2020-03-14-image-4-j.webp"
+      />
+       &lt;/a>
+       &lt;/li>
+       &lt;/ul>
+      &lt;ul>
+      &lt;li>
+      &lt;a href="">
+      &lt;FriendSuggestionItem
+        username="node"
+        displayName="Node.js"
+        image="https://pbs.twimg.com/profile_images/1262824892535373825/BiXDFDDp_200x200.jpg"
+      />
+      &lt;/a>
+      &lt;/li>
+      &lt;/ul>
+      &lt;/div> */}
+      &lt;/div>
+    &lt;/div>
+  );
 }
 
-/**
- *validateEmail
- *checks that the user's email input is valid and contains @ symbol 
- * @param {string} value -email input from user
- * @returns {string} -Email error validating message
- */
-var validateEmail=(value)=> {
-  var error='';
-  if (validator.isEmail(value)) {
-    error='';
-  } 
-  else {
-    error='Please enter a valid email';
-  }
-  return (error);
-};
-
-/**
- *validateUserName
- *checks that the user's username input starts with @ symbol
- * @param {string} value -username input from user
- * @returns {string} -Username error validating message
- */
-function validateUserName(value){
-  var error='';
-  if (value[0] == '@') {
-    error='';
-
-  }
-  else {
-    error='Please start your username with @ symbol';
-  }
-  return (error);
-
-};
-
-export {validatePassword,validateEmail,validateUserName};</code></pre>
+export default FriendSuggestions;
+</code></pre>
         </article>
     </section>
 

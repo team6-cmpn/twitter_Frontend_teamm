@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: homepage/Header_Tweet.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: homepage/Header_Tweet.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, {useState, useEffect} from "react";
+import "./feed.css";
+import {Button} from "@mui/material";
+import ImageOutlinedIcon from "@mui/icons-material/ImageOutlined";
+import EmojiEmotionsOutlinedIcon from "@mui/icons-material/EmojiEmotionsOutlined";
+import Tooltip from "@mui/material/Tooltip";
+import "emoji-mart/css/emoji-mart.css";
+import {Picker} from "emoji-mart";
+import * as mocked from "./feedmock";
+import * as backend from "./backendFeed";
+
+//import Tweetarea from "./textinput"
+/**
+ *function of header tweet
+ * @param {*} props
+ * @returns layout of header tweet
+ *
+ */
+function Tweetbox(props) {
+  const [input, setinput] = useState("");
+  const [mentions, setmentions] = useState("");
+  const [showEmoji, setShowEmoji] = useState(false);
+  const [content, getcontent] = useState([]);
+  /**
+   *
+   * @param {*} e
+   */
+
+  const addEmoji = (e) => {
+    let sym = e.unified.split("-");
+    let codesArray = [];
+    sym.forEach((el) => codesArray.push("0x" + el));
+    let emoji = String.fromCodePoint(...codesArray);
+    setinput(input + emoji);
+  };
+
+  useEffect(() => {
+    (async () => {
+      const resp = await mocked.GetUserContent();
+      getcontent(resp);
+    })();
+  }, []);
+  /**
+   *
+   * @param {*} event
+   */
+
+  function submitTweet(event) {
+    setinput("");
+    setmentions("");
+    const tweet = backend.Post_Tweet(body);
+    event.preventDefault();
+    if (showEmoji) {
+      setShowEmoji(!showEmoji);
+    }
+  }
+
+  localStorage.setItem("input_set", input);
+  localStorage.setItem("mention_set", mentions);
+  var body = {
+    text: input,
+    mentions: mentions,
+  };
+  // id: 123,
+  //login user id
+  /**
+   *conditioning mentions
+   * @param {*} value
+   */
+
+  function inputmention(value) {
+    if (value[0] !== "@") {
+      //do nothing
+    } else {
+      setmentions(value);
+    }
+  }
+  //console.log(content);
+
+  //&lt;Tweetarea onChange={(e) => setTweet(e.target.value)}  />
+  return (
+    &lt;div className="tweetBox">
+      &lt;div className="paddedin">
+        &lt;form className="app">
+          &lt;div className="img_circle">
+            {content.map((tweetItem, index) => {
+              return &lt;img src={tweetItem.avatar} alt="" />;
+            })}
+          &lt;/div>
+          &lt;div className="tweetBox__input">
+            &lt;textarea
+              id="tweet text area"
+              value={input}
+              placeholder="What is happening"
+              onChange={(e) => setinput(e.target.value)}
+              className="min-h-[50px]"
+              maxLength="250"
+              rows="2"
+            >&lt;/textarea>
+          &lt;/div>
+        &lt;/form>
+        &lt;div className="mention">
+          &lt;input
+            id="mentions text area"
+            maxLength={50}
+            placeholder="mentions"
+            value={mentions}
+            onChange={(e) => inputmention(e.target.value)}
+          >&lt;/input>
+        &lt;/div>
+
+        &lt;div className="app border">
+          &lt;div className="iconbar">
+            &lt;Button id="button choose image " className="iconss">
+              &lt;Tooltip title="image">
+                &lt;ImageOutlinedIcon />
+              &lt;/Tooltip>
+            &lt;/Button>
+
+            &lt;Button
+              key="button choose emojis"
+              className="emojisicon"
+              onClick={() => setShowEmoji(!showEmoji)}
+            >
+              &lt;Tooltip title="Emoji">
+                &lt;EmojiEmotionsOutlinedIcon />
+              &lt;/Tooltip>
+            &lt;/Button>
+          &lt;/div>
+          &lt;Button
+            id="post tweet button"
+            disabled={!input}
+            onClick={submitTweet}
+            className="tweet__Button"
+          >
+            Tweet
+          &lt;/Button>
+        &lt;/div>
+        {showEmoji &amp;&amp; (
+          &lt;Picker
+            onSelect={addEmoji}
+            style={{
+              position: "absolute",
+              marginTop: "-5px",
+              marginLeft: -200,
+              maxWidth: "320px",
+              borderRadius: "20px",
+            }}
+            theme="light"
+          />
+        )}
+      &lt;/div>
+      &lt;span className="border">&lt;/span>
+    &lt;/div>
+  );
+}
+
+export default Tweetbox;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#backEndGoogleLogIn">backEndGoogleLogIn</a></li><li><a href="global.html#backEndGooglePost">backEndGooglePost</a></li><li><a href="global.html#backEndLatest">backEndLatest</a></li><li><a href="global.html#backEndLogIn">backEndLogIn</a></li><li><a href="global.html#backEndPeople">backEndPeople</a></li><li><a href="global.html#backEndPost">backEndPost</a></li><li><a href="global.html#backEndTop">backEndTop</a></li><li><a href="global.html#Explore">Explore</a></li><li><a href="global.html#Feed">Feed</a></li><li><a href="global.html#ForgetPassword">ForgetPassword</a></li><li><a href="global.html#forgetPassword">forgetPassword</a></li><li><a href="global.html#FriendSuggestions">FriendSuggestions</a></li><li><a href="global.html#GoogleSignUp">GoogleSignUp</a></li><li><a href="global.html#LogIn">LogIn</a></li><li><a href="global.html#mock">mock</a></li><li><a href="global.html#Notifications">Notifications</a></li><li><a href="global.html#Post">Post</a></li><li><a href="global.html#Profile">Profile</a></li><li><a href="global.html#resendEmail">resendEmail</a></li><li><a href="global.html#resetPassword">resetPassword</a></li><li><a href="global.html#Sidebar">Sidebar</a></li><li><a href="global.html#SignUp">SignUp</a></li><li><a href="global.html#StartPage">StartPage</a></li><li><a href="global.html#Topics">Topics</a></li><li><a href="global.html#Trends">Trends</a></li><li><a href="global.html#Tweetbox">Tweetbox</a></li><li><a href="global.html#validateEmail">validateEmail</a></li><li><a href="global.html#validatePassword">validatePassword</a></li><li><a href="global.html#validateUserName">validateUserName</a></li><li><a href="global.html#verifyEmail">verifyEmail</a></li><li><a href="global.html#verifyEmailForgetPassword">verifyEmailForgetPassword</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Fri Apr 29 2022 00:59:38 GMT+0200 (Eastern European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

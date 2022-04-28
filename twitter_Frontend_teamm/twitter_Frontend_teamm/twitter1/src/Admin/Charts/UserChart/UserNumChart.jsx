@@ -1,4 +1,4 @@
-import React, { PureComponent } from "react";
+import React from "react";
 import "./usernumchart.css";
 import {
   BarChart,
@@ -11,15 +11,29 @@ import {
   Legend,
   ResponsiveContainer,
   LineChart,
-  Line
+  Line,
 } from "recharts";
-import {GetNumberOfUsersOfMonth, GetSignedUpMethod} from "../../MockRegistrationAdmin";
-
-
+import {
+  GetNumberOfUsersOfMonth,
+  GetSignedUpMethod,
+  GetDashBoard,
+} from "../../MockRegistrationAdmin";
+import { useState } from "react";
 
 export default function UserNumChart() {
-  const usernumpermonth= GetNumberOfUsersOfMonth();
-  const signedupmethodnum=GetSignedUpMethod()
+  const userpermonthmock = GetNumberOfUsersOfMonth();
+  const signedupmethodnum = GetSignedUpMethod();
+  const [usersPerMonth, setUsersPerMonth] = useState(undefined);
+  // const usersPerMonth= UserNumberMonthBack[3]?.users_Per_Month;
+  (async () => {
+    const resp = await GetDashBoard();
+    let tempUsersPerMonth = [...resp.data[3].users_Per_Month];
+    tempUsersPerMonth.forEach((element, index) => {
+      tempUsersPerMonth[index].month = element._id.month;
+    });
+    setUsersPerMonth(tempUsersPerMonth);
+  })();
+
   return (
     <div className="charts">
       <div className="chart">
@@ -28,7 +42,7 @@ export default function UserNumChart() {
           <BarChart
             width={300}
             height={300}
-            data={usernumpermonth}
+            data={usersPerMonth}
             margin={{
               top: 5,
               right: 30,
@@ -37,11 +51,11 @@ export default function UserNumChart() {
             }}
           >
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
+            <XAxis dataKey="month" />
             <YAxis />
             <Tooltip />
             <Legend />
-            <Bar dataKey="UserNum" fill="#82ca9d" />
+            <Bar dataKey="total" fill="#82ca9d" />
           </BarChart>
         </ResponsiveContainer>
       </div>
@@ -66,7 +80,7 @@ export default function UserNumChart() {
             <Legend />
             <Line
               type="monotone"
-              dataKey="FacebookSign"
+              dataKey="EmailSign"
               stroke="#8884d8"
               activeDot={{ r: 8 }}
             />

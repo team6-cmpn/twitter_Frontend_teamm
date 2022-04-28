@@ -1,17 +1,13 @@
-import React, { PureComponent } from "react";
+import React from "react";
 import Carousel from "react-elastic-carousel";
 import {
   BarChart,
-  ComposedChart,
-  Line,
-  Area,
   Bar,
   XAxis,
   YAxis,
   CartesianGrid,
   Tooltip,
   Legend,
-  Scatter,
   ResponsiveContainer,
 } from "recharts";
 import "./biaxiallinechart.css";
@@ -19,6 +15,7 @@ import { GetTweetsPerMonth } from "../MockRegistrationAdmin";
 
 export default function BiaxialLineChart() {
   var TweetsPerMonth = GetTweetsPerMonth();
+
   return (
     <div className="chartone">
       <Carousel>

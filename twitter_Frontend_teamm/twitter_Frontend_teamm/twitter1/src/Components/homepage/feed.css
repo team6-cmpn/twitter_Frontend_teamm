@@ -72,7 +72,7 @@
 .tweetBox {
     border-bottom-style: solid;
     border-bottom-width: thin;
-    border-bottom-color: black;
+    border-bottom-color:  var(--twitter-border);
     padding-right: -20%;
     margin-right: 50%;
     padding-top: 7%;
@@ -133,12 +133,11 @@
 
 .post {
     display: flex;
-    border-bottom: 1px solid var(--twitter-background);
+    border-bottom: 1px solid var(--twitter-border);
     padding-bottom: 2%;
     padding-top: -2%;
-    border-bottom-style: solid;
     border-bottom-width: thin;
-    border-bottom-color: black;
+    
     
 }
 
@@ -154,7 +153,7 @@
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    background-color: white;
+    background-color:  var(--twitter-background);
     object-fit: cover;
     
     
@@ -199,7 +198,7 @@
     height: 100%;
     padding-right: 5%;
     padding-left: 5%;
-    object-fit:cover;
+    object-fit: fill;
 }
 
 .post__footer {
@@ -271,6 +270,7 @@ cursor: default;
     outline: none;
     border: transparent;
     padding-top: 5px;
+    color:var(--icon)
 }
 .delete:hover{
     color: rgb(254, 16, 16);
@@ -299,9 +299,9 @@ cursor: default;
 /*iconbar home tweet.css*/
 
 .iconss {
-    background-color: #f6f8f6;
+    background-color: var(--twitter-background);
     border: none;
-    color: #1d9bf0;
+    color: var(--twitter-blue);
     padding: 15px 32px;
     border-radius: 100%;
     cursor: pointer;
@@ -324,13 +324,13 @@ cursor: default;
 
 .iconss:hover {
     background-color: #10141720;
-    color: #1d9bf0;
+    color: var(--twitter-blue);
     transition: color 40ms ease-out;
     border-radius: 100%;
         
 }
 .emojisicon{
-    background-color: #f6f8f6;
+    background-color: var(--twitter-background);    
     border: none;
     color: #1d9bf0;
     padding: 15px 32px;
@@ -353,7 +353,7 @@ cursor: default;
 }
 
 .tweet__Button {
-    background-color: #1d9cf0 !important;
+    background-color: var(--twitter-blue) !important;
     border: none !important;
     color: white !important;
     font-weight: 850 !important;

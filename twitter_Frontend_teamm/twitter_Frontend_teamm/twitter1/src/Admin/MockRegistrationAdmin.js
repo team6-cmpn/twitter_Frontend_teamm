@@ -1,19 +1,7 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Configure from "../Configure";
-
-function GetNumUsers() {
-  const [statistcs, setstatistics] = useState([]);
-
-  useEffect(() => {
-    fetch("http://localhost:8000/StatisticsBlock")
-      .then((res) => res.json())
-      .then((result) => {
-        setstatistics(result[0]);
-      });
-  }, []);
-  return [statistcs];
-}
+import React from "react";
 
 export async function getTopUsers() {
   let response = "";
@@ -36,7 +24,7 @@ export async function getTopUsers() {
 }
 
 export function GetTweetsPerMonth() {
-  const [tweetspermonth, setTweetsPerMonth] = useState([]);
+  const [tweetspermonth, setTweetsPerMonth] = React.useState([]);
 
   useEffect(() => {
     fetch("http://localhost:8000/TweetsPerMonth")
@@ -48,20 +36,38 @@ export function GetTweetsPerMonth() {
   return tweetspermonth;
 }
 
-export function GetAgesRanges() {
-  const [agesrange, setAgesRange] = useState([]);
+export async function GetDashBoard() {
+
+  const dashBoard= await axios.get(`${Configure.backURL}admin/dashBoard`, {
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+      "x-access-token": `${localStorage.getItem("token")}`,
+    },
+  });
+  console.log(dashBoard);
+  return dashBoard;
+}
+export function GetDashBoardstat() {
+  const [dashBoard, setDashBoard] = React.useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:8000/AgesData")
-      .then((res) => res.json())
-      .then((result) => {
-        setAgesRange(result);
+    const fetchProduct=async ()=>{
+      const dashBoard= await axios.get(`${Configure.backURL}admin/dashBoard`, {
+        headers: {
+          "Content-Type": "application/json; charset=utf-8",
+          "x-access-token": `${localStorage.getItem("token")}`,
+        },
       });
+      setDashBoard(dashBoard.data)
+      };
+      fetchProduct();
   }, []);
-  return agesrange;
+  if (!dashBoard) return null;
+  return dashBoard;
 }
+
 export function GetNumberOfUsersOfMonth() {
-  const [userpermonth, setUserPerMonth] = useState([]);
+  const [userpermonth, setUserPerMonth] = React.useState([]);
 
   useEffect(() => {
     fetch("http://localhost:8000/UsersPerMonth")
@@ -74,7 +80,7 @@ export function GetNumberOfUsersOfMonth() {
 }
 
 export function GetSignedUpMethod() {
-  const [signedupmethodnumber, setSignedUpMethod] = useState([]);
+  const [signedupmethodnumber, setSignedUpMethod] = React.useState([]);
 
   useEffect(() => {
     fetch("http://localhost:8000/SignedUpMethod")
@@ -85,24 +91,35 @@ export function GetSignedUpMethod() {
   }, []);
   return signedupmethodnumber;
 }
-
-export function GetUserList() {
-  const [userlist, setUserList] = useState([]);
+export function GetAgesRange() {
+  const [agesnumbers, setAgesRange] = React.useState([]);
 
   useEffect(() => {
-    fetch(`${Configure.backURL}admin/dashBoard`, {
-          headers: {
-            "Content-Type": "application/json; charset=utf-8",
-            "x-access-token": `${localStorage.getItem("token")}`,
-          },
-        })
+    fetch("http://localhost:8000/AgesData")
+      .then((res) => res.json())
+      .then((result) => {
+        setAgesRange(result);
+      });
+  }, []);
+  return agesnumbers;
+}
+
+export function GetUserList() {
+  const [userlist, setUserList] = React.useState([]);
+
+  useEffect(() => {
+    fetch(`${Configure.backURL}admin/showUsers`, {
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+        "x-access-token": `${localStorage.getItem("token")}`,
+      },
+    })
       .then((res) => res.json())
       .then((result) => {
         setUserList(result);
       });
   }, []);
 
-  console.log("users",userlist)
+  console.log("users", userlist);
   return userlist;
 }
-export default GetNumUsers;

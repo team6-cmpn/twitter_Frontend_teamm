@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import {RecoilRoot} from "recoil";
+// import {RecoilRoot} from "recoil";
 import './Home.css';
 // import Sidebar from "./Sidebar/Sidebar";
 // import { FaSistrix } from "react-icons/fa";
@@ -10,12 +10,18 @@ import {Form,Input} from "antd";
 // import { Avatar, Button } from "@material-ui/core";
 // import LikedYou from "./LikedYou";
 // import FollowedYou from "./FollowedYou";
-import  * as mockAPI   from './mockSearch'; 
+// import  * as mockAPI   from './mockSearch'; 
 import SettingsBox from "./SettingsBox/SettingsBox";
 import "./Notifications.css";
 import  * as BE  from './backEndSearch';
-import Post from "./homepage/Post";
+// import Post from "./homepage/Post";
 import * as mocked from "./homepage/feedmock";
+/**Explore
+ * Shows explore page for the user 
+ *  
+ * @returns (Layout of explore page)
+ */
+ 
 function Explore() {
   // const [isDrawerBar, setIsDrawerBar] = React.useState(false);
   const [loading, setLoading] = React.useState(true);

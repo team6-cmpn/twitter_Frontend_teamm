@@ -21,6 +21,11 @@ import HeaderTweet from "../homepage/Header_Tweet";
 // import Explore from "../Explore";
 // import { BrowserRouter as Router, Switch, Route, Redirect,} from "react-router-dom";
 // import {Link} from "react-router-dom";
+/**Sidebare
+ * Shows icons to navigate through different pages
+ *  
+ * @returns (Layout of side bar & tweet modal)
+ */
 function Sidebar() {
   const [isModalVisible, setModalVisible] = useState(false);
   const onSubModel = (stateMain = true) => {

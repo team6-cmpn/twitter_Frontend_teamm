@@ -1,7 +1,11 @@
 import React from "react";
 //import "./FriendSuggestions.css";
 import FriendSuggestionItem from "./FriendSuggestionItem/FriendSuggestionItem";
-
+/**FriendSuggestions
+ * Shows friends suggetions for the user
+ *  
+ * @returns (Layout of friends suggetion)
+ */
 function FriendSuggestions() {
   return (
     <div className="keywor">

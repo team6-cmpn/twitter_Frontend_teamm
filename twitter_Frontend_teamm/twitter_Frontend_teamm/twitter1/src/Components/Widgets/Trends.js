@@ -6,6 +6,11 @@ import FriendSuggestions from "./FriendSuggestions/FriendSuggestions";
 import TopicItem from "./Topics/Topics";
 import {Form,Input} from "antd";
 //import "./FriendSuggestions/FriendSuggestionItem/FriendSuggestionItem.css";
+/**Trends
+ * Shows search bar & topics & friendsuggetion
+ *  
+ * @returns (Layout of search & topics & friendsuggetion compnents)
+*/
 function Trends (){
 
   const [data, setData] = useState(null);

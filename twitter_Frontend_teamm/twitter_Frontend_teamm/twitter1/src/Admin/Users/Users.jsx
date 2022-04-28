@@ -22,17 +22,9 @@ const columns = [
   { field: "name", headerName: "Name", width: 130 },
   { field: "username", headerName: "UserName", width: 130 },
   { field: "followers", headerName: "Followers", width: 130 },
+  { field: "following", headerName: "Folllowing", width: 130 },
   { field: "dateOfBirth", headerName: "Date Of Birth", width: 130 },
-
-  {
-    field: "fullName",
-    headerName: "Full name",
-    description: "This column has a value getter and is not sortable.",
-    sortable: false,
-    width: 130,
-    valueGetter: (params) =>
-      `${params.row.firstName || ""} ${params.row.lastName || ""}`,
-  },
+  { field: "isDeactivated", headerName: "Deactivation Status", width: 150 },
   {
     field: "actions",
     headerName: "Block Icon",
@@ -49,7 +41,7 @@ const columns = [
 
 export default function AdminUsers() {
   const userlist=GetUserList()
-  console.log(userlist._id)
+  console.log("users",userlist)
   return (
     <div className="Users">
       <span className="Userstitle">Users List</span>

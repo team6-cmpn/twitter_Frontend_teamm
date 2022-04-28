@@ -22,7 +22,10 @@ import Profile from "./Components/Profile/Profile";
 import Followers from "./Components/Profile/Followers";
 import Following from "./Components/Profile/Following";
 import AccountInformation from "./Components/Settings/AccountInfoMenu/AccountInfo";
+import { PrivateRouteAdmin,PrivateRouteStat,PrivateRouteUSers } from "./Admin/PrivateRoute";
+
 function App() {
+  const isAuthenticated=localStorage.getItem("token")
   return (
     <Router>
       <div className="App">
@@ -46,6 +49,9 @@ function App() {
           <Route path="/adminPage" element={<AdminHome />} />
           <Route path="/Users" element={<FinalUser />} />
           <Route path="/Statistics" element={<Statistics />} />
+          {/* <PrivateRouteAdmin path="/adminPage" isAuthenticated={isAuthenticated}/>
+          <PrivateRouteStat path="/Statistics" isAuthenticated={isAuthenticated}/>
+          <PrivateRouteUSers path="/Users" isAuthenticated={isAuthenticated}/> */}
           <Route path="/BlockForm" element={<BlockForm />} />
           <Route path="/profile"  element={<Profile />}> </Route> 
           <Route path="/Followers" element={<Followers />}></Route>

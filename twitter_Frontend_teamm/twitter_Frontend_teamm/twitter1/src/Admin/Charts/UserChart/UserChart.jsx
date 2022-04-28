@@ -1,11 +1,11 @@
 import React, { PureComponent } from "react";
 import {PieChart,Pie,Tooltip,ResponsiveContainer} from "recharts";
-import { GetDashBoard } from "../../MockRegistrationAdmin";
+import { GetDashBoard,GetAgesRange } from "../../MockRegistrationAdmin";
 import "./userchart.css";
 
 export default function UserChart() {
   console.log("users Page")
-  var agesrange = GetDashBoard();
+  var agesrange = GetAgesRange();
 
   return (
     <div className="userchart">

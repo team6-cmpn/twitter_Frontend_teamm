@@ -36,7 +36,18 @@ export function GetTweetsPerMonth() {
   return tweetspermonth;
 }
 
-export function GetDashBoard() {
+export async function GetDashBoard() {
+
+  const dashBoard= await axios.get(`${Configure.backURL}admin/dashBoard`, {
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+      "x-access-token": `${localStorage.getItem("token")}`,
+    },
+  });
+  console.log(dashBoard);
+  return dashBoard;
+}
+export function GetDashBoardstat() {
   const [dashBoard, setDashBoard] = React.useState([]);
 
   useEffect(() => {
@@ -54,80 +65,7 @@ export function GetDashBoard() {
   if (!dashBoard) return null;
   return dashBoard;
 }
-// function Trial() {
-//   const [product, setProduct] = React.useState(null);
 
-//   useEffect(() => {
-//     const fetchProduct = async () => {
-//       const product = await axios.get(`/api/products`);
-//       setProduct(product.data);
-//     };
-
-//     fetchProduct();
-//   }, []);
-
-//   // render nothing during the time product is loading
-//   if (!product) return null;
-
-//   return <>render product</>;
-// }
-export function GetDashBoardTry() {
-  const [dashBoard, setDashBoard] = React.useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await fetch(`${Configure.backURL}admin/dashBoard`, {
-        headers: {
-          "Content-Type": "application/json; charset=utf-8",
-          "x-access-token": `${localStorage.getItem("token")}`,
-        },
-      });
-      const dashBoard = await data.json();
-      setDashBoard(dashBoard);
-    };
-
-    fetchData();
-
-    return dashBoard;
-  });
-}
-
-// export function GetDashBoard() {
-//   const [dashBoard, setDashBoard] = React.useState([]);
-
-//   useEffect(() => {
-//     const fetchData = async () => {
-//     const data = await fetch(`${Configure.backURL}admin/dashBoard`, {
-//       headers: {
-//         "Content-Type": "application/json; charset=utf-8",
-//         "x-access-token": `${localStorage.getItem("token")}`,
-//       }
-
-// const dashBoard = await data.json();
-// setDashBoard(dashBoard);
-//     return dashBoard;
-//       });
-// }
-// })
-// }
-
-// export function GetDashBoard() {
-//   const [dashBoard, setDashBoard] = React.useState([]);
-
-//   useEffect(() => {
-//     const fetchData = async () => {
-//     const data = await fetch(`${Configure.backURL}admin/dashBoard`, {
-//       headers: {
-//         "Content-Type": "application/json; charset=utf-8",
-//         "x-access-token": `${localStorage.getItem("token")}`,
-//       },
-//     });
-// const dashBoard = await data.json();
-// setDashBoard(dashBoard);
-//     return dashBoard;
-// }
-// })
-// }
 export function GetNumberOfUsersOfMonth() {
   const [userpermonth, setUserPerMonth] = React.useState([]);
 
@@ -152,6 +90,18 @@ export function GetSignedUpMethod() {
       });
   }, []);
   return signedupmethodnumber;
+}
+export function GetAgesRange() {
+  const [agesnumbers, setAgesRange] = React.useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:8000/AgesData")
+      .then((res) => res.json())
+      .then((result) => {
+        setAgesRange(result);
+      });
+  }, []);
+  return agesnumbers;
 }
 
 export function GetUserList() {

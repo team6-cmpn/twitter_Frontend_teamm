@@ -1,10 +1,10 @@
 import React from "react";
 import "./newusers.css";
-import {GetDashBoard } from "./MockRegistrationAdmin";
+import {GetDashBoardstat } from "./MockRegistrationAdmin";
 import TopUserItem from "./TopUserComponent";
 
 function NewUsers() {
-  const topUsers=GetDashBoard()[0];
+  const topUsers=GetDashBoardstat()[0];
   console.log("DashBoard",topUsers)
   return (
     <article id="TopFiveUsersWithMostFollowers">

@@ -16,6 +16,7 @@ import {BiDotsHorizontal} from "react-icons/bi";
 import {FiSettings} from "react-icons/fi";
 import {Modal} from "antd";
 import {Avatar, Button} from "@material-ui/core";
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import HeaderTweet from "../homepage/Header_Tweet";
 // import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 // import Explore from "../Explore";
@@ -90,6 +91,14 @@ function Sidebar() {
             <Avatar className="icons" />
             <div className="t">
               Username <BiDotsHorizontal className="more" />
+            </div>
+          </a>
+        </li>
+        <li>
+          <a href="/adminPage">
+            <AdminPanelSettingsIcon className="icons" />
+            <div className="t">
+              Admin 
             </div>
           </a>
         </li>

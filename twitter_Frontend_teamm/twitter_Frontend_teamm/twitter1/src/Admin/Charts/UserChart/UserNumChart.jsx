@@ -18,22 +18,21 @@ import {
   GetSignedUpMethod,
   GetDashBoard,
 } from "../../MockRegistrationAdmin";
-import {Chart as ChartJs,BarElement} from 'chart.js'
-
-ChartJs.register(
-  BarElement
-)
+import { useState } from "react";
 
 export default function UserNumChart() {
-   const usernumpermonth = GetNumberOfUsersOfMonth();
-   console.log(usernumpermonth)
+  const userpermonthmock = GetNumberOfUsersOfMonth();
   const signedupmethodnum = GetSignedUpMethod();
-  var UserNumberMonthBack = GetDashBoard();
-  var chartdata1=UserNumberMonthBack[3]?.users_Per_Month[0]?._id
-  // console.log("total",total)
-  // console.log("stat", UserNumberMonthBack);
-  console.log("datacahrt",UserNumberMonthBack);
-  // console.log("nameaxis",namexaxis?.total)
+  const [usersPerMonth, setUsersPerMonth] = useState(undefined);
+  // const usersPerMonth= UserNumberMonthBack[3]?.users_Per_Month;
+  (async () => {
+    const resp = await GetDashBoard();
+    let tempUsersPerMonth = [...resp.data[3].users_Per_Month];
+    tempUsersPerMonth.forEach((element, index) => {
+      tempUsersPerMonth[index].month = element._id.month;
+    });
+    setUsersPerMonth(tempUsersPerMonth);
+  })();
 
   return (
     <div className="charts">
@@ -43,7 +42,7 @@ export default function UserNumChart() {
           <BarChart
             width={300}
             height={300}
-            data={chartdata1}
+            data={usersPerMonth}
             margin={{
               top: 5,
               right: 30,
@@ -52,11 +51,11 @@ export default function UserNumChart() {
             }}
           >
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey={chartdata1?.month}/>
-            <YAxis  />
+            <XAxis dataKey="month" />
+            <YAxis />
             <Tooltip />
             <Legend />
-            <Bar dataKey={chartdata1?.year} fill="#82ca9d" />
+            <Bar dataKey="total" fill="#82ca9d" />
           </BarChart>
         </ResponsiveContainer>
       </div>
@@ -81,7 +80,7 @@ export default function UserNumChart() {
             <Legend />
             <Line
               type="monotone"
-              dataKey="FacebookSign"
+              dataKey="EmailSign"
               stroke="#8884d8"
               activeDot={{ r: 8 }}
             />

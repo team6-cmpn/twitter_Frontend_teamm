@@ -1,11 +1,11 @@
 import React from "react";
 import "./twitterstatistics.css";
-import {GetDashBoard} from "./MockRegistrationAdmin";
+import {GetDashBoardstat} from "./MockRegistrationAdmin";
 
 
 export default function Twiiterstatistics() {
   let staatic=[]
-  staatic=GetDashBoard()
+  staatic=GetDashBoardstat()
   return (
     <div className="adminstatistics" id="TwitterStatisticsBlocks">
       <div className="adminstatisticsItem">

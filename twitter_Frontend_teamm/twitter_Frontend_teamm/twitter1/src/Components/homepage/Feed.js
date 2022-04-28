@@ -17,7 +17,7 @@ import {Select} from "antd";
  */
 
 function Feed(subreddit) {
-  const [user, setusername] = useState([]);
+  //const [user, setusername] = useState([]);
   const [displayN, setDisplay] = useState([]);
   const [tweet_id, setid_tweet] = useState([]);
   const [user_id, setid_user] = useState([]);
@@ -27,6 +27,8 @@ function Feed(subreddit) {
   const [text_tweet, setItem] = useState();
   const [content, getcontent] = useState([]);
   const [twetted, postedtweet] = useState([]);
+  const [disp_img, getimg] = useState([]);
+  
 
   console.log(mocked.gettweet(tweets.text));
   useEffect(() => {
@@ -55,14 +57,16 @@ function Feed(subreddit) {
     console.log(date);
     //console.log(tweet.id);
   });
+  
 
   const user_info = userbackend.getUserInfo();
   user_info.then((name) => {
-    setusername(name.username);
+    //setusername(name.username);
     // setDisplay(name.name);
     console.log(user);
   });
-
+  const user=localStorage.getItem("getUsername")
+  
   return (
     <div className="feed">
       <div className=" feed feed__header">
@@ -71,13 +75,14 @@ function Feed(subreddit) {
       <HomeTweet />
       <RecoilRoot>
         <Post
-          //displayName={displayN}
-          username={user}
+          //username={displayN}
+          displayName={user}
           //avatar={userlist}
           mention={mention}
           text={text_tweet}
           //date="date"
           id_user={tweeted_user.id}
+          //avatar={disp_img}
           //id_post={id_post}
           post="false"
         />

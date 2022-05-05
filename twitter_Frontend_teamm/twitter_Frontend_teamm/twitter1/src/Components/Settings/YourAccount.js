@@ -18,7 +18,7 @@ const YourAccount = () => {
             <div className="submenu_discription">
                 <h3> See information about your account, download an archive of your data, or learn about your account deactivation options</h3>
             </div>
-            <Link to="./Your-twitter-data" style={{ textDecoration: "none", color:"inherit" }}>
+            <Link to="../Your-twitter-data" style={{ textDecoration: "none", color:"inherit" }}>
           <SubsettingsContent
             Icon2={PersonOutlineOutlinedIcon}
             text="Account information"
@@ -27,7 +27,7 @@ const YourAccount = () => {
             active={location === "/" && true}
           />
         </Link>
-        <Link to="/Settings" style={{ textDecoration: "none", color:"inherit" }}>
+        <Link to="../change-password" style={{ textDecoration: "none", color:"inherit" }}>
           <SubsettingsContent
             Icon2={Key}
             text="Change password"
@@ -36,7 +36,7 @@ const YourAccount = () => {
             active={location === "/Settings" && true}
           />
         </Link>
-        <Link to="/Settings" style={{ textDecoration: "none", color:"inherit" }}>
+        <Link to="../Deactivate-your-Acc" style={{ textDecoration: "none", color:"inherit" }}>
           <SubsettingsContent
             Icon2={HeartBrokenOutlined}
             text="Deactivate your account "

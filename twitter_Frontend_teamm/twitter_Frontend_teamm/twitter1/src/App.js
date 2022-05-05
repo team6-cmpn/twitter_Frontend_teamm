@@ -21,9 +21,14 @@ import AdminHome from "./Admin/Home";
 import Profile from "./Components/Profile/Profile";
 import Followers from "./Components/Profile/Followers";
 import Following from "./Components/Profile/Following";
-import AccountInformation from "./Components/Settings/AccountInfoMenu/AccountInfo";
+import AccountInformation from "./Components/Settings/AccountInfo";
+import ChangeUsername  from "./Components/Settings/changeUsername";
+import Changepassword from "./Components/Settings/changepassword";
+import DeactivateAcc from "./Components/Settings/DeactiviateAcc";
+import Security from "./Components/Settings/Security";
 import { PrivateRouteAdmin,PrivateRouteStat,PrivateRouteUSers } from "./Admin/PrivateRoute";
-
+import Two_Factor from "./Components/Settings/Two-Factor";
+import BlockedAccounts from "./Components/Settings/BlockedAccounts";
 function App() {
   const isAuthenticated=localStorage.getItem("token")
   return (
@@ -40,11 +45,17 @@ function App() {
           <Route path="/explore" element={<Explore />} />
           <Route path="/Notifications" element={<Notifications />} />
           <Route path="/Settings" element={<Settings />}>
+            <Route path="change-username" element={<ChangeUsername/>}/>
+            <Route path="change-password" element={<Changepassword/>}/>
             <Route path="security-and-acess" element={<SecurityandAcess />} />
             <Route path="your-account" element={<YourAccount />} />
             <Route path="privacy-and-saftey" element={<PrivacyAndSafety />} />
             <Route path="MuteandBlock" element={<MuteandBlock />} />
             <Route path="Your-twitter-data" element={<AccountInformation/>}/>
+            <Route path="Deactivate-your-Acc" element={<DeactivateAcc/>}/>
+            <Route path="security-of-account"element={<Security/>}/>
+            <Route path="two-factor"element={<Two_Factor/>}/>
+            <Route path="Blocked-accounts" element = {<BlockedAccounts/>}/>
           </Route>
           <Route path="/adminPage" element={<AdminHome />} />
           <Route path="/Users" element={<FinalUser />} />

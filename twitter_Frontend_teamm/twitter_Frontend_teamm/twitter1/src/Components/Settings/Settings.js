@@ -7,7 +7,6 @@ import { Link, useLocation, Outlet } from "react-router-dom";
 import SettingsContent from "./settingscontent";
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import YourAccount from "./YourAccount";
-import MuteandBlock from "./MuteandBlock";
 
 function Settings(){
   document.title = "Your Account / Twitter";
@@ -23,21 +22,21 @@ function Settings(){
                   <span>Settings</span>
                   </div>
                   <SearchBar placeholder="Search Settings" />
-                  <Link to="your-account" style={{ textDecoration: "none", color:"inherit" }}>
+                  <Link to="./your-account" style={{ textDecoration: "none", color:"inherit" }}>
                   <SettingsContent
                     text="Your account"
                     Icon={ChevronRightIcon}
                     active={location === "/your-account" && true}
                   />
                 </Link>
-                <Link to="security-and-acess" style={{ textDecoration: "none", color:"inherit" }}>
+                <Link to="./security-and-acess" style={{ textDecoration: "none", color:"inherit" }}>
                   <SettingsContent
                     text="Security and account acess"
                     Icon={ChevronRightIcon}
                     active={location === "/security-and-acess" && true}
                   />
                 </Link>
-                <Link to="privacy-and-saftey" style={{ textDecoration: "none", color:"inherit" }}>
+                <Link to="./privacy-and-saftey" style={{ textDecoration: "none", color:"inherit" }}>
                   <SettingsContent
                     text="Privacy and safety"
                     Icon={ChevronRightIcon}

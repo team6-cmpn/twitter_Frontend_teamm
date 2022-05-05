@@ -18,7 +18,7 @@ const SecurityandAcess = () => {
             </div>
             <div className="submenu_discription">
                 <h3>Manage your account's security and keep track of your account's usage including apps that you have connected to your account.</h3>
-                <Link to="" style={{ textDecoration: "none", color:"inherit" }}>
+                <Link to="../security-of-account" style={{ textDecoration: "none", color:"inherit" }}>
           <SubsettingsContent
             Icon2={LockOutlined}
             text="Security"

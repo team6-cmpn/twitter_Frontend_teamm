@@ -16,34 +16,9 @@ const MuteandBlock = () => {
             <div className="submenu_discription">
                 <h3>Manage the accounts, words, and notifications that you've muted or blocked.</h3>
                 <br/>
-                <Link to="../your-account" style={{ textDecoration: "none", color:"inherit" }}>
+                <Link to="../Blocked-accounts" style={{ textDecoration: "none", color:"inherit" }}>
           <SettingsContentInMenus
             text="Blocked Accounts"
-            Icon={ChevronRight}
-            active={location === "/MuteandBlock" && true}
-            
-
-          />
-        </Link>
-        <Link to="your-account" style={{ textDecoration: "none", color:"inherit" }}>
-          <SettingsContentInMenus
-            text="Muted Accounts"
-            Icon={ChevronRight}
-            active={location === "/MuteandBlock" && true}
-            
-
-          />
-        </Link> <Link to="your-account" style={{ textDecoration: "none", color:"inherit" }}>
-          <SettingsContentInMenus
-            text="Muted words"
-            Icon={ChevronRight}
-            active={location === "/MuteandBlock" && true}
-            
-
-          />
-        </Link> <Link to="your-account" style={{ textDecoration: "none", color:"inherit" }}>
-          <SettingsContentInMenus
-            text="Muted notifications"
             Icon={ChevronRight}
             active={location === "/MuteandBlock" && true}
             

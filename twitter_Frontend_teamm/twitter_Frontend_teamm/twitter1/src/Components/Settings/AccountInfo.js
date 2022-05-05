@@ -1,5 +1,5 @@
 import React from "react";
-import "../settingsSubmenus.css"
+import "./settingsSubmenus.css"
 import { Link, useLocation } from "react-router-dom";
 import { ChevronRight } from "@mui/icons-material";
 import AccountInfoMenuss from "./AccountInfoMenuss";
@@ -16,7 +16,7 @@ const AccountInformation = () => {
             </div>
             <div className="submenu_discription">
                 <br/>
-            <Link to="" style={{ textDecoration: "none", color:"inherit" }}>
+            <Link to="../change-username" style={{ textDecoration: "none", color:"inherit" }}>
           <AccountInfoMenuss
             text="Username"
             Icon={ChevronRight}

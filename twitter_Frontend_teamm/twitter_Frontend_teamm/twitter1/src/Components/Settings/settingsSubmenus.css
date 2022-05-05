@@ -149,4 +149,106 @@
     transition: color 100ms ease-out;
     background-color:#F7F9F9;
 }
+.save_username_button {
+    background-color: var(--twitter-blue) !important;
+    border: none !important;
+    color: white !important;
+    border-radius: 30px !important;
+    width: 80px;
+    height: 40px !important;
+    margin-left: auto !important;
+    text-transform: capitalize !important;
+    font-weight: 600 !important;
+}
 
+.savebutton{
+    margin-top: 20px;
+    margin-left: 470px;
+}
+
+.settingsSubMenu > h3{
+
+    text-align: left;
+    color:#51B2F3;
+    padding:7px;
+    padding-left: 15px;
+    cursor: pointer;
+
+}
+.settingsSubMenu > h3:hover{
+
+    text-align: left;
+    color:#51B2F3;
+    padding:1px;
+    text-decoration: underline;
+    padding:7px;
+    padding-left: 15px;
+
+}
+
+.settingsSubMenu >h4{
+
+    text-align: left;
+    padding:7px;
+    padding-left: 15px;
+    color: #7B8892;
+}
+.icons {
+    margin-right: 15px;
+    font-size: 25px;
+  }
+
+.Accountinfo_dec{
+    display: flex;
+    padding: 15px;
+    margin-top:-2%;
+
+
+}
+.Accountinfo_dec>h5{
+    
+    color: black;
+    font-size: 13px;
+    font-weight: bold;
+    width: max-content;
+    margin-left: 20px;
+    margin-top: 2px;
+}
+.Accountinfo_dec>h6{
+
+    margin-top: 20px;
+    margin-left: -90px;
+    font-weight: bold;
+    color: #536471;
+    width: max-content;
+
+
+}
+.deactivate_button{
+
+    text-transform:capitalize !important;
+    color: black !important;
+    width: 100% !important;
+    color: red !important;
+
+
+}
+.deactivate_button:hover{
+
+    background-color: rgb(237, 202, 202) !important;
+
+
+}
+.SecurityContent{
+    display: flex;
+    padding: 15px;
+    text-align: left;
+    justify-content: space-between;
+
+}
+.SecurityContent:hover {
+    
+    transition: color 100ms ease-out;
+    background-color:#F7F9F9;
+    cursor: pointer;
+}

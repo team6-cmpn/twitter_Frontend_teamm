@@ -55,7 +55,7 @@ function Profile(){
     const [Item, setItem] = useState();
 
     function SaveButtonActions(){
-    mockAPI.Profile(body);
+    mockAPI.Profile(body); //what is needed
     setMainModalVisible(false);
     setName(editname);
     setBio(editbio);

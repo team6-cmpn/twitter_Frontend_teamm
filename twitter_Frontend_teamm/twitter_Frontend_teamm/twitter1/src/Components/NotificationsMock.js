@@ -53,3 +53,26 @@ export default async function getFollowingUsers() {
     }
     return (response);
   }
+
+  export const PostChangeUsername = async payload => {
+    try {
+      const response = await axios(`http://localhost:8000/UserChange_Name`, {
+        method: 'post',
+        data: payload,
+      });
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  };
+  export const PostChangePassword = async payload => {
+    try {
+      const response = await axios(`http://localhost:8000/UserChange_Password`, {
+        method: 'post',
+        data: payload,
+      });
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  };

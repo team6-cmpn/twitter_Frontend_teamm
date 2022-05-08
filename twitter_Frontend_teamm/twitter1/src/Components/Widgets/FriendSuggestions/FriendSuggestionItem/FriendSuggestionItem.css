@@ -93,3 +93,19 @@
   font-size: 18px;
  
 }
+.butto:hover {
+  cursor: pointer;
+}
+.followButton {
+  background: #000;
+  color: #fff;
+  text-align: center;
+  justify-content: center;
+  margin-left: 35%;
+  border-radius: 9999px;
+  font-size: 15px;
+  font-weight: 700;
+  
+  
+  padding: 5px 16px;
+}

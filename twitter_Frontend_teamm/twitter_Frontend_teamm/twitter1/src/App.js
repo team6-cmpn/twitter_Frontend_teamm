@@ -19,6 +19,7 @@ import Statistics from "./Admin/statistics";
 import BlockForm from "./Admin/Users/BlockForm";
 import AdminHome from "./Admin/Home";
 import Profile from "./Components/Profile/Profile";
+import User from "./Components/User/User";
 import Followers from "./Components/Profile/Followers";
 import Following from "./Components/Profile/Following";
 import AccountInformation from "./Components/Settings/AccountInfo";
@@ -67,6 +68,7 @@ function App() {
           <Route path="/profile"  element={<Profile />}> </Route> 
           <Route path="/Followers" element={<Followers />}></Route>
           <Route path="/Following" element={<Following />}></Route>
+          <Route path="/User" element={<User/>}></Route>
         </Routes>
       </div>
     </Router>

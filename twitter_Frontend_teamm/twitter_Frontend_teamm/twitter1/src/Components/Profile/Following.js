@@ -3,7 +3,28 @@ import React from 'react';
 import  { useState } from 'react';
 import Trends from "../Widgets/Trends";
 import Sidebar from "../Sidebar/Sidebar";
+import { getFollowerUsers } from "./FollowersMock";
+import { getFollowingUsers } from "./FollowersMock";
+import FollowersList from './FollowersList';
+import FollowingList from './FollowingList';
+
 function Following(){
+    const [FollowerUsers,setFollowerUsers]=React.useState([])
+    React.useEffect(()=>{
+        (async () => {
+            const resp = await getFollowerUsers();
+            setFollowerUsers(resp);
+          })();
+    
+        },[])
+    const [FollowingUsers,setFollowingUsers]=React.useState([])
+    React.useEffect(()=>{
+        (async () => {
+            const resp = await getFollowingUsers();
+            setFollowingUsers(resp);
+          })();
+    
+        },[])
     const [isFollowers, setIsFollowers] = useState(true);
     return(
         <div>
@@ -25,6 +46,19 @@ function Following(){
                     </div>
                     
                 </div>
+                <article>
+                    {isFollowers ? (
+                        <>
+                        {FollowingUsers.map((FollowingUsers,index)=>(
+                            <FollowingList key={index} FollowingAccount={FollowingUsers}/>))}
+                        </>
+                    ) : (
+                        <>
+                        {FollowerUsers.map((FollowerUsers,index)=>(
+                            <FollowersList key={index} FollowerAccount={FollowerUsers}/>))}
+                        </>
+                    )}
+                </article>
                 <div > 
                     <Trends />  
                 </div>

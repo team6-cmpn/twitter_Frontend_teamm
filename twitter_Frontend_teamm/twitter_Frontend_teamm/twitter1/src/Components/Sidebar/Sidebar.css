@@ -76,3 +76,6 @@
     margin-bottom: 50%;
     width: 100%;
   }
+  .tweet:hover {
+    cursor: pointer;
+  }

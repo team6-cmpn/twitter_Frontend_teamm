@@ -160,6 +160,10 @@
     text-transform: capitalize !important;
     font-weight: 600 !important;
 }
+.save_username_button:disabled {
+    background-color: #57b7f790 !important;
+    color: white !important;
+}
 
 .savebutton{
     margin-top: 20px;

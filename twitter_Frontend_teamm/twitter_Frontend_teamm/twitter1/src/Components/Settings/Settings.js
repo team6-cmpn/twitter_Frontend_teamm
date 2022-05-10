@@ -21,7 +21,7 @@ function Settings(){
                   <div className="settingsTitle">
                   <span>Settings</span>
                   </div>
-                  <SearchBar placeholder="Search Settings" />
+                  <br/>
                   <Link to="./your-account" style={{ textDecoration: "none", color:"inherit" }}>
                   <SettingsContent
                     text="Your account"

@@ -56,7 +56,16 @@ function validateUserName(value){
   return (error);
 
 };
+function validateConfirmPassword(){
+  var error='';
+  var newpassword = document.getElementById("Newpassword").value;
+  var confirmNewPassword =  document.getElementById("Confirmpassword").value;
+  console.log(newpassword);
+  console.log(confirmNewPassword);
+  if (newpassword != confirmNewPassword){
+    error='Password do not match' ;
 
+<<<<<<< Updated upstream:twitter_Frontend_teamm/twitter_Frontend_teamm/twitter1/src/Components/SignUp/Validate.js
 var validatePhone=(value)=> 
 {
   var error='';
@@ -74,3 +83,12 @@ var validatePhone=(value)=>
 
 
 export {validatePassword,validateEmail,validateUserName,validatePhone};
+=======
+  } else {
+    error = '';
+ 
+  }
+  return (error);
+}
+export {validatePassword,validateEmail,validateUserName,validateConfirmPassword};
+>>>>>>> Stashed changes:twitter_Frontend_teamm/twitter1/src/Components/SignUp/Validate.js

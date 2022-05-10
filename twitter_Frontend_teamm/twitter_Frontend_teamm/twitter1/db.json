@@ -998,9 +998,23 @@
     }
   ],
   "UserChange_Name": [
-   
+    {
+      "username": "@fathy12",
+      "id": 1
+    }
   ],
   "UserChange_Password": [
-   
+    {
+      "currentPassword": "Mohamed_fathy12",
+      "password": "sayed_12A",
+      "confirmNewPassword": "sdsddssdsd",
+      "id": 1
+    },
+    {
+      "currentPassword": "Mohamed_12",
+      "password": "Sayed_12",
+      "confirmNewPassword": "Sayed_12",
+      "id": 2
+    }
   ]
 }

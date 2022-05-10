@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import {Link} from "react-router-dom";
 import "./Sidebar.css";
 import {
   FaTwitter,
@@ -14,7 +15,8 @@ import {
 } from "react-icons/fa";
 import {BiDotsHorizontal} from "react-icons/bi";
 import {FiSettings} from "react-icons/fi";
-import {Modal} from "antd";
+import {Modal,Popover} from "antd";
+import 'antd/dist/antd.css';
 import {Avatar, Button} from "@material-ui/core";
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import HeaderTweet from "../homepage/Header_Tweet";
@@ -32,6 +34,12 @@ function Sidebar() {
   const onSubModel = (stateMain = true) => {
     setModalVisible(stateMain);
   };
+  const [popOverVisible, setPopOverVisible] = useState(false);
+  const content = (
+    <div>
+      <Link to='/logout'>Logout username</Link>
+    </div>
+  );
   return (
     <div className="sidebar">
       <ul>
@@ -95,7 +103,7 @@ function Sidebar() {
           <a href="">
             <Avatar className="icons" />
             <div className="t">
-              Username <BiDotsHorizontal className="more" />
+            Username <Popover content={content} trigger="click" visible={popOverVisible}  title='Username'><BiDotsHorizontal className="more" /></Popover>
             </div>
           </a>
         </li>

@@ -1,12 +1,14 @@
-import {validatePassword,validateEmail,validateUserName} from './Validate';
-import   * as mockAPI  from './mockRegistration';
+import {validatePassword,validateEmail,validateUserName,validatePhone} from './Validate';
+import  mock  from './mockRegistration';
  
 var wrongPassword= 'ggggggggggggggggg';
-var rightPassword='1252536273643298fa#@dfsdf';
+var rightPassword='1252536273643298Fa#@dfsdf';
 var wrongUserName='aaaa';
 var rightUserName='@aa';
 var wrongEmail='aa';
 var rightEmail='a@gmail.com';
+var wrongPhone='123456';
+var rightPhone='01234567889';
 
 test('password is not strong or valid', () => {
   expect(validatePassword(wrongPassword)).toEqual(
@@ -26,7 +28,7 @@ test('username is not valid', () => {
   );
 });
 
-test('username is not valid', () => {
+test('username is valid', () => {
   expect(validateUserName(rightUserName)).toEqual(
   ''
   );
@@ -44,6 +46,18 @@ test('email is valid', () => {
   );
 });
 
+test('phone is not valid', () => {
+  expect(validatePhone(wrongPhone)).toEqual(
+  'Please enter a valid phone number (starting with zero)'
+  );
+});
+
+test('phone is valid', () => {
+  expect(validatePhone(rightPhone)).toEqual(
+  ''
+  );
+});
+
 
 var body={
   name: "jnjd",
@@ -54,13 +68,13 @@ var body={
 }
 
 test('SignUp request', () => {
-  expect(mockAPI.post(body)).toBeTruthy();
+  expect(mock.post(body)).toBeTruthy();
 });
 
 test('Login request', () => {
-  expect(mockAPI.logInPost(body)).toBeTruthy();
+  expect(mock.logInPost(body)).toBeTruthy();
 });
 
 test('Google Sign up request', () => {
-  expect(mockAPI.googlePost(body)).toBeTruthy();
+  expect(mock.googlePost(body)).toBeTruthy();
 });

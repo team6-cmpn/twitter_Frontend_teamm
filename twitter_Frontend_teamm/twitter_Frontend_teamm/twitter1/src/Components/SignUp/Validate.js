@@ -46,7 +46,7 @@ var validateEmail=(value)=> {
  */
 function validateUserName(value){
   var error='';
-  if (value[0] == '@') {
+  if (value[0] === '@') {
     error='';
 
   }
@@ -57,4 +57,20 @@ function validateUserName(value){
 
 };
 
-export {validatePassword,validateEmail,validateUserName};
+var validatePhone=(value)=> 
+{
+  var error='';
+  var phoneno = /^\+?([0-9]{2})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})$/;
+  if((value.length===11)){
+    error='';
+    console.log(error)
+  }
+  else{
+    error='Please enter a valid phone number (starting with zero)';
+    console.log(error)
+  }
+ return (error);
+};
+
+
+export {validatePassword,validateEmail,validateUserName,validatePhone};

@@ -7,6 +7,7 @@ import {Link, Outlet,useNavigate } from "react-router-dom";
 import React from "react";
 import "antd/dist/antd.css";
 import  mock  from '../SignUp/mockRegistration';
+import useState from 'react';
 
 
 
@@ -74,7 +75,7 @@ function StartPage(){
             </div>
           
             <div className='row'>
-              <Link id="signUp" className="button btn-color"  to="/signup"><span>Sign up with phone or email</span></Link><Outlet />
+              <Link  id="signUp" className="button btn-color"  to="/signup"><span>Sign up with phone or email</span></Link><Outlet />
             </div>
           
             <br/>

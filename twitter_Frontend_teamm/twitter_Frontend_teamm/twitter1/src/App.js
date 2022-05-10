@@ -4,6 +4,7 @@ import StartPage from './Components/StartPage/StartPage';
 import SignUp from './Components/SignUp/SignUp';
 import React from 'react';
 import LogIn from './Components/SignIn/LogIn';
+import LogOut from './Components/SignOut/LogOut';
 import ForgetPassword from './Components/SignIn/forgetPassword';
 import GoogleSignUp from './Components/SignUp/GoogleSignUp';
 import Explore from "./Components/Explore";
@@ -41,6 +42,7 @@ function App() {
             <Route path="/googlesignup" element={<GoogleSignUp />} />
           </Route>
           <Route path="/login" element={<LogIn />}></Route>
+          <Route path="/logout" element={<LogOut />}></Route>
           <Route path="/forgetpassword" element={<ForgetPassword />}></Route>
           <Route path="/home" element={<Home />} />
           <Route path="/explore" element={<Explore />} />

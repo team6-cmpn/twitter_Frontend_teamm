@@ -9,7 +9,7 @@ import validator from 'validator'
 import  mock  from './mockRegistration';
 import  * as BE  from './backEndRegistration';
 
-import {validatePassword,validateEmail,validateUserName} from './Validate'
+import {validatePassword,validateEmail,validateUserName,validatePhone} from './Validate'
 
 
 
@@ -21,7 +21,7 @@ import {validatePassword,validateEmail,validateUserName} from './Validate'
 function SignUp() {
 
   const navigate = useNavigate();
-  const [isMainModalVisible, setMainModalVisible] = useState(false);
+  const [isMainModalVisible, setMainModalVisible] = useState(true);
   const [isSubModalVisible, setSubModalVisible] = useState(false);
   const [isSubModal2Visible, setSubModal2Visible] = useState(false); 
   const [isSubModal3Visible, setSubModal3Visible] = useState(false); 
@@ -31,12 +31,15 @@ function SignUp() {
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
   const [passwordError, setPasswordError] = useState('')
-  const [emailError, setEmailError] = useState('')
+  const [emailOrPhoneError, setEmailOrPhoneError] = useState('')
   const [userNameError, setuserNameError] = useState('')
   const [date, setDate] = useState(null);
   const [apiResponseMessage, setApiResponseMessage] = useState();
   const [mess, setMess] = useState();
   const [code, setCode] = useState();
+  const [emailOrPhoneSwitch, setEmailOrPhoneSwitch] = useState('Use Phone Instead');
+  const [emailOrPhone, setEmailOrPhone] = useState(null);
+  const [emailOrMessage, setEmailOrMessage] = useState(null);
   
   
 
@@ -65,6 +68,12 @@ function SignUp() {
     setSubModal2Visible(stateMain);
   };
 
+  const onMainModal = (e, stateSub = true, stateMain = false) => {
+    setMainModalVisible(stateMain);
+    
+    setSubModalVisible(stateSub);
+  };
+
   
 
   function getName(val){
@@ -74,7 +83,7 @@ function SignUp() {
     setUserName(val.target.value)
   };
   function getEmail(val){
-    setEmail(val.target.value)
+      setEmail(val.target.value)
   };
 
   function getPassword(val){
@@ -82,9 +91,19 @@ function SignUp() {
   };
   function getPasswordValidation(val){
     setPasswordError(validatePassword(val.target.value))
+    sessionStorage.setItem('passError',validatePassword(val.target.value))
   };
   function getEmailValidation(val){
-    setEmailError(validateEmail(val.target.value))
+    if(document.getElementById("email").placeholder === "Email"){
+    setEmailOrPhoneError(validateEmail(val.target.value));
+    setEmailOrPhone('Email');
+    setEmailOrMessage('email');
+  }
+    else if(document.getElementById("email").placeholder === "Phone"){
+      setEmailOrPhoneError(validatePhone(val.target.value));
+      setEmailOrPhone('Phone');
+      setEmailOrMessage('message');
+    }
   };
 
   function getUserNameValidation(val){
@@ -103,9 +122,10 @@ function SignUp() {
  
   
   function buttonState (changedValues, allValues) {
+    var passError=sessionStorage.getItem('passError');
     if ( allValues.name !== undefined && allValues.username !== undefined && allValues.email !== undefined
        && allValues.password !== undefined && allValues.email !== '' && allValues.name !== '' 
-       && allValues.email !== '' && allValues.password !== '' && emailError==='' &&  passwordError==='' && userNameError==='' ) {
+       && allValues.email !== '' && allValues.password !== '' && emailOrPhoneError==='' &&  passError==='' && userNameError==='' ) {
       setBtnDisabled(false);
     } 
     else {
@@ -113,25 +133,34 @@ function SignUp() {
     }
   };
 
+  var entry = 0;
+
+  function change() {
+
+  if (entry === 0) {
+    document.getElementById("email").placeholder = "Phone";
+    setEmailOrPhoneSwitch('Use Email Instead');
+    entry++;
+  }
+  else{
+    document.getElementById("email").placeholder = "Email";
+    setEmailOrPhoneSwitch('Use Phone Instead');
+    entry--;
+  }
+  
+}
     
 
   
 
   function SignUpButtonActions(){
-    const GotoComplete = mock.post(body);
+    // const mockCompleteSignUp =
+    mock.post(body);
     const promise=BE.backEndPost(body);
     console.log(promise);
     promise.then((message)=> {
       setApiResponseMessage(message+'. You can re-enter your info by pressing on close (x) sign')
-      if(message===''){onSubModal2();}
-      // if(result===false){
-      //   console.log('account with this email already exist');
-      //   setMess(go);
-      // }
-      // else if(result===true){
-      //   setMess('');
-      //   onSubModal2();
-      // }
+      if(message==='' ){onSubModal2();}
    })
   }
   
@@ -155,17 +184,13 @@ function SignUp() {
       if(message===''){navigate("/login");}
      
    })
-  //   promise.then((result)=> {
-  //     console.log(result);
-  //     if(result===true){setMess('Verified.Click to proceed');navigate("/home");}
-  //     else if (result ===false){setMess('Plz verify');}
-  //  })
+
   }
  
 
     
 
-   
+    
     return(
       <div>
         <Modal  
@@ -173,7 +198,7 @@ function SignUp() {
           title={<TwitterOutlined style={{ fontSize: '200%',marginTop:'1px',color:'Dodgerblue'}} />}
           style={{borderRadius: "70px",textAlign:"center",fontSize:100}}
           bodyStyle={{height: 520 ,font:'Helvetica',borderRadius:'30px',textAlign:"left",marginTop:10}}
-          visible={setMainModalVisible}
+          visible={isMainModalVisible}
           okText='Next'
           okButtonProps={{ id:'button',disabled:btnDisabled,shape:'round' , size:'large', style:{width: 450,fontWeight:'bold',alignItems:'center',justifyContent:'center',
           display:'flex'}}}
@@ -181,7 +206,7 @@ function SignUp() {
           width={500}
           type='circle'
           centered={true}
-          onOk={() => setSubModalVisible(true)}
+          onOk={() => onMainModal()}
           onCancel={() => navigate("/")}
           >
           
@@ -193,21 +218,17 @@ function SignUp() {
             >
               <Form.Item 
                 name="name"
-                rules={[{
-                  required: true,
-                  message: 'Whats your name?',
-                },
-                ]}
+                // rules={[{
+                //   required: true,
+                //   message: 'Whats your name?',
+                // },
+                // ]}
               >
                 <Input style={{ height:40,marginTop:10}}  onChange={ getName} showCount maxLength={50} id="name" placeholder="Name" />
               </Form.Item>
 
               <Form.Item 
                 name="username"
-                rules={[{
-                  required: true,
-                },
-                ]} 
               >
                 <span style={{color: 'red'}}>
                   <Input id="username" style={{ height:40}}   onChange={getUserNameValidation}  onKeyUp={getUserName}  maxLength={50}  placeholder="Username" />
@@ -217,26 +238,18 @@ function SignUp() {
             
               <Form.Item 
                 name="email"
-                rules={[{
-                  required: true,
-                // message: 'Please enter a valid email',
-                },
-                ]} 
               >
                 <span style={{color: 'red'}}>
                   <Input id="email" style={{ height:40}}  onChange={getEmailValidation}  onKeyUp={getEmail} maxLength={100}  placeholder="Email" />
-                  {emailError}
+                  {emailOrPhoneError}<br></br>
+                  <button onClick={()=>{change()}} className='usePhoneButton' >{emailOrPhoneSwitch}</button>
                 </span>
               </Form.Item>
               <Form.Item 
                 name="password"
-                rules={[{
-                  required: true,
-                },
-                ]} 
               >
                 <span style={{color: 'red'}}>
-                  <Input.Password  id='password' type='password'style={{ height:40}}  onChange={getPasswordValidation}   onKeyUp={getPassword}    placeholder="password" iconRender={visible => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)} /> 
+                  <Input.Password  id='password' type='password'style={{ height:40,marginTop:0}}  onChange={getPasswordValidation}   onKeyUp={getPassword}    placeholder="password" iconRender={visible => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)} /> 
                   {passwordError}
                 </span>
               </Form.Item>
@@ -311,7 +324,7 @@ function SignUp() {
             </Form.Item>
 
             <Form.Item>
-              <span>Email</span>
+              <span>{emailOrPhone}</span>
               <Input id="email2"  disabled={true} value={email} style={{ height:50}} />
             </Form.Item>
               <span style={{color: 'red',fontSize:'100',fontWeight:'bold'}}> {apiResponseMessage}</span> 
@@ -340,7 +353,7 @@ function SignUp() {
           <Input style={{ height:40,marginTop:10}} onChange={getCode} id="code" placeholder="Code" />
           <span>{mess}</span>
           <br></br>
-          <span><button id='resendEmail' className='resendButton' onClick={()=>BE.resendEmail()}>Didn't recieve email?</button></span>
+          <span><button id='resendEmail' className='resendButton' onClick={()=>BE.resendEmail()}>Didn't recieve {emailOrMessage}?</button></span>
         </Modal>
 
       </div>

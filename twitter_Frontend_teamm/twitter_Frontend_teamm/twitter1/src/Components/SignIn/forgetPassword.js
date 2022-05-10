@@ -16,7 +16,7 @@ import  * as BE  from '../SignUp/backEndRegistration';
 function ForgetPassword(){
 
     const history = useNavigate();
-    const [isModalVisible, modelVisible] = useState(false);
+    const [isModalVisible, modelVisible] = useState(true);
     const [isModal2Visible, model2Visible] = useState(false);
     const [isModal3Visible, model3Visible] = useState(false);
     const [isModal4Visible, model4Visible] = useState(false);
@@ -81,7 +81,7 @@ function ForgetPassword(){
     
     function getConfirmPasswordValidation(val){
       setConfirmPasswordError(validatePassword(val.target.value))
-      if(password!=val.target.value){
+      if(password!==val.target.value){
         setConfirmPasswordError('Passwords do not match')
       }
       else{
@@ -156,7 +156,7 @@ function ForgetPassword(){
           okButtonProps={{id:'passSearchButton',shape:'round' , disabled:btnDisabled,size:'large', style:{width: 450,fontWeight:'bold',alignItems:'center',justifyContent:'center',
           display:'flex',color:"white",backgroundColor:"black"}}}
           cancelButtonProps={{ id:'cancelbutton1',style: { display: "none" } }}
-          visible={modelVisible}
+          visible={isModalVisible}
           bodyStyle={{height: 390 ,font:'Helvetica',textAlign:'left'}}
           width={500}
           centered={true}

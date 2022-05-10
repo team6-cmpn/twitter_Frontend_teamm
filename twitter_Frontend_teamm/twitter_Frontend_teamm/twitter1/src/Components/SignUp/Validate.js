@@ -62,7 +62,7 @@ function validateConfirmPassword(){
   var confirmNewPassword =  document.getElementById("Confirmpassword").value;
   console.log(newpassword);
   console.log(confirmNewPassword);
-  if (newpassword != confirmNewPassword){
+  if (newpassword != confirmNewPassword || confirmNewPassword != newpassword){
     error='Password do not match' ;
   }
   else {

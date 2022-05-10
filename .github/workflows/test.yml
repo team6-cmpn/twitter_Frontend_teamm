@@ -4,10 +4,9 @@ on:
   push:
     branches: [ dev ]
 env:
-    DOCKER_USER: pierrebassily
-    DOCKER_PASSWORD: gradepero100
-    REPO_NAME: code
-jobs:
+    DOCKER_USER: 
+    DOCKER_PASSWORD:
+    REPO_NAME: 
 #First we will see the application build or not , then we will deploy in EC2
   # build:
     

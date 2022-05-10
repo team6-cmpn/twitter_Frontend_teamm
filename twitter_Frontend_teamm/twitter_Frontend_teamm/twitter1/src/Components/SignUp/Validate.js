@@ -64,8 +64,13 @@ function validateConfirmPassword(){
   console.log(confirmNewPassword);
   if (newpassword != confirmNewPassword){
     error='Password do not match' ;
+  }
+  else {
 
-<<<<<<< Updated upstream:twitter_Frontend_teamm/twitter_Frontend_teamm/twitter1/src/Components/SignUp/Validate.js
+    error=''
+  }
+  return(error);
+}
 var validatePhone=(value)=> 
 {
   var error='';
@@ -82,13 +87,5 @@ var validatePhone=(value)=>
 };
 
 
-export {validatePassword,validateEmail,validateUserName,validatePhone};
-=======
-  } else {
-    error = '';
- 
-  }
-  return (error);
-}
-export {validatePassword,validateEmail,validateUserName,validateConfirmPassword};
->>>>>>> Stashed changes:twitter_Frontend_teamm/twitter1/src/Components/SignUp/Validate.js
+  
+export {validatePassword,validateConfirmPassword,validateUserName,validatePhone,validateEmail}

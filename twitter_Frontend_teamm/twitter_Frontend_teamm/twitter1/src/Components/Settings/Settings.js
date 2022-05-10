@@ -22,7 +22,7 @@ function Settings(){
                   <span>Settings</span>
                   </div>
                   <br/>
-                  <Link to="./your-account" style={{ textDecoration: "none", color:"inherit" }}>
+                  <Link to="your-account" style={{ textDecoration: "none", color:"inherit" }}>
                   <SettingsContent
                     text="Your account"
                     Icon={ChevronRightIcon}
@@ -46,10 +46,10 @@ function Settings(){
 
             </div>
             {path === "/Settings" ? (
-        <YourAccount />
-      ) : (
-        <Outlet />
-      )}
+                <YourAccount />
+              ) : (
+                <Outlet />
+              )}
       
       </SettingsBox>
     

@@ -11,7 +11,6 @@ import * as Mock from "../NotificationsMock";
 const ChangeUsername = () =>{
     const [userName, setUserName] = useState(null);
     const [userNameError, setuserNameError] = useState('')
-    const [btnDisabled, setBtnDisabled] = useState(true);
 
     function getUserNameValidation(val){
         setuserNameError(validateUserName(val.target.value))
@@ -32,6 +31,9 @@ const ChangeUsername = () =>{
         <div className="settingsSubMenu">
             <div className="SubMenuTitle">
                 <span>Change username</span>
+            </div>
+            <div className="submenu_discription">
+                <h3>What would you like to update it to? Your username is displayed in your public profile on Twitter.</h3>
             </div>
             <Form 
               name='form12'

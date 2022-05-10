@@ -3,6 +3,7 @@ import "./settingsSubmenus.css"
 import { Link, useLocation } from "react-router-dom";
 import { ChevronRight } from "@mui/icons-material";
 import AccountInfoMenuss from "./AccountInfoMenuss";
+import ChangeUsername from "./changeUsername";
 
 
 const AccountInformation = () => {
@@ -20,53 +21,34 @@ const AccountInformation = () => {
           <AccountInfoMenuss
             text="Username"
             Icon={ChevronRight}
-            data="@mohamedfathy10"
+            data={"change"}
             
 
           />
         </Link>
-        <Link to="" style={{ textDecoration: "none", color:"inherit" }}>
+        <Link to="../change-phone-number" style={{ textDecoration: "none", color:"inherit" }}>
           <AccountInfoMenuss
             text="Phone"
             Icon={ChevronRight}
-            data="+201012345679"
+            data="phone number change"
             
 
           />
         </Link> 
-        <Link to="" style={{ textDecoration: "none", color:"inherit" }}>
+        <Link to="../change-email" style={{ textDecoration: "none", color:"inherit" }}>
           <AccountInfoMenuss
             text="Email"
             Icon={ChevronRight}
-            data="Mohamedfathy@gmail.com"
-            
-
-          />
-        </Link>
-        <hr></hr>
-        <br></br>
-        
-        <Link to="" style={{ textDecoration: "none", color:"inherit" }}>
-          <AccountInfoMenuss
-            text="Gender"
-            Icon={ChevronRight}
-            data="Male"
-            
-
-          />
-        </Link>
-        <Link to="" style={{ textDecoration: "none", color:"inherit" }}>
-          <AccountInfoMenuss
-            text="Age"
-            Icon={ChevronRight}
-            data="23"
+            data="email change"
             
 
           />
         </Link>
         
-            </div>
-      </div>
+        
+        
+        </div>
+    </div>
       
     );
   };

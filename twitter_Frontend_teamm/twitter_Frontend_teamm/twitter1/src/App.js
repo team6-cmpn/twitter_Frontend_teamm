@@ -31,6 +31,9 @@ import Security from "./Components/Settings/Security";
 import { PrivateRouteAdmin,PrivateRouteStat,PrivateRouteUSers } from "./Admin/PrivateRoute";
 import Two_Factor from "./Components/Settings/Two-Factor";
 import BlockedAccounts from "./Components/Settings/BlockedAccounts";
+import Changephone from "./Components/Settings/ChangePhone";
+import ChangeEmail from "./Components/Settings/ChangeEmail";
+import MutedAccounts from "./Components/Settings/MutedAccounts";
 function App() {
   const isAuthenticated=localStorage.getItem("token")
   return (
@@ -59,6 +62,9 @@ function App() {
             <Route path="security-of-account"element={<Security/>}/>
             <Route path="two-factor"element={<Two_Factor/>}/>
             <Route path="Blocked-accounts" element = {<BlockedAccounts/>}/>
+            <Route path="Muted-accounts" element = {<MutedAccounts/>}/>
+            <Route path="change-phone-number"element ={<Changephone/>}/>
+            <Route path= "change-email" element={<ChangeEmail/>}/>
           </Route>
           <Route path="/adminPage" element={<AdminHome />} />
           <Route path="/Users" element={<FinalUser />} />

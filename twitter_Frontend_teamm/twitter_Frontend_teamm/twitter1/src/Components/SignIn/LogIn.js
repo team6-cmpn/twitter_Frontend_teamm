@@ -17,7 +17,7 @@ import  * as BE  from '../SignUp/backEndRegistration';
 function LogIn() {
 
     const navigate = useNavigate();
-    const [isModalVisible, setModalVisible] = useState(false);
+    const [isModalVisible, setModalVisible] = useState(true);
     const [isModal2Visible, setModal2Visible] = useState(false);
     const [btnDisabled, setBtnDisabled] = useState(true);
     const [data, setData] = useState(null);
@@ -62,7 +62,6 @@ function LogIn() {
     }
       const promise=BE.backEndGoogleLogIn(googlebody)
       promise.then((message)=> {
-        // setGoogleApiResponseMessage(message)
         if(message===''){navigate('/home');}
         else {alert(message);}
         
@@ -112,7 +111,7 @@ function LogIn() {
           okButtonProps={{id:'nextbutton1',shape:'round' , size:'large', style:{width: 450,fontWeight:'bold',alignItems:'center',justifyContent:'center',
           display:'flex'}}}
           cancelButtonProps={{ style: { display: "none" } }}
-          visible={setModalVisible}
+          visible={isModalVisible}
           bodyStyle={{height: 490 ,font:'Helvetica',textAlign:'left'}}
           width={500}
           centered={true}

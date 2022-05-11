@@ -2,6 +2,7 @@ import { Avatar } from "@material-ui/core";
 import React, {useState}  from "react";
 import {Modal} from "antd";
 import "./FriendSuggestionItem.css";
+import { Link } from 'react-router-dom';
 import{
   MdVerified,
 } from "react-icons/md";
@@ -22,7 +23,8 @@ function FriendSuggestionItem(props) {
     // <div className="key">
     <div className="friendSuggestionsItem">
      
-        <Avatar src={props.image} /><div className="n">{props.displayName} </div>
+        <Avatar src={props.image} /><div className="n">
+        <Link to={`/${props.username}`}>{props.displayName}</Link> </div>
         <MdVerified className="verify"/>
     
         <span className="user_name">@{props.username}</span>

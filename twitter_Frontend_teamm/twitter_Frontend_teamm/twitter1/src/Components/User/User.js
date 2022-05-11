@@ -6,7 +6,7 @@ import  { useState} from 'react';
 // import placeholder from 'react-image-placeholder';
 import { Link } from 'react-router-dom';
 // import   * as mockAPI   from '../Profile/ProfileMock';
-import  getUsernames    from '../Profile/ProfileMock';
+import  getUserInformation    from './UserMock';
 import Trends from "../Widgets/Trends";
 import Sidebar from "../Sidebar/Sidebar";
 import {GrLocation} from "react-icons/gr";
@@ -17,7 +17,7 @@ import "../Widgets/FriendSuggestions/FriendSuggestionItem/FriendSuggestionItem.c
 import { GetPostTweet } from "../homepage/feedmock";
 import Post from "../homepage/Post";
 import { RecoilRoot } from "recoil";
-import { Menu } from 'antd';
+// import { Menu } from 'antd';
 import { Popover } from 'antd';
 
 function User(){
@@ -34,34 +34,23 @@ function User(){
     // const [{alt, src}, setImg] = useState({
     //     src: placeholder,
     // });
-    const [isPopover, setPopover] = useState(true);
+    // const [isPopover, setPopover] = useState(false);
    
     
     
 
     
-    const [Username, setUsernames] = React.useState([]);
+    const [UserInfo, setUserInfo] = React.useState([]);
     React.useEffect(() => {
     (async () => {
-        const resp = await getUsernames();
-        setUsernames(resp);
+        const resp = await getUserInformation();
+        setUserInfo(resp);
       })();
     }, []);
    
    
     const [Item, setItem] = useState();
-    // var [follow, setfollow] = useState(false);
-    // const btn = document.getElementById('FollowButton');
-
-
-    // function Follow(){
-
-    //     if(setfollow() === false){
-    //        follow = "Follow";
-    //     }else{
-    //         btn.value= "Red";
-    //     }
-    // }
+    
 
     // function SaveButtonActions(){
     // mockAPI.Profile(body);
@@ -108,16 +97,31 @@ function User(){
                 <span>Profile</span>
             </div> 
             <div>
+                
                 <div>
-                    {/* <img id="img" src={src} alt={alt} className="form-img__img-preview"/> */}
-                </div>
-                <div id="bioName" className='name'> </div>
-                <br></br>
-               <div className='Username'> 
-                   {Object.keys(Username).map((user, index) => {
+                {/* {Object.keys(UserInfo).map((user, index) => {
                     return (
                         <div>
-                            {Username[user].User} ;
+                            {UserInfo[user].img} 
+                        
+                        </div> )
+                    })} */}
+                </div>
+                <div id="bioName" className='name'>
+                {Object.keys(UserInfo).map((user, index) => {
+                    return (
+                        <div>
+                            {UserInfo[user].name} 
+                        
+                        </div> )
+                    })}
+                     </div>
+                <br></br>
+               <div className='Username'> 
+                   {Object.keys(UserInfo).map((user, index) => {
+                    return (
+                        <div>
+                            {UserInfo[user].username} 
                         
                         </div> )
                     })}
@@ -132,17 +136,19 @@ function User(){
                 <br></br>
                 <BiLink className='Bio'></BiLink>
                 <div id="bioWebsite" className='Bio'></div>
+                {/* <Link to={`/${localStorage.getItem("UserName")}`}>{localStorage.getItem("displayName")}</Link> */}
 
                 <br></br>
                 <div>
+                    
                     <Popover
                     content={content}
                     title="Title"
                     trigger="click"
-                    visible={isPopover}
                     >
-                        <button id="More" class="More" ><span>...</span></button>
+                        <button id="More" className="More" ><span>...</span></button>
                     </Popover>
+                    
                     <button id="FollowButton" class="ButtonFollow" onClick={() => {
                         if (textState==="Follow")
                         toggleText();
@@ -254,6 +260,7 @@ function User(){
                                  avatar={userlist.avatar}
                                  date={userlist.date}
                                  />))}
+                            
                             </>
                         : 
                             <>

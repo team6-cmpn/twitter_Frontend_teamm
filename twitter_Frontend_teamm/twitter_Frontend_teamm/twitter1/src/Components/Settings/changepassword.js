@@ -16,7 +16,7 @@ const Changepassword = () =>{
     const [Confirmpassword, setConfirmPassword] =React.useState(null);
     const [passwordError, setPasswordError] = React.useState('')
     const [newpasswordError, setnewPasswordError] = React.useState('')
-    // const [newConfpasswordError, setnewConfPasswordError] = React.useState('')
+    const [newConfpasswordError, setnewConfPasswordError] = React.useState('')
     
     function getPassword(val){
         setPassword(val.target.value)
@@ -33,9 +33,9 @@ const Changepassword = () =>{
     function getNewPasswordValidation(val){
         setnewPasswordError(validatePassword(val.target.value))
     };
-  //   function getConfPasswordValidation(val){
-  //     setnewConfPasswordError(validateConfirmPassword(val.target.value))
-  // };
+    function getConfPasswordValidation(val){
+       setnewConfPasswordError(validateConfirmPassword(val.target.value))
+    };
   
     function SaveButtonActions(){
         mock.PostChangePassword(body);
@@ -89,10 +89,9 @@ const Changepassword = () =>{
                 ]} 
               >
                 <span style={{color: 'red'}}>
-                  <Input.Password  id='Confirmpassword' type='password'style={{ height:40,width:550}}  onChange={getNewPasswordValidation}   onKeyUp={getConfirmPassword}    placeholder=" confirm password" iconRender={visible => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)} /> 
-                  {/* {newConfpasswordError} */}
-                  {/* {passwordError} */}
-                </span>
+                  <Input.Password  id='Confirmpassword' type='password'style={{ height:40,width:550}}  onChange={getConfPasswordValidation}   onKeyUp={getConfirmPassword}    placeholder=" confirm password" iconRender={visible => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)} /> 
+                  {newConfpasswordError}
+                   </span>
               </Form.Item>
             
             </Form>
@@ -106,7 +105,7 @@ const Changepassword = () =>{
             <div className="savebutton">
                 <Button onClick={()=> SaveButtonActions()}
                     id="save_Username"
-                    disabled={!password || !Newpassword || !Confirmpassword || passwordError || newpasswordError}
+                    disabled={!password || !Newpassword || !Confirmpassword || passwordError || newpasswordError || newConfpasswordError}
                     className="save_username_button"
                 >
                     save

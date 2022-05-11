@@ -15,6 +15,7 @@
     justify-content: space-between;
     margin-left: 220px;
     margin-bottom: 10px;
+    border-bottom: 1px solid #e6ecf0;
     
 }
 .settingsTitle > span {

@@ -14,7 +14,7 @@ const MuteandBlock = () => {
             <span>Mute and block </span>
             </div>
             <div className="submenu_discription">
-                <h3>Manage the accounts, words, and notifications that you've muted or blocked.</h3>
+                <h3>Manage the accounts that you've muted or blocked.</h3>
                 <br/>
                 <Link to="../Blocked-accounts" style={{ textDecoration: "none", color:"inherit" }}>
           <SettingsContentInMenus
@@ -25,6 +25,16 @@ const MuteandBlock = () => {
 
           />
         </Link>
+        <Link to="../Muted-accounts" style={{ textDecoration: "none", color:"inherit" }}>
+          <SettingsContentInMenus
+            text="Muted Accounts"
+            Icon={ChevronRight}
+            active={location === "/MuteandBlock" && true}
+            
+
+          />
+        </Link>
+        
             </div>
       </div>
       

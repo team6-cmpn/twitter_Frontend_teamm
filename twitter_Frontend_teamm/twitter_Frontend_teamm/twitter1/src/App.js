@@ -4,6 +4,7 @@ import StartPage from './Components/StartPage/StartPage';
 import SignUp from './Components/SignUp/SignUp';
 import React from 'react';
 import LogIn from './Components/SignIn/LogIn';
+import LogOut from './Components/SignOut/LogOut';
 import ForgetPassword from './Components/SignIn/forgetPassword';
 import GoogleSignUp from './Components/SignUp/GoogleSignUp';
 import Explore from "./Components/Explore";
@@ -30,6 +31,9 @@ import Security from "./Components/Settings/Security";
 import { PrivateRouteAdmin,PrivateRouteStat,PrivateRouteUSers } from "./Admin/PrivateRoute";
 import Two_Factor from "./Components/Settings/Two-Factor";
 import BlockedAccounts from "./Components/Settings/BlockedAccounts";
+import Changephone from "./Components/Settings/ChangePhone";
+import ChangeEmail from "./Components/Settings/ChangeEmail";
+import MutedAccounts from "./Components/Settings/MutedAccounts";
 function App() {
   const isAuthenticated=localStorage.getItem("token")
   return (
@@ -41,6 +45,7 @@ function App() {
             <Route path="/googlesignup" element={<GoogleSignUp />} />
           </Route>
           <Route path="/login" element={<LogIn />}></Route>
+          <Route path="/logout" element={<LogOut />}></Route>
           <Route path="/forgetpassword" element={<ForgetPassword />}></Route>
           <Route path="/home" element={<Home />} />
           <Route path="/explore" element={<Explore />} />
@@ -57,6 +62,9 @@ function App() {
             <Route path="security-of-account"element={<Security/>}/>
             <Route path="two-factor"element={<Two_Factor/>}/>
             <Route path="Blocked-accounts" element = {<BlockedAccounts/>}/>
+            <Route path="Muted-accounts" element = {<MutedAccounts/>}/>
+            <Route path="change-phone-number"element ={<Changephone/>}/>
+            <Route path= "change-email" element={<ChangeEmail/>}/>
           </Route>
           <Route path="/adminPage" element={<AdminHome />} />
           <Route path="/Users" element={<FinalUser />} />
@@ -68,7 +76,7 @@ function App() {
           <Route path="/profile"  element={<Profile />}> </Route> 
           <Route path="/Followers" element={<Followers />}></Route>
           <Route path="/Following" element={<Following />}></Route>
-          <Route path="/User" element={<User/>}></Route>
+          <Route path="/:username" element={<User />} exact/>
         </Routes>
       </div>
     </Router>

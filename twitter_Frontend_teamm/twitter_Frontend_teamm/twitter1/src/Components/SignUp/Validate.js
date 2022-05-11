@@ -46,7 +46,7 @@ var validateEmail=(value)=> {
  */
 function validateUserName(value){
   var error='';
-  if (value[0] == '@') {
+  if (value[0] === '@') {
     error='';
 
   }
@@ -56,5 +56,36 @@ function validateUserName(value){
   return (error);
 
 };
+function validateConfirmPassword(){
+  var error='';
+  var newpassword = document.getElementById("Newpassword").value;
+  var confirmNewPassword =  document.getElementById("Confirmpassword").value;
+  console.log(newpassword);
+  console.log(confirmNewPassword);
+  if (newpassword != confirmNewPassword){
+    error='Password do not match' ;
+  }
+  else {
 
-export {validatePassword,validateEmail,validateUserName};
+    error=''
+  }
+  return(error);
+}
+var validatePhone=(value)=> 
+{
+  var error='';
+  var phoneno = /^\+?([0-9]{2})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})$/;
+  if((value.length===11)){
+    error='';
+    console.log(error)
+  }
+  else{
+    error='Please enter a valid phone number (starting with zero)';
+    console.log(error)
+  }
+ return (error);
+};
+
+
+  
+export {validatePassword,validateConfirmPassword,validateUserName,validatePhone,validateEmail}

@@ -33,6 +33,8 @@ const Post = ({
 }) => {
   const [liked, setLiked] = useState(false);
   const [like_no, setcount] = useState([]);
+  localStorage.setItem("displayName",displayName);
+  localStorage.setItem("UserName",username);
   //const [likes, setLikes] = useState([]);
   //const [dislikes, setdisLikes] = useState([]);
 

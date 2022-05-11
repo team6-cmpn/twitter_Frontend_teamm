@@ -1,140 +1,66 @@
 import React, { useState } from "react";
-import ReactDOM from "react-dom";
+import AdminSideBar from "../AdminSideBar";
+import { BlockFormBackEnd } from "../MockRegistrationAdmin";
+import TopBar from "../TopBar";
 import "./blockform.css";
 
 function BlockForm() {
-  const [name, setName] = useState("");
-  const [age, setAge] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confPassword, setConfPassword] = useState("");
+  const [BlockedDaysNumber, setBlockedDaysNumber] = useState("");
 
-  // function to update state of name with
+  // function to update state of Blocked daysy number with
   // value enter by user in form
   const handleChange = (e) => {
-    setName(e.target.value);
-  };
-  // function to update state of age with value
-  // enter by user in form
-  const handleAgeChange = (e) => {
-    setAge(e.target.value);
-  };
-  // function to update state of email with value
-  // enter by user in form
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
-  // function to update state of password with
-  // value enter by user in form
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  };
-  // function to update state of confirm password
-  // with value enter by user in form
-  const handleConfPasswordChange = (e) => {
-    setConfPassword(e.target.value);
+    setBlockedDaysNumber(e.target.value);
   };
   // below function will be called when user
   // click on submit button .
   const handleSubmit = (e) => {
-    if (password != confPassword) {
-      // if 'password' and 'confirm password'
-      // does not match.
-      alert("password Not Match");
+    if (BlockedDaysNumber < 0) {
+      alert("Please enter a validate number");
     } else {
-      // display alert box with user
-      // 'name' and 'email' details .
-      alert(
-        'A form was submitted with Name :"' +
-          name +
-          '" ,Age :"' +
-          age +
-          '" and Email :"' +
-          email +
-          '"'
-      );
+      BlockFormBackEnd(body);
+      alert("User is Blocked By : " + BlockedDaysNumber + " Days");
+      e.preventDefault();
     }
-    e.preventDefault();
   };
+  var body={Blocked_Days:BlockedDaysNumber}
   return (
-    <div className="BlockForm">
-      <header className="BlockForm-header">
-        <form
-          onSubmit={(e) => {
-            handleSubmit(e);
-          }}
-        >
-          {/*when user submit the form , handleSubmit()
-        function will be called .*/}
-          <h2>Block Form</h2>
-          <label>Number Of Days:</label>
-          <br />
-          <input
-            type="text"
-            value={name}
-            required
-            onChange={(e) => {
-              handleChange(e);
-            }}
-          />
-          <br />
-          {/*when user write in name input box , handleChange()
-              function will be called. */}
-          <label>Age:</label>
-          <br />
-          <input
-            type="text"
-            value={age}
-            required
-            onChange={(e) => {
-              handleAgeChange(e);
-            }}
-          />
-          <br />
-          {/*when user write in age input box , handleAgeChange()
-               function will be called. */}
-          <label>Email:</label>
-          <br />
-          <input
-            type="email"
-            value={email}
-            required
-            onChange={(e) => {
-              handleEmailChange(e);
-            }}
-          />
-          <br />
-          {/* when user write in email input box , handleEmailChange()
-              function will be called.*/}
-          <label>Password:</label>
-          <br />
-          <input
-            type="password"
-            value={password}
-            required
-            onChange={(e) => {
-              handlePasswordChange(e);
-            }}
-          />
-          <br />
-          {/* when user write in password input box ,
-                  handlePasswordChange() function will be called.*/}
-          <label>Confirm Password:</label>
-          <br />
-          <input
-            type="password"
-            value={confPassword}
-            required
-            onChange={(e) => {
-              handleConfPasswordChange(e);
-            }}
-          />
-          <br />
-          {/* when user write in confirm password  input box ,
-                    handleConfPasswordChange() function will be called.*/}
-          <input type="submit" value="Submit" />
-        </form>
-      </header>
+    <div>
+      <div id="FinalUsersPage">
+        <TopBar />
+        <div className="admincontainer">
+          <AdminSideBar />
+          <div className="UsersHome">
+            <div className="UserWidget">
+              <div className="BlockForm">
+                <header className="BlockForm-header">
+                  <form
+                    onSubmit={(e) => {
+                      handleSubmit(e);
+                    }}
+                  >
+                    <h2>Block Form</h2>
+                    <label>Number Of Days:</label>
+                    <br />
+                    <br />
+                    <input
+                      type="number"
+                      value={BlockedDaysNumber}
+                      required
+                      onChange={(e) => {
+                        handleChange(e);
+                      }}
+                    />
+                    <br />
+                    <br />
+                    <input type="submit" value="Submit" />
+                  </form>
+                </header>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

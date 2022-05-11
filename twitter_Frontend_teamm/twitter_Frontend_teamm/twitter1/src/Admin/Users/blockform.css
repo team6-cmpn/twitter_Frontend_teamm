@@ -1,25 +1,36 @@
 .BlockForm {
-    text-align: center;
- }
- form {
-   border:2px solid green;
-   padding: 30px;
- }
- .blockimg{
-   height: 120px;
-   margin-left: 90px;
-   margin-bottom: 10px;
-   display: block;
-   border:1px solid black;
-   border-radius: 50%;
- }
- .BlockForm-header {
-   background-color: white;
-   min-height: 100vh;
-   display: flex;
-   flex-direction: column;
-   align-items: center;
-   justify-content: center;
-   font-size: calc(10px + 2vmin);
-   color: black;
- }
+  display: flex;
+  text-align: center;
+}
+form {
+  border: 4px solid rgb(6, 89, 100);
+  padding: 30px;
+}
+.BlockForm-header {
+  background-color: white;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: black;
+}
+.admincontainer {
+  display: flex;
+  margin-top: 10px;
+}
+
+.UsersHome {
+  flex: 4;
+}
+.UserWidget {
+  display: flex;
+  text-align: center;
+}
+.UserChart {
+  width: 50%;
+  height: 50%;
+  display: flex;
+  margin-top: 20px;
+}

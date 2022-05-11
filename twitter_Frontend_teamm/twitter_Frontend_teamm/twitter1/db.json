@@ -1178,5 +1178,15 @@
       "EmailAddress": "mohamedfathy@gmail.com",
       "id": 2
     }
+  ],
+  "Blocked_Days": [
+    {
+      "Blocked_Days": "22",
+      "id": 2
+    },
+    {
+      "Blocked_Days": "36",
+      "id": 3
+    }
   ]
 }

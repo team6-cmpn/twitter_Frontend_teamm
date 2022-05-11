@@ -103,7 +103,18 @@ export function GetAgesRange() {
   }, []);
   return agesnumbers;
 }
+export function GetUserListMock() {
+  const [agesnumbers, setAgesRange] = React.useState([]);
 
+  useEffect(() => {
+    fetch("http://localhost:8000/UserLists")
+      .then((res) => res.json())
+      .then((result) => {
+        setAgesRange(result);
+      });
+  }, []);
+  return agesnumbers;
+}
 export function GetUserList() {
   const [userlist, setUserList] = React.useState([]);
 

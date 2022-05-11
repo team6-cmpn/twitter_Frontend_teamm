@@ -34,7 +34,7 @@ function BlockForm() {
             <div className="UserWidget">
               <div className="BlockForm">
                 <header className="BlockForm-header">
-                  <form
+                  <form className="BlockForm"
                     onSubmit={(e) => {
                       handleSubmit(e);
                     }}

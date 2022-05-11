@@ -30,7 +30,7 @@ function BlockForm() {
         <TopBar />
         <div className="admincontainer">
           <AdminSideBar />
-          <div className="UsersHome">
+          <div className="BlockForm_Widget">
             <div className="UserWidget">
               <div className="BlockForm">
                 <header className="BlockForm-header">

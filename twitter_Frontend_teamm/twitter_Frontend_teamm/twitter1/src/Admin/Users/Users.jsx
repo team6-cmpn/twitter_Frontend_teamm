@@ -41,7 +41,7 @@ const columns = [
         </div>);
       };
 
-      return <a href="BlockForm" onClick={onClick}>Click</a>;
+      return <a href="BlockForm" onClick={onClick}><BlockIcon/></a>;
     },
   }
 ];

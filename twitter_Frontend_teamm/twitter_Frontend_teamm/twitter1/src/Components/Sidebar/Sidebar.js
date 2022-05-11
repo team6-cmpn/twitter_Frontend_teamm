@@ -34,7 +34,7 @@ function Sidebar() {
   const onSubModel = (stateMain = true) => {
     setModalVisible(stateMain);
   };
-  const [popOverVisible, setPopOverVisible] = useState(false);
+  //const [popOverVisible, setPopOverVisible] = useState(false);
   const content = (
     <div>
       <Link to='/logout'>Logout username</Link>
@@ -103,7 +103,7 @@ function Sidebar() {
           <a href="">
             <Avatar className="icons" />
             <div className="t">
-            Username <Popover content={content} trigger="click" visible={popOverVisible}  title='Username'><BiDotsHorizontal className="more" /></Popover>
+            Username <Popover content={content} trigger="click" title='Username'><BiDotsHorizontal className="more" /></Popover>
             </div>
           </a>
         </li>

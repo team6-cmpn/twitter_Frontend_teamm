@@ -183,7 +183,7 @@ export const backEndGooglePost=async payload=>{
           console.log(response);
           if (response.status === 200) {
             message='';
-            localStorage.setItem('googleAccessToken', response.data.accessToken);
+            
             
             
           }
@@ -220,6 +220,9 @@ export const backEndGoogleLogIn=async payload=>{
           console.log(response);
           if (response.status === 200) {
             message='';
+            localStorage.setItem('token', response.data.accessToken);
+            localStorage.setItem('getUsername', response.data.user.username);
+            localStorage.setItem('userId', response.data.user._id);
             
           }
         }).catch(error => {

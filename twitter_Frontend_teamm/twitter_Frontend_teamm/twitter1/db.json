@@ -1076,6 +1076,12 @@
       "password": "Sayed_12",
       "confirmNewPassword": "Sayed_12",
       "id": 2
+    },
+    {
+      "currentPassword": "sayed12_A",
+      "password": "ahmed_Sayed12",
+      "confirmNewPassword": "ahmed_Sayed12",
+      "id": 3
     }
   ],
   "UserChange_phone": [
@@ -1088,6 +1094,10 @@
     {
       "EmailAddress": "mohamedfathy@gmail.com",
       "id": 1
+    },
+    {
+      "EmailAddress": "mohamedfathy@gmail.com",
+      "id": 2
     }
   ]
 }

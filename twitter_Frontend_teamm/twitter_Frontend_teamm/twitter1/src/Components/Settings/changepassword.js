@@ -7,13 +7,13 @@ import TextField from '@mui/material/TextField';
 import {Button} from "@mui/material";
 import * as mock from "../NotificationsMock"
 import {TwitterOutlined,EyeInvisibleOutlined,EyeTwoTone} from '@ant-design/icons';
-
+import * as BE from "./SettingsBackendIntegration"
 
 
 const Changepassword = () =>{
-    const [password, setPassword] = React.useState(null);
-    const [Newpassword, setNewPassword] = React.useState(null);
-    const [Confirmpassword, setConfirmPassword] =React.useState(null);
+    const [currentPassword, setPassword] = React.useState(null);
+    const [password, setNewPassword] = React.useState(null);
+    const [confirmNewPassword, setConfirmPassword] =React.useState(null);
     const [passwordError, setPasswordError] = React.useState('')
     const [newpasswordError, setnewPasswordError] = React.useState('')
     const [newConfpasswordError, setnewConfPasswordError] = React.useState('')
@@ -39,17 +39,22 @@ const Changepassword = () =>{
   
     function SaveButtonActions(){
         mock.PostChangePassword(body);
-        setPassword(password);
-        setNewPassword(Newpassword);
-        setConfirmPassword(Confirmpassword);
+        BE.Post_ChangePassword(body);
+        setPassword(currentPassword);
+        setNewPassword(password);
+        setConfirmPassword(confirmNewPassword);
         alert("Password Succesfully changed");
 
     };
     var body={
-        currentPassword : password,
-        password : Newpassword,
-        confirmNewPassword : Confirmpassword
+        currentPassword : currentPassword,
+        password : password,
+        confirmNewPassword : confirmNewPassword
     }
+    sessionStorage.setItem('currentPassword',currentPassword);
+    sessionStorage.setItem('confirmNewPassword',confirmNewPassword);
+    sessionStorage.setItem('password',password)
+    
     return(
         <div className="settingsSubMenu">
             <div className="SubMenuTitle">
@@ -105,7 +110,7 @@ const Changepassword = () =>{
             <div className="savebutton">
                 <Button onClick={()=> SaveButtonActions()}
                     id="save_Username"
-                    disabled={!password || !Newpassword || !Confirmpassword || passwordError || newpasswordError || newConfpasswordError}
+                    disabled={!password || !currentPassword || !confirmNewPassword || passwordError || newpasswordError || newConfpasswordError}
                     className="save_username_button"
                 >
                     save

@@ -4,6 +4,7 @@ import { Modal,Form,Input,DatePicker,  Checkbox } from "antd";
 import { validateEmail } from "../SignUp/Validate";
 import * as mock from "../NotificationsMock"
 import {Button} from "@mui/material";
+import { Link } from "react-router-dom";
 
 
 function ChangeEmail(){

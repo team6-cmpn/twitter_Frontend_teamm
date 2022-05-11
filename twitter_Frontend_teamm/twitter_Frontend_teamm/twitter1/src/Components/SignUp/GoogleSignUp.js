@@ -75,7 +75,7 @@ function GoogleSignUp(){
     const promise=BE.backEndGooglePost(backEndBody);
     promise.then((message)=> {
       setApiResponseMessage(message)
-      if(message===''){history('/home');}
+      if(message===''){history('/login');}
    })
     
   }

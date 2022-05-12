@@ -1,0 +1,39 @@
+.BlockForm {
+  display: flex;
+  text-align: center;
+}
+.Block_Form {
+  border: 4px solid rgb(9, 61, 68);
+  padding: 30px;
+}
+.BlockForm-header {
+  background-color: white;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: black;
+}
+.admincontainer {
+  display: flex;
+  margin-top: 10px;
+}
+
+.BlockForm_Widget {
+  flex: 4;
+  padding-left: 20rem;
+  padding-bottom: 20rem;
+}
+.UserWidget {
+  display: flex;
+  text-align: center;
+  padding-left: 10px;
+}
+.UserChart {
+  width: 50%;
+  height: 50%;
+  display: flex;
+  margin-top: 20px;
+}

@@ -103,7 +103,18 @@ export function GetAgesRange() {
   }, []);
   return agesnumbers;
 }
+export function GetUserListMock() {
+  const [agesnumbers, setAgesRange] = React.useState([]);
 
+  useEffect(() => {
+    fetch("http://localhost:8000/UserLists")
+      .then((res) => res.json())
+      .then((result) => {
+        setAgesRange(result);
+      });
+  }, []);
+  return agesnumbers;
+}
 export function GetUserList() {
   const [userlist, setUserList] = React.useState([]);
 
@@ -123,3 +134,47 @@ export function GetUserList() {
   console.log("users", userlist);
   return userlist;
 }
+// export async function BlockFormBackEnd  (){
+//   let go=false;
+  
+//   console.log(`${localStorage.getItem('emailToken')}`)
+//   const body = {};
+  
+//    await axios
+//      .post(`http://localhost:8000/Blocked_Days`, body,{
+         
+//        headers: {
+         
+//          'Content-Type': 'application/json',
+//          'x-access-token': ` ${localStorage.getItem('emailToken')}`,
+         
+//        },
+      
+      
+//      })
+//      .then((response) => {
+//        console.log("blockeddays",response);
+//        if (response.status === 200) {
+//          // localStorage.setItem('access token', response.data.emailtoken);
+//          go=true;
+//        } 
+//        else if (response.status=== 401){
+//            go=false;
+//        }
+//      }).catch(error => {
+//          console.log(error);
+        
+//          });
+//    return go;
+// };
+export const BlockFormBackEnd = async payload => {
+  try {
+    const response = await axios(`http://localhost:8000/Blocked_Days`, {
+      method: 'post',
+      data: payload,
+    });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};

@@ -3,7 +3,11 @@ import "./users.css";
 import { GridActionsCellItem } from "@mui/x-data-grid";
 import BlockIcon from "@material-ui/icons/Block";
 import { DataGrid } from "@mui/x-data-grid";
-import { GetUserList } from "../MockRegistrationAdmin";
+import { GetUserList, GetUserListMock } from "../MockRegistrationAdmin";
+import { GridColDef, GridApi } from '@mui/x-data-grid';
+import Button from '@mui/material/Button';
+import BlockForm from './BlockForm'
+
 
 const columns = [
   {
@@ -26,28 +30,35 @@ const columns = [
   { field: "dateOfBirth", headerName: "Date Of Birth", width: 130 },
   { field: "isDeactivated", headerName: "Deactivation Status", width: 150 },
   {
-    field: "actions",
-    headerName: "Block Icon",
-    type: "actions",
-    description: "This icon will block the user",
-    width: 100,
-    getActions: () => [
-      <GridActionsCellItem icon={<BlockIcon />} label="Block"/>,
-    ],
-  },
+    field: 'action',
+    headerName: 'Action',
+    sortable: false,
+    renderCell: (params) => {
+      const onClick = (e) => {
+        e.stopPropagation(); // don't select this row after clicking
+        return (<div>
+          <BlockForm/>
+        </div>);
+      };
+
+      return <a href="BlockForm" onClick={onClick}><BlockIcon/></a>;
+    },
+  }
 ];
 
 
 
 export default function AdminUsers() {
+  const userlistmock=GetUserListMock()
   const userlist=GetUserList()
   console.log("users",userlist)
   return (
     <div className="Users">
       <span className="Userstitle">Users List</span>
       <div style={{ height: 600, width: "100%"}}>
-        <DataGrid getRowId={userlist => userlist._id} rows={userlist} columns={columns} />
+        <DataGrid  rows={userlistmock} columns={columns} />
       </div>
     </div>
   );
-}
+ }
+// getRowId={userlist => userlist._id}

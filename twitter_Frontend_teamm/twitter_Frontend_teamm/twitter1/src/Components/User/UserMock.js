@@ -16,3 +16,14 @@ export default async function getUserInformation() {
     }
     return (response);
   }
+  export const follow = async payload => {
+    try {
+      const response = await axios(`http://localhost:8000/FollowingAccounts`, {
+        method: 'post',
+        data: payload,
+      });
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  };

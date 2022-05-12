@@ -14,6 +14,9 @@ import Sidebar from "../Sidebar/Sidebar";
 import {GrLocation} from "react-icons/gr"
 import {BiLink, BiArrowBack} from "react-icons/bi"
 import {getUserInfo} from './backEndProfile'
+import { GetPostTweet } from "../homepage/feedmock";
+import Post from "../homepage/Post";
+import { RecoilRoot } from "recoil";
 
 /**Profile
  * Shows User profile layout and enables user to edit profile info
@@ -24,6 +27,15 @@ function Profile(){
     const [date, setDate] = useState(null);
     const [isMainModalVisible, setMainModalVisible] = useState(false);
     const [isTab, setIsTab] = useState(1);
+    const [twetted, postedtweet] = React.useState([]);
+    
+    
+    React.useEffect(() => {
+      (async () => {
+        const resp = await GetPostTweet();
+        postedtweet(resp);
+      })();
+    }, []);
     
     const [{alt, src}, setImg] = useState({
         src: placeholder,
@@ -55,7 +67,7 @@ function Profile(){
     const [Item, setItem] = useState();
 
     function SaveButtonActions(){
-    mockAPI.Profile(body); //what is needed
+    mockAPI.Profile(body); 
     setMainModalVisible(false);
     setName(editname);
     setBio(editbio);
@@ -93,7 +105,7 @@ function Profile(){
                            {Object.keys(Username).map((user, index) => {
                             return (
                                 <div>
-                                    {Username[user].User} ;
+                                    {Username[user].User} 
                                 
                                 </div> )
                             })}
@@ -123,32 +135,101 @@ function Profile(){
                         </div>
                         <br></br>
                         <br></br>
-                        <div className="notificationsCategory">
-                            <div id="tweets"
-                            className={isTab === 1 && "notificationActive"}
-                            onClick={() => setIsTab(1) }
-                            >
-                            <span>Tweets</span>
-                            </div>
-                            <div id="tweets&replies"
-                            className={isTab === 2 && "notificationActive"}
-                            onClick={() => setIsTab(2)}
-                            >
-                            <span>Tweets & Replies</span>
-                            </div>
-                            <div id="Media"
-                            className={isTab === 3 && "notificationActive"}
-                            onClick={() => setIsTab(3)}
-                            >
-                            <span>Media</span>
-                            </div>
-                            <div id="likes"
-                            className={isTab === 4 && "notificationActive" }
-                            onClick={() => setIsTab(4) }
-                            >
-                            <span>Likes</span>
-                            </div>
+                        <RecoilRoot>
+                <div className="notificationsCategory">
+                    <div id="tweets"
+                    className={isTab === 1 && "notificationActive"}
+                    onClick={() => setIsTab(1) }
+                    >
+                    <span>Tweets</span>
                     </div>
+                    <div id="tweets&replies"
+                    className={isTab === 2 && "notificationActive"}
+                    onClick={() => setIsTab(2)}
+                    >
+                    <span>Tweets & Replies</span>
+                    </div>
+                    <div id="Media"
+                    className={isTab === 3 && "notificationActive"}
+                    onClick={() => setIsTab(3)}
+                    >
+                    <span>Media</span>
+                    </div>
+                    <div id="likes"
+                    className={isTab === 4 && "notificationActive" }
+                    onClick={() => setIsTab(4) }
+                    >
+                    <span>Likes</span>
+                    </div>
+                    </div>
+                    <article>
+                        {
+                         (isTab===1)?
+                        
+                            <>
+
+                            {twetted.map((userlist, index) => (
+                                 <Post
+                                 key={index}
+                                 displayName={userlist.displayName}
+                                 username={userlist.username}
+                                 text={userlist.text}
+                                 image={userlist.image}
+                                 avatar={userlist.avatar}
+                                 date={userlist.date}
+                                 />))}
+                            </>
+                         :
+                         (isTab===2)?
+                            <>
+
+                            {twetted.map((userlist, index) => (
+                                 <Post
+                                 key={index}
+                                 displayName={userlist.displayName}
+                                 username={userlist.username}
+                                 text={userlist.text}
+                                 image={userlist.image}
+                                 avatar={userlist.avatar}
+                                 date={userlist.date}
+                                 />))}
+                            </>
+                        : (isTab===3)?
+                            <>
+
+                            {twetted.map((userlist, index) => (
+                                 <Post
+                                 key={index}
+                                 displayName={userlist.displayName}
+                                 username={userlist.username}
+                                 text={userlist.text}
+                                 image={userlist.image}
+                                 avatar={userlist.avatar}
+                                 date={userlist.date}
+                                 />))}
+                            
+                            </>
+                        : 
+                            <>
+                            {twetted.map((userlist, index) => (
+                                 <Post
+                                 key={index}
+                                 displayName={userlist.displayName}
+                                 username={userlist.username}
+                                 text={userlist.text}
+                                 image={userlist.image}
+                                 avatar={userlist.avatar}
+                                 date={userlist.date}
+                                 />))}
+                            </> 
+                        
+                        
+                        }
+          
+           
+                    </article>
+                
+                </RecoilRoot>
                         <div>
                             <Modal className="ant-modal-content"  title={<div><h3>Edit profile</h3><button onClick={()=> SaveButtonActions()} class="ButtonSave">Save</button></div>} bodyStyle={{overflowY:'scroll'}} visible={isMainModalVisible} onCancel={()=>setMainModalVisible(false)}  footer={null}> 
 

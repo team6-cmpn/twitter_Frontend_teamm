@@ -13,7 +13,6 @@ import Notifications from "./Components/Notifications";
 import Settings from "./Components/Settings/Settings";
 import PrivacyAndSafety from "./Components/Settings/PrivacyAndSafety";
 import YourAccount from "./Components/Settings/YourAccount";
-import SecurityandAcess from "./Components/Settings/SecurityAndAccess";
 import MuteandBlock from "./Components/Settings/MuteandBlock";
 import FinalUser from "./Admin/FinalUser";
 import Statistics from "./Admin/statistics";
@@ -29,7 +28,6 @@ import Changepassword from "./Components/Settings/changepassword";
 import DeactivateAcc from "./Components/Settings/DeactiviateAcc";
 import Security from "./Components/Settings/Security";
 import { PrivateRouteAdmin,PrivateRouteStat,PrivateRouteUSers } from "./Admin/PrivateRoute";
-import Two_Factor from "./Components/Settings/Two-Factor";
 import BlockedAccounts from "./Components/Settings/BlockedAccounts";
 import Changephone from "./Components/Settings/ChangePhone";
 import ChangeEmail from "./Components/Settings/ChangeEmail";
@@ -53,14 +51,12 @@ function App() {
           <Route path="/Settings" element={<Settings />}>
             <Route path="change-username" element={<ChangeUsername/>}/>
             <Route path="change-password" element={<Changepassword/>}/>
-            <Route path="security-and-acess" element={<SecurityandAcess />} />
             <Route path="your-account" element={<YourAccount />} />
             <Route path="privacy-and-saftey" element={<PrivacyAndSafety />} />
             <Route path="MuteandBlock" element={<MuteandBlock />} />
             <Route path="Your-twitter-data" element={<AccountInformation/>}/>
             <Route path="Deactivate-your-Acc" element={<DeactivateAcc/>}/>
             <Route path="security-of-account"element={<Security/>}/>
-            <Route path="two-factor"element={<Two_Factor/>}/>
             <Route path="Blocked-accounts" element = {<BlockedAccounts/>}/>
             <Route path="Muted-accounts" element = {<MutedAccounts/>}/>
             <Route path="change-phone-number"element ={<Changephone/>}/>

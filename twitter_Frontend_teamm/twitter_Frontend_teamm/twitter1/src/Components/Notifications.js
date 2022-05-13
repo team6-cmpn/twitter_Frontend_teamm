@@ -44,7 +44,7 @@ function Notifications() {
   return (
     <RecoilRoot>
     <SettingsBox>
-      <div className="Notimenu" id="NotificationMenu">
+      <div className="feedNoti" id="NotificationMenu">
         <div className="notificationsTitle" id="NotificationsTitle">
           <span>Notifications</span>
         </div>

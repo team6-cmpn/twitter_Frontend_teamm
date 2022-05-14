@@ -1,9 +1,9 @@
 import React from "react";
-import "./newusers.css";
+import "./topfiveusers.css";
 import {GetDashBoardstat } from "./MockRegistrationAdmin";
 import TopUserItem from "./TopUserComponent";
 
-function NewUsers() {
+function TopUsers() {
   const topUsers=GetDashBoardstat()[0];
   console.log("DashBoard",topUsers)
   return (
@@ -20,4 +20,4 @@ function NewUsers() {
   );
 }
 
-export default NewUsers;
+export default TopUsers;

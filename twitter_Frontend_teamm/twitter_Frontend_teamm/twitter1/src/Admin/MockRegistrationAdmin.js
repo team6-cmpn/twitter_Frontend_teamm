@@ -44,7 +44,6 @@ export async function GetDashBoard() {
       "x-access-token": `${localStorage.getItem("token")}`,
     },
   });
-  console.log(dashBoard);
   return dashBoard;
 }
 export function GetDashBoardstat() {
@@ -63,6 +62,7 @@ export function GetDashBoardstat() {
       fetchProduct();
   }, []);
   if (!dashBoard) return null;
+  console.log("dashboard",dashBoard)
   return dashBoard;
 }
 

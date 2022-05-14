@@ -56,7 +56,7 @@ export default function AdminUsers() {
     <div className="Users">
       <span className="Userstitle">Users List</span>
       <div style={{ height: 600, width: "100%"}}>
-        <DataGrid  rows={userlistmock} columns={columns} />
+        <DataGrid getRowId={userlist => userlist._id} rows={userlist} columns={columns} />
       </div>
     </div>
   );

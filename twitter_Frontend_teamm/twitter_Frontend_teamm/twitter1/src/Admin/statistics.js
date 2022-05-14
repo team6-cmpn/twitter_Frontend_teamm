@@ -2,7 +2,7 @@ import React from "react";
 import "./statistics.css";
 import TwiiterStatistics from "./TwiiterStatistics";
 import BaxialComponent from "./Charts/BiaxialLineChart";
-import NewUsers from "./NewUsers";
+import TopUsers from "./TopFiveUsers";
 import TopBar from "./TopBar";
 import AdminSideBar from "./AdminSideBar";
 
@@ -16,7 +16,7 @@ export default function Statistics() {
           <TwiiterStatistics />
           <BaxialComponent />
           <div className="statwidgets">
-            <NewUsers />
+            <TopUsers />
           </div>
         </div>
       </div>

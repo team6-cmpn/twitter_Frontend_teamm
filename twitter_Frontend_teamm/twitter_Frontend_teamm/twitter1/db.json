@@ -1425,7 +1425,9 @@
       "text": "this is sooooooooooo frustrating ",
       "displayName": "mai",
       "username": "@22",
-      "image": "https://image.tmdb.org/t/p/w780/msTBoaPEe9bE40cclJJRR76Ldla.jpg",
+      "image": [
+        "https://image.tmdb.org/t/p/w780/msTBoaPEe9bE40cclJJRR76Ldla.jpg"
+      ],
       "avatar": "https://images.unsplash.com/photo-1613757874090-456665221c00?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1965&q=80",
       "date": "just now",
       "post": "false",
@@ -1434,7 +1436,11 @@
     {
       "displayName": "mai",
       "username": "@maiwashere",
-      "image": "http://cdn.collider.com/wp-content/uploads/toy-story-small-fry-movie-image-001.jpg",
+      "image": [
+        "http://cdn.collider.com/wp-content/uploads/toy-story-small-fry-movie-image-001.jpg",
+        "http://cdn.collider.com/wp-content/uploads/toy-story-small-fry-movie-image-001.jpg",
+        "http://cdn.collider.com/wp-content/uploads/toy-story-small-fry-movie-image-001.jpg"
+      ],
       "avatar": "https://images.unsplash.com/photo-1613757874090-456665221c00?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1965&q=80",
       "date": "just now",
       "text": "hdcu isudhvsi disduv a",

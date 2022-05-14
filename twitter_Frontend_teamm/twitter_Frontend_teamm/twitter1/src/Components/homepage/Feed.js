@@ -8,8 +8,7 @@ import * as userbackend from "../Profile/backEndProfile";
 import {RecoilRoot} from "recoil";
 
 import "./feed.css";
-import {getTweet} from "./backendFeed";
-import {Select} from "antd";
+
 /**
  * feed component
  * @param {*} subreddit
@@ -18,7 +17,6 @@ import {Select} from "antd";
 
 function Feed(subreddit) {
   //const [user, setusername] = useState([]);
-  const [displayN, setDisplay] = useState([]);
   const [tweet_id, setid_tweet] = useState([]);
   const [user_id, setid_user] = useState([]);
   const [tweets, showTweet] = useState([]);
@@ -28,7 +26,12 @@ function Feed(subreddit) {
   const [content, getcontent] = useState([]);
   const [twetted, postedtweet] = useState([]);
   const [disp_img, getimg] = useState([]);
-  
+
+  var tweet__id = sessionStorage.getItem("ID_tweet");
+  const display = localStorage.getItem("getUsername");
+  const user = localStorage.getItem("name");
+  const tweet_user = localStorage.getItem("new_tweet");
+  const loginuser_id = localStorage.getItem("userId");
 
   console.log(mocked.gettweet(tweets.text));
   useEffect(() => {
@@ -45,28 +48,15 @@ function Feed(subreddit) {
     })();
   }, []);
 
-  console.log(twetted.text);
-  const tweeted_user = backend.getTweet();
+  const tweeted_user = backend.Get_newTweet();
   tweeted_user.then((text) => {
     setItem(text.text);
     setmention(text.mention);
-
-    //setid_tweet(text.id);
+    setdate(text.created_at);
     setid_user(text.user);
-    //setdate(STR_TO_DATE(text.date, "%h,%i"));
-    console.log(date);
-    //console.log(tweet.id);
+    console.log(text);
   });
-  
 
-  const user_info = userbackend.getUserInfo();
-  user_info.then((name) => {
-    //setusername(name.username);
-    // setDisplay(name.name);
-    console.log(user);
-  });
-  const user=localStorage.getItem("getUsername")
-  
   return (
     <div className="feed">
       <div className=" feed feed__header">
@@ -74,31 +64,32 @@ function Feed(subreddit) {
       </div>
       <HomeTweet />
       <RecoilRoot>
-        <Post
-          //username={displayN}
-          displayName={user}
-          //avatar={userlist}
-          mention={mention}
-          text={text_tweet}
-          //date="date"
-          id_user={tweeted_user.id}
-          //avatar={disp_img}
-          //id_post={id_post}
-          post="false"
-        />
+        {tweet__id !== "undefined" && (
+          <Post
+            username={display}
+            displayName={user}
+            //avatar={userlist}
+            mention={mention}
+            text={text_tweet}
+            date={date}
+            tweet_id={tweet__id}
+            user_tweeted_id={user_id}
+            logedin_user_id={loginuser_id}
+          />
+        )}
 
         <article>
           {twetted.map((userlist, index) => (
             <Post
-              key={index}
               displayName={userlist.displayName}
               username={userlist.username}
               text={userlist.text}
               image={userlist.image}
               avatar={userlist.avatar}
-              date={userlist.date}
-              id_user={user_id}
-              //tweeted_id={tweet_id}
+              mention={userlist.mentions}
+              date="2022-04-23T19:38:40.674+0000"
+              user_tweeted_id={userlist.id}
+              logedin_user_id={loginuser_id}
             />
           ))}
         </article>

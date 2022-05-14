@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useRef} from "react";
 import "./feed.css";
 import {Button} from "@mui/material";
 import ImageOutlinedIcon from "@mui/icons-material/ImageOutlined";
@@ -6,8 +6,10 @@ import EmojiEmotionsOutlinedIcon from "@mui/icons-material/EmojiEmotionsOutlined
 import Tooltip from "@mui/material/Tooltip";
 import "emoji-mart/css/emoji-mart.css";
 import {Picker} from "emoji-mart";
+import ImageBox from "./ImageBox";
 import * as mocked from "./feedmock";
 import * as backend from "./backendFeed";
+import {useNavigate} from "react-router";
 
 //import Tweetarea from "./textinput"
 /**
@@ -17,10 +19,45 @@ import * as backend from "./backendFeed";
  *
  */
 function Tweetbox(props) {
+  const navigate = useNavigate();
   const [input, setinput] = useState("");
   const [mentions, setmentions] = useState("");
   const [showEmoji, setShowEmoji] = useState(false);
   const [content, getcontent] = useState([]);
+  const filePickerRef = useRef(null);
+  const [selectedFile, setSelectedFile] = useState(0);
+  const [images, setImages] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [model, setmodel] = useState();
+
+  /**
+   *
+   * @param {*} e
+   */
+  const addImageToPost = (e) => {
+    const tempImages = [];
+    const filesLen = Object.keys(e.target.files).length;
+    console.log(filesLen + images.length);
+
+    if (filesLen + images.length <= 4) {
+      for (var i = 0; i < filesLen; i++) {
+        tempImages.push(URL.createObjectURL(e.target.files[i]));
+        setSelectedFile(filesLen + images.length);
+      }
+      console.log(selectedFile);
+
+      console.log([...images, ...tempImages]);
+      setImages([...images, ...tempImages]);
+    }
+  };
+  const handleRemoveImage = (imageUrl) => {
+    let tempImages = [...images];
+    tempImages = tempImages.filter((image) => image !== imageUrl);
+    setImages(tempImages);
+    if (tempImages.length === 0) {
+      setSelectedFile(0);
+    }
+  };
   /**
    *
    * @param {*} e
@@ -40,6 +77,7 @@ function Tweetbox(props) {
       getcontent(resp);
     })();
   }, []);
+
   /**
    *
    * @param {*} event
@@ -49,20 +87,25 @@ function Tweetbox(props) {
     setinput("");
     setmentions("");
     const tweet = backend.Post_Tweet(body);
+    const tweet_user = localStorage.setItem("new_tweet", true);
+    localStorage.setItem("input_set", input);
+    localStorage.setItem("mention_set", mentions);
     event.preventDefault();
     if (showEmoji) {
       setShowEmoji(!showEmoji);
     }
+    if (props.model) {
+      //setmodel(!props.model);
+      props.onSubmit(false);
+    }
+
+    // navigate("/home");
   }
 
-  localStorage.setItem("input_set", input);
-  localStorage.setItem("mention_set", mentions);
   var body = {
     text: input,
     mentions: mentions,
   };
-  // id: 123,
-  //login user id
   /**
    *conditioning mentions
    * @param {*} value
@@ -75,9 +118,7 @@ function Tweetbox(props) {
       setmentions(value);
     }
   }
-  //console.log(content);
 
-  //<Tweetarea onChange={(e) => setTweet(e.target.value)}  />
   return (
     <div className="tweetBox">
       <div className="paddedin">
@@ -108,14 +149,27 @@ function Tweetbox(props) {
             onChange={(e) => inputmention(e.target.value)}
           ></input>
         </div>
-
-        <div className="app border">
-          <div className="iconbar">
-            <Button id="button choose image " className="iconss">
-              <Tooltip title="image">
-                <ImageOutlinedIcon />
-              </Tooltip>
-            </Button>
+        <ImageBox images={images} onDeleteImage={handleRemoveImage} />
+        <div className=" app">
+          <div className="app border">
+            <div
+              className="iconbar"
+              onClick={() => filePickerRef.current.click()}
+            >
+              <Button id="button choose image " className="iconss">
+                <Tooltip title="image">
+                  <ImageOutlinedIcon />
+                </Tooltip>
+              </Button>{" "}
+              <input
+                //value={selectedFile}
+                type="file"
+                multiple
+                ref={filePickerRef}
+                hidden
+                onChange={addImageToPost}
+              />
+            </div>
 
             <Button
               key="button choose emojis"
@@ -129,7 +183,7 @@ function Tweetbox(props) {
           </div>
           <Button
             id="post tweet button"
-            disabled={!input}
+            disabled={!input && selectedFile === 0}
             onClick={submitTweet}
             className="tweet__Button"
           >

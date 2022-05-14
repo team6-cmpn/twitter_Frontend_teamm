@@ -15,10 +15,10 @@ import {
 } from "react-icons/fa";
 import {BiDotsHorizontal} from "react-icons/bi";
 import {FiSettings} from "react-icons/fi";
-import {Modal,Popover} from "antd";
-import 'antd/dist/antd.css';
+import {Modal, Popover} from "antd";
+import "antd/dist/antd.css";
 import {Avatar, Button} from "@material-ui/core";
-import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import HeaderTweet from "../homepage/Header_Tweet";
 // import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 // import Explore from "../Explore";
@@ -26,7 +26,7 @@ import HeaderTweet from "../homepage/Header_Tweet";
 // import {Link} from "react-router-dom";
 /**Sidebare
  * Shows icons to navigate through different pages
- *  
+ *
  * @returns (Layout of side bar & tweet modal)
  */
 function Sidebar() {
@@ -37,7 +37,7 @@ function Sidebar() {
   //const [popOverVisible, setPopOverVisible] = useState(false);
   const content = (
     <div>
-      <Link to='/logout'>Logout username</Link>
+      <Link to="/logout">Logout username</Link>
     </div>
   );
   return (
@@ -103,16 +103,17 @@ function Sidebar() {
           <a href="">
             <Avatar className="icons" />
             <div className="t">
-            Username <Popover content={content} trigger="click" title='Username'><BiDotsHorizontal className="more" /></Popover>
+              Username{" "}
+              <Popover content={content} trigger="click" title="Username">
+                <BiDotsHorizontal className="more" />
+              </Popover>
             </div>
           </a>
         </li>
         <li>
           <a href="/adminPage">
             <AdminPanelSettingsIcon className="icons" />
-            <div className="t">
-              Admin 
-            </div>
+            <div className="t">Admin</div>
           </a>
         </li>
         {/* <Avatar className="icons"/>hhhhhh  <BiDotsHorizontal className="more"/> */}
@@ -131,7 +132,7 @@ function Sidebar() {
         style={{textAlign: "center"}}
         cancelButtonProps={{style: {display: "none"}}}
         visible={isModalVisible}
-        bodyStyle={{height: 200, font: "Helvetica", textAlign: "left"}}
+        bodyStyle={{height: 300, font: "Helvetica", textAlign: "left"}}
         width={800}
         alignItems={{top: Window}}
         onCancel={() => setModalVisible(false)}
@@ -139,7 +140,7 @@ function Sidebar() {
         maskClosable={false}
       >
         <div className="for_model">
-          <HeaderTweet />
+          <HeaderTweet onSubmit={setModalVisible} model={true} />
         </div>
       </Modal>
     </div>

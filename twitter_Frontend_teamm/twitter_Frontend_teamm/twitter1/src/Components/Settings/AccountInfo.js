@@ -21,7 +21,6 @@ const AccountInformation = () => {
           <AccountInfoMenuss
             text="Username"
             Icon={ChevronRight}
-            data={"change"}
             
 
           />
@@ -30,7 +29,6 @@ const AccountInformation = () => {
           <AccountInfoMenuss
             text="Phone"
             Icon={ChevronRight}
-            data="phone number change"
             
 
           />
@@ -39,7 +37,6 @@ const AccountInformation = () => {
           <AccountInfoMenuss
             text="Email"
             Icon={ChevronRight}
-            data="email change"
             
 
           />

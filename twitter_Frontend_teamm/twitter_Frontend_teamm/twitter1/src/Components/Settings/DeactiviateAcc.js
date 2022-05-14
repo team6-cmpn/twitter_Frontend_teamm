@@ -4,10 +4,19 @@ import {Avatar} from "@material-ui/core";
 import AccDec from "./AccDec";
 import { Link, useLocation } from "react-router-dom";
 import {Button} from "@mui/material";
-//import * as BE from "./SettingsBackendIntegration"
+import * as BE from "./SettingsBackendIntegration"
 
-const DeactivateAcc = () =>{
-    
+function DeactivateAcc(){
+    function deactivate(){
+        BE.Put_DeactivateAccount();
+        alert("Your account succesfully deactivated")
+
+    }
+    function redirect()
+    {
+       var url = "/login";
+      window.location.assign(url);
+    }
     return(
         <div className="settingsSubMenu">
             <div className="SubMenuTitle">
@@ -32,7 +41,8 @@ const DeactivateAcc = () =>{
             <h4>To use your current @username or email address with a different Twitter account,<a href="/Settings/your-twitter-data">change them </a>before you deactivate this account.</h4>
             <Button
                     id="deactivate_button"
-                   // onClick={BE.Post_DeactivateAccount}
+                    onClick={()=>{deactivate()
+                    redirect()}}
                     className="deactivate_button"
                 >
                     Deactivate

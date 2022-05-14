@@ -40,36 +40,37 @@ export async function Post_ChangePassword(){
       return message;
   };
 
-// export async function Post_DeactivateAccount(){
-//     var message;
-//       console.log(`${localStorage.getItem('token')}`)
-//       await axios
-//         .put(`${Configure.backURL}settings/deactivateAccount/`, {
+export async function Put_DeactivateAccount(){
+    var message;
+    const body={};
+      console.log(`${localStorage.getItem('token')}`)
+      await axios
+        .put(`${Configure.backURL}settings/deactivateAccount/`, body,{
           
   
-//           headers: {
-//             'Content-Type': 'application/json; charset=utf-8',
-//             'x-access-token': `${localStorage.getItem('token')}`,
-//           },
+          headers: {
+            'Content-Type': 'application/json; charset=utf-8',
+            'x-access-token': `${localStorage.getItem('token')}`,
+          },
          
           
-//         })
-//         .then((response) => {
-//           console.log(response);
-//           if (response.status === 200) {
-//             message='';
+        })
+        .then((response) => {
+          console.log(response);
+          if (response.status === 200) {
+            message='';
             
-//           }
-//           else if (response.status === 403) {
-//             message='  ';
-//             console.log(response.data.message);
-//           }
-//           else if(response.status === 401 || response.status === 404 || response.status === 500 ){
-//             message=response.data.message;
-//           }
+          }
+          else if (response.status === 403) {
+            message='  ';
+            console.log(response.data.message);
+          }
+          else if(response.status === 401 || response.status === 404 || response.status === 500 ){
+            message=response.data.message;
+          }
 
-//         }).catch(error => {
-//             console.log(error);
-//             });
-//       return message;
-//   };
+        }).catch(error => {
+            console.log(error);
+            });
+      return message;
+  };

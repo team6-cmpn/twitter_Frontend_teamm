@@ -6,7 +6,7 @@ import axios from 'axios';
 export default async function getFollowingUsers() {
     let response = '';
     try {
-      response = await axios.get('http://localhost:8000/followingUser').then((res) => res.data);
+      response = await axios.get('http://localhost:8000/blockedUser_days').then((res) => res.data);
       return (response);
     } catch (error) {
       if (error.response) {

@@ -1,20 +1,17 @@
 import React from "react";
 import "./FollowedYou.css";
-import UserIcon from "./UserIcon";
-import { Avatar } from "@material-ui/core";
-
-const FollowedYou = ({ followingUser }) => {
+import BlockIcon from '@mui/icons-material/Block';
+const Blocked_days = ({ numberOfDays }) => {
   return (
     <div className="followedYou" id="followedyou">
-      <UserIcon className="followedYouIcon" />
+      <BlockIcon className="followedYouIcon" />
       <div>
-        <Avatar src={followingUser.userImage} />
         <span>
-          <b>{followingUser.displayName}</b> followed you
+          you were blocked <b>{numberOfDays}</b> days 
         </span>
       </div>
     </div>
   );
 };
 
-export default FollowedYou;
+export default Blocked_days;

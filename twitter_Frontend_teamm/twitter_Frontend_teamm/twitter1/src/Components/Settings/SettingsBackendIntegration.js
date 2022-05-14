@@ -38,7 +38,8 @@ export async function Post_ChangePassword(){
             console.log(error);
             });
       return message;
-  };
+};
+
 
 export async function Put_DeactivateAccount(){
     var message;
@@ -73,4 +74,4 @@ export async function Put_DeactivateAccount(){
             console.log(error);
             });
       return message;
-  };
+};

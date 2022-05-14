@@ -2,7 +2,7 @@ import React from "react";
 import "./Notifications.css";
 import "./Home.css";
 import Trends from "./Widgets/Trends";
-import FollowedYou from "./FollowedYou";
+import Blocked_days from "./FollowedYou";
 import SettingsBox from "./SettingsBox/SettingsBox";
 import LikedYou from "./LikedYou";
 import getFollowingUsers from "./NotificationsMock";
@@ -20,7 +20,7 @@ import { RecoilRoot } from "recoil";
  * 
  */
 function Notifications() {
-  const [followingUser, setFollowingUser] = React.useState([]);
+  const [Blockeddays, setBlockeddays] = React.useState([]);
   const [LikedUser, setLikedUser] = React.useState([]);
   const [twetted, postedtweet] = React.useState([]);
 
@@ -33,7 +33,7 @@ function Notifications() {
     })();
     (async () => {
       const resp = await getFollowingUsers();
-      setFollowingUser(resp);
+      setBlockeddays(resp);
     })();
     (async () => {
       const resp = await getLikedUsers();
@@ -61,19 +61,23 @@ function Notifications() {
             onClick={() => setIsAll(false)}
             id="MentionsButton"
           >
-            <span>Mentions</span>
+            <span>Favourites</span>
           </div>
         </div>
         <article>
           {isAll ? (
             <>
-              {followingUser.map((userNotification, index) => (
-                <FollowedYou key={index} followingUser={userNotification} />
+              {Blockeddays.map((Blockeddays,index)=>(
+              <Blocked_days
+              key={index}
+              numberOfDays={Blockeddays.numberOfDays}
+              
+              />
               ))}
               {LikedUser.map((userNotification, index) => (
               <LikedYou key={index} likePost={userNotification} />
               ))}
-               {twetted.map((userlist, index) => (
+            {twetted.map((userlist, index) => (
             <Post
               key={index}
               displayName={userlist.displayName}

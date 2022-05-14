@@ -7,6 +7,7 @@ import { Link, useLocation, Outlet } from "react-router-dom";
 import SettingsContent from "./settingscontent";
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import YourAccount from "./YourAccount";
+import MainSettings from "./MainSettings";
 
 function Settings(){
   document.title = "Your Account / Twitter";
@@ -40,7 +41,7 @@ function Settings(){
 
             </div>
             {path === "/Settings" ? (
-                <YourAccount />
+                <MainSettings />
               ) : (
                 <Outlet />
               )}

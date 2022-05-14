@@ -6,12 +6,12 @@
 
   }
 .followedYou:hover {
-  background-color: #EFF3F4;
+  background-color: rgb(237, 202, 202) !important;
 }
 .followedYouIcon {
-  border-color: lightblue;
-  color: lightblue;
-  fill: lightblue;
+  border-color: red;
+  color: red ;
+  fill: red;
   width: 30px;
   text-align: center;
   border-radius: 9999px;

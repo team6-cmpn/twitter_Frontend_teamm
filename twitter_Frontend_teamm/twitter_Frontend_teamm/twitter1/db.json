@@ -116,14 +116,9 @@
       "username": "@fawzy"
     }
   ],
-  "followingUser": [
+  "blockedUser_days": [
     {
-      "userImage": "https://scontent.fcai19-3.fna.fbcdn.net/v/t39.30808-6/274049221_7163543843685886_7383761799122556778_n.jpg?_nc_cat=101&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=0dBX1VyTrYwAX96ZHeg&tn=BKObDnz2kPCU4vTV&_nc_ht=scontent.fcai19-3.fna&oh=00_AT9ygwes12RKTzfKQS8w-HciWtUqDNhQ_-wOHbR4OKr-rw&oe=62638630",
-      "displayName": "Mohamed Fathy"
-    },
-    {
-      "userImage": "https://scontent.fcai19-4.fna.fbcdn.net/v/t39.30808-6/236785599_3035825320021503_7464080102625445644_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=HyFNYOwCBqkAX9UBsKp&_nc_ht=scontent.fcai19-4.fna&oh=00_AT--rWAZhlXaYXVfTtEbKxUjyAMjE751uB0ZOvQXzlRVbA&oe=6263A65B",
-      "displayName": "Mahmoud ahmed fawzy"
+      "numberOfDays":10
     }
   ],
   "signUpUsers": [
@@ -760,19 +755,13 @@
     },
     {
       "data": {
-<<<<<<< Updated upstream
         "data": "ntd08490@jeoce.com",
         "password": "Fathy@12345"
-=======
-        "data": "baacq34@frjidffooq.com",
-        "password": "$aa2afbg$08$defCyeNs1aIEmXae6FOueVrLc5.jtDh36Ogk2N0H3GR3JmXXe1C"
->>>>>>> Stashed changes
       },
       "id": 42
     },
     {
       "data": {
-<<<<<<< Updated upstream
         "data": "ntd08490@jeoce.com",
         "password": "Fathy@1234"
       },
@@ -819,12 +808,6 @@
         "password": "Fathy!@21"
       },
       "id": 49
-=======
-        "data": "baacq34@frjidffooq.com",
-        "password": "$aa2afbg$08$defCyeNs1aIEmXae6FOueVrLc5.jtDh36Ogk2N0H3GR3JmXXe1C"
-      },
-      "id": 43
->>>>>>> Stashed changes
     }
   ],
   "googleUsers": [

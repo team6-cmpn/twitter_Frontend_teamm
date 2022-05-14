@@ -29,13 +29,7 @@ function Settings(){
                     active={location === "/your-account" && true}
                   />
                 </Link>
-                <Link to="./security-and-acess" style={{ textDecoration: "none", color:"inherit" }}>
-                  <SettingsContent
-                    text="Security and account acess"
-                    Icon={ChevronRightIcon}
-                    active={location === "/security-and-acess" && true}
-                  />
-                </Link>
+                
                 <Link to="./privacy-and-saftey" style={{ textDecoration: "none", color:"inherit" }}>
                   <SettingsContent
                     text="Privacy and safety"

@@ -91,6 +91,18 @@ export function GetSignedUpMethod() {
   }, []);
   return signedupmethodnumber;
 }
+export function GetHashtags() {
+  const [hashtag, setHashtag] = React.useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:8000/Hashtags")
+      .then((res) => res.json())
+      .then((result) => {
+        setHashtag(result);
+      });
+  }, []);
+  return hashtag;
+}
 export function GetAgesRange() {
   const [agesnumbers, setAgesRange] = React.useState([]);
 

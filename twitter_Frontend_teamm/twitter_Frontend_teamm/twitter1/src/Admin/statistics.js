@@ -5,6 +5,7 @@ import BaxialComponent from "./Charts/BiaxialLineChart";
 import TopUsers from "./TopFiveUsers";
 import TopBar from "./TopBar";
 import AdminSideBar from "./AdminSideBar";
+import TopFiveHashtags from "./TopFiveHashtags";
 
 export default function Statistics() {
   return (

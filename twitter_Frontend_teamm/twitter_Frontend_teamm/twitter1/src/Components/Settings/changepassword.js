@@ -8,6 +8,7 @@ import {Button} from "@mui/material";
 import * as mock from "../NotificationsMock"
 import {TwitterOutlined,EyeInvisibleOutlined,EyeTwoTone} from '@ant-design/icons';
 import * as BE from "./SettingsBackendIntegration"
+import { Link, useLocation, Outlet } from "react-router-dom";
 
 
 const Changepassword = () =>{
@@ -44,8 +45,14 @@ const Changepassword = () =>{
         setNewPassword(password);
         setConfirmPassword(confirmNewPassword);
         alert("Password Succesfully changed");
+      
 
     };
+    function redirect()
+    {
+       var url = "/Settings/change-password";
+      window.location.assign(url);
+    }
     var body={
         currentPassword : currentPassword,
         password : password,
@@ -60,6 +67,8 @@ const Changepassword = () =>{
             <div className="SubMenuTitle">
                 <span>Change Your password</span>
             </div>
+            <br/>
+            <br/>
             <Form>
             <Form.Item 
                 name="password"
@@ -108,9 +117,12 @@ const Changepassword = () =>{
             <h4>Changing your password will log you out of all your active Twitter sessions except the one you're using at this time</h4>
             
             <div className="savebutton">
-                <Button onClick={()=> SaveButtonActions()}
+                <Button onClick={()=>{ 
+                  SaveButtonActions()
+                  redirect()
+                  }}
                     id="save_Username"
-                    disabled={!password || !currentPassword || !confirmNewPassword || passwordError || newpasswordError || newConfpasswordError}
+                    disabled={ !currentPassword || passwordError || !password || newpasswordError || !confirmNewPassword || newConfpasswordError  }
                     className="save_username_button"
                 >
                     save

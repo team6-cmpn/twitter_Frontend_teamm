@@ -37,61 +37,52 @@ export function GetTweetsPerMonth() {
 }
 
 export async function GetDashBoard() {
-  const [dashBoard, setDashBoard] = React.useState([]);
-
-  useEffect(() => {
-    const fetchProduct=async ()=>{
-      const dashBoard= await axios.get(`${Configure.backURL}admin/dashBoard`, {
-        headers: {
-          "Content-Type": "application/json; charset=utf-8",
-          "x-access-token": `${localStorage.getItem("token")}`,
-        },
-      });
-      setDashBoard(dashBoard)
-      };
-      fetchProduct();
-  }, []);
-  if (!dashBoard) return null;
-  console.log("dashboard",dashBoard)
+  const dashBoard = await axios.get(`${Configure.backURL}admin/dashBoard`, {
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+      "x-access-token": `${localStorage.getItem("token")}`,
+    },
+  });
   return dashBoard;
-
 }
 export function GetDashBoardstat() {
   const [dashBoard, setDashBoard] = React.useState([]);
 
   useEffect(() => {
-    const fetchProduct=async ()=>{
-      const dashBoard= await axios.get(`${Configure.backURL}admin/dashBoard`, {
+    const fetchProduct = async () => {
+      const dashBoard = await axios.get(`${Configure.backURL}admin/dashBoard`, {
         headers: {
           "Content-Type": "application/json; charset=utf-8",
           "x-access-token": `${localStorage.getItem("token")}`,
         },
       });
-      setDashBoard(dashBoard)
-      };
-      fetchProduct();
+      setDashBoard(dashBoard);
+    };
+    fetchProduct();
   }, []);
   if (!dashBoard) return null;
-  console.log("dashboard",dashBoard)
   return dashBoard;
 }
 export function GetNotifications() {
   const [notifications, setNotifications] = React.useState([]);
 
   useEffect(() => {
-    const fetchProduct=async ()=>{
-      const dashBoard= await axios.get(`${Configure.backURL}notifications/favourites`, {
-        headers: {
-          "Content-Type": "application/json; charset=utf-8",
-          "x-access-token": `${localStorage.getItem("token")}`,
-        },
-      });
-      setNotifications(dashBoard.data)
-      };
-      fetchProduct();
+    const fetchProduct = async () => {
+      const dashBoard = await axios.get(
+        `${Configure.backURL}notifications/favourites`,
+        {
+          headers: {
+            "Content-Type": "application/json; charset=utf-8",
+            "x-access-token": `${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      setNotifications(dashBoard.data);
+    };
+    fetchProduct();
   }, []);
   if (!notifications) return null;
-  console.log("notifications",notifications)
+  console.log("notifications", notifications);
   return notifications;
 }
 
@@ -177,41 +168,40 @@ export function GetUserList() {
 }
 // export async function BlockFormBackEnd  (){
 //   let go=false;
-  
+
 //   console.log(`${localStorage.getItem('emailToken')}`)
 //   const body = {};
-  
+
 //    await axios
 //      .post(`http://localhost:8000/Blocked_Days`, body,{
-         
+
 //        headers: {
-         
+
 //          'Content-Type': 'application/json',
 //          'x-access-token': ` ${localStorage.getItem('emailToken')}`,
-         
+
 //        },
-      
-      
+
 //      })
 //      .then((response) => {
 //        console.log("blockeddays",response);
 //        if (response.status === 200) {
 //          // localStorage.setItem('access token', response.data.emailtoken);
 //          go=true;
-//        } 
+//        }
 //        else if (response.status=== 401){
 //            go=false;
 //        }
 //      }).catch(error => {
 //          console.log(error);
-        
+
 //          });
 //    return go;
 // };
-export const BlockFormBackEnd = async payload => {
+export const BlockFormBackEnd = async (payload) => {
   try {
     const response = await axios(`http://localhost:8000/Blocked_Days`, {
-      method: 'post',
+      method: "post",
       data: payload,
     });
     return response.data;
@@ -219,4 +209,3 @@ export const BlockFormBackEnd = async payload => {
     throw error;
   }
 };
-

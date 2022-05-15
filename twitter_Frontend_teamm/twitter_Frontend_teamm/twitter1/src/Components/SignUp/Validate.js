@@ -56,7 +56,21 @@ function validateUserName(value){
   return (error);
 
 };
+function validateConfirmPassword(){
+  var error='';
+  var newpassword = document.getElementById("Newpassword").value;
+  var confirmNewPassword =  document.getElementById("Confirmpassword").value;
+  console.log(newpassword);
+  console.log(confirmNewPassword);
+  if (newpassword != confirmNewPassword || confirmNewPassword != newpassword){
+    error='Password do not match' ;
+  }
+  else {
 
+    error=''
+  }
+  return(error);
+};
 var validatePhone=(value)=> 
 {
   var error='';
@@ -74,4 +88,4 @@ var validatePhone=(value)=>
 };
 
 
-export {validatePassword,validateEmail,validateUserName,validatePhone};
+export {validatePassword,validateConfirmPassword,validateEmail,validateUserName,validatePhone};

@@ -1,0 +1,63 @@
+.Notimenu {
+    flex: 0.63;
+    border-right: 1px solid #e6ecf0;
+    min-height: 100vh;
+    height: max-content;
+    background-color: #ffffff;
+    margin-left: 18.40%;
+  }
+
+  .menu {
+    flex: 0.63;
+    border-right: 1px solid #e6ecf0;
+    min-height: 100vh;
+    height: max-content;
+    background-color: #ffffff;
+    width: 580px;
+    margin-left: 20%;
+  }
+
+  .title {
+    margin-right: 500px;
+    
+    /* display: flex; */
+    color: black;
+    display:inline;
+    font-size: 19px;
+    font-weight: 800;
+  }
+  .bookCageImg {
+    display: flex;
+    align-items: center;
+    margin-inline:initial;
+    margin-top: 100px;
+    width: 500px;
+    height: 300px;
+  }
+
+  .text {
+    text-align: left;
+    font-size: 30px;
+    margin-left: 80px;
+    margin-top: 1px;
+    font-weight: bold;
+    display: block;
+    font-family: "Georgia Pro Black";
+  }
+  .text2 {
+    text-align: center;
+    font-size: 15px;
+    margin-right: 120px;
+    display: block;
+    margin-top: 1px;
+  }
+  .moreButton {
+    color: #000;
+    margin-left: 500px;
+    margin-top: 0px;
+    align-content: right;
+    font-size: 25px;
+  }
+  .moreButton:hover {
+    cursor: pointer;
+  }

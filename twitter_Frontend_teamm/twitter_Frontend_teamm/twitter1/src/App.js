@@ -28,6 +28,7 @@ import ChangeUsername from "./Components/Settings/changeUsername";
 import Changepassword from "./Components/Settings/changepassword";
 import DeactivateAcc from "./Components/Settings/DeactiviateAcc";
 import Security from "./Components/Settings/Security";
+import Bookmarks from './Components/Bookmarks/Bookmarks';
 import {
   PrivateRouteAdmin,
   PrivateRouteStat,
@@ -81,6 +82,7 @@ function App() {
           <Route path="/Followers" element={<Followers />}></Route>
           <Route path="/Following" element={<Following />}></Route>
           <Route path="/:username" element={<User />} exact />
+          <Route path="/bookmarks" element={<Bookmarks />} />
         </Routes>
       </div>
     </Router>

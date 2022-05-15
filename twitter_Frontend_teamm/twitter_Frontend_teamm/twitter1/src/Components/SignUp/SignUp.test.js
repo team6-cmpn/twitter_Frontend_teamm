@@ -7,8 +7,8 @@ var wrongUserName='aaaa';
 var rightUserName='@aa';
 var wrongEmail='aa';
 var rightEmail='a@gmail.com';
-var wrongPhone='123456';
-var rightPhone='01234567889';
+var wrongPhone='11123456';
+var rightPhone='+201234657889';
 
 test('password is not strong or valid', () => {
   expect(validatePassword(wrongPassword)).toEqual(
@@ -48,7 +48,7 @@ test('email is valid', () => {
 
 test('phone is not valid', () => {
   expect(validatePhone(wrongPhone)).toEqual(
-  'Please enter a valid phone number (starting with zero)'
+  'Please enter a valid phone number (starting with +20)'
   );
 });
 

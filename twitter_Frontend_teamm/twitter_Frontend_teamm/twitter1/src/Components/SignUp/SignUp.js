@@ -8,7 +8,7 @@ import moment from 'moment'
 import validator from 'validator'
 import  mock  from './mockRegistration';
 import  * as BE  from './backEndRegistration';
-
+import {Link} from "react-router-dom";
 import {validatePassword,validateEmail,validateUserName,validatePhone} from './Validate'
 
 
@@ -29,6 +29,7 @@ function SignUp() {
   const [name, setName] = useState(null);
   const [userName, setUserName] = useState(null);
   const [email, setEmail] = useState(null);
+  const [phoneNumber, setPhoneNumber] = useState(null);
   const [password, setPassword] = useState(null);
   const [passwordError, setPasswordError] = useState('')
   const [emailOrPhoneError, setEmailOrPhoneError] = useState('')
@@ -40,6 +41,7 @@ function SignUp() {
   const [emailOrPhoneSwitch, setEmailOrPhoneSwitch] = useState('Use Phone Instead');
   const [emailOrPhone, setEmailOrPhone] = useState(null);
   const [emailOrMessage, setEmailOrMessage] = useState(null);
+  const [emailOrPhoneDisplay, setEmailOrPhoneDisplay] = useState(null);
   
   
 
@@ -83,7 +85,13 @@ function SignUp() {
     setUserName(val.target.value)
   };
   function getEmail(val){
-      setEmail(val.target.value)
+    if(document.getElementById("email").placeholder === "Email"){
+      setEmail(val.target.value);
+      
+    }
+    else if(document.getElementById("email").placeholder === "Phone"){
+      setPhoneNumber(val.target.value)
+    }
   };
 
   function getPassword(val){
@@ -98,11 +106,13 @@ function SignUp() {
     setEmailOrPhoneError(validateEmail(val.target.value));
     setEmailOrPhone('Email');
     setEmailOrMessage('email');
+    setEmailOrPhoneDisplay(email);
   }
     else if(document.getElementById("email").placeholder === "Phone"){
       setEmailOrPhoneError(validatePhone(val.target.value));
       setEmailOrPhone('Phone');
       setEmailOrMessage('message');
+      setEmailOrPhoneDisplay(phoneNumber);
     }
   };
 
@@ -155,19 +165,21 @@ function SignUp() {
 
   function SignUpButtonActions(){
     // const mockCompleteSignUp =
-    mock.post(body);
+    const mockPromise=mock.post(body);
     const promise=BE.backEndPost(body);
     console.log(promise);
     promise.then((message)=> {
       setApiResponseMessage(message+'. You can re-enter your info by pressing on close (x) sign')
-      if(message==='' ){onSubModal2();}
+      if(message===''){onSubModal2();}
    })
+   
   }
   
   var body={
     name:name,
     username:userName,
     email:email,
+    phoneNumber:phoneNumber,
     dateOfBirth:date,
     password:password
   }
@@ -184,19 +196,26 @@ function SignUp() {
       if(message===''){navigate("/login");}
      
    })
+  }
+  function resendButtonActions(){
+    if (emailOrMessage==='email'){
+      BE.resendEmail();
+    }
+    else if(emailOrMessage==='message'){
+      BE.resendSMS();
+    }
 
   }
  
 
-    
-
+ 
     
     return(
       <div>
         <Modal  
           id='modal1'
           title={<TwitterOutlined style={{ fontSize: '200%',marginTop:'1px',color:'Dodgerblue'}} />}
-          style={{borderRadius: "70px",textAlign:"center",fontSize:100}}
+          style={{borderRadius: "70px",textAlign:"center",fontSize:100,display:"inline-flex"}}
           bodyStyle={{height: 520 ,font:'Helvetica',borderRadius:'30px',textAlign:"left",marginTop:10}}
           visible={isMainModalVisible}
           okText='Next'
@@ -208,6 +227,7 @@ function SignUp() {
           centered={true}
           onOk={() => onMainModal()}
           onCancel={() => navigate("/")}
+        
           >
           
             <span className="text">Create your account</span>
@@ -267,7 +287,7 @@ function SignUp() {
 
         <Modal
           title={<TwitterOutlined style={{ fontSize: '200%',marginTop:'1px',color:'Dodgerblue'}} />}
-          style={{textAlign:"center"}}
+          style={{textAlign:"center",display:"inline-flex"}}
           okText='Next'
           okButtonProps={{id:'nextButton3',shape:'round' , size:'large', style:{width: 450,fontWeight:'bold',alignItems:'center',justifyContent:'center',
           display:'flex'}}}
@@ -292,7 +312,7 @@ function SignUp() {
           
         <Modal
           title={<TwitterOutlined style={{ fontSize: '200%',marginTop:'1px',color:'Dodgerblue'}} />}
-          style={{textAlign:"center"}}
+          style={{textAlign:"center",display:"inline-flex"}}
           okText='Sign Up'
           okButtonProps={{id:'signUpButton',shape:'round' , size:'large', style:{width: 450,fontWeight:'bold',alignItems:'center',justifyContent:'center',
           display:'flex'}}}
@@ -325,15 +345,16 @@ function SignUp() {
 
             <Form.Item>
               <span>{emailOrPhone}</span>
-              <Input id="email2"  disabled={true} value={email} style={{ height:50}} />
+              <Input id="email2"  disabled={true} value={emailOrPhoneDisplay} style={{ height:50}} />
             </Form.Item>
               <span style={{color: 'red',fontSize:'100',fontWeight:'bold'}}> {apiResponseMessage}</span> 
+              
           </Form>
           
         </Modal>
         <Modal
           title={<TwitterOutlined style={{ fontSize: '200%',marginTop:'1px',color:'Dodgerblue'}} />}
-          style={{textAlign:"center"}}
+          style={{textAlign:"center",display:"inline-flex"}}
           okText='Next'
           okButtonProps={{id:'verifyButton',shape:'round' , disabled:false,size:'large', style:{width: 450,fontWeight:'bold',alignItems:'center',justifyContent:'center',
           display:'flex'}}}
@@ -347,13 +368,13 @@ function SignUp() {
           onOk={() => verifyButtonActions()}  
         >
    
-          <span className="text">We sent you a verfication code  </span>
+          <span className="text9">We sent you a verfication code  </span>
           <br></br>
-          <span>Write the code to verify {email}</span>
+          <span>Write the code to verify {emailOrPhoneDisplay}</span>
           <Input style={{ height:40,marginTop:10}} onChange={getCode} id="code" placeholder="Code" />
           <span>{mess}</span>
           <br></br>
-          <span><button id='resendEmail' className='resendButton' onClick={()=>BE.resendEmail()}>Didn't recieve {emailOrMessage}?</button></span>
+          <span><button id='resendEmail' className='resendButton' onClick={()=>{resendButtonActions()}}>Didn't recieve {emailOrMessage}?</button></span>
         </Modal>
 
       </div>

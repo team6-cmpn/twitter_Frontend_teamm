@@ -7,7 +7,11 @@ import { Modal} from "antd";
 
 
 
-
+/**
+ *Log out
+ *allows a registered user tologout of his/her account
+ * @returns Logout popup
+ */
 function LogOut(){
     const navigate = useNavigate();
     const [isModalVisible, setModalVisible] = useState(false);
@@ -32,7 +36,7 @@ function LogOut(){
           maskClosable={false}
         >
         <span className="text4">Log out of Twitter?</span><br></br>
-        <span className="text2">You can always log back in at any time</span>
+        <span className="textLogOut">You can always log back in at any time</span>
         </Modal>
         </div>
   

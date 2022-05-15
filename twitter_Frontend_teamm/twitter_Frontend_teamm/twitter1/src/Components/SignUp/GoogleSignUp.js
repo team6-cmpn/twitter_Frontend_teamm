@@ -94,7 +94,7 @@ function GoogleSignUp(){
       <Modal  
         id='modal1'
         title={<TwitterOutlined style={{ fontSize: '200%',marginTop:'1px',color:'Dodgerblue'}} />}
-        style={{borderRadius: "70px",textAlign:"center",fontSize:100}}
+        style={{borderRadius: "70px",textAlign:"center",fontSize:100,display:"inline-flex"}}
         bodyStyle={{height: 470 ,font:'Helvetica',borderRadius:'30px',textAlign:"left",marginTop:10}}
         visible={setIsModalVisible}
         okText='Sign up'

@@ -56,36 +56,22 @@ function validateUserName(value){
   return (error);
 
 };
-function validateConfirmPassword(){
-  var error='';
-  var newpassword = document.getElementById("Newpassword").value;
-  var confirmNewPassword =  document.getElementById("Confirmpassword").value;
-  console.log(newpassword);
-  console.log(confirmNewPassword);
-  if (newpassword != confirmNewPassword || confirmNewPassword != newpassword){
-    error='Password do not match' ;
-  }
-  else {
 
-    error=''
-  }
-  return(error);
-}
 var validatePhone=(value)=> 
 {
   var error='';
-  var phoneno = /^\+?([0-9]{2})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})$/;
-  if((value.length===11)){
+  var egyptPhonePattern=/^\+20(\d{10})$/
+  
+  if((egyptPhonePattern.test(value))){
     error='';
-    console.log(error)
+    
   }
   else{
-    error='Please enter a valid phone number (starting with zero)';
-    console.log(error)
+    error='Please enter a valid phone number (starting with +20)';
+   
   }
  return (error);
 };
 
 
-  
-export {validatePassword,validateConfirmPassword,validateUserName,validatePhone,validateEmail}
+export {validatePassword,validateEmail,validateUserName,validatePhone};

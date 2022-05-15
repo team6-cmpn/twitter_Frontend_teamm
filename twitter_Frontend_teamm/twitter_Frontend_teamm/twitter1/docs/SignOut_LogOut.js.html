@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: SignUp/Validate.js</title>
+    <title>JSDoc: Source: SignOut/LogOut.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: SignUp/Validate.js</h1>
+    <h1 class="page-title">Source: SignOut/LogOut.js</h1>
 
     
 
@@ -26,83 +26,61 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import validator from 'validator'
+            <pre class="prettyprint source linenums"><code>import {useNavigate,Link} from "react-router-dom";
+import React, {useState} from "react";
+import {TwitterOutlined} from '@ant-design/icons';
+import './LogOut.css';
+import "antd/dist/antd.css";
+import { Modal} from "antd";
+
+
 
 /**
- *validatePassword
- *checks that the user's input is a strong password with a minimum length of 8 characters and at least one symbol and one number 
- * @param {string} value -password input from user
- * @returns {string} -password error validating message
+ *Log out
+ *allows a registered user tologout of his/her account
+ * @returns Logout popup
  */
-var validatePassword=(value)=> {
-  var error='';
-  if (validator.isStrongPassword(value, {
-    minLength: 8, minLowercase: 1,
-    minNumbers: 1,minUppercase: 1, minSymbols: 1
-  })) {
-    error='';
-  } 
-  else {
-    error='Your password needs to be at least 8 characters with at least 1 symbol &amp; 1 UpperCase.';
-  }
+function LogOut(){
+    const navigate = useNavigate();
+    const [isModalVisible, setModalVisible] = useState(false);
+    return(
+        &lt;div>
   
-  return (error);
+        &lt;Modal
+          title={&lt;TwitterOutlined style={{ fontSize: '200%',marginTop:'1px',color:'Dodgerblue'}} />}
+          style={{textAlign:"center"}}
+          okText='Cancel'
+          cancelText='LogOut'
+          okButtonProps={{id:'cancelButton',shape:'round' , size:'large', style:{border:'none',width: 250,fontWeight:'bold',alignItems:'center',justifyContent:'center',
+          display:'flex',color:"black",backgroundColor:"white",marginLeft:5}}}
+          cancelButtonProps={{id:'logOutButton',shape:'round' , size:'large', style:{width: 250,fontWeight:'bold',alignItems:'center',justifyContent:'center',
+          display:'flex',color:"white",backgroundColor:"black",marginLeft:5}}}
+          visible={setModalVisible}
+          bodyStyle={{height: 90,font:'Helvetica',textAlign:'left'}}
+          width={300}
+          centered={true}
+          onCancel={() => navigate("/")}
+          onOk={() =>navigate("/home")}
+          maskClosable={false}
+        >
+        &lt;span className="text4">Log out of Twitter?&lt;/span>&lt;br>&lt;/br>
+        &lt;span className="textLogOut">You can always log back in at any time&lt;/span>
+        &lt;/Modal>
+        &lt;/div>
+  
+      );
+
+
+
+
+
+
+
+
 }
 
-/**
- *validateEmail
- *checks that the user's email input is valid and contains @ symbol 
- * @param {string} value -email input from user
- * @returns {string} -Email error validating message
- */
-var validateEmail=(value)=> {
-  var error='';
-  if (validator.isEmail(value)) {
-    error='';
-  } 
-  else {
-    error='Please enter a valid email';
-  }
-  return (error);
-};
-
-/**
- *validateUserName
- *checks that the user's username input starts with @ symbol
- * @param {string} value -username input from user
- * @returns {string} -Username error validating message
- */
-function validateUserName(value){
-  var error='';
-  if (value[0] === '@') {
-    error='';
-
-  }
-  else {
-    error='Please start your username with @ symbol';
-  }
-  return (error);
-
-};
-
-var validatePhone=(value)=> 
-{
-  var error='';
-  var egyptPhonePattern=/^\+20(\d{10})$/
-  
-  if((egyptPhonePattern.test(value))){
-    error='';
-    
-  }
-  else{
-    error='Please enter a valid phone number (starting with +20)';
-   
-  }
- return (error);
-};
-
-
-export {validatePassword,validateEmail,validateUserName,validatePhone};</code></pre>
+export default LogOut;
+</code></pre>
         </article>
     </section>
 

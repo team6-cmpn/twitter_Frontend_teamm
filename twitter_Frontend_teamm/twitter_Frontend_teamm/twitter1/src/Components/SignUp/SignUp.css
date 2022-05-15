@@ -1,6 +1,7 @@
-.text {
+.text9 {
   text-align: center;
   /* margin-left: 120px; */
+  display: inline-flexbox;
   font-size: 25px;
   font-weight: bold;
   font-family: "Georgia Pro Black";

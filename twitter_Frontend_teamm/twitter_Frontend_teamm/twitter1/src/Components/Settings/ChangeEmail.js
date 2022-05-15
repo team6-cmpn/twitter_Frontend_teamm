@@ -4,10 +4,12 @@ import { Modal,Form,Input,DatePicker,  Checkbox } from "antd";
 import { validateEmail } from "../SignUp/Validate";
 import * as mock from "../NotificationsMock"
 import {Button} from "@mui/material";
-import { Link } from "react-router-dom";
-
+import {toast, ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function ChangeEmail(){
+   // toast.configure()
+
     document.title="Change phone / Twitter"
     const [EmailError, setEmailError] = React.useState('')
     const [Email, setEmail] = React.useState(null);
@@ -21,9 +23,15 @@ function ChangeEmail(){
     function SaveButtonActions(){
         mock.PostChangeEmail(body);
         setEmail(Email);
-        alert("Email Succesfully changed");
-
+        {notify()}
+        
     };
+    
+    const notify = () =>{
+
+        toast('Email succesfully changed',
+        {position: toast.POSITION.BOTTOM_CENTER})
+     }
     var body={
 
         EmailAddress : Email
@@ -49,13 +57,14 @@ function ChangeEmail(){
 
         </Form>
         <div className="savebutton">
-                <Button onClick={()=> SaveButtonActions()}
+                <Button onClick={()=>{SaveButtonActions()}}
                     id="save_number"
                     disabled={EmailError || !Email}
                     className="save_username_button"
                 >
                     save
                 </Button>
+                <ToastContainer/>
             </div>
     </div>
 

@@ -118,7 +118,7 @@
   ],
   "blockedUser_days": [
     {
-      "numberOfDays":10
+      "numberOfDays": 10
     }
   ],
   "signUpUsers": [
@@ -237,6 +237,17 @@
         "password": "Mahmoud_123@@"
       },
       "id": 12
+    },
+    {
+      "data": {
+        "name": "FathyJr",
+        "username": "@FathyJr12",
+        "email": "lfw54584@jeoce.com",
+        "phoneNumber": null,
+        "dateOfBirth": "2011-05-08T11:11:50.379Z",
+        "password": "Fathy@123"
+      },
+      "id": 13
     }
   ],
   "logInUsers": [
@@ -494,8 +505,21 @@
         "password": "Fathy@123"
       },
       "id": 44
+    },
+    {
+      "data": {
+        "data": "@junior",
+        "password": "Fathy@123"
+      },
+      "id": 45
+    },
+    {
+      "data": {
+        "data": "@FathyJr12",
+        "password": "Fathy@123"
+      },
+      "id": 46
     }
-    
   ],
   "resetPassword": [
     {
@@ -828,7 +852,6 @@
         "src": "blob:http://localhost:3000/bcfa38fb-d0d4-4b0e-a77c-0d23e8089786"
       },
       "id": 26
-
     },
     {
       "name": "Menna",
@@ -851,7 +874,6 @@
       },
       "id": 28
     }
-
   ],
   "StatisticsBlock": [
     {
@@ -1273,6 +1295,10 @@
     {
       "username": "@fathy12",
       "id": 1
+    },
+    {
+      "username": "@fathy12",
+      "id": 2
     }
   ],
   "UserChange_Password": [
@@ -1299,12 +1325,22 @@
       "password": "Fathy@1234",
       "confirmNewPassword": "Fathy@1234",
       "id": 4
+    },
+    {
+      "currentPassword": "Fathy@123",
+      "password": "Fathy@123",
+      "confirmNewPassword": "Fathy@123",
+      "id": 5
     }
   ],
   "UserChange_phone": [
     {
       "PhoneNumber": "01023342452",
       "id": 1
+    },
+    {
+      "PhoneNumber": "+201023342452",
+      "id": 2
     }
   ],
   "UserChange_Email": [
@@ -1315,6 +1351,54 @@
     {
       "EmailAddress": "mohamedfathy@gmail.com",
       "id": 2
+    },
+    {
+      "EmailAddress": "mohamedfathy@gmail.com",
+      "id": 3
+    },
+    {
+      "EmailAddress": "mohamedfathy@gmail.com",
+      "id": 4
+    },
+    {
+      "EmailAddress": "mohamedfathy@gmail.com",
+      "id": 5
+    },
+    {
+      "EmailAddress": "mohamedfathy@gmail.com",
+      "id": 6
+    },
+    {
+      "EmailAddress": "mohamedfathy@gmail.com",
+      "id": 7
+    },
+    {
+      "EmailAddress": "mohamedfathy@gmail.com",
+      "id": 8
+    },
+    {
+      "EmailAddress": "mohamedfathy@gmail.com",
+      "id": 9
+    },
+    {
+      "EmailAddress": "mohamedfathsdy@gmail.com",
+      "id": 10
+    },
+    {
+      "EmailAddress": "mohamedfathsdy@gmail.com",
+      "id": 11
+    },
+    {
+      "EmailAddress": "mohamedfathsdy@gmail.com",
+      "id": 12
+    },
+    {
+      "EmailAddress": "mohamedfathsdy@yahoooooo.com",
+      "id": 13
+    },
+    {
+      "EmailAddress": "mohamedfathsdy@yahoooooo.com",
+      "id": 14
     }
   ],
   "Blocked_Days": [

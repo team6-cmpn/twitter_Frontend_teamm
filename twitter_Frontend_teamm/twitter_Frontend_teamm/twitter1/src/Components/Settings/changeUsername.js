@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import "./settingsSubmenus.css"
 import { Modal,Form,Input,DatePicker,  Checkbox, Alert } from "antd";
 import { validateUserName } from "../SignUp/Validate";
-import TextField from '@mui/material/TextField';
 import {Button} from "@mui/material";
 import * as Mock from "../NotificationsMock";
 
+import {toast, ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const ChangeUsername = () =>{
@@ -21,12 +22,16 @@ const ChangeUsername = () =>{
     function SaveButtonActions(){
     Mock.PostChangeUsername(body);
     setUserName(userName);
-    alert("Username Succesfully changed")
+    {notify()}
     }
     var body={
         username:userName,
     }
-    
+    const notify = () =>{
+
+      toast('Username succesfully changed',
+      {position: toast.POSITION.BOTTOM_CENTER})
+   }
     return(
         <div className="settingsSubMenu">
             <div className="SubMenuTitle">
@@ -68,6 +73,8 @@ const ChangeUsername = () =>{
                 >
                     save
                 </Button>
+                <ToastContainer/>
+
                 
             </div>     
              </Form>

@@ -9,7 +9,8 @@ import * as mock from "../NotificationsMock"
 import {TwitterOutlined,EyeInvisibleOutlined,EyeTwoTone} from '@ant-design/icons';
 import * as BE from "./SettingsBackendIntegration"
 import { Link, useLocation, Outlet } from "react-router-dom";
-
+import {toast, ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Changepassword = () =>{
     const [currentPassword, setPassword] = React.useState(null);
@@ -44,15 +45,16 @@ const Changepassword = () =>{
         setPassword(currentPassword);
         setNewPassword(password);
         setConfirmPassword(confirmNewPassword);
-        alert("Password Succesfully changed");
-      
+        {notify()}      
 
     };
-    function redirect()
-    {
-       var url = "/Settings/change-password";
-      window.location.assign(url);
-    }
+    const notify = () =>{
+
+      toast('Password succesfully changed',
+      {position: toast.POSITION.BOTTOM_CENTER})
+   }
+  
+    
     var body={
         currentPassword : currentPassword,
         password : password,
@@ -119,7 +121,6 @@ const Changepassword = () =>{
             <div className="savebutton">
                 <Button onClick={()=>{ 
                   SaveButtonActions()
-                  redirect()
                   }}
                     id="save_Username"
                     disabled={ !currentPassword || passwordError || !password || newpasswordError || !confirmNewPassword || newConfpasswordError  }
@@ -127,6 +128,7 @@ const Changepassword = () =>{
                 >
                     save
                 </Button>
+                <ToastContainer/>
             </div>
          </div>
              );

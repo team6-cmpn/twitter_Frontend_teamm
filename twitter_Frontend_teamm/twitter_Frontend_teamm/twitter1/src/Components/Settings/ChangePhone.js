@@ -4,6 +4,8 @@ import { Modal,Form,Input,DatePicker,  Checkbox } from "antd";
 import { validatePhone } from "../SignUp/Validate";
 import * as mock from "../NotificationsMock"
 import {Button} from "@mui/material";
+import {toast, ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 function Changephone(){
@@ -20,9 +22,13 @@ function Changephone(){
     function SaveButtonActions(){
         mock.PostChangePhone(body);
         setPhone(Phone);
-        alert("Phone number Succesfully changed");
-
+        {notify()}
     };
+    const notify = () =>{
+
+        toast('Phone number succesfully changed',
+        {position: toast.POSITION.BOTTOM_CENTER})
+     }
     var body={
 
         PhoneNumber : Phone
@@ -56,6 +62,7 @@ function Changephone(){
                 >
                     save
                 </Button>
+                <ToastContainer/>
             </div>
     </div>
 

@@ -1,7 +1,8 @@
 
 import axios from 'axios';
-
-
+import React from 'react';
+import { useEffect } from 'react';
+import Configure from '../Configure';
 
 export default async function getFollowingUsers() {
     let response = '';
@@ -114,3 +115,24 @@ export default async function getFollowingUsers() {
       throw error;
     }
   };
+
+
+  export function GetNotificationsFavourites() {
+    const [notifications, setNotifications] = React.useState([]);
+  
+    useEffect(() => {
+      const fetchProduct=async ()=>{
+        const dashBoard= await axios.get(`${Configure.backURL}notifications/favourites`, {
+          headers: {
+            "Content-Type": "application/json; charset=utf-8",
+            "x-access-token": `${localStorage.getItem("token")}`,
+          },
+        });
+        setNotifications(dashBoard.data)
+        };
+        fetchProduct();
+    }, []);
+    if (!notifications) return null;
+    console.log("notifications",notifications)
+    return notifications;
+  }

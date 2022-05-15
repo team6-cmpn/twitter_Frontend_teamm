@@ -10,6 +10,10 @@ import { GetPostTweet } from "./homepage/feedmock";
 import {getLikedUsers} from "./NotificationsMock";
 import Post from "./homepage/Post";
 import { RecoilRoot } from "recoil";
+import { GetNotificationsFavourites } from "./NotificationsMock";
+import FavoriteIcon from "@material-ui/icons/Favorite";
+import { Avatar } from "@material-ui/core";
+
 /**
  * [the notification component is mainly used to get the notifications from the server to the user to see it 
  *  and it contains all the mentions and liked posts and followers you got and i made a menu to scoope on the mentioned posts only
@@ -40,6 +44,11 @@ function Notifications() {
       setLikedUser(resp);
     })();
   }, []);
+  const notifi=GetNotificationsFavourites();
+
+  console.log("notifications", notifi);
+  let BE=[];
+  BE=GetNotificationsFavourites();
 
   return (
     <RecoilRoot>
@@ -77,7 +86,8 @@ function Notifications() {
               {LikedUser.map((userNotification, index) => (
               <LikedYou key={index} likePost={userNotification} />
               ))}
-            {twetted.map((userlist, index) => (
+            
+              {twetted.map((userlist, index) => (
             <Post
               key={index}
               displayName={userlist.displayName}
@@ -91,17 +101,20 @@ function Notifications() {
             </>
           ) : (
             <>
-             {twetted.map((userlist, index) => (
-            <Post
-              key={index}
-              displayName={userlist.displayName}
-              username={userlist.username}
-              text={userlist.text}
-              image={userlist.image}
-              avatar={userlist.avatar}
-              date={userlist.date}
-            />
-          ))}
+              {LikedUser.map((userNotification, index) => (
+              <LikedYou key={index} likePost={userNotification} />
+              ))}
+            <div className="likedYou" id="likedyou">
+              <FavoriteIcon />
+              <div>
+          
+                    <Avatar src={BE[0]?.notificationContent.images} />
+                <span>
+                {BE[0]?.notificationHeader.text}</span>
+                <span>{BE[0]?.notificationContent.text}
+                </span>
+              </div>
+            </div>
             </>
           )}
         </article>

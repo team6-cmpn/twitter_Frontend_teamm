@@ -46,12 +46,12 @@ var validateEmail=(value)=> {
  */
 function validateUserName(value){
   var error='';
-  if (value[0] === '@') {
+  if (value[0] === '@' && /\s/.test(value)===false) {
     error='';
 
   }
   else {
-    error='Please start your username with @ symbol';
+    error='Please start your username with @ symbol without spaces';
   }
   return (error);
 

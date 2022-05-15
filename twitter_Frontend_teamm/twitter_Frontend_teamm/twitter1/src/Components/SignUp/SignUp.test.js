@@ -24,7 +24,7 @@ test('password is strong', () => {
 
 test('username is not valid', () => {
   expect(validateUserName(wrongUserName)).toEqual(
-  'Please start your username with @ symbol'
+  'Please start your username with @ symbol without spaces'
   );
 });
 

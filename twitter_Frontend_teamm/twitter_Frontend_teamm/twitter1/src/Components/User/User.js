@@ -3,23 +3,23 @@ import '../Notifications.css'
 import './User.css'
 import React from 'react';
 import  { useState} from 'react';
-// import placeholder from 'react-image-placeholder';
 import { Link } from 'react-router-dom';
-// import   * as mockAPI   from '../Profile/ProfileMock';
+import   * as mockAPI   from './UserMock';
 import  getUserInformation    from './UserMock';
 import Trends from "../Widgets/Trends";
 import Sidebar from "../Sidebar/Sidebar";
-import {GrLocation} from "react-icons/gr";
-import {BiLink, BiArrowBack} from "react-icons/bi";
 import {getUserInfo} from '../Profile/backEndProfile';
 import {Modal} from "antd";
 import "../Widgets/FriendSuggestions/FriendSuggestionItem/FriendSuggestionItem.css";
 import { GetPostTweet } from "../homepage/feedmock";
 import Post from "../homepage/Post";
 import { RecoilRoot } from "recoil";
-// import { Menu } from 'antd';
 import { Popover } from 'antd';
-
+/**User
+ * Shows User layout 
+ *  
+ * @returns (Layout of user and follow, block and mute functionality)
+ */
 function User(){
     const [isTab, setIsTab] = useState(1);
     const [twetted, postedtweet] = React.useState([]);
@@ -31,15 +31,7 @@ function User(){
         postedtweet(resp);
       })();
     }, []);
-    // const [{alt, src}, setImg] = useState({
-    //     src: placeholder,
-    // });
-    // const [isPopover, setPopover] = useState(false);
-   
-    
-    
 
-    
     const [UserInfo, setUserInfo] = React.useState([]);
     React.useEffect(() => {
     (async () => {
@@ -52,21 +44,19 @@ function User(){
     const [Item, setItem] = useState();
     
 
-    // function SaveButtonActions(){
-    // mockAPI.Profile(body);
-    
-    // setName(editname);
-    // setBio(editbio);
-    // setLocation(editlocation);
-    // setWebsite(editwebsite);
-    // }
-    // var body={
-    //     name: editname,
-    //     bio: editbio,
-    //     location: editlocation,
-    //     website: editwebsite,
-    //     img: {alt,src},
-    // }
+  
+    const [MuteState, setMuteState] = useState("Mute");
+    const toggleMute = () => {
+        setMuteState((state) => (state === "Unmute" ? "Mute" : "Unmute"));
+    };
+    const [BlockState, setBlockState] = useState("Block");
+    const toggleBlock = () => {
+        setBlockState((state) => (state === "Block" ? "unBlock" : "Block"));
+    };
+    const [isBModalVisible, setBModalVisible] = useState(false);
+    const onBModal = (stateMain = true) => {
+      setBModalVisible(stateMain);
+    };
     const [textState, setTextState] = useState("Follow");
     const toggleText = () => {
       setTextState((state) => (state === "Following" ? "Follow" : "Following"));
@@ -77,15 +67,53 @@ function User(){
     };
     const onExist = () => {
       setModalVisible(false);
+      setBModalVisible(false)
     };
 
     const user=getUserInfo();
     user.then(data=>{setItem(data)});
     console.log(Item);
+    
+    function FollowButtonActions(){
+        mockAPI.follow(body);
+        if (textState==="Follow")
+        toggleText();
+        else
+        onSubModel();
+    } 
+
+    var body={
+        userImage: Object.keys(UserInfo).map((user, index) => {
+            return (
+                <div>
+                    {UserInfo[user].img} 
+                
+                </div> )
+            }),
+        displayname: Object.keys(UserInfo).map((user, index) => {
+            return (
+                <div>
+                    {UserInfo[user].name} 
+                
+                </div> )
+            }),
+        username: Object.keys(UserInfo).map((user, index) => {
+            return (
+                <div>
+                    {UserInfo[user].username} 
+                
+                </div> )
+            }),
+    }
     const content = (
-        <div>
-          Menna
-        </div>
+            <div>
+                <div className="MoreList" onClick={() => toggleMute()}><div>{MuteState}</div></div>
+                <div className="MoreList" onClick={() => 
+                {if (BlockState==="Block")
+                onBModal()
+                else
+                toggleBlock()}}><div>{BlockState}</div></div>
+            </div>
       );
     return(
     <div>
@@ -93,20 +121,27 @@ function User(){
     <div className='Expmenu'>
         <div> 
             <div className="notificationsTitle" id="ProfileTitle">
-                <BiArrowBack ></BiArrowBack>
-                <span>Profile</span>
+                <span>{Object.keys(UserInfo).map((user, index) => {
+                    return (
+                        <div>
+                            {UserInfo[user].name} 
+                        
+                        </div> )
+                    })}</span>
             </div> 
             <div>
                 
                 <div>
-                {/* {Object.keys(UserInfo).map((user, index) => {
+                {Object.keys(UserInfo).map((user, index) => {
                     return (
-                        <div>
-                            {UserInfo[user].img} 
-                        
-                        </div> )
-                    })} */}
+                        <div className='Avatar' >
+                        <img  className="form-img__img-preview" src={UserInfo[user].img} alt=''/>
+                        </div>
+                        )
+                    })}
                 </div>
+                <br></br>
+                <br></br>
                 <div id="bioName" className='name'>
                 {Object.keys(UserInfo).map((user, index) => {
                     return (
@@ -116,7 +151,7 @@ function User(){
                         </div> )
                     })}
                      </div>
-                <br></br>
+                {/* <br></br> */}
                <div className='Username'> 
                    {Object.keys(UserInfo).map((user, index) => {
                     return (
@@ -126,19 +161,19 @@ function User(){
                         </div> )
                     })}
                 </div> 
-                <div className='Username'>{Item}</div>
-                <br></br>
-                <div id="bioBio" className='Bio'></div>
+                {/* <div className='Username'>{Item}</div>
+                <br></br> */}
+                {/* <div id="bioBio" className='Bio'></div>
                 <br></br>
                 <GrLocation className='Bio'></GrLocation>
                 <div id="bioLocation" className='Bio'></div>
                 
                 <br></br>
                 <BiLink className='Bio'></BiLink>
-                <div id="bioWebsite" className='Bio'></div>
+                <div id="bioWebsite" className='Bio'></div> */}
                 {/* <Link to={`/${localStorage.getItem("UserName")}`}>{localStorage.getItem("displayName")}</Link> */}
 
-                <br></br>
+                
                 <div>
                     
                     <Popover
@@ -149,14 +184,25 @@ function User(){
                         <button id="More" className="More" ><span>...</span></button>
                     </Popover>
                     
-                    <button id="FollowButton" class="ButtonFollow" onClick={() => {
-                        if (textState==="Follow")
-                        toggleText();
-                        else
-                        onSubModel();}}>
+                    <button id="FollowButton" class="ButtonFollow" onClick={() => FollowButtonActions() }>
                         {textState}   
                     </button> 
+                    <Modal
+                    style={{textAlign: "center"}}
+                    visible={isBModalVisible}
+                    bodyStyle={{height: 300, font: "Helvetica", textAlign: "left"}}
+                    width={500}
+                    alignItems={{top: Window}}
+                    onCancel={() => setBModalVisible(false)}
+                    footer={null}
                     
+                >
+                    <div className="for_model">
+                    <div style={{fontSize: "200%", marginTop: "10px", color: "black", textAlign: "center" }}>Block this user?</div>
+                    <div style={{padding: "30px 30px"}}>They will not be able to follow you or view your Tweets, and you will not see Tweets or notifications from this user. </div>
+                    <button id="Block" onClick={()=>{toggleBlock(); onExist();}} className="ButtonBlock">Block</button>
+                    </div>
+                </Modal>
                 
                 <Modal
                     style={{textAlign: "center"}}
@@ -171,8 +217,8 @@ function User(){
                 >
                     <div className="for_model">
                     <div style={{fontSize: "200%", marginTop: "10px", color: "black", textAlign: "center" }}>Unfollow this user?</div>
-                    <div style={{padding: "30px 30px"}}>Their Tweets will no longer show up in your home timeline. You can still view their profile, unless their Tweets are protected. </div>
-                    <button id="Unfollow" onClick={()=>{toggleText(); onExist();}} className="followButton">Unfollow</button>
+                    <div style={{padding: "30px 30px"}}>Their Tweets will no longer show up in your home timeline. You can still view their profile. </div>
+                    <button id="Unfollow" onClick={()=>{toggleText(); onExist();}} className='ButtonBlock'>Unfollow</button>
                     </div>
                 </Modal>
                 

@@ -17,4 +17,3 @@ import   * as mockAPI  from './ProfileMock'
   test('Profile information', () => {
     expect(mockAPI.Profile(body)).toBeTruthy();
   });
- 

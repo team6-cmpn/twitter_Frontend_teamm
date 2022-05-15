@@ -1,9 +1,9 @@
 import axios from 'axios';
 // import { useEffect, useState } from "react";
-// import Configure from '../../Configure'
+import Configure from '../../Configure'
 export const Profile = async payload => {
     try {
-      const response = await axios(`http://localhost:8000/Users`, {
+      const response = await axios(`${Configure.mockURL}Users/`, {
         method: 'post',
         data: payload,
       });
@@ -15,7 +15,7 @@ export const Profile = async payload => {
   export default async function getUsernames() {
     let response = '';
     try {
-      response = await axios.get('http://localhost:8000/Usernames').then((res) => res.data);
+      response = await axios.get(`${Configure.mockURL}Usernames/`).then((res) => res.data);
       return (response);
     } catch (error) {
       if (error.response) {

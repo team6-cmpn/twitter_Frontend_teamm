@@ -1,9 +1,10 @@
 import axios from 'axios';
+import Configure from '../../Configure'
 
 export  async function getFollowerUsers() {
     let response = '';
     try {
-      response = await axios.get('http://localhost:8000/FollowersAccounts').then((res) => res.data);
+      response = await axios.get(`${Configure.mockURL}FollowersAccounts/`).then((res) => res.data);
       return (response);
     } catch (error) {
       if (error.response) {
@@ -20,7 +21,7 @@ export  async function getFollowerUsers() {
   export  async function getFollowingUsers() {
     let response = '';
     try {
-      response = await axios.get('http://localhost:8000/FollowingAccounts').then((res) => res.data);
+      response = await axios.get(`${Configure.mockURL}FollowingAccounts/`).then((res) => res.data);
       return (response);
     } catch (error) {
       if (error.response) {

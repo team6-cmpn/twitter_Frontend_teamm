@@ -7,7 +7,11 @@ import { getFollowerUsers } from "./FollowersMock";
 import { getFollowingUsers } from "./FollowersMock";
 import FollowersList from './FollowersList';
 import FollowingList from './FollowingList';
-
+/**Followers page
+ * Shows followers page
+ *  
+ * @returns (Layout of followers page)
+ */
 function Followers() {
     const [FollowerUsers,setFollowerUsers]=React.useState([])
     React.useEffect(()=>{

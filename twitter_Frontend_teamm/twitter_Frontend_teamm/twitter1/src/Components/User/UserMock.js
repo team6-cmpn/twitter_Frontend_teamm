@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Configure from '../../Configure'
 
 export default async function getUserInformation() {
     let response = '';

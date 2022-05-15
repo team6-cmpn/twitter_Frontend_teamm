@@ -29,7 +29,7 @@ const ChangeUsername = () =>{
     }
     const notify = () =>{
 
-      toast('Username succesfully changed',
+      toast.info('Username succesfully changed',
       {position: toast.POSITION.BOTTOM_CENTER})
    }
     return(

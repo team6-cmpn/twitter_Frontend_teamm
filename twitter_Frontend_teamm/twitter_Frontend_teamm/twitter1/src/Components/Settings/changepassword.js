@@ -50,7 +50,7 @@ const Changepassword = () =>{
     };
     const notify = () =>{
 
-      toast('Password succesfully changed',
+      toast.info('Password succesfully changed',
       {position: toast.POSITION.BOTTOM_CENTER})
    }
   

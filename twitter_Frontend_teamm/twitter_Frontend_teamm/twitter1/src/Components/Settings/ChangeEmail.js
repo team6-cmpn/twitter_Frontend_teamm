@@ -29,7 +29,7 @@ function ChangeEmail(){
     
     const notify = () =>{
 
-        toast('Email succesfully changed',
+        toast.info('Email succesfully changed',
         {position: toast.POSITION.BOTTOM_CENTER})
      }
     var body={

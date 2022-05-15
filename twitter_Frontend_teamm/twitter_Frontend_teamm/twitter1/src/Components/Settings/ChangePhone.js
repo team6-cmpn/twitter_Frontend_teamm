@@ -26,7 +26,7 @@ function Changephone(){
     };
     const notify = () =>{
 
-        toast('Phone number succesfully changed',
+        toast.info('Phone number succesfully changed',
         {position: toast.POSITION.BOTTOM_CENTER})
      }
     var body={

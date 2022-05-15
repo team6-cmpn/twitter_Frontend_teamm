@@ -2,7 +2,6 @@ import React, {useState, useEffect} from "react";
 import "./feed.css";
 import {modalState, postIdState} from "../atoms/modalAtom";
 import {useRecoilState} from "recoil";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {HeartIcon as HeartIconFilled} from "@heroicons/react/solid";
 import {HeartIcon, ShareIcon, TrashIcon} from "@heroicons/react/outline";
 import * as mocked from "./feedmock";

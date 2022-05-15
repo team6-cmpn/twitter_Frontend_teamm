@@ -37,14 +37,24 @@ export function GetTweetsPerMonth() {
 }
 
 export async function GetDashBoard() {
+  const [dashBoard, setDashBoard] = React.useState([]);
 
-  const dashBoard= await axios.get(`${Configure.backURL}admin/dashBoard`, {
-    headers: {
-      "Content-Type": "application/json; charset=utf-8",
-      "x-access-token": `${localStorage.getItem("token")}`,
-    },
-  });
+  useEffect(() => {
+    const fetchProduct=async ()=>{
+      const dashBoard= await axios.get(`${Configure.backURL}admin/dashBoard`, {
+        headers: {
+          "Content-Type": "application/json; charset=utf-8",
+          "x-access-token": `${localStorage.getItem("token")}`,
+        },
+      });
+      setDashBoard(dashBoard)
+      };
+      fetchProduct();
+  }, []);
+  if (!dashBoard) return null;
+  console.log("dashboard",dashBoard)
   return dashBoard;
+
 }
 export function GetDashBoardstat() {
   const [dashBoard, setDashBoard] = React.useState([]);
@@ -57,13 +67,32 @@ export function GetDashBoardstat() {
           "x-access-token": `${localStorage.getItem("token")}`,
         },
       });
-      setDashBoard(dashBoard.data)
+      setDashBoard(dashBoard)
       };
       fetchProduct();
   }, []);
   if (!dashBoard) return null;
   console.log("dashboard",dashBoard)
   return dashBoard;
+}
+export function GetNotifications() {
+  const [notifications, setNotifications] = React.useState([]);
+
+  useEffect(() => {
+    const fetchProduct=async ()=>{
+      const dashBoard= await axios.get(`${Configure.backURL}notifications/favourites`, {
+        headers: {
+          "Content-Type": "application/json; charset=utf-8",
+          "x-access-token": `${localStorage.getItem("token")}`,
+        },
+      });
+      setNotifications(dashBoard.data)
+      };
+      fetchProduct();
+  }, []);
+  if (!notifications) return null;
+  console.log("notifications",notifications)
+  return notifications;
 }
 
 export function GetNumberOfUsersOfMonth() {
@@ -190,3 +219,4 @@ export const BlockFormBackEnd = async payload => {
     throw error;
   }
 };
+

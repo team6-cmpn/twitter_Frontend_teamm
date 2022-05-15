@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import Carousel from "react-elastic-carousel";
 import {
   BarChart,
@@ -11,17 +11,28 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import "./biaxiallinechart.css";
-import { GetTweetsPerMonth } from "../MockRegistrationAdmin";
+import { GetTweetsPerMonth,GetDashBoard } from "../MockRegistrationAdmin";
+
 
 export default function BiaxialLineChart() {
   var TweetsPerMonth = GetTweetsPerMonth();
+  
+  const [tweetsPerMonth, setTweetsPerMonth] = useState(undefined);
+  (async () => {
+    const resp = await GetDashBoard();
+    let temptweetsPerMonth = [...resp.data[9].tweets_Per_Month];
+    temptweetsPerMonth.forEach((element, index) => {
+      temptweetsPerMonth[index].month = element._id.month;
+    });
+    setTweetsPerMonth(temptweetsPerMonth);
+  })();
 
   return (
     <div className="chartone">
       <Carousel>
         <ResponsiveContainer width="100%" aspect={4 / 2}>
           <BarChart
-            data={TweetsPerMonth}
+            data={tweetsPerMonth}
             margin={{
               top: 5,
               right: 30,
@@ -30,12 +41,11 @@ export default function BiaxialLineChart() {
             }}
           >
             <CartesianGrid stroke="red " strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
+            <XAxis dataKey="month" />
             <YAxis />
             <Tooltip />
             <Legend />
-            <Bar dataKey="Retweets" fill="#8884d8" />
-            <Bar dataKey="Tweets" fill="#82ca9d" />
+            <Bar dataKey="total" fill="#8884d8" />
           </BarChart>
         </ResponsiveContainer>
         {/* <ResponsiveContainer width="100%" aspect={4 / 2}>

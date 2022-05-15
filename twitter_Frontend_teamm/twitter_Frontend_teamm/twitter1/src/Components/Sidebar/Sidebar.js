@@ -1,5 +1,4 @@
 import React, {useState} from "react";
-import {Link} from "react-router-dom";
 import "./Sidebar.css";
 import {
   FaTwitter,
@@ -15,33 +14,52 @@ import {
 } from "react-icons/fa";
 import {BiDotsHorizontal} from "react-icons/bi";
 import {FiSettings} from "react-icons/fi";
-import {Modal, Popover} from "antd";
-import "antd/dist/antd.css";
+import {Modal} from "antd";
 import {Avatar, Button} from "@material-ui/core";
-import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import HeaderTweet from "../homepage/Header_Tweet";
+import * as userbackend from "../Profile/backEndProfile";
+import {getUserInfo} from '../Profile/backEndProfile';
+import  getUsernames    from '../Profile/ProfileMock';
+import { style } from "@mui/system";
+//import FriendSuggestionItem from "../Widgets/FriendSuggestions/FriendSuggestionItem/FriendSuggestionItem";
 // import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 // import Explore from "../Explore";
 // import { BrowserRouter as Router, Switch, Route, Redirect,} from "react-router-dom";
 // import {Link} from "react-router-dom";
 /**Sidebare
  * Shows icons to navigate through different pages
- *
+ *  
  * @returns (Layout of side bar & tweet modal)
  */
 function Sidebar() {
+  const [Item, setItem] = useState();
   const [isModalVisible, setModalVisible] = useState(false);
+  const user_info = userbackend.getUserInfo();
+  user_info.then((name) => {
+    //setusername(name.username);
+    // setDisplay(name.name);
+    console.log(user);
+  });
+  const user=localStorage.getItem("getName")
+  const username=localStorage.getItem("getUsername")
+  //const usern=localStorage.getItem1("getName")
+  // usern.then(data=>{setItem(data)});
+  // console.log(Item);
+  
+  const [Username, setUsernames] = React.useState([]);
+    React.useEffect(() => {
+    (async () => {
+        const resp = await getUsernames();
+        setUsernames(resp);
+      })();
+    }, []);
+
   const onSubModel = (stateMain = true) => {
     setModalVisible(stateMain);
   };
-  //const [popOverVisible, setPopOverVisible] = useState(false);
-  const content = (
-    <div>
-      <Link to="/logout">Logout username</Link>
-    </div>
-  );
   return (
-    <div className="sidebar">
+    <div className="sidebar d">
       <ul>
         <li>
           <a href="">
@@ -100,20 +118,23 @@ function Sidebar() {
         </div>
 
         <li>
-          <a href="">
+          <a href="/Profile">
             <Avatar className="icons" />
-            <div className="t">
-              Username{" "}
-              <Popover content={content} trigger="click" title="Username">
-                <BiDotsHorizontal className="more" />
-              </Popover>
+            <div className="t" >
+            <span style={{"float":"left"}}>
+            {user}</span>
+            <span style={{"color":"silver", "font-weight": "600", "font-size": "16px","float":"Left","textAlign":"left", "marginLeft":"0px", "marginTop":"10px"}}>
+            {username} <BiDotsHorizontal style={{"display":"row"}} className="more" /> </span>
+            {/* <BiDotsHorizontal style={{"display":"row"}} className="more" /> */}
             </div>
           </a>
         </li>
         <li>
           <a href="/adminPage">
             <AdminPanelSettingsIcon className="icons" />
-            <div className="t">Admin</div>
+            <div className="t">
+              Admin 
+            </div>
           </a>
         </li>
         {/* <Avatar className="icons"/>hhhhhh  <BiDotsHorizontal className="more"/> */}
@@ -132,7 +153,7 @@ function Sidebar() {
         style={{textAlign: "center"}}
         cancelButtonProps={{style: {display: "none"}}}
         visible={isModalVisible}
-        bodyStyle={{height: 300, font: "Helvetica", textAlign: "left"}}
+        bodyStyle={{height: 200, font: "Helvetica", textAlign: "left"}}
         width={800}
         alignItems={{top: Window}}
         onCancel={() => setModalVisible(false)}
@@ -140,7 +161,7 @@ function Sidebar() {
         maskClosable={false}
       >
         <div className="for_model">
-          <HeaderTweet onSubmit={setModalVisible} model={true} />
+          <HeaderTweet />
         </div>
       </Modal>
     </div>

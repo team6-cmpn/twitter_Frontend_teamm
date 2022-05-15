@@ -16,7 +16,8 @@
   position: fixed;
   width: 30%;
   top: 10px;
-  right: 0;
+  right: 0px;
+  
   /* border-bottom: 1px solid #e6ecf0; */
   margin-bottom: 1px;
   margin-left: 20px;
@@ -46,14 +47,14 @@
   right: 0;
   width: 30%;
   padding: 20px 20px;
-  margin-bottom: 20px;
+  
   
 }
 .key {
   background: #d6d9db79;   
   padding: 15px;
   border-radius: 20px;
-  margin-bottom: 20px;
+  
 }
 .keyword__heading {
   font-size: 20px;

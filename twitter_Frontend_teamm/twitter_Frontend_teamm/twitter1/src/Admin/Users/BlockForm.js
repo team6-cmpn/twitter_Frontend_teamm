@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import AdminSideBar from "../AdminSideBar";
-import { BlockFormBackEnd } from "../MockRegistrationAdmin";
+import { BlockFormBackEnd, BLockUser } from "../MockRegistrationAdmin";
 import TopBar from "../TopBar";
 import "./blockform.css";
 
@@ -17,7 +17,8 @@ function BlockForm() {
     if (duration < 0) {
       alert("Please enter a validate number");
     } else {
-      BlockFormBackEnd(body);
+      var resp=BLockUser(body);
+      console.log(resp)
       alert("User is Blocked By : " + duration + " Days");
       e.preventDefault();
     }

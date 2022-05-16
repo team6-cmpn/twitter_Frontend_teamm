@@ -24,8 +24,6 @@ export async function getTopUsers() {
   return response;
 }
 
-
-
 export async function GetDashBoard() {
   const dashBoard = await axios.get(`${Configure.backURL}admin/dashBoard`, {
     headers: {
@@ -33,7 +31,6 @@ export async function GetDashBoard() {
       "x-access-token": `${localStorage.getItem("token")}`,
     },
   });
-  console.log('dashboard',dashBoard)
   return dashBoard;
 }
 export function GetDashBoardstat() {
@@ -52,10 +49,8 @@ export function GetDashBoardstat() {
     fetchProduct();
   }, []);
   if (!dashBoard) return null;
-  console.log("dashboard",dashBoard)
   return dashBoard;
 }
-
 
 export function GetNumberOfUsersOfMonth() {
   const [userpermonth, setUserPerMonth] = React.useState([]);
@@ -180,25 +175,29 @@ export const BlockFormBackEnd = async (payload) => {
     throw error;
   }
 };
-export async function BLockUser() {
+export async function BLockUser(params) {
   var messgae;
-  const body = {
+  params = {
     duration: sessionStorage.getItem("duration"),
   };
-  var userid=localStorage.getItem('selectedIDs')
   //   localStorage.getItem("id");
   await axios
-    .post(`${Configure.backURL}adminBlock/create`, body, {
-      headers: {
-        "Content-Type": "application/json",
-        "x-access-token": `${localStorage.getItem("token")}`,
-      },
-    })
+    .post(
+      `${Configure.backURL}adminBlock/create?userid=${localStorage.getItem(
+        "selectedIDs"
+      )}`,
+      params,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "x-access-token": `${localStorage.getItem("token")}`,
+        },
+      }
+    )
     .then((response) => {
       console.log(response);
       if (response.status === 201) {
         messgae = response.data;
-        sessionStorage.setItem("ID_tweet", response.data._id);
       }
     })
     .catch((error) => {

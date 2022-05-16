@@ -53,8 +53,8 @@ export default function BiaxialLineChart() {
               bottom: 5,
             }}
           >
-            <CartesianGrid stroke="red " strokeDasharray="3 3" />
-            <XAxis dataKey="month" />
+            <CartesianGrid />
+            <XAxis dataKey="month" style={{pointerEvents: 'none'}} />
             <YAxis />
             <Tooltip />
             <Legend />

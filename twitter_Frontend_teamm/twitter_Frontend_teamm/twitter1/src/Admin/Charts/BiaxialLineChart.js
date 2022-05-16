@@ -21,14 +21,27 @@ export default function BiaxialLineChart() {
   const tweetsperyear = GetDashBoardstat()[10];
 
   const [tweetsPerMonth, setTweetsPerMonth] = useState(undefined);
+  let d=[];
   (async () => {
     const resp = await GetDashBoard();
     let temptweetsPerMonth = [...resp.data[9].tweets_Per_Month];
     temptweetsPerMonth.forEach((element, index) => {
       temptweetsPerMonth[index].month = element._id.month;
     });
+    d.push(temptweetsPerMonth)
     setTweetsPerMonth(temptweetsPerMonth);
   })();
+
+  const datapermonth = [];
+  for (let i = 0; i < GetDashBoardstat()[9]?.length; i++) {
+    let d = {
+      month: GetDashBoardstat()[9][i]?._id.month,
+      value: GetDashBoardstat()[9][i]?.total,
+    };
+
+    datapermonth.push(d);
+  }
+
   const [tweetsPeryear, setTweetsPeryear] = useState(undefined);
   (async () => {
     const resp = await GetDashBoard();
@@ -54,8 +67,10 @@ export default function BiaxialLineChart() {
             }}
           >
             <CartesianGrid />
-            <XAxis dataKey="month" style={{pointerEvents: 'none'}} />
-            <YAxis />
+            <XAxis
+              dataKey="month"
+            />
+            <YAxis domain={[0, (dataMax) => Number(dataMax) + 50]} />
             <Tooltip />
             <Legend />
             <Bar dataKey="total" fill="#8884d8" />

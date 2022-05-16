@@ -18,7 +18,6 @@ export function GetNotificationsFavourites() {
         fetchProduct();
     }, []);
     if (!notifications) return null;
-    console.log("notificationsFav",notifications)
     return notifications;
 }
 
@@ -40,6 +39,5 @@ export function GetNotifications() {
         fetchProduct();
     }, []);
     if (!notifications) return null;
-    console.log("notificationsAll",notifications)
     return notifications;
   }

@@ -13,7 +13,6 @@ import MainSettings from "./MainSettings";
  */
 function Settings(){
   document.title = "Your Account / Twitter";
-  const [location] = React.useState(useLocation().pathname);
   let path = useLocation().pathname;
 
 
@@ -29,7 +28,7 @@ function Settings(){
                   <SettingsContent
                     text="Your account"
                     Icon={ChevronRightIcon}
-                    active={location === "/your-account" && true}
+                    
                   />
                 </Link>
                 
@@ -37,7 +36,7 @@ function Settings(){
                   <SettingsContent
                     text="Privacy and safety"
                     Icon={ChevronRightIcon}
-                    active={location === "/privacy-and-saftey" && true}
+                    
                   />
                 </Link>
 

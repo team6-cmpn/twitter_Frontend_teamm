@@ -13,7 +13,7 @@ import Trends from "../Widgets/Trends";
 import Sidebar from "../Sidebar/Sidebar";
 import {GrLocation} from "react-icons/gr"
 import {BiLink} from "react-icons/bi"
-import {getUserInfo} from './backEndProfile'
+import {getUserInfo, gettweetlist, UpdateProfile} from './backEndProfile'
 import { GetPostTweet } from "../homepage/feedmock";
 import Post from "../homepage/Post";
 import { RecoilRoot } from "recoil";
@@ -72,9 +72,14 @@ function Profile(){
     const [editlocation, setEditLocation] = useState(null)
     const [editwebsite, setEditWebsite] = useState(null)
     const [Item, setItem] = useState();
+    const [upd, setupdate] = useState();
 
     function SaveButtonActions(){
     mockAPI.Profile(body); 
+    var up = UpdateProfile(update);
+    up.then(data=>{setupdate(data)});
+    console.log(upd);
+    
     setMainModalVisible(false);
     setName(editname);
     setBio(editbio);
@@ -86,6 +91,9 @@ function Profile(){
         alt2: alt
     }); 
     }
+    sessionStorage.setItem("name",editname);
+    sessionStorage.setItem("description",editbio);
+    
     var body={
         name: editname,
         bio: editbio,
@@ -94,9 +102,20 @@ function Profile(){
         date:date,
         img: {alt,src},
     }
+    var update={
+        name: editname,
+        description: editbio,
+    }
     const user=getUserInfo();
     user.then(data=>{setItem(data)});
     console.log(Item);
+
+    // const [tweeted, settweet] = useState();
+
+    const tweet=gettweetlist();
+    // tweet.then(data=>{settweet(data)});
+    // console.log(tweeted);
+
     const username=localStorage.getItem("getUsername")
     console.log(name);
   
@@ -188,7 +207,7 @@ function Profile(){
                         
                             <>
 
-                            {twetted.map((userlist, index) => (
+                            {/* {twetted.map((userlist, index) => (
                                  <Post
                                  key={index}
                                  displayName={userlist.displayName}
@@ -197,6 +216,16 @@ function Profile(){
                                  image={userlist.image}
                                  avatar={userlist.avatar}
                                  date={userlist.date}
+                                 />))} */}
+                                 {twetted.map((userlist, index) => (
+                                 <Post
+                                 key={index}
+                                 displayName={userlist.displayName}
+                                 username={userlist.username}
+                                 text={tweet.text}
+                                 image={tweet.imageUrl}
+                                 avatar={userlist.avatar}
+                                 date={tweet.created_at}
                                  />))}
                             </>
                          :

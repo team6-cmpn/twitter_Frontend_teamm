@@ -67,6 +67,7 @@ export const backEndLogIn=async payload=>{
             message='';
             
             localStorage.setItem('token', response.data.accessToken);
+            sessionStorage.setItem('token', response.data.accessToken);
             localStorage.setItem('name', response.data.user.name);
             localStorage.setItem('joinedAt', response.data.user.created_at);
             localStorage.setItem('userId', response.data.user._id);

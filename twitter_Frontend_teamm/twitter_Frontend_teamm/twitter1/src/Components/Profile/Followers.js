@@ -7,12 +7,25 @@ import { getFollowerUsers } from "./FollowersMock";
 import { getFollowingUsers } from "./FollowersMock";
 import FollowersList from './FollowersList';
 import FollowingList from './FollowingList';
+import {getFollowersList,getFollowingList} from './backEndProfile';
 /**Followers page
  * Shows followers page
  *  
  * @returns (Layout of followers page)
  */
 function Followers() {
+    const [FollowersLists,setFollowersList]=React.useState([])
+    React.useEffect(()=>{
+        (async () => {
+            const resp = await getFollowersList();
+            setFollowersList(resp);
+          })();
+    
+        },[])
+
+        const user=getFollowersList();
+    user.then(data=>{setFollowersList(data)});
+    console.log(FollowersLists);
     const [FollowerUsers,setFollowerUsers]=React.useState([])
     React.useEffect(()=>{
         (async () => {
@@ -52,8 +65,10 @@ function Followers() {
                 <article>
           {isFollowers ? (
             <>
-              {FollowerUsers.map((FollowerUsers,index)=>(
-                <FollowersList key={index} FollowerAccount={FollowerUsers}/>))}
+              {/* {FollowerUsers.map((FollowerUsers,index)=>(
+                <FollowersList key={index} FollowerAccount={FollowerUsers}/>))} */}
+              
+                <FollowersList FollowerAccount={FollowersLists}/>
             
             </>
           ) : (

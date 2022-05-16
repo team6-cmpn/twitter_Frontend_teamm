@@ -1,8 +1,5 @@
 import   * as mockAPI  from './ProfileMock'
 
-
-
-
   var body={
     name: "Menna",
     bio: "Heyy",

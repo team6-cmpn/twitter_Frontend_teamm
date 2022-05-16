@@ -7,7 +7,10 @@ import * as BE from "./SettingsBackendIntegration"
 import {Button} from "@mui/material";
 import {toast, ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+/**
+ * make you able to change the email
+ * @returns [changed email]
+ */
 function ChangeEmail(){
    // toast.configure()
 

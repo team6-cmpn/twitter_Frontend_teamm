@@ -1,7 +1,10 @@
 import axios from 'axios';
 import Configure from '../../Configure'
 
-
+/**
+ * it's responsible for connecting with backend  
+ * @returns [returns the states if it okay or not while connecting with backend]
+ */
 
 export async function Post_ChangePassword(){
     var message;

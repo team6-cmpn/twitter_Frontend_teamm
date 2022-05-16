@@ -2,6 +2,10 @@ import React from "react"
 import { Link, useLocation, Outlet } from "react-router-dom";
 import Muted from "./Muted"
 import { getMutedUsers } from "../NotificationsMock";
+/**
+ * make you able yo see the muted accounts 
+ * @returns [show you the muted accounts]
+ */
 const MutedAccounts =() =>{
     const [MutedUsers,setMutedUsers]=React.useState([])
     document.title = "Muted Accounts / Twitter";

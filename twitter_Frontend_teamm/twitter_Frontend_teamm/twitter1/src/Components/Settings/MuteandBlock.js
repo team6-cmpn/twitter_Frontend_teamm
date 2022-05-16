@@ -3,7 +3,10 @@ import "./settingsSubmenus.css"
 import { Link, useLocation,Outlet } from "react-router-dom";
 import { ChevronRight } from "@mui/icons-material";
 import SettingsContentInMenus from "./SettingsContentInMenus";
-
+/**
+ * make you able to change the between muted and blocked account
+ * @returns [muted and blocked menus]
+ */
 const MuteandBlock = () => {
     const [location] = React.useState(useLocation().pathname);
     document.title = "Mute and block / Twitter";

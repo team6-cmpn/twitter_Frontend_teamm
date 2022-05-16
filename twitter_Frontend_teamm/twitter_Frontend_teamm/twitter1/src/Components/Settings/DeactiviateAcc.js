@@ -5,7 +5,10 @@ import AccDec from "./AccDec";
 import { Link, useLocation } from "react-router-dom";
 import {Button} from "@mui/material";
 import * as BE from "./SettingsBackendIntegration"
-
+/**
+ * make you able to deactive your account then make you log out from the website 
+ * 
+ */
 function DeactivateAcc(){
     function deactivate(){
         BE.Put_DeactivateAccount();

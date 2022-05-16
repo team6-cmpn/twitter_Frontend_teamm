@@ -4,7 +4,10 @@ import { Link, useLocation, Outlet } from "react-router-dom";
 import SecurityContent from "./SecurityContent";
 import Blocked from "./Blocked";
 import { getBlockedUsers } from "../NotificationsMock";
-
+/**
+ * make you able to see the blocked account
+ * @returns [blocked account]
+ */
 const BlockedAccounts =() =>{
     const [BlockedUsers,setBlockedUsers]=React.useState([])
     document.title = "Blocked Accounts / Twitter";

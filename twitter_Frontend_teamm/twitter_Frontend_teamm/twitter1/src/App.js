@@ -27,7 +27,6 @@ import AccountInformation from "./Components/Settings/AccountInfo";
 import ChangeUsername from "./Components/Settings/changeUsername";
 import Changepassword from "./Components/Settings/changepassword";
 import DeactivateAcc from "./Components/Settings/DeactiviateAcc";
-import Security from "./Components/Settings/Security";
 import Bookmarks from './Components/Bookmarks/Bookmarks';
 import {
   PrivateRouteAdmin,
@@ -63,7 +62,6 @@ function App() {
             <Route path="MuteandBlock" element={<MuteandBlock />} />
             <Route path="Your-twitter-data" element={<AccountInformation />} />
             <Route path="Deactivate-your-Acc" element={<DeactivateAcc />} />
-            <Route path="security-of-account" element={<Security />} />
             <Route path="Blocked-accounts" element={<BlockedAccounts />} />
             <Route path="Muted-accounts" element={<MutedAccounts />} />
             <Route path="change-phone-number" element={<Changephone />} />

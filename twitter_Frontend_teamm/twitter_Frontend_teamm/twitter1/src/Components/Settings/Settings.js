@@ -1,14 +1,16 @@
 import React from "react";
 import "./Settings.css"
 import './../Home.css';
-import SearchBar from "./SearchBar";
 import SettingsBox from "../SettingsBox/SettingsBox";
 import { Link, useLocation, Outlet } from "react-router-dom";
 import SettingsContent from "./settingscontent";
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import YourAccount from "./YourAccount";
 import MainSettings from "./MainSettings";
-
+/**
+ * it allows you to select the menu you want to change ,either to change you account information
+ * @param [dont take] 
+ * @returns [doesn't return any thing]
+ */
 function Settings(){
   document.title = "Your Account / Twitter";
   const [location] = React.useState(useLocation().pathname);

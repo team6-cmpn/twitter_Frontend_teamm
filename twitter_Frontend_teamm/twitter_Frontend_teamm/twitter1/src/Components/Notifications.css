@@ -41,6 +41,7 @@
   }
   .notificationsCategory > div:hover {
     background-color:  #F7F9F9;
+    cursor: pointer;
   }
   
   .notificationsTitle .MuiAvatar-root {

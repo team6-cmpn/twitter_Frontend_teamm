@@ -9,6 +9,7 @@ import  getUserInformation    from './UserMock';
 import Trends from "../Widgets/Trends";
 import Sidebar from "../Sidebar/Sidebar";
 import {getUserInfo} from '../Profile/backEndProfile';
+import {Follow,destroyFollow, Block} from './BackendUser';
 import {Modal} from "antd";
 import "../Widgets/FriendSuggestions/FriendSuggestionItem/FriendSuggestionItem.css";
 import { GetPostTweet } from "../homepage/feedmock";
@@ -72,9 +73,10 @@ function User(){
 
     const user=getUserInfo();
     user.then(data=>{setItem(data)});
-    console.log(Item);
+    console.log(user);
     
     function FollowButtonActions(){
+        Follow(localStorage.getItem("userId"));
         mockAPI.follow(body);
         if (textState==="Follow")
         toggleText();
@@ -161,8 +163,8 @@ function User(){
                         </div> )
                     })}
                 </div> 
-                {/* <div className='Username'>{Item}</div>
-                <br></br> */}
+                <div className='Username'>{Item}</div>
+                <br></br>
                 {/* <div id="bioBio" className='Bio'></div>
                 <br></br>
                 <GrLocation className='Bio'></GrLocation>
@@ -200,7 +202,7 @@ function User(){
                     <div className="for_model">
                     <div style={{fontSize: "200%", marginTop: "10px", color: "black", textAlign: "center" }}>Block this user?</div>
                     <div style={{padding: "30px 30px"}}>They will not be able to follow you or view your Tweets, and you will not see Tweets or notifications from this user. </div>
-                    <button id="Block" onClick={()=>{toggleBlock(); onExist();}} className="ButtonBlock">Block</button>
+                    <button id="Block" onClick={()=>{toggleBlock(); onExist(); Block(localStorage.getItem("userId"))}} className="ButtonBlock">Block</button>
                     </div>
                 </Modal>
                 
@@ -218,7 +220,7 @@ function User(){
                     <div className="for_model">
                     <div style={{fontSize: "200%", marginTop: "10px", color: "black", textAlign: "center" }}>Unfollow this user?</div>
                     <div style={{padding: "30px 30px"}}>Their Tweets will no longer show up in your home timeline. You can still view their profile. </div>
-                    <button id="Unfollow" onClick={()=>{toggleText(); onExist();}} className='ButtonBlock'>Unfollow</button>
+                    <button id="Unfollow" onClick={()=>{toggleText(); onExist();destroyFollow(localStorage.getItem("userId"))}} className='ButtonBlock'>Unfollow</button>
                     </div>
                 </Modal>
                 
@@ -267,7 +269,17 @@ function User(){
                         
                             <>
 
-                            {twetted.map((userlist, index) => (
+                            {/* {twetted.map((userlist, index) => (
+                                 <Post
+                                 key={index}
+                                 displayName={userlist.displayName}
+                                 username={userlist.username}
+                                 text={userlist.text}
+                                 image={userlist.image}
+                                 avatar={userlist.avatar}
+                                 date={userlist.date}
+                                 />))} */}
+                                 {twetted.map((userlist, index) => (
                                  <Post
                                  key={index}
                                  displayName={userlist.displayName}
@@ -326,7 +338,7 @@ function User(){
                         }
           
            
-                    </article>
+                     </article>
                 
                 </RecoilRoot>
                 

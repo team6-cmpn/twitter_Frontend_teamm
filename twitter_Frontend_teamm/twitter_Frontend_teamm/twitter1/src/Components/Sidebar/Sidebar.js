@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState,useEffect} from "react";
 import "./Sidebar.css";
 import {
   FaTwitter,
@@ -22,6 +22,9 @@ import * as userbackend from "../Profile/backEndProfile";
 import {getUserInfo} from '../Profile/backEndProfile';
 import  getUsernames    from '../Profile/ProfileMock';
 import { style } from "@mui/system";
+import Pusher from 'pusher-js'
+
+import {toast, ToastContainer} from 'react-toastify';
 //import FriendSuggestionItem from "../Widgets/FriendSuggestions/FriendSuggestionItem/FriendSuggestionItem";
 // import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 // import Explore from "../Explore";
@@ -58,6 +61,32 @@ function Sidebar() {
   const onSubModel = (stateMain = true) => {
     setModalVisible(stateMain);
   };
+  var pusher;
+  var userid=localStorage.getItem('userId');
+  var dataTemp;
+   useEffect(async() => {
+    
+    Pusher.logToConsole = true;
+      pusher = new Pusher('a02c7f30c561968a632d', {
+      appId : "1406245",
+
+      secret : "5908937248eea3363b9e",
+      cluster : "eu",
+      useTLS: true,
+
+    });
+    var channel = pusher.subscribe(String(userid));
+    channel.bind('block-event', function(data) {
+    dataTemp=data;
+    {notify()}
+    });
+  });
+  const notify = () =>{
+
+    toast.info('Notification'+dataTemp+".",
+    {position: toast.POSITION.BOTTOM_CENTER})
+ }
+
   return (
     <div className="sidebar d">
       <ul>
@@ -164,6 +193,7 @@ function Sidebar() {
           <HeaderTweet />
         </div>
       </Modal>
+      <ToastContainer/>
     </div>
   );
 }

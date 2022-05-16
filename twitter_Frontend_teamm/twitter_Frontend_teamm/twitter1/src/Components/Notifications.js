@@ -8,8 +8,7 @@ import LikedYou from "./LikedYou";
 import getFollowingUsers from "./NotificationsMock";
 import { GetPostTweet } from "./homepage/feedmock";
 import {getLikedUsers} from "./NotificationsMock";
-import Post from "./homepage/Post";
-import { RecoilRoot } from "recoil";
+
 import { GetNotificationsFavourites } from "./NotificationBackend";
 import { GetNotifications } from "./NotificationBackend";
 import LikedYouBe from "./LikedYouBe";

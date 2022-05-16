@@ -14,6 +14,9 @@ import {useNavigate} from "react-router";
 import {Button} from "@material-ui/core";
 import {Link} from "react-router-dom";
 import {hover} from "@testing-library/user-event/dist/hover";
+// // // // // // // // // // // // // // import {toast, ToastContainer} from 'react-toastify';
+// // // // // // // // // // // // // // import 'react-toastify/dist/ReactToastify.css';
+// // // // // // // // // // // // // // import Pusher from 'pusher-js'
 
 //import {TwitterShareButton};
 
@@ -63,6 +66,7 @@ const Post = ({
       like_post.then((text) => {
         setcount(text.favorite_count);
       });
+      // ///////////////////////////////////////////////////////////////////////////////{liveNotifications()}
       setLiked(true);
     } else if (liked === true) {
       //post disliked
@@ -73,6 +77,38 @@ const Post = ({
       setLiked(false);
     }
   };
+  // // // // // // // // /** live notificationas actions */
+  // // // // // // // // var pusher;
+  // // // // // // // // var userid=localStorage.getItem('userId');
+  // // // // // // // // var dataTemp;
+  // // // // // // // //  useEffect(async() => {
+    
+  // // // // // // // //   Pusher.logToConsole = true;
+  // // // // // // // //   pusher = new Pusher('a02c7f30c561968a632d', {
+  // // // // // // // //     appId : "1406245",
+
+  // // // // // // // //     secret : "5908937248eea3363b9e",
+  // // // // // // // //     cluster : "eu",
+  // // // // // // // //     useTLS: true,
+
+  // // // // // // // //   });
+  // // // // // // // // });
+  // // // // // // // // function liveNotifications(){
+  // // // // // // // //   var channel = pusher.subscribe(String(userid));
+  // // // // // // // //   channel.bind('favourite-event', function(data) {
+  // // // // // // // //     dataTemp=data;
+  // // // // // // // //     {notify()}
+  // // // // // // // //   });
+
+
+  // // // // // // // // }
+  // // // // // // // // const notify = () =>{
+    
+  // // // // // // // //     //dataTemp.notificationHeader.text
+  // // // // // // // //   toast.info(+dataTemp.notificationHeader.text+".",
+  // // // // // // // //   {position: toast.POSITION.TOP_CENTER})}
+
+ 
   /**
    * function open like modelof list of profiles who liked this post
    */
@@ -280,7 +316,9 @@ const Post = ({
         maskClosable={false}
       >
         <div></div>
+       
       </Modal>
+      {/* <ToastContainer/> */}
     </div>
   );
 };

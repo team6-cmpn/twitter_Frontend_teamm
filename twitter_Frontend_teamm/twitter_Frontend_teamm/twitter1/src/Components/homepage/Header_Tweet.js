@@ -10,7 +10,10 @@ import ImageBox from "./ImageBox";
 import * as mocked from "./feedmock";
 import * as backend from "./backendFeed";
 import {useNavigate} from "react-router";
-
+// // // // // // // // // // // // // // import Pusher from 'pusher-js'
+// // // // // // // // // // // // // // import {toast, ToastContainer} from 'react-toastify';
+// // // // // // // // // // // // // // import 'react-toastify/dist/ReactToastify.css';
+/**
 //import Tweetarea from "./textinput"
 /**
  *function of header tweet
@@ -70,13 +73,40 @@ function Tweetbox(props) {
     let emoji = String.fromCodePoint(...codesArray);
     setinput(input + emoji);
   };
+  // // // // // // // // var pusher;
+  // // // // // // // // var userid=localStorage.getItem('userId');
+  // // // // // // // // var dataTemp;
+  // // // // // // // //  useEffect(async() => {
+    
+  // // // // // // // //   Pusher.logToConsole = true;
+  // // // // // // // //   pusher = new Pusher('a02c7f30c561968a632d', {
+  // // // // // // // //     appId : "1406245",
 
-  useEffect(() => {
-    (async () => {
-      const resp = await mocked.GetUserContent();
-      getcontent(resp);
-    })();
-  }, []);
+  // // // // // // // //     secret : "5908937248eea3363b9e",
+  // // // // // // // //     cluster : "eu",
+  // // // // // // // //     useTLS: true,
+
+  // // // // // // // //   });
+  // // // // // // // // });
+  // // // // // // // // function liveNotifications(){
+  // // // // // // // //   var channel = pusher.subscribe(String(userid));
+  // // // // // // // //   channel.bind('tweet-event', function(data) {
+  // // // // // // // //     dataTemp=data;
+  // // // // // // // //     {notify()}
+  // // // // // // // //   });
+
+
+  // // // // // // // // }
+  // // // // // // // // const notify = () =>{
+  // // // // // // // //   toast.info(+dataTemp.notificationHeader.text+".",
+  // // // // // // // //   {position: toast.POSITION.TOP_CENTER})}
+
+  // // // // // // // // useEffect(() => {
+  // // // // // // // //   (async () => {
+  // // // // // // // //     const resp = await mocked.GetUserContent();
+  // // // // // // // //     getcontent(resp);
+  // // // // // // // //   })();
+  // // // // // // // // }, []);
 
   /**
    *
@@ -98,7 +128,6 @@ function Tweetbox(props) {
       //setmodel(!props.model);
       props.onSubmit(false);
     }
-
     // navigate("/home");
   }
 
@@ -184,11 +213,16 @@ function Tweetbox(props) {
           <Button
             id="post tweet button"
             disabled={!input && selectedFile === 0}
-            onClick={submitTweet}
+            onClick={()=>{
+              {submitTweet()};
+              //////////////////////////////////////////////////// liveNotifications()
+            }}
             className="tweet__Button"
           >
             Tweet
           </Button>
+          {/* <ToastContainer/> */}
+
         </div>
         {showEmoji && (
           <Picker

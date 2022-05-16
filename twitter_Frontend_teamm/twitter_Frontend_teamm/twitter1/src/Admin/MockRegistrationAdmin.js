@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect } from "react";
 import Configure from "../Configure";
 import React from "react";
+import { Dashboard } from "@material-ui/icons";
 
 export async function getTopUsers() {
   let response = "";
@@ -43,6 +44,7 @@ export async function GetDashBoard() {
       "x-access-token": `${localStorage.getItem("token")}`,
     },
   });
+  console.log('dashboard',dashBoard)
   return dashBoard;
 }
 export function GetDashBoardstat() {
@@ -56,35 +58,15 @@ export function GetDashBoardstat() {
           "x-access-token": `${localStorage.getItem("token")}`,
         },
       });
-      setDashBoard(dashBoard);
+      setDashBoard(dashBoard.data);
     };
     fetchProduct();
   }, []);
   if (!dashBoard) return null;
+  console.log("dashboard",dashBoard)
   return dashBoard;
 }
-export function GetNotifications() {
-  const [notifications, setNotifications] = React.useState([]);
 
-  useEffect(() => {
-    const fetchProduct = async () => {
-      const dashBoard = await axios.get(
-        `${Configure.backURL}notifications/favourites`,
-        {
-          headers: {
-            "Content-Type": "application/json; charset=utf-8",
-            "x-access-token": `${localStorage.getItem("token")}`,
-          },
-        }
-      );
-      setNotifications(dashBoard.data);
-    };
-    fetchProduct();
-  }, []);
-  if (!notifications) return null;
-  console.log("notifications", notifications);
-  return notifications;
-}
 
 export function GetNumberOfUsersOfMonth() {
   const [userpermonth, setUserPerMonth] = React.useState([]);
@@ -209,3 +191,30 @@ export const BlockFormBackEnd = async (payload) => {
     throw error;
   }
 };
+export async function Post_Tweet() {
+  var messgae;
+  const body = {
+    text: localStorage.getItem("input_set"),
+    mention: localStorage.getItem("mention_set"),
+  };
+  //   localStorage.getItem("id");
+  await axios
+    .post(`${Configure.backURL}tweets/update`, body, {
+      headers: {
+        "Content-Type": "application/json",
+        "x-access-token": `${localStorage.getItem("token")}`,
+      },
+    })
+    .then((response) => {
+      console.log(response);
+      if (response.status === 201) {
+        messgae = response.data;
+        sessionStorage.setItem("ID_tweet", response.data._id);
+      }
+    })
+    .catch((error) => {
+      messgae = error.response.data.message;
+    });
+
+  return messgae;
+}

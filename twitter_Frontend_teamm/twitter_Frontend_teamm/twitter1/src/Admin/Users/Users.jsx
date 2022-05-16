@@ -29,6 +29,7 @@ const columns = [
   { field: "following", headerName: "Folllowing", width: 130 },
   { field: "dateOfBirth", headerName: "Date Of Birth", width: 130 },
   { field: "isDeactivated", headerName: "Deactivation Status", width: 150 },
+  { field: "_id", headerName: "User ID", width: 150 },
   {
     field: 'action',
     headerName: 'Action',
@@ -49,8 +50,8 @@ const columns = [
 
 
 export default function AdminUsers() {
-  const userlistmock=GetUserListMock()
   const userlist=GetUserList()
+
   console.log("users",userlist)
   return (
     <div className="Users">

@@ -1,14 +1,12 @@
 import React from "react";
 import "./topfiveusers.css";
-import { GetDashBoardstat, GetHashtags, GetNotifications } from "./MockRegistrationAdmin";
+import { GetDashBoardstat, GetHashtags } from "./MockRegistrationAdmin";
 import TopUserItem from "./TopUserComponent";
 import TopHashtagComponent from "./TopHashtagComponent";
 function TopUsers() {
   const topUsers = GetDashBoardstat()[0];
   const hashtag = GetDashBoardstat()[5];
-  const notifi=GetNotifications();
 
-  console.log("notifications", notifi);
   return (
     // <article id="TopFiveUsersWithMostFollowers">
       <div className="blocks">

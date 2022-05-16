@@ -262,7 +262,7 @@ function SignUp() {
                 <span style={{color: 'red'}}>
                   <Input id="email" style={{ height:40}}  onChange={getEmailValidation}  onKeyUp={getEmail} maxLength={100}  placeholder="Email" />
                   {emailOrPhoneError}<br></br>
-                  <button onClick={()=>{change()}} className='usePhoneButton' >{emailOrPhoneSwitch}</button>
+                  <button id='use' onClick={()=>{change()}} className='usePhoneButton' >{emailOrPhoneSwitch}</button>
                 </span>
               </Form.Item>
               <Form.Item 

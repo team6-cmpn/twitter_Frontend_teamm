@@ -24,19 +24,6 @@ export async function getTopUsers() {
   return response;
 }
 
-export function GetTweetsPerMonth() {
-  const [tweetspermonth, setTweetsPerMonth] = React.useState([]);
-
-  useEffect(() => {
-    fetch("http://localhost:8000/TweetsPerMonth")
-      .then((res) => res.json())
-      .then((result) => {
-        setTweetsPerMonth(result);
-      });
-  }, []);
-  return tweetspermonth;
-}
-
 export async function GetDashBoard() {
   const dashBoard = await axios.get(`${Configure.backURL}admin/dashBoard`, {
     headers: {
@@ -44,7 +31,6 @@ export async function GetDashBoard() {
       "x-access-token": `${localStorage.getItem("token")}`,
     },
   });
-  console.log('dashboard',dashBoard)
   return dashBoard;
 }
 export function GetDashBoardstat() {
@@ -63,10 +49,8 @@ export function GetDashBoardstat() {
     fetchProduct();
   }, []);
   if (!dashBoard) return null;
-  console.log("dashboard",dashBoard)
   return dashBoard;
 }
-
 
 export function GetNumberOfUsersOfMonth() {
   const [userpermonth, setUserPerMonth] = React.useState([]);
@@ -191,25 +175,29 @@ export const BlockFormBackEnd = async (payload) => {
     throw error;
   }
 };
-export async function Post_Tweet() {
+export async function BLockUser(params) {
   var messgae;
-  const body = {
-    text: localStorage.getItem("input_set"),
-    mention: localStorage.getItem("mention_set"),
+  params = {
+    duration: sessionStorage.getItem("duration"),
   };
   //   localStorage.getItem("id");
   await axios
-    .post(`${Configure.backURL}tweets/update`, body, {
-      headers: {
-        "Content-Type": "application/json",
-        "x-access-token": `${localStorage.getItem("token")}`,
-      },
-    })
+    .post(
+      `${Configure.backURL}adminBlock/create?userid=${localStorage.getItem(
+        "selectedIDs"
+      )}`,
+      params,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "x-access-token": `${localStorage.getItem("token")}`,
+        },
+      }
+    )
     .then((response) => {
       console.log(response);
       if (response.status === 201) {
         messgae = response.data;
-        sessionStorage.setItem("ID_tweet", response.data._id);
       }
     })
     .catch((error) => {

@@ -18,7 +18,6 @@ import {
 } from "../MockRegistrationAdmin";
 
 export default function BiaxialLineChart() {
-  var TweetsPerMonth = GetTweetsPerMonth();
   const tweetsperyear = GetDashBoardstat()[10];
 
   const [tweetsPerMonth, setTweetsPerMonth] = useState(undefined);
@@ -54,8 +53,8 @@ export default function BiaxialLineChart() {
               bottom: 5,
             }}
           >
-            <CartesianGrid stroke="red " strokeDasharray="3 3" />
-            <XAxis dataKey="month" />
+            <CartesianGrid />
+            <XAxis dataKey="month" style={{pointerEvents: 'none'}} />
             <YAxis />
             <Tooltip />
             <Legend />

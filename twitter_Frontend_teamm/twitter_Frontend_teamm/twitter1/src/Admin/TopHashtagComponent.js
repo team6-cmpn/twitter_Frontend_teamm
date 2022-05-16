@@ -5,8 +5,8 @@ const TopHashtagComponent = ({ hashtag }) => {
   return (
     <li className="newUsersListItem" id="TopUsersItem">
       <div className="newUsersUser">
-        <span className="newUsersUserTitle">{hashtag.trending}</span>
-        <span className="newUsersUsername">{hashtag.content}</span>
+        <span className="newUsersUserTitle">{hashtag.retweet_count}</span>
+        <span className="newUsersUsername">{hashtag.text}</span>
       </div>
     </li>
   );

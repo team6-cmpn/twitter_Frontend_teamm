@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect } from "react";
 import Configure from "../Configure";
 import React from "react";
+import { Dashboard } from "@material-ui/icons";
 
 export async function getTopUsers() {
   let response = "";
@@ -37,34 +38,35 @@ export function GetTweetsPerMonth() {
 }
 
 export async function GetDashBoard() {
-
-  const dashBoard= await axios.get(`${Configure.backURL}admin/dashBoard`, {
+  const dashBoard = await axios.get(`${Configure.backURL}admin/dashBoard`, {
     headers: {
       "Content-Type": "application/json; charset=utf-8",
       "x-access-token": `${localStorage.getItem("token")}`,
     },
   });
+  console.log('dashboard',dashBoard)
   return dashBoard;
 }
 export function GetDashBoardstat() {
   const [dashBoard, setDashBoard] = React.useState([]);
 
   useEffect(() => {
-    const fetchProduct=async ()=>{
-      const dashBoard= await axios.get(`${Configure.backURL}admin/dashBoard`, {
+    const fetchProduct = async () => {
+      const dashBoard = await axios.get(`${Configure.backURL}admin/dashBoard`, {
         headers: {
           "Content-Type": "application/json; charset=utf-8",
           "x-access-token": `${localStorage.getItem("token")}`,
         },
       });
-      setDashBoard(dashBoard.data)
-      };
-      fetchProduct();
+      setDashBoard(dashBoard.data);
+    };
+    fetchProduct();
   }, []);
   if (!dashBoard) return null;
   console.log("dashboard",dashBoard)
   return dashBoard;
 }
+
 
 export function GetNumberOfUsersOfMonth() {
   const [userpermonth, setUserPerMonth] = React.useState([]);
@@ -148,41 +150,40 @@ export function GetUserList() {
 }
 // export async function BlockFormBackEnd  (){
 //   let go=false;
-  
+
 //   console.log(`${localStorage.getItem('emailToken')}`)
 //   const body = {};
-  
+
 //    await axios
 //      .post(`http://localhost:8000/Blocked_Days`, body,{
-         
+
 //        headers: {
-         
+
 //          'Content-Type': 'application/json',
 //          'x-access-token': ` ${localStorage.getItem('emailToken')}`,
-         
+
 //        },
-      
-      
+
 //      })
 //      .then((response) => {
 //        console.log("blockeddays",response);
 //        if (response.status === 200) {
 //          // localStorage.setItem('access token', response.data.emailtoken);
 //          go=true;
-//        } 
+//        }
 //        else if (response.status=== 401){
 //            go=false;
 //        }
 //      }).catch(error => {
 //          console.log(error);
-        
+
 //          });
 //    return go;
 // };
-export const BlockFormBackEnd = async payload => {
+export const BlockFormBackEnd = async (payload) => {
   try {
     const response = await axios(`http://localhost:8000/Blocked_Days`, {
-      method: 'post',
+      method: "post",
       data: payload,
     });
     return response.data;
@@ -190,3 +191,30 @@ export const BlockFormBackEnd = async payload => {
     throw error;
   }
 };
+export async function Post_Tweet() {
+  var messgae;
+  const body = {
+    text: localStorage.getItem("input_set"),
+    mention: localStorage.getItem("mention_set"),
+  };
+  //   localStorage.getItem("id");
+  await axios
+    .post(`${Configure.backURL}tweets/update`, body, {
+      headers: {
+        "Content-Type": "application/json",
+        "x-access-token": `${localStorage.getItem("token")}`,
+      },
+    })
+    .then((response) => {
+      console.log(response);
+      if (response.status === 201) {
+        messgae = response.data;
+        sessionStorage.setItem("ID_tweet", response.data._id);
+      }
+    })
+    .catch((error) => {
+      messgae = error.response.data.message;
+    });
+
+  return messgae;
+}

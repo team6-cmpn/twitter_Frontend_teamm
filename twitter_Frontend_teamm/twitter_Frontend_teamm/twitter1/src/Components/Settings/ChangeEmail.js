@@ -3,6 +3,7 @@ import "./settingsSubmenus.css"
 import { Modal,Form,Input,DatePicker,  Checkbox } from "antd";
 import { validateEmail } from "../SignUp/Validate";
 import * as mock from "../NotificationsMock"
+import * as BE from "./SettingsBackendIntegration"
 import {Button} from "@mui/material";
 import {toast, ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -12,7 +13,7 @@ function ChangeEmail(){
 
     document.title="Change phone / Twitter"
     const [EmailError, setEmailError] = React.useState('')
-    const [Email, setEmail] = React.useState(null);
+    const [email, setEmail] = React.useState(null);
     function GetEmailValidation(val){
 
         setEmailError(validateEmail(val.target.value))
@@ -22,7 +23,8 @@ function ChangeEmail(){
     }
     function SaveButtonActions(){
         mock.PostChangeEmail(body);
-        setEmail(Email);
+        BE.Post_ChangeEmail(body)
+        setEmail(email);
         {notify()}
         
     };
@@ -34,8 +36,9 @@ function ChangeEmail(){
      }
     var body={
 
-        EmailAddress : Email
+        email : email
     }
+    sessionStorage.setItem('email',email)
     return(
 
     <div className="settingsSubMenu">
@@ -59,7 +62,7 @@ function ChangeEmail(){
         <div className="savebutton">
                 <Button onClick={()=>{SaveButtonActions()}}
                     id="save_number"
-                    disabled={EmailError || !Email}
+                    disabled={EmailError || !email}
                     className="save_username_button"
                 >
                     save

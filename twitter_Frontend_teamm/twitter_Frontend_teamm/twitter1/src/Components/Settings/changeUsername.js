@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import "./settingsSubmenus.css"
-import { Modal,Form,Input,DatePicker,  Checkbox, Alert } from "antd";
+import { Form,Input } from "antd";
 import { validateUserName } from "../SignUp/Validate";
 import {Button} from "@mui/material";
 import * as Mock from "../NotificationsMock";
-
+import * as BE from "./SettingsBackendIntegration"
 import {toast, ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
 const ChangeUsername = () =>{
-    const [userName, setUserName] = useState(null);
+    const [username, setUserName] = useState(null);
     const [userNameError, setuserNameError] = useState('')
 
     function getUserNameValidation(val){
@@ -21,12 +21,14 @@ const ChangeUsername = () =>{
       };
     function SaveButtonActions(){
     Mock.PostChangeUsername(body);
-    setUserName(userName);
+    BE.Post_ChangeUsername(body)
+    setUserName(username);
     {notify()}
     }
     var body={
-        username:userName,
+        username:username
     }
+    sessionStorage.setItem('username',username)
     const notify = () =>{
 
       toast.info('Username succesfully changed',
@@ -68,7 +70,7 @@ const ChangeUsername = () =>{
                         
                     id="save_Username"
                     //onClick={}
-                    disabled={!userName || userNameError}
+                    disabled={!username || userNameError}
                     className="save_username_button"
                 >
                     save

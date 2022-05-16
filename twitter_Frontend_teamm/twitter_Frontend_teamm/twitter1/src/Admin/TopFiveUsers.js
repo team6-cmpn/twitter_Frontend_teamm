@@ -5,8 +5,8 @@ import TopUserItem from "./TopUserComponent";
 import TopHashtagComponent from "./TopHashtagComponent";
 function TopUsers() {
   const topUsers = GetDashBoardstat()[0];
-  const hashtag = GetHashtags();
-  console.log("DashBoard", topUsers);
+  const hashtag = GetDashBoardstat()[5];
+
   return (
     // <article id="TopFiveUsersWithMostFollowers">
       <div className="blocks">
@@ -23,7 +23,7 @@ function TopUsers() {
         <div className="newUsers">
           <span className="TopUserTitle"> Top 5 Hashtags</span>
           <ul className="newUsersList">
-            {hashtag.map((userlist, index) => (
+            {hashtag?.top_Five_Liked_Tweets.map((userlist, index) => (
               <TopHashtagComponent key={index} hashtag={userlist} />
             ))}
           </ul>

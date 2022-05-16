@@ -3,6 +3,7 @@ import "./settingsSubmenus.css"
 import { Modal,Form,Input,DatePicker,  Checkbox } from "antd";
 import { validatePhone } from "../SignUp/Validate";
 import * as mock from "../NotificationsMock"
+import * as BE from "./SettingsBackendIntegration"
 import {Button} from "@mui/material";
 import {toast, ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -11,7 +12,7 @@ import 'react-toastify/dist/ReactToastify.css';
 function Changephone(){
     document.title="Change phone / Twitter"
     const [PhoneError, setPhoneError] = React.useState('')
-    const [Phone, setPhone] = React.useState(null);
+    const [phone_number, setPhone] = React.useState(null);
     function GetphoneValidation(val){
 
         setPhoneError(validatePhone(val.target.value))
@@ -21,7 +22,8 @@ function Changephone(){
     }
     function SaveButtonActions(){
         mock.PostChangePhone(body);
-        setPhone(Phone);
+        BE.Post_ChangePhone(body);
+        setPhone(phone_number);
         {notify()}
     };
     const notify = () =>{
@@ -31,8 +33,9 @@ function Changephone(){
      }
     var body={
 
-        PhoneNumber : Phone
+        phone_number : phone_number
     }
+    sessionStorage.setItem('phone_number',phone_number)
     return(
 
     <div className="settingsSubMenu">
@@ -57,7 +60,7 @@ function Changephone(){
         <div className="savebutton">
                 <Button onClick={()=> SaveButtonActions()}
                     id="save_number"
-                    disabled={PhoneError || !Phone}
+                    disabled={PhoneError || !phone_number}
                     className="save_username_button"
                 >
                     save

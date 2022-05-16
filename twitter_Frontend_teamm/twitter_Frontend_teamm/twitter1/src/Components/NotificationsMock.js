@@ -1,7 +1,8 @@
 
 import axios from 'axios';
-
-
+import React from 'react';
+import { useEffect } from 'react';
+import Configure from '../Configure';
 
 export default async function getFollowingUsers() {
     let response = '';
@@ -114,3 +115,5 @@ export default async function getFollowingUsers() {
       throw error;
     }
   };
+
+

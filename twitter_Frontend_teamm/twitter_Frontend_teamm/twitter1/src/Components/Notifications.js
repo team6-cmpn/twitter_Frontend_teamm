@@ -10,6 +10,13 @@ import { GetPostTweet } from "./homepage/feedmock";
 import {getLikedUsers} from "./NotificationsMock";
 import Post from "./homepage/Post";
 import { RecoilRoot } from "recoil";
+import { GetNotificationsFavourites } from "./NotificationBackend";
+import FavoriteIcon from "@material-ui/icons/Favorite";
+import { Avatar } from "@material-ui/core";
+import { GetNotifications } from "./NotificationBackend";
+import LikedYouBe from "./LikedYouBe";
+import Notified from "./Notified";
+
 /**
  * [the notification component is mainly used to get the notifications from the server to the user to see it 
  *  and it contains all the mentions and liked posts and followers you got and i made a menu to scoope on the mentioned posts only
@@ -40,7 +47,8 @@ function Notifications() {
       setLikedUser(resp);
     })();
   }, []);
-
+  const notifi=GetNotificationsFavourites();
+  const BE=GetNotifications();
   return (
     <RecoilRoot>
     <SettingsBox>
@@ -67,6 +75,11 @@ function Notifications() {
         <article>
           {isAll ? (
             <>
+
+              {BE.map((Notifications, index) => (
+              <Notified key={index} notify={Notifications} nType={Notifications} />
+              ))}
+
               {Blockeddays.map((Blockeddays,index)=>(
               <Blocked_days
               key={index}
@@ -77,7 +90,8 @@ function Notifications() {
               {LikedUser.map((userNotification, index) => (
               <LikedYou key={index} likePost={userNotification} />
               ))}
-            {twetted.map((userlist, index) => (
+            
+              {twetted.map((userlist, index) => (
             <Post
               key={index}
               displayName={userlist.displayName}
@@ -91,17 +105,12 @@ function Notifications() {
             </>
           ) : (
             <>
-             {twetted.map((userlist, index) => (
-            <Post
-              key={index}
-              displayName={userlist.displayName}
-              username={userlist.username}
-              text={userlist.text}
-              image={userlist.image}
-              avatar={userlist.avatar}
-              date={userlist.date}
-            />
-          ))}
+              {LikedUser.map((userNotification, index) => (
+              <LikedYou key={index} likePost={userNotification} />
+              ))}
+              {notifi.map((favourites, index) => (
+              <LikedYouBe key={index} liked={favourites} />
+              ))}
             </>
           )}
         </article>

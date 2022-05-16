@@ -24,18 +24,7 @@ export async function getTopUsers() {
   return response;
 }
 
-export function GetTweetsPerMonth() {
-  const [tweetspermonth, setTweetsPerMonth] = React.useState([]);
 
-  useEffect(() => {
-    fetch("http://localhost:8000/TweetsPerMonth")
-      .then((res) => res.json())
-      .then((result) => {
-        setTweetsPerMonth(result);
-      });
-  }, []);
-  return tweetspermonth;
-}
 
 export async function GetDashBoard() {
   const dashBoard = await axios.get(`${Configure.backURL}admin/dashBoard`, {
@@ -191,15 +180,15 @@ export const BlockFormBackEnd = async (payload) => {
     throw error;
   }
 };
-export async function Post_Tweet() {
+export async function BLockUser() {
   var messgae;
   const body = {
-    text: localStorage.getItem("input_set"),
-    mention: localStorage.getItem("mention_set"),
+    duration: sessionStorage.getItem("duration"),
   };
+  var userid=localStorage.getItem('selectedIDs')
   //   localStorage.getItem("id");
   await axios
-    .post(`${Configure.backURL}tweets/update`, body, {
+    .post(`${Configure.backURL}adminBlock/create`, body, {
       headers: {
         "Content-Type": "application/json",
         "x-access-token": `${localStorage.getItem("token")}`,

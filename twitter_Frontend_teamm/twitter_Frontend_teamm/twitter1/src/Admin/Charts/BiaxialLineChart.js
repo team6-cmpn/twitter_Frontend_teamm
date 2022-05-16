@@ -18,7 +18,6 @@ import {
 } from "../MockRegistrationAdmin";
 
 export default function BiaxialLineChart() {
-  var TweetsPerMonth = GetTweetsPerMonth();
   const tweetsperyear = GetDashBoardstat()[10];
 
   const [tweetsPerMonth, setTweetsPerMonth] = useState(undefined);

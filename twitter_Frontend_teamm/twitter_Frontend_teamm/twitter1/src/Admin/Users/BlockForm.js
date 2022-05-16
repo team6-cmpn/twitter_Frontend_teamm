@@ -5,8 +5,7 @@ import TopBar from "../TopBar";
 import "./blockform.css";
 
 function BlockForm() {
-  const [BlockedDaysNumber, setBlockedDaysNumber] = useState("");
-
+  const [duration, setBlockedDaysNumber] = useState("");
   // function to update state of Blocked daysy number with
   // value enter by user in form
   const handleChange = (e) => {
@@ -15,15 +14,16 @@ function BlockForm() {
   // below function will be called when user
   // click on submit button .
   const handleSubmit = (e) => {
-    if (BlockedDaysNumber < 0) {
+    if (duration < 0) {
       alert("Please enter a validate number");
     } else {
       BlockFormBackEnd(body);
-      alert("User is Blocked By : " + BlockedDaysNumber + " Days");
+      alert("User is Blocked By : " + duration + " Days");
       e.preventDefault();
     }
   };
-  var body={Blocked_Days:BlockedDaysNumber}
+  var body={duration:duration}
+  sessionStorage.setItem('duration',duration)
   return (
     <div>
       <div id="FinalUsersPage">
@@ -45,7 +45,7 @@ function BlockForm() {
                     <br />
                     <input
                       type="number"
-                      value={BlockedDaysNumber}
+                      value={duration}
                       required
                       onChange={(e) => {
                         handleChange(e);

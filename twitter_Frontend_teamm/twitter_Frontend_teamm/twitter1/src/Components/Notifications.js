@@ -10,9 +10,12 @@ import { GetPostTweet } from "./homepage/feedmock";
 import {getLikedUsers} from "./NotificationsMock";
 import Post from "./homepage/Post";
 import { RecoilRoot } from "recoil";
-import { GetNotificationsFavourites } from "./NotificationsMock";
+import { GetNotificationsFavourites } from "./NotificationBackend";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import { Avatar } from "@material-ui/core";
+import { GetNotifications } from "./NotificationBackend";
+import LikedYouBe from "./LikedYouBe";
+import Notified from "./Notified";
 
 /**
  * [the notification component is mainly used to get the notifications from the server to the user to see it 
@@ -45,11 +48,7 @@ function Notifications() {
     })();
   }, []);
   const notifi=GetNotificationsFavourites();
-
-  console.log("notifications", notifi);
-  let BE=[];
-  BE=GetNotificationsFavourites();
-
+  const BE=GetNotifications();
   return (
     <RecoilRoot>
     <SettingsBox>
@@ -76,6 +75,11 @@ function Notifications() {
         <article>
           {isAll ? (
             <>
+
+              {BE.map((Notifications, index) => (
+              <Notified key={index} notify={Notifications} nType={Notifications} />
+              ))}
+
               {Blockeddays.map((Blockeddays,index)=>(
               <Blocked_days
               key={index}
@@ -104,17 +108,9 @@ function Notifications() {
               {LikedUser.map((userNotification, index) => (
               <LikedYou key={index} likePost={userNotification} />
               ))}
-            <div className="likedYou" id="likedyou">
-              <FavoriteIcon />
-              <div>
-          
-                    <Avatar src={BE[0]?.notificationContent.images} />
-                <span>
-                {BE[0]?.notificationHeader.text}</span>
-                <span>{BE[0]?.notificationContent.text}
-                </span>
-              </div>
-            </div>
+              {notifi.map((favourites, index) => (
+              <LikedYouBe key={index} liked={favourites} />
+              ))}
             </>
           )}
         </article>

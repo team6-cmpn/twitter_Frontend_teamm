@@ -14,14 +14,14 @@ function TopUsers() {
           <span className="TopUserTitle">
             Top 5 People With Most Followers
           </span>
-          <ul className="newUsersList">
+          <div className="topUserList">
             {topUsers?.users_With_Most_Followers.map((userlist, index) => (
               <TopUserItem key={index} user={userlist} />
             ))}
-          </ul>
+          </div>
         </div>
-        <div className="newUsers">
-          <span className="TopUserTitle"> Top 5 Hashtags</span>
+        <div className="toptweets">
+          <span className="TopUserTitle"> Top 5 Tweets</span>
           <ul className="newUsersList">
             {hashtag?.top_Five_Liked_Tweets.map((userlist, index) => (
               <TopHashtagComponent key={index} hashtag={userlist} />

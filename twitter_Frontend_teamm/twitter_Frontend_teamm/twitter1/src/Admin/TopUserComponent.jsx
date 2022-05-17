@@ -6,19 +6,13 @@ import { Link, BrowserRouter } from "react-router-dom";
 
 const TopUserItem = ({ user }) => {
   return (
-    <li className="newUsersListItem" id="TopUsersItem">
+    <div className="newUsersListItem" id="TopUsersItem">
       <img src={user.imgurl} alt="" className="newUsersImg" />
       <div className="newUsersUser">
-        <span className="newUsersUsername">{user.name}</span>
         <span className="newUsersUserTitle">{user.username}</span>
+        <span >{user.followers_count}</span>
       </div>
-      <Link to="/BlockForm">
-        <button className="newUsersButton">
-          <Visibility className="newUsersIcon" />
-          Display
-        </button>
-      </Link>
-    </li>
+    </div>
   );
 };
 

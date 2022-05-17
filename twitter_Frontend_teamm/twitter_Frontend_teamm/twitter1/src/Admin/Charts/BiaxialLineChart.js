@@ -18,22 +18,18 @@ import {
 } from "../MockRegistrationAdmin";
 import { useEffect } from "react";
 
-export default function BiaxialLineChart() {
-  const [tweetsPerMonth, setTweetsPerMonth] = useState(undefined);
-  let d = [];
-
-  useEffect(() => {
-    (async () => {
-      const resp = await GetDashBoard();
-      let temptweetsPerMonth = [...resp.data[9].tweets_Per_Month];
-      temptweetsPerMonth.forEach((element, index) => {
-        temptweetsPerMonth[index].month = element._id.month;
-      });
-      console.log("tww", temptweetsPerMonth);
-      d.push(temptweetsPerMonth);
-      setTweetsPerMonth(temptweetsPerMonth);
-    })();
-  }, []);
+   export default function BiaxialLineChart() {
+//   const [tweetsPerMonth, setTweetsPerMonth] = useState(undefined);
+//   useEffect(() => {
+//     (async () => {
+//       const resp = await GetDashBoard();
+//       let temptweetsPerMonth = [...resp.data[9].tweets_Per_Month];
+//       temptweetsPerMonth.forEach((element, index) => {
+//         temptweetsPerMonth[index].month = element._id.month;
+//       });
+//       setTweetsPerMonth(temptweetsPerMonth);
+//     })();
+//   }, []);
 
   const [tweetsPeryear, setTweetsPeryear] = useState(undefined);
   useEffect(() => {
@@ -48,12 +44,24 @@ export default function BiaxialLineChart() {
     })();
   }, []);
 
+  const [tweetsPerday, setTweetsPerday] = useState(undefined);
+  useEffect(() => {
+    (async () => {
+      const resp = await GetDashBoard();
+      let temptweetsPerday = [...resp.data[12].new_Users_Per_Day];
+      temptweetsPerday.forEach((element, index) => {
+        temptweetsPerday[index].day = element._id.day;
+      });
+      setTweetsPerday(temptweetsPerday);
+    })();
+  }, []);
+
   return (
     <div className="chartone">
       <Carousel>
         <ResponsiveContainer width="100%" aspect={4 / 2}>
           <BarChart
-            data={tweetsPerMonth}
+            data={GetDashBoardstat()[3]?.users_Per_Month}
             margin={{
               top: 5,
               right: 30,
@@ -62,11 +70,11 @@ export default function BiaxialLineChart() {
             }}
           >
             <CartesianGrid />
-            <XAxis dataKey="month" />
-            <YAxis domain={[0, (dataMax) => Number(dataMax) + 50]} />
+            <XAxis dataKey="_id" />
+            <YAxis domain={[0, (dataMax) => Number(dataMax) + 10]} />
             <Tooltip />
             <Legend />
-            <Bar dataKey="total" fill="#8884d8" />
+            <Bar dataKey="count" fill="#0A1C73" />
           </BarChart>
         </ResponsiveContainer>
         <ResponsiveContainer width="100%" aspect={4 / 2}>
@@ -79,14 +87,15 @@ export default function BiaxialLineChart() {
               bottom: 5,
             }}
           >
-            <CartesianGrid stroke="red " strokeDasharray="3 3" />
+            <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="year" />
-            <YAxis />
+            <YAxis  domain={[0, (dataMax) => Number(dataMax) + 10]} />
             <Tooltip />
             <Legend />
-            <Bar dataKey="totaltweets" fill="#33FF80" />
+            <Bar dataKey="totaltweets" fill="#0F86CB" />
           </BarChart>
         </ResponsiveContainer>
+
       </Carousel>
     </div>
   );

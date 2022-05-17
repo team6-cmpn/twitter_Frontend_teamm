@@ -27,6 +27,12 @@ export default function Twiiterstatistics() {
           <span className="itemNum"> {staatic[11]?.tweets_Per_Day.length} Tweets</span>
         </div>
       </div>
+      <div className="adminstatisticsItem">
+        <span className="adminstatisticsTitle">Number Of Users Per Day</span>
+        <div className="staticsItemContainer">
+          <span className="itemNum"> {staatic[12]?.new_Users_Per_Day[0].count} Users</span>
+        </div>
+      </div>
     </div>
   );
 }

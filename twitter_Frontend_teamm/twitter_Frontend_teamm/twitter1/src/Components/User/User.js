@@ -8,7 +8,7 @@ import   * as mockAPI   from './UserMock';
 import  getUserInformation    from './UserMock';
 import Trends from "../Widgets/Trends";
 import Sidebar from "../Sidebar/Sidebar";
-import {getUserInfo} from '../Profile/backEndProfile';
+// import {GetUserInfo} from '../Profile/backEndProfile';
 import {Follow,destroyFollow, Block} from './BackendUser';
 import {Modal} from "antd";
 import "../Widgets/FriendSuggestions/FriendSuggestionItem/FriendSuggestionItem.css";
@@ -71,9 +71,9 @@ function User(){
       setBModalVisible(false)
     };
 
-    const user=getUserInfo();
-    user.then(data=>{setItem(data)});
-    console.log(user);
+    // const user=getUserInfo();
+    // user.then(data=>{setItem(data)});
+    // console.log(user);
     
     function FollowButtonActions(){
         Follow(localStorage.getItem("userId"));

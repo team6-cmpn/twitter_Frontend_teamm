@@ -7,12 +7,31 @@ import { getFollowerUsers } from "./FollowersMock";
 import { getFollowingUsers } from "./FollowersMock";
 import FollowersList from './FollowersList';
 import FollowingList from './FollowingList';
+import {getFollowersList,getFollowingList} from './backEndProfile';
 /**Following page
  * Shows following pages
  *  
  * @returns (Layout of following page)
  */
 function Following(){
+    const [FollowersLists,setFollowersList]=React.useState([])
+    React.useEffect(()=>{
+        (async () => {
+            const resp = await getFollowersList();
+            setFollowersList(resp);
+          })();
+    
+        },[])
+
+        const [FollowingLists,setFollowingList]=React.useState([])
+        React.useEffect(()=>{
+            (async () => {
+                const resp = await getFollowingList();
+                setFollowingList(resp);
+              })();
+        
+            },[])
+
     const [FollowerUsers,setFollowerUsers]=React.useState([])
     React.useEffect(()=>{
         (async () => {
@@ -55,11 +74,13 @@ function Following(){
                         <>
                         {FollowingUsers.map((FollowingUsers,index)=>(
                             <FollowingList key={index} FollowingAccount={FollowingUsers}/>))}
+                            <div> <FollowersList FollowerAccount={FollowersLists}/> </div>
                         </>
                     ) : (
                         <>
                         {FollowerUsers.map((FollowerUsers,index)=>(
                             <FollowersList key={index} FollowerAccount={FollowerUsers}/>))}
+                            <div> <FollowersList FollowerAccount={FollowingLists}/></div>
                         </>
                     )}
                 </article>

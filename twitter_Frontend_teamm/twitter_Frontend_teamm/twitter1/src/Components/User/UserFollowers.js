@@ -75,18 +75,15 @@ function Followers() {
              <div> {FollowerUsers.map((FollowerUsers,index)=>(
                 <FollowersList key={index} FollowerAccount={FollowerUsers}/>))}
               </div>
-              <div> 
-                <FollowersList FollowerAccount={FollowersLists}/>
-              </div>
+              <div> <FollowersList FollowerAccount={FollowersLists}/> </div>
+            
             </>
           ) : (
             <>
                 <div>{FollowingUsers.map((FollowingUsers,index)=>(
                 <FollowingList key={index} FollowingAccount={FollowingUsers}/>))}
                 </div>
-                <div>{FollowingLists.map((FollowingUsers,index)=>(
-                <FollowingList key={index} FollowingAccount={localStorage.getItem(`followingUser ${index}`)}/>))}
-                </div>
+                <div> <FollowersList FollowerAccount={FollowingLists}/></div>
             </>
           )}
         </article>
@@ -97,7 +94,5 @@ function Followers() {
         </div>
     )
 }
-
-
 
 export default Followers;

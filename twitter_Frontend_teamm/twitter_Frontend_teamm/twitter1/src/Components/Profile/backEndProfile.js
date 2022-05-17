@@ -1,9 +1,9 @@
 import axios from 'axios';
 import Configure from '../../Configure'
 
-export async function getUserInfo() {
-    var user;
-    var id = sessionStorage.getItem("userId");
+export async function GetUserInfo() {
+    var userinfo;
+    var id = localStorage.getItem("userId");
    
     await axios
       .get(`${Configure.backURL}user/show/${id}`, {
@@ -15,22 +15,24 @@ export async function getUserInfo() {
       .then((response) => {
         console.log(response);
         if (response.status === 200) {
-          user = response.data.user[0].username;
-          console.log(response.data.user[0].username);
+          userinfo = response.data.user;
+          console.log(response.data.user);
+          localStorage.setItem("description",response.data.user.description);
+          localStorage.setItem("numberOfFollowers",response.data.user.followings_count);
         }
       })
       .catch((error) => {
-        user = error.response.data.message;
+        userinfo = error.response.data.message;
       });
   
-    return user;
-  }
-
+    return userinfo;
+  
+}
  
 
-  export async function getFollowingList(id) {
-    var user;
-    // var id = localStorage.getItem("userId");
+  export async function getFollowingList() {
+    var following;
+    var id = localStorage.getItem("userId");
    
     await axios
       .get(`${Configure.backURL}user/followingList/${id}`, {
@@ -42,18 +44,23 @@ export async function getUserInfo() {
       .then((response) => {
         console.log(response);
         if (response.status === 200) {
-          user = response.data;
+          // user = response.data;
+          for (let i=0;i<response.data.user.length;i++){
+            following=response.data.user[i]
+            localStorage.setItem(`followingUser ${i}`,response.data.user[i]);
+            localStorage.setItem(`followerUsername ${i}`,response.data.user[i].username);
+          }
         }
       })
       .catch((error) => {
-        user = error.response.data.message;
+        following = error.response.data.message;
       });
   
-    return user;
+    return following;
   }
-  export async function getFollowersList(id) {
+  export async function getFollowersList() {
     var user;
-    // var id = localStorage.getItem("userId");
+    var id = localStorage.getItem("userId");
    
     await axios
       .get(`${Configure.backURL}user/followersList/${id}`, {
@@ -74,10 +81,12 @@ export async function getUserInfo() {
   
     return user;
   }
+
   export async function gettweetlist() {
-    var tweet;
+    var response='';
+    var id = localStorage.getItem("userId");
     await axios
-      .get(`${Configure.backURL}user/tweetsList/`, {
+      .get(`${Configure.backURL}user/tweetsList/${id}`, {
         headers: {
           "Content-Type": "application/json",
           "x-access-token": `${localStorage.getItem("token")}`,
@@ -86,7 +95,13 @@ export async function getUserInfo() {
       .then((response) => {
         console.log(response);
         if (response.status === 200) {
-          tweet = response.data;
+          // tweet = response.data;
+          for (let i=0;i<response.data.length;i++){
+            
+            localStorage.setItem(`text ${i}`,response.data.user[i].text);
+            localStorage.setItem(`imageUrl ${i}`,response.data[i].imageUrl);
+            localStorage.setItem(`tweetdateat ${i}`,response.data[i].created_at);
+          }
           console.log(response.data);
         }
       })
@@ -94,37 +109,9 @@ export async function getUserInfo() {
        console.log(error);
       });
   
-    return tweet;
+    return response.data.length;
   }
   
-  export const UpdateProfile=async payload=>{
-    var message;
-      const {
-        name,
-        description,
-      } = payload;
-      await axios
-        .post(`${Configure.backURL}user/update/`, {
-  
-          headers: {
-            'Content-Type': 'application/json',
-            "x-access-token": `${localStorage.getItem("token")}`,
-          },
-          name,
-          description,
-        })
-        .then((response) => {
-          console.log(response);
-          if (response.status === 200) {
-            message=response.data;
-            
-            
-          }
-        }).catch(error => {
-            console.log(error)
-            });
-      return message;
-  };
   export async function getlikedtweetlist() {
     var tweet;
     await axios
@@ -148,43 +135,43 @@ export async function getUserInfo() {
     return tweet;
   }
 
-  // export async function UpdateProfile(){
-  //   var message;
-  //   const body =  {
-  //       name: sessionStorage.getItem("name"),
-  //       description: sessionStorage.getItem("description"),
-  //     }
-  //     console.log(`${localStorage.getItem('token')}`)
-  //     await axios
-  //       .post(`${Configure.backURL}user/update/`,body, {
+  export async function UpdateProfile(body){
+    var message;
+    body =  {
+        name: sessionStorage.getItem("name"),
+        description: sessionStorage.getItem("description"),
+      }
+      // console.log(`${localStorage.getItem('token')}`)
+      await axios
+        .post(`${Configure.backURL}user/update/`,body, {
           
   
-  //         headers: {
-  //           'Content-Type': 'application/json; charset=utf-8',
-  //           'x-access-token': `${localStorage.getItem('token')}`,
-  //         },
+          headers: {
+            'Content-Type': 'application/json; charset=utf-8',
+            'x-access-token': `${localStorage.getItem('token')}`,
+          },
          
           
-  //       })
-  //       .then((response) => {
-  //         console.log(response);
-  //         if (response.status === 200) {
-  //           message=response;
-  //           console.log(response.data.message);
-  //         }
-  //         else if (response.status === 403) {
-  //           message=response;
-  //           console.log(response.data.message);
-  //         }
-  //         else if(response.status === 401 || response.status === 404 ){
-  //           message=response;
-  //         }
+        })
+        .then((response) => {
+          console.log(response);
+          if (response.status === 200) {
+            message=response;
+            console.log(response.data.message);
+          }
+          else if (response.status === 403) {
+            message=response;
+            console.log(response.data.message);
+          }
+          else if(response.status === 401 || response.status === 404 ){
+            message=response;
+          }
 
-  //       }).catch(error => {
-  //           console.log(error);
-  //           });
-  //     return message;
-  // };
+        }).catch(error => {
+            console.log(error);
+            });
+      return message;
+  };
 
   // export const UploadImageProfile=async payload=>{
   //   var Image;

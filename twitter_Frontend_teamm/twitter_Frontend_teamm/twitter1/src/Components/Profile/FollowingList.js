@@ -31,7 +31,7 @@ const FollowingList = ({ FollowingAccount }) => {
     return (
         <div className="Accountinfo_dec">
             <Avatar src={FollowingAccount.userImage} />
-            <h5><Link to={`/${FollowingAccount.username}`}>{FollowingAccount.displayname}</Link></h5>
+            <h5><Link to={`/${FollowingAccount.username}`}>{FollowingAccount.name}</Link></h5>
             <h6>{FollowingAccount.username}</h6>
             {/* <Avatar src={following.userImage} /> */}
             {/* <h5><Link to={`/${following.username}`}>{following.displayname}</Link></h5> */}

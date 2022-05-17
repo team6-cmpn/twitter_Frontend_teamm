@@ -8,15 +8,16 @@ import "antd/dist/antd.css";
 import { Link } from 'react-router-dom';
 import { DatePicker } from 'antd';
 import   * as mockAPI   from './ProfileMock';
-import  getUsernames    from './ProfileMock';
+// import  getUsernames    from './ProfileMock';
 import Trends from "../Widgets/Trends";
 import Sidebar from "../Sidebar/Sidebar";
 import {GrLocation} from "react-icons/gr"
 import {BiLink} from "react-icons/bi"
-import {getUserInfo, gettweetlist, UpdateProfile} from './backEndProfile'
+import { gettweetlist ,UpdateProfile} from './backEndProfile'
 import { GetPostTweet } from "../homepage/feedmock";
 import Post from "../homepage/Post";
 import { RecoilRoot } from "recoil";
+
 
 /**Profile
  * Shows User profile layout and enables user to edit profile info
@@ -36,6 +37,14 @@ function Profile(){
         postedtweet(resp);
       })();
     }, []);
+
+    const [tweetsList, setTweetList] = React.useState([]);
+    React.useEffect(() => {
+        (async () => {
+          const resp = await gettweetlist();
+          setTweetList(resp);
+        })();
+      }, []);
     
     const [{alt2, src2}, setImg2] = useState({
         src2: placeholder,
@@ -56,13 +65,15 @@ function Profile(){
         }   
     }
     
-    const [Username, setUsernames] = React.useState([]);
-    React.useEffect(() => {
-    (async () => {
-        const resp = await getUsernames();
-        setUsernames(resp);
-      })();
-    }, []);
+    // const [Username, setUsernames] = React.useState([]);
+    // React.useEffect(() => {
+    // (async () => {
+    //     const resp = await getUsernames();
+    //     setUsernames(resp);
+    //   })();
+    // }, []);
+
+   
     var [name, setName] = useState('');
     const [bio, setBio] = useState(null)
     const [location, setLocation] = useState(null)
@@ -71,7 +82,7 @@ function Profile(){
     const [editbio, setEditBio] = useState(null)
     const [editlocation, setEditLocation] = useState(null)
     const [editwebsite, setEditWebsite] = useState(null)
-    const [Item, setItem] = useState();
+    // const [Item, setItem] = useState();
     const [upd, setupdate] = useState();
 
     function SaveButtonActions(){
@@ -83,6 +94,7 @@ function Profile(){
     setMainModalVisible(false);
     setName(editname);
     setBio(editbio);
+    localStorage.setItem("description", editbio);
     setLocation(editlocation);
     setWebsite(editwebsite);
     localStorage.setItem("name", editname);
@@ -106,15 +118,15 @@ function Profile(){
         name: editname,
         description: editbio,
     }
-    const user=getUserInfo();
-    user.then(data=>{setItem(data)});
-    console.log(Item);
 
-    // const [tweeted, settweet] = useState();
-
-    const tweet=gettweetlist();
+    // const tweet=gettweetlist();
     // tweet.then(data=>{settweet(data)});
     // console.log(tweeted);
+    for (let i=0;i<gettweetlist();i++){
+    var tweetText=[];
+    tweetText[i]= localStorage.getItem(`tweettext${i} `)
+    var tweetimage=localStorage.getItem(`imageUrl${i} `)
+    var tweetdate=localStorage.getItem(`tweetdateat${i}`)}
 
     const username=localStorage.getItem("getUsername")
     console.log(name);
@@ -138,7 +150,7 @@ function Profile(){
                         <div id="bioName" className='name'> {name}</div>
                         <br></br>
                        <div className='Username'> {username} </div> 
-                        <div className='Username'> 
+                        {/* <div className='Username'> 
                            {Object.keys(Username).map((user, index) => {
                             return (
                                 <div>
@@ -146,10 +158,10 @@ function Profile(){
                                 
                                 </div> )
                             })}
-                        </div> 
-                        <div className='Username'>{Item}</div>
+                        </div>  */}
+                        
                         <br></br>
-                        <div id="bioBio" className='Bio'>{bio}</div>
+                        <div id="bioBio" className='Bio'>{localStorage.getItem("description")}</div>
                         <br></br>
                         <GrLocation className='Bio'></GrLocation>
                         <div id="bioLocation" className='Bio'>{location}</div>
@@ -166,7 +178,7 @@ function Profile(){
                         <br></br>
                         
                         <div id="followers"className="FollowLink">
-                            <Link to ="/Followers">Followers </Link>
+                            <Link to ="/Followers">{localStorage.getItem("numberOfFollowers")}Followers </Link>
                         </div>
                         
                         <div id="following" className='FollowLink'>
@@ -217,15 +229,15 @@ function Profile(){
                                  avatar={userlist.avatar}
                                  date={userlist.date}
                                  />))} */}
-                                 {twetted.map((userlist, index) => (
+                                 {tweetsList.map((userlist, index) => (
                                  <Post
                                  key={index}
-                                 displayName={userlist.displayName}
-                                 username={userlist.username}
-                                 text={tweet.text}
-                                 image={tweet.imageUrl}
+                                 displayName={name}
+                                 username={username}
+                                 text={tweetText}
+                                 image={tweetimage}
                                  avatar={userlist.avatar}
-                                 date={tweet.created_at}
+                                 date={tweetdate}
                                  />))}
                             </>
                          :
@@ -235,8 +247,8 @@ function Profile(){
                             {twetted.map((userlist, index) => (
                                  <Post
                                  key={index}
-                                 displayName={userlist.displayName}
-                                 username={userlist.username}
+                                 displayName={name}
+                                 username={username}
                                  text={userlist.text}
                                  image={userlist.image}
                                  avatar={userlist.avatar}

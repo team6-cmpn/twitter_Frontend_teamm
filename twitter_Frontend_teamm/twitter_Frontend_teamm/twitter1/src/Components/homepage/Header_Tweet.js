@@ -24,11 +24,16 @@ import {useNavigate} from "react-router";
 function Tweetbox(props) {
   const navigate = useNavigate();
   const [input, setinput] = useState("");
+  const [path, setpath] = useState("");
+  const [image_value, setimage] = useState("");
+  const [image_array, setimage_array] = useState([]);
+  const [image_urls, set_urls] = useState([]);
+  const [selectedFile, setselectedFile] = useState(false);
+  const [array_body, setbody] = useState([]);
   const [mentions, setmentions] = useState("");
   const [showEmoji, setShowEmoji] = useState(false);
   const [content, getcontent] = useState([]);
   const filePickerRef = useRef(null);
-  const [selectedFile, setSelectedFile] = useState(0);
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(false);
   const [model, setmodel] = useState();
@@ -38,27 +43,49 @@ function Tweetbox(props) {
    * @param {*} e
    */
   const addImageToPost = (e) => {
+    setselectedFile(true);
     const tempImages = [];
+    const arr_obj = [];
+
     const filesLen = Object.keys(e.target.files).length;
     console.log(filesLen + images.length);
+    sessionStorage.setItem("lengthof_selected", filesLen + images.length);
 
     if (filesLen + images.length <= 4) {
       for (var i = 0; i < filesLen; i++) {
-        tempImages.push(URL.createObjectURL(e.target.files[i]));
-        setSelectedFile(filesLen + images.length);
-      }
-      console.log(selectedFile);
+        const tempUrl = URL.createObjectURL(e.target.files[i]);
+        tempImages.push(tempUrl);
 
-      console.log([...images, ...tempImages]);
+        // const image_urlBE = backend.UploadImg();
+        // image_urlBE.then((text) => {
+        //   setImages_BE(text.path);
+        //   console.log(text.path);
+        // });
+        arr_obj.push({
+          imageObj: e.target.files[i],
+          imageId: tempUrl,
+        });
+      }
+
       setImages([...images, ...tempImages]);
+      setimage_array([...image_array, ...arr_obj]);
+      console.log(image_array);
+      sessionStorage.setItem("image_obj", image_array);
+
+      console.log(body);
     }
   };
   const handleRemoveImage = (imageUrl) => {
     let tempImages = [...images];
+    let tempImagesObj = [...image_array];
+
     tempImages = tempImages.filter((image) => image !== imageUrl);
+    tempImagesObj = tempImagesObj.filter((image) => image.imageId !== imageUrl);
     setImages(tempImages);
+    setimage_array(tempImagesObj);
+    console.log(image_array);
     if (tempImages.length === 0) {
-      setSelectedFile(0);
+      setselectedFile(false);
     }
   };
   /**
@@ -77,7 +104,7 @@ function Tweetbox(props) {
   // // // // // // // // var userid=localStorage.getItem('userId');
   // // // // // // // // var dataTemp;
   // // // // // // // //  useEffect(async() => {
-    
+
   // // // // // // // //   Pusher.logToConsole = true;
   // // // // // // // //   pusher = new Pusher('a02c7f30c561968a632d', {
   // // // // // // // //     appId : "1406245",
@@ -94,7 +121,6 @@ function Tweetbox(props) {
   // // // // // // // //     dataTemp=data;
   // // // // // // // //     {notify()}
   // // // // // // // //   });
-
 
   // // // // // // // // }
   // // // // // // // // const notify = () =>{
@@ -116,19 +142,32 @@ function Tweetbox(props) {
   function submitTweet(event) {
     setinput("");
     setmentions("");
+    const imagesToSend = image_array.map(({imageId, imageObj}) => imageObj);
+    console.log(imagesToSend);
+
     const tweet = backend.Post_Tweet(body);
     const tweet_user = localStorage.setItem("new_tweet", true);
     localStorage.setItem("input_set", input);
     localStorage.setItem("mention_set", mentions);
-    event.preventDefault();
+    //event.preventDefault();
     if (showEmoji) {
       setShowEmoji(!showEmoji);
     }
+    if (selectedFile === false) {
+      setimage(" ");
+    }
+    sessionStorage.setItem("image_obj", imagesToSend);
+    const image_urlBE = backend.UploadImg(imagesToSend);
+    image_urlBE.then((text) => {
+      setpath(text);
+    });
+    console.log(image_urlBE);
+    console.log(path);
+
     if (props.model) {
       //setmodel(!props.model);
       props.onSubmit(false);
     }
-    // navigate("/home");
   }
 
   var body = {
@@ -213,8 +252,10 @@ function Tweetbox(props) {
           <Button
             id="post tweet button"
             disabled={!input && selectedFile === 0}
-            onClick={()=>{
-              {submitTweet()};
+            onClick={() => {
+              {
+                submitTweet();
+              }
               //////////////////////////////////////////////////// liveNotifications()
             }}
             className="tweet__Button"
@@ -222,7 +263,6 @@ function Tweetbox(props) {
             Tweet
           </Button>
           {/* <ToastContainer/> */}
-
         </div>
         {showEmoji && (
           <Picker

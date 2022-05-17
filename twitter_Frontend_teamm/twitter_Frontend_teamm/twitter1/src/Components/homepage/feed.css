@@ -1,7 +1,9 @@
 * {
     outline: none !important;
 }
-
+.loading{
+    color:var(--twitter-blue)
+}
 .bottomBorder {
     height: 8px;
     background-color: var(--element-bg-color);
@@ -17,7 +19,17 @@
 }
 
 /* feed.css*/
-
+.mentioned_inpost{
+    display: inline-block;
+}
+.mentioned_inpost:hover{
+    cursor: pointer;
+    text-decoration: underline;
+    color: var(--twitter-blue);
+}
+.numbered{
+    display: flex;
+}
 
 /* Hide scrollbar for Chrome, Safari and Opera */
 
@@ -270,7 +282,6 @@ cursor: default;
     background-color:transparent;
     outline: none;
     border: transparent;
-    padding-top: 5px;
     color:var(--icon)
 }
 .delete:hover{
@@ -281,8 +292,6 @@ cursor: default;
     background-color: transparent;
     outline: none;
     border: transparent;
-    padding-top: 5px;
-    
 }
 
 .share:hover{
@@ -293,7 +302,6 @@ cursor: default;
 .count{
     flex:1;
     font-size: 20px;
-    padding-top:5px;
 }
 /********************************************************************/
 
@@ -440,10 +448,16 @@ cursor: default;
     color: var(--twitter-blue);
     background-color: transparent;
 }
-.mention{
+.mentioned_inpost{
     display: inline-block;
 }
-.mentions:hover{
+.mentioned_inpost:hover{
     cursor: pointer;
     text-decoration: underline;
+    color: var(--twitter-blue);
+}
+.tweet_return{
+    color: black;
+    font-size: x-large;
+    cursor: default;
 }

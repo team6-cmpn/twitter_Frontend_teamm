@@ -7,6 +7,7 @@ import { GetUserList, GetUserListMock } from "../MockRegistrationAdmin";
 import { GridColDef, GridApi } from "@mui/x-data-grid";
 import Button from "@mui/material/Button";
 import BlockForm from "./BlockForm";
+import { useEffect } from "react";
 
 const columns = [
   {
@@ -56,7 +57,18 @@ export default function AdminUsers() {
   const [selectedRows, setSelectedRows] = React.useState([]);
 
   console.log("users", userlist);
-  
+  const [isblocked, setIsBlock] = React.useState([]);
+
+  useEffect(() => {
+    (async () => {
+      const resp = await GetUserList();
+      let tempisblocked = [...resp.data[3].users_Per_Month];
+      tempisblocked.forEach((element, index) => {
+        tempisblocked[index].isblocked = element.admin_block.blocked_by_admin;
+      });
+      setIsBlock(tempisblocked);
+    })();
+  }, []);
   return (
     <div className="Users">
       <span className="Userstitle">Users List</span>
@@ -69,10 +81,13 @@ export default function AdminUsers() {
           onSelectionModelChange={(ids) => {
             const selectedIDs = new Set(ids);
             setSelectedRows(selectedIDs);
-            console.log(selectedIDs)
+            Set.prototype.lastValue = function () {
+              return [...this.values()].pop();
+            };
+            var lastValue = selectedIDs.lastValue();
+            console.log(selectedIDs);
             // var val = [...selectedIDs].filter(x => x.hasOwnProperty('first'))[0]['first'];
-            const[val]=selectedIDs
-            localStorage.setItem("selectedIDs",val)
+            localStorage.setItem("selectedIDs", lastValue);
           }}
           {...userlist}
         />

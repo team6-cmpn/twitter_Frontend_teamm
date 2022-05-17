@@ -72,8 +72,8 @@
     .Notimenu {
       width:100%;
       flex: 0.63;
-      margin-left: 13.3% !important;
-       }
+      margin-left: 150px !important;
+      }
   }
   /* @media (min-width: 0) and (max-width: 450px) {
     .Noitimenu {

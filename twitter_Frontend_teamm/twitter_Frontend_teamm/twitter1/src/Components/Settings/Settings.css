@@ -67,10 +67,10 @@
 }
 @media (min-width:1200px) {
     .settingsTitle{
-        margin-left: -3%;
+        margin-left: 0%;
     }
     .SettingsContent{
-        margin-left: -3%;
+        margin-left: 0%;
     }
     
   }

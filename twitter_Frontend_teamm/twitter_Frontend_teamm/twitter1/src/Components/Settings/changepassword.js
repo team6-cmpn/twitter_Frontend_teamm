@@ -11,7 +11,10 @@ import * as BE from "./SettingsBackendIntegration"
 import { Link, useLocation, Outlet } from "react-router-dom";
 import {toast, ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+/**
+ * make you able to change the password
+ * @returns [changed password]
+ */
 const Changepassword = () =>{
     const [currentPassword, setPassword] = React.useState(null);
     const [password, setNewPassword] = React.useState(null);

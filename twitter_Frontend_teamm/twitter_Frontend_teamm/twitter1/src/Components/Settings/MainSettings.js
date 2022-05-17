@@ -2,6 +2,10 @@ import React from "react";
 import "./settingsSubmenus.css"
 import { Link, useLocation,Outlet } from "react-router-dom";
 import SettingsIcon from '@mui/icons-material/Settings';
+/**
+ * 
+ * a main menu appear when you opne settings
+ */
 const MainSettings = () => {
     const [location] = React.useState(useLocation().pathname);
     document.title = "Settings / Twitter";

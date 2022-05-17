@@ -7,7 +7,11 @@ import * as Mock from "../NotificationsMock";
 import * as BE from "./SettingsBackendIntegration"
 import {toast, ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+/**
+ *  * make you able to change the username
 
+ * @returns [changed username]
+ */
 
 const ChangeUsername = () =>{
     const [username, setUserName] = useState(null);
@@ -29,6 +33,7 @@ const ChangeUsername = () =>{
         username:username
     }
     sessionStorage.setItem('username',username)
+    localStorage.setItem('getUsername',username)
     const notify = () =>{
 
       toast.info('Username succesfully changed',

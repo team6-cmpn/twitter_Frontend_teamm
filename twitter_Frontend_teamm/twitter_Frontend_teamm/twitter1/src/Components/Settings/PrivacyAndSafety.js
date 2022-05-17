@@ -1,11 +1,16 @@
 import React from "react";
 import "./settingsSubmenus.css"
-import { Link, useLocation,Outlet,NavLink } from "react-router-dom";
+import { Outlet,NavLink } from "react-router-dom";
 import SubsettingsContent from "./SubsettingsContent";
 import { ChevronRight } from "@mui/icons-material";
 import VolumeOffOutlinedIcon from '@mui/icons-material/VolumeOffOutlined';
+/**
+ * this menu make you able to go through the blocked account menu and muted account menu
+ * @returns [selected menus]
+ */
+
+
 const PrivacyAndSafety = () => {
-    const [location] = React.useState(useLocation().pathname);
     document.title = "Privacy and Safety / Twitter";
   
     return (

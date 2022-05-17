@@ -16,30 +16,37 @@ import {
   GetDashBoard,
   GetDashBoardstat,
 } from "../MockRegistrationAdmin";
+import { useEffect } from "react";
 
 export default function BiaxialLineChart() {
-  var TweetsPerMonth = GetTweetsPerMonth();
-  const tweetsperyear = GetDashBoardstat()[10];
-
   const [tweetsPerMonth, setTweetsPerMonth] = useState(undefined);
-  (async () => {
-    const resp = await GetDashBoard();
-    let temptweetsPerMonth = [...resp.data[9].tweets_Per_Month];
-    temptweetsPerMonth.forEach((element, index) => {
-      temptweetsPerMonth[index].month = element._id.month;
-    });
-    setTweetsPerMonth(temptweetsPerMonth);
-  })();
+  let d = [];
+
+  useEffect(() => {
+    (async () => {
+      const resp = await GetDashBoard();
+      let temptweetsPerMonth = [...resp.data[9].tweets_Per_Month];
+      temptweetsPerMonth.forEach((element, index) => {
+        temptweetsPerMonth[index].month = element._id.month;
+      });
+      console.log("tww", temptweetsPerMonth);
+      d.push(temptweetsPerMonth);
+      setTweetsPerMonth(temptweetsPerMonth);
+    })();
+  }, []);
+
   const [tweetsPeryear, setTweetsPeryear] = useState(undefined);
-  (async () => {
-    const resp = await GetDashBoard();
-    let temptweetsPeryear = [...resp.data[10].tweets_Per_Year];
-    temptweetsPeryear.forEach((element, index) => {
-      temptweetsPeryear[index].year = element._id;
-      temptweetsPeryear[index].totaltweets = element.totalTweets;
-    });
-    setTweetsPeryear(temptweetsPeryear);
-  })();
+  useEffect(() => {
+    (async () => {
+      const resp = await GetDashBoard();
+      let temptweetsPeryear = [...resp.data[10].tweets_Per_Year];
+      temptweetsPeryear.forEach((element, index) => {
+        temptweetsPeryear[index].year = element._id;
+        temptweetsPeryear[index].totaltweets = element.totalTweets;
+      });
+      setTweetsPeryear(temptweetsPeryear);
+    })();
+  }, []);
 
   return (
     <div className="chartone">
@@ -54,9 +61,9 @@ export default function BiaxialLineChart() {
               bottom: 5,
             }}
           >
-            <CartesianGrid stroke="red " strokeDasharray="3 3" />
+            <CartesianGrid />
             <XAxis dataKey="month" />
-            <YAxis />
+            <YAxis domain={[0, (dataMax) => Number(dataMax) + 50]} />
             <Tooltip />
             <Legend />
             <Bar dataKey="total" fill="#8884d8" />

@@ -8,11 +8,7 @@ import LikedYou from "./LikedYou";
 import getFollowingUsers from "./NotificationsMock";
 import { GetPostTweet } from "./homepage/feedmock";
 import {getLikedUsers} from "./NotificationsMock";
-import Post from "./homepage/Post";
-import { RecoilRoot } from "recoil";
 import { GetNotificationsFavourites } from "./NotificationBackend";
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import { Avatar } from "@material-ui/core";
 import { GetNotifications } from "./NotificationBackend";
 import LikedYouBe from "./LikedYouBe";
 import Notified from "./Notified";
@@ -50,7 +46,6 @@ function Notifications() {
   const notifi=GetNotificationsFavourites();
   const BE=GetNotifications();
   return (
-    <RecoilRoot>
     <SettingsBox>
       <div className="Notimenu" id="NotificationMenu">
         <div className="notificationsTitle" id="NotificationsTitle">
@@ -91,17 +86,7 @@ function Notifications() {
               <LikedYou key={index} likePost={userNotification} />
               ))}
             
-              {twetted.map((userlist, index) => (
-            <Post
-              key={index}
-              displayName={userlist.displayName}
-              username={userlist.username}
-              text={userlist.text}
-              image={userlist.image}
-              avatar={userlist.avatar}
-              date={userlist.date}
-            />
-          ))}
+              
             </>
           ) : (
             <>
@@ -118,7 +103,6 @@ function Notifications() {
 
       <Trends />
     </SettingsBox>
-    </RecoilRoot>
   );
 }
 export default Notifications;

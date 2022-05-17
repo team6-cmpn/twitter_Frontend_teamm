@@ -7,7 +7,10 @@ import * as BE from "./SettingsBackendIntegration"
 import {Button} from "@mui/material";
 import {toast, ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+/**
+ * make you able to change the phone number
+ * @returns [changed phone]
+ */
 
 function Changephone(){
     document.title="Change phone / Twitter"

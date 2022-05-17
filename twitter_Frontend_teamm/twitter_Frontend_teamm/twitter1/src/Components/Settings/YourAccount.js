@@ -5,8 +5,12 @@ import SubsettingsContent from "./SubsettingsContent";
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import PersonOutlineOutlinedIcon from '@material-ui/icons/PersonOutlineOutlined';
 import { HeartBrokenOutlined, Key } from "@mui/icons-material";
+/**
+ * it let you select the menu you want to change from this menu 
+ * @returns [account menus]
+ */
+
 const YourAccount = () => {
-    const [location] = React.useState(useLocation().pathname);
 
     return (
 
@@ -24,7 +28,6 @@ const YourAccount = () => {
             text="Account information"
             discrip="See your account inforamtion like your phone numer and email address.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
             Icon={ChevronRightIcon}
-            active={location === "/" && true}
           />
         </Link>
         <Link to="../change-password" style={{ textDecoration: "none", color:"inherit" }}>
@@ -33,7 +36,6 @@ const YourAccount = () => {
             text="Change password"
             discrip="Change your password at any time.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
             Icon={ChevronRightIcon}
-            active={location === "/Settings" && true}
           />
         </Link>
         <Link to="../Deactivate-your-Acc" style={{ textDecoration: "none", color:"inherit" }}>
@@ -42,7 +44,6 @@ const YourAccount = () => {
             text="Deactivate your account "
             discrip="Find out how you can deactivate your account.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
             Icon={ChevronRightIcon}
-            active={location === "/Settings" && true}
           />
         </Link>
       </div>

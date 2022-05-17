@@ -5,7 +5,10 @@ import { ChevronRight } from "@mui/icons-material";
 import AccountInfoMenuss from "./AccountInfoMenuss";
 import ChangeUsername from "./changeUsername";
 
-
+/**
+ * make you able to change the account info
+ * @returns [account info]
+ */
 const AccountInformation = () => {
     const [location] = React.useState(useLocation().pathname);
     document.title = "Account information / Twitter";

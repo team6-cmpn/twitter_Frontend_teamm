@@ -65,4 +65,14 @@
     margin-left: 0%;
 }
 }
+@media (min-width:1200px) {
+    .settingsTitle{
+        margin-left: -3%;
+    }
+    .SettingsContent{
+        margin-left: -3%;
+    }
+    
+  }
+  
 

@@ -17,11 +17,11 @@ import SettingsBox from '../SettingsBox/SettingsBox'
 import { Route, Routes } from 'react-router-dom';
 
 
-// it('renders without crashing settings', () => {
-//   const div = document.createElement('div');
-//   ReactDOM.render(  
-//     <Settings/>, div);
-// });
+it('renders without crashing settings', () => {
+  const div = document.createElement('div');
+  ReactDOM.render(  
+    <Settings/>, div);
+});
 
 // it('renders without crashing username', () => {
 //     const div = document.createElement('div');

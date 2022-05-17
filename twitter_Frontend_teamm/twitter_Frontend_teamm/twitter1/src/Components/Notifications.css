@@ -68,6 +68,13 @@
       margin-left: 6.3% !important;
     }
   }
+  @media (min-width:1200px) {
+    .Notimenu {
+      width:100%;
+      flex: 0.63;
+      margin-left: 13.3% !important;
+       }
+  }
   /* @media (min-width: 0) and (max-width: 450px) {
     .Noitimenu {
       flex: 1;

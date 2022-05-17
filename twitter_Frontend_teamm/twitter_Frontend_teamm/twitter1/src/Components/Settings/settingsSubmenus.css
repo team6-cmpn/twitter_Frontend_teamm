@@ -1,7 +1,8 @@
 .settingsSubMenu {
+    flex:0.9;
     min-height: 100vh;
     height: max-content;
-    width:47%;
+    width:100%;
     background-color:white;
     border-right: 1px solid #e6ecf0;
     
@@ -281,9 +282,23 @@
     background-color:#F7F9F9;
     cursor: pointer;
 }
-@media (min-width: 0) and (max-width: 1000px) {
+@media screen and (max-width: 768px) {
     .settingsSubMenu {
+      width:50%;
       flex: 1;
-      display: block;
+      margin-left: 0% !important;
     }
+    .SubsettingsContent{
+        width:100%;
+        }
+    .text_discrip{
+        width: 50%;
+        margin-left: 0%;
+    }
+    .text_discrip>h6{
+        color: white;
+    }
+   .savebutton{
+       margin-left:50%;
+   }
   }

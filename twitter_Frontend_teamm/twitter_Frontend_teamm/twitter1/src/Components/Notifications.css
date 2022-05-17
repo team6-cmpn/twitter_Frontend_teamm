@@ -60,14 +60,17 @@
     }
   }
   
-  @media (min-width: 0) and (max-width: 1000px) {
-    .Noitimenu {
-      flex: 1;
+   
+    @media screen and (max-width: 768px) {
+    .Notimenu {
+      width:100%;
+      flex: 0.9;
+      margin-left: 6.3% !important;
     }
   }
-  @media (min-width: 0) and (max-width: 450px) {
+  /* @media (min-width: 0) and (max-width: 450px) {
     .Noitimenu {
       flex: 1;
       margin: 0px;
     }
-  }
+  } */

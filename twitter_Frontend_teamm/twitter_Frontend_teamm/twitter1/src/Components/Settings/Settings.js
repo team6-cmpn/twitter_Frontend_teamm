@@ -19,7 +19,7 @@ function Settings(){
 
   return (
       <SettingsBox>
-              <div className="settingsMenu">
+              <div className="Notimenu">
                   <div className="settingsTitle">
                   <span>Settings</span>
                   </div>
@@ -40,7 +40,7 @@ function Settings(){
                   />
                 </Link>
 
-            </div>
+              </div>
             {path === "/Settings" ? (
                 <MainSettings />
               ) : (

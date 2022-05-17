@@ -3,8 +3,9 @@
     border-right: 1px solid #e6ecf0;
     min-height: 100vh;
     height: max-content;
-    background-color: #ffffff;
-    margin-left: 22.9% !important;
+    width:100%;
+    background-color:inherit ;
+    margin-left: 20.5% !important;
   }
   
   .notificationsTitle {
@@ -59,3 +60,14 @@
     }
   }
   
+  @media (min-width: 0) and (max-width: 1000px) {
+    .Noitimenu {
+      flex: 1;
+    }
+  }
+  @media (min-width: 0) and (max-width: 450px) {
+    .Noitimenu {
+      flex: 1;
+      margin: 0px;
+    }
+  }

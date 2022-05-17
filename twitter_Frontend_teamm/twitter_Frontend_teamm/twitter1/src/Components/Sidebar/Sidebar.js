@@ -61,9 +61,9 @@ function Sidebar() {
   const onSubModel = (stateMain = true) => {
     setModalVisible(stateMain);
   };
-  var pusher;
-  var userid=localStorage.getItem('userId');
-  var dataTemp;
+    var pusher;
+    var userid=localStorage.getItem('userId');
+    var dataTemp;
    useEffect(async() => {
     
     Pusher.logToConsole = true;
@@ -76,13 +76,27 @@ function Sidebar() {
 
     });
     var channel = pusher.subscribe(String(userid));
-    channel.bind('block-event', function(data) {
+    channel.bind(['block-event'], function(data) {
     dataTemp=data;
+    //console.log('pop up message    ',dataTemp)
+    //alert(".."+data+"..")
     {notify()}
     });
+    channel.bind(['tweet-event'], function(data) {
+      dataTemp=data;
+      //console.log('pop up message    ',dataTemp)
+      //alert(".."+data+"..")
+      {notify()}
+      });
+      channel.bind(['favourite-event'], function(data) {
+       dataTemp=data;
+       //console.log(dataTemp)
+        //alert(".."+data+"..")
+        {notify()}
+      });
   });
   const notify = () =>{
-    toast.info('Notification'+dataTemp+".",
+    toast.info("."+dataTemp.notificationHeader.text+".",
     {position: toast.POSITION.BOTTOM_CENTER})
  }
 

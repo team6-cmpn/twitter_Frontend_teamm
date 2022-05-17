@@ -1,6 +1,7 @@
 import axios from 'axios';
 import Configure from '../../Configure'
-
+import React from 'react';
+import { useEffect } from 'react';
 /**
  * it's responsible for connecting with backend  
  * @returns [returns the states if it okay or not while connecting with backend]
@@ -183,3 +184,46 @@ export async function Put_DeactivateAccount(){
             });
       return message;
 };
+
+
+
+
+
+
+export function Get_BlockedList(id) {
+  const [notifications, setNotifications] = React.useState([]);
+  var id = localStorage.getItem("userId");
+  useEffect(() => {
+    const fetchProduct=async ()=>{
+      const dashBoard= await axios.get(`${Configure.backURL}user/blockedList/${id}`, {
+        headers: {
+          "Content-Type": "application/json; charset=utf-8",
+          "x-access-token": `${localStorage.getItem("token")}`,
+        },
+      });
+      setNotifications(dashBoard.data)
+      };
+      fetchProduct();
+  }, []);
+  if (!notifications) return null;
+  return notifications;
+}
+
+export function Get_MutedList(id) {
+  const [notifications, setNotifications] = React.useState([]);
+  var id = localStorage.getItem("userId");
+  useEffect(() => {
+    const fetchProduct=async ()=>{
+      const dashBoard= await axios.get(`${Configure.backURL}user/mutedList/${id}`, {
+        headers: {
+          "Content-Type": "application/json; charset=utf-8",
+          "x-access-token": `${localStorage.getItem("token")}`,
+        },
+      });
+      setNotifications(dashBoard.data)
+      };
+      fetchProduct();
+  }, []);
+  if (!notifications) return null;
+  return notifications;
+}

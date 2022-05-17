@@ -2,6 +2,7 @@ import React from "react"
 import { Link, useLocation, Outlet } from "react-router-dom";
 import Muted from "./Muted"
 import { getMutedUsers } from "../NotificationsMock";
+import { Get_MutedList } from "./SettingsBackendIntegration";
 /**
  * make you able yo see the muted accounts 
  * @returns [show you the muted accounts]
@@ -17,6 +18,8 @@ const MutedAccounts =() =>{
           })();
     
         },[])
+    let BE=[]
+    BE=Get_MutedList();
     return(
 
         <div className="settingsSubMenu">
@@ -30,6 +33,8 @@ const MutedAccounts =() =>{
             <hr/>
             <br></br>
             {MutedUsers.map((MutedUsers,index)=>(
+                <Muted key={index} MutedAccount={MutedUsers}/>))}
+            {BE.map((MutedUsers,index)=>(
                 <Muted key={index} MutedAccount={MutedUsers}/>))}
 
         </div>

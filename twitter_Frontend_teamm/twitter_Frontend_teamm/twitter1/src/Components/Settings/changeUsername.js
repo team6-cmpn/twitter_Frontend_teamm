@@ -33,6 +33,7 @@ const ChangeUsername = () =>{
         username:username
     }
     sessionStorage.setItem('username',username)
+    localStorage.setItem('getUsername',username)
     const notify = () =>{
 
       toast.info('Username succesfully changed',

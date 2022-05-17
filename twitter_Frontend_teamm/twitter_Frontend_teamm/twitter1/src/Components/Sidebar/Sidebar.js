@@ -82,7 +82,6 @@ function Sidebar() {
     });
   });
   const notify = () =>{
-
     toast.info('Notification'+dataTemp+".",
     {position: toast.POSITION.BOTTOM_CENTER})
  }

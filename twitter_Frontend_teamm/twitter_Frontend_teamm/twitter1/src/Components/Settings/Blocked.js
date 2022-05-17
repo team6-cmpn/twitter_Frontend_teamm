@@ -4,10 +4,12 @@ import {Avatar} from "@material-ui/core";
 
 const Blocked = ({ BlockedAccount }) => {
     return (
-      <div className={`SettingsContentInMenus `}>
-        <div className="Accountinfo_dec">
-            <Avatar src={BlockedAccount.userImage} />
-            <h5>{BlockedAccount.displayname}</h5>
+      <div className={`SubsettingsCont `}>
+         <Avatar classname="Avatar"src={''} />
+        <div className="text_discrip">
+       
+
+            <h5>{BlockedAccount.name}</h5>
             <h6>{BlockedAccount.username}</h6>
         </div>
             

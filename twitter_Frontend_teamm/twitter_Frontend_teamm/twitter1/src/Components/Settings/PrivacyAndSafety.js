@@ -1,6 +1,6 @@
 import React from "react";
 import "./settingsSubmenus.css"
-import { Link, useLocation,Outlet,NavLink } from "react-router-dom";
+import { Outlet,NavLink } from "react-router-dom";
 import SubsettingsContent from "./SubsettingsContent";
 import { ChevronRight } from "@mui/icons-material";
 import VolumeOffOutlinedIcon from '@mui/icons-material/VolumeOffOutlined';
@@ -11,7 +11,6 @@ import VolumeOffOutlinedIcon from '@mui/icons-material/VolumeOffOutlined';
 
 
 const PrivacyAndSafety = () => {
-    const [location] = React.useState(useLocation().pathname);
     document.title = "Privacy and Safety / Twitter";
   
     return (

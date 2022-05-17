@@ -13,73 +13,77 @@ import AccountInformation from './AccountInfo'
 import BlockedAccounts from './BlockedAccounts'
 import MutedAccounts from './MutedAccounts'
 import validateConfirmPassword from '../SignUp/Validate'
-import SettingsBox from '../SettingsBox/SettingsBox'
-import { Route, Routes } from 'react-router-dom';
-
+import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
+window.matchMedia = window.matchMedia || function() {
+  return {
+      matches: false,
+      addListener: function() {},
+      removeListener: function() {}
+  };
+};
 
 it('renders without crashing settings', () => {
   const div = document.createElement('div');
   ReactDOM.render(  
-    <Settings/>, div);
+    <Router><Settings/></Router>, div);
 });
 
-// it('renders without crashing username', () => {
-//     const div = document.createElement('div');
-//     ReactDOM.render(<ChangeUsername />, div);
-// });
+it('renders without crashing username', () => {
+    const div = document.createElement('div');
+    ReactDOM.render(<Router><ChangeUsername /></Router>, div);
+});
 
-// it('renders without crashing password', () => {
-//     const div = document.createElement('div');
-//     ReactDOM.render(<Changepassword />, div);
-// });
+it('renders without crashing password', () => {
+    const div = document.createElement('div');
+    ReactDOM.render(<Router><Changepassword /></Router>, div);
+});
 
-// it('renders without crashing email', () => {
-//     const div = document.createElement('div');
-//     ReactDOM.render(<ChangeEmail />, div);
-// });
+it('renders without crashing email', () => {
+    const div = document.createElement('div');
+    ReactDOM.render(<Router><ChangeEmail /></Router>, div);
+});
 
-// it('renders without crashing phone', () => {
-//     const div = document.createElement('div');
-//     ReactDOM.render(<Changephone />, div);
-// });
+it('renders without crashing phone', () => {
+    const div = document.createElement('div');
+    ReactDOM.render(<Router><Changephone /></Router>, div);
+});
 
-// it('renders without crashing your account', () => {
-//     const div = document.createElement('div');
-//     ReactDOM.render(<YourAccount/>
-//     , div);
-// });
+it('renders without crashing your account', () => {
+    const div = document.createElement('div');
+    ReactDOM.render(<Router><YourAccount/></Router>
+    , div);
+});
 
 it('renders without crashing deactivte account', () => {
     const div = document.createElement('div');
-    ReactDOM.render(<DeactivateAcc />, div);
+    ReactDOM.render(<Router><DeactivateAcc /></Router>, div);
 });
 
-// it('renders without crashing privacy', () => {
-//     const div = document.createElement('div');
-//     ReactDOM.render(<PrivacyAndSafety />, div);
-// });
+it('renders without crashing privacy', () => {
+    const div = document.createElement('div');
+    ReactDOM.render(<Router><PrivacyAndSafety /></Router>, div);
+});
 
-// it('renders without crashing muteandblock', () => {
-//     const div = document.createElement('div');
-//     ReactDOM.render(<MuteandBlock />, div);
-// });
+it('renders without crashing muteandblock', () => {
+    const div = document.createElement('div');
+    ReactDOM.render(<Router><MuteandBlock /></Router>, div);
+});
 
 
-// it('renders without crashing accinfo', () => {
-//     const div = document.createElement('div');
-//     ReactDOM.render(<AccountInformation />, div);
-// });
+it('renders without crashing accinfo', () => {
+    const div = document.createElement('div');
+    ReactDOM.render(<Router><AccountInformation /></Router>, div);
+});
 
-// it('renders without crashing blocked accounts', () => {
-//     const div = document.createElement('div');
-//     ReactDOM.render(<BlockedAccounts />, div);
-// });
+it('renders without crashing blocked accounts', () => {
+    const div = document.createElement('div');
+    ReactDOM.render(<Router><BlockedAccounts /></Router>, div);
+});
 
-// it('renders without crashing mutedaccounts', () => {
-//     const div = document.createElement('div');
-//     ReactDOM.render(<MutedAccounts />, div);
-// });
-
+it('renders without crashing mutedaccounts', () => {
+    const div = document.createElement('div');
+    ReactDOM.render(<Router><MutedAccounts /></Router>, div);
+});
 
 
 

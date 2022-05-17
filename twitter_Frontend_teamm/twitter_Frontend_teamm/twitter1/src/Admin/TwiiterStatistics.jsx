@@ -6,6 +6,7 @@ import {GetDashBoardstat} from "./MockRegistrationAdmin";
 export default function Twiiterstatistics() {
   let staatic=[]
   staatic=GetDashBoardstat()
+  console.log("dashboard",staatic)
   return (
     <div className="adminstatistics" id="TwitterStatisticsBlocks">
       <div className="adminstatisticsItem">

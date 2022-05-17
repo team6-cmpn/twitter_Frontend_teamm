@@ -32,8 +32,12 @@ const ChangeUsername = () =>{
     var body={
         username:username
     }
+    function changeInSideBar(){
+
+      localStorage.setItem('getUsername',username)
+
+    }
     sessionStorage.setItem('username',username)
-    localStorage.setItem('getUsername',username)
     const notify = () =>{
 
       toast.info('Username succesfully changed',
@@ -71,7 +75,9 @@ const ChangeUsername = () =>{
             
             
             <div className="savebutton" >
-                <Button onClick={()=> SaveButtonActions()}
+                <Button onClick={()=> {SaveButtonActions()
+                
+                  changeInSideBar()}}
                         
                     id="save_Username"
                     //onClick={}

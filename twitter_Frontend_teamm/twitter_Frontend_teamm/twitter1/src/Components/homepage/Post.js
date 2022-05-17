@@ -181,10 +181,10 @@ const Post = ({
   };
 
   return (
-    <div className="border">
-      <div className="post">
-        {open === true && (
-          <Button className="returnbutt" onClick={returnhome}>
+    <div>
+      {open === true && (
+        <div className="returnbutt app">
+          <Button onClick={returnhome}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-6 w-6 "
@@ -201,166 +201,174 @@ const Post = ({
               />
             </svg>
           </Button>
-        )}
-        <div className="img_circle">
-          <span>
-            <img
-              key="user imag "
-              src={avatar}
-              onerror="this.style.display='none'"
-              alt=""
-            />
-          </span>
+          <div className="tweet_return">Tweet</div>
         </div>
-        <div className="post__body">
-          <div className="inherted">
-            <div className="post__headerText app">
-              <div nClick={store_userID}>
-                <h3 className="bolding " id="user @ displayname">
-                  <Link to={`/${username}`}>{displayName}</Link>
-                </h3>
-              </div>
-              {"  "}
-              <p className="post__headerSpecial">{username} </p>{" "}
-              <h5 className="dateflex">{timeStamp}</h5>
-            </div>
-            <div className="post__tweet app" onClick={openPost}>
-              <span class="input" role="textbox" contenteditable>
-                {text}
+      )}
+      <div className="border">
+        <div className="post">
+          <div className="img_circle">
+            <span>
+              <img
+                key="user imag "
+                src={avatar}
+                onerror="this.style.display='none'"
+                alt=""
+              />
+            </span>
+          </div>
+          <div className="post__body">
+            <div className="inherted">
+              <div className="post__headerText app">
+                <div nClick={store_userID}>
+                  <h3 className="bolding " id="user @ displayname">
+                    <Link to={`/${username}`}>{displayName}</Link>
+                  </h3>
+                </div>
                 {"  "}
-                <div className="mentioned_inpost" onClickCapture={get_mention}>
-                  {mention}
-                </div>
-              </span>
-            </div>
-            <div onClick={openPost}>
-              {image && <ImageBox images={image} deleteEnabled />}
-            </div>
-            {open === true && (
-              <div className="app lists">
-                <div className="like_list" onClick={() => openlikes()}>
-                  {like_no}likes
-                </div>
-
-                <div className="retweets" onClick={() => openretweet()}>
-                  retweets
-                </div>
+                <p className="post__headerSpecial">{username} </p>{" "}
+                <h5 className="dateflex">{timeStamp}</h5>
               </div>
-            )}
-            <div className="post__footer">
-              {user_tweeted_id === logedin_user_id ? (
-                <div
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setIsOpen(true);
-                  }}
-                >
-                  <div className="icon flex ">
-                    <button
-                      id="delete button "
-                      className=" icon delete "
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        deleteTweet();
-                      }}
-                    >
-                      <TrashIcon strokeWidth={1} />
+              <div className="post__tweet app" onClick={openPost}>
+                <span class="input" role="textbox" contenteditable>
+                  {text}
+                  {"  "}
+                  <div
+                    className="mentioned_inpost"
+                    onClickCapture={get_mention}
+                  >
+                    {mention}
+                  </div>
+                </span>
+              </div>
+              <div onClick={openPost}>
+                {image && <ImageBox images={image} deleteEnabled />}
+              </div>
+              {open === true && (
+                <div className="app lists">
+                  <div className="like_list" onClick={() => openlikes()}>
+                    {like_no}likes
+                  </div>
+
+                  <div className="retweets" onClick={() => openretweet()}>
+                    retweets
+                  </div>
+                </div>
+              )}
+              <div className="post__footer">
+                {user_tweeted_id === logedin_user_id ? (
+                  <div
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setIsOpen(true);
+                    }}
+                  >
+                    <div className="icon flex ">
+                      <button
+                        id="delete button "
+                        className=" icon delete "
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          deleteTweet();
+                        }}
+                      >
+                        <TrashIcon strokeWidth={1} />
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="blocked"></div>
+                )}
+                <div className="blocked likeall">
+                  {like_no > 0 && <span className="count">{like_no}</span>}
+                  <button
+                    id="like and dislike button"
+                    className="likeall"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      likePost();
+                    }}
+                  >
+                    <div className="  icon ">
+                      {if_liked ? (
+                        <HeartIconFilled className="liked" strokeWidth={1} />
+                      ) : (
+                        <HeartIcon strokeWidth={1} />
+                      )}
+                    </div>
+                  </button>
+                </div>
+                <div className="numbered">
+                  {retwee_no > 0 && (
+                    <span className="count" style={{color: btnColor}}>
+                      {retwee_no}
+                    </span>
+                  )}
+
+                  <div className="blocked">
+                    <button id=" retweet button" className=" icon share">
+                      <ShareIcon
+                        style={{color: btnColor}}
+                        strokeWidth={1}
+                        fontSize="small"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          retweeted();
+                        }}
+                      />
                     </button>
                   </div>
-                </div>
-              ) : (
-                <div className="blocked"></div>
-              )}
-              <div className="blocked likeall">
-                {like_no > 0 && <span className="count">{like_no}</span>}
-                <button
-                  id="like and dislike button"
-                  className="likeall"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    likePost();
-                  }}
-                >
-                  <div className="  icon ">
-                    {if_liked ? (
-                      <HeartIconFilled className="liked" strokeWidth={1} />
-                    ) : (
-                      <HeartIcon strokeWidth={1} />
-                    )}
-                  </div>
-                </button>
-              </div>
-              <div className="numbered">
-                {retwee_no > 0 && (
-                  <span className="count" style={{color: btnColor}}>
-                    {retwee_no}
-                  </span>
-                )}
-
-                <div className="blocked">
-                  <button id=" retweet button" className=" icon share">
-                    <ShareIcon
-                      style={{color: btnColor}}
-                      strokeWidth={1}
-                      fontSize="small"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        retweeted();
-                      }}
-                    />
-                  </button>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <Modal
-        title={
-          <h1
-            style={{fontSize: "180%", marginTop: "10px", color: "Dodgerblue"}}
-          >
-            Liked by{" "}
-          </h1>
-        }
-        style={{textAlign: "left"}}
-        cancelButtonProps={{style: {display: "none"}}}
-        visible={islikeModalVisible}
-        bodyStyle={{
-          height: "inherit",
-          width: "inherit",
-          font: "Helvetica",
-          textAlign: "left",
-        }}
-        alignItems={{top: Window}}
-        onCancel={() => setlikeModalVisible(false)}
-        footer={null}
-        maskClosable={false}
-      ></Modal>
+        <Modal
+          title={
+            <h1
+              style={{fontSize: "180%", marginTop: "10px", color: "Dodgerblue"}}
+            >
+              Liked by{" "}
+            </h1>
+          }
+          style={{textAlign: "left"}}
+          cancelButtonProps={{style: {display: "none"}}}
+          visible={islikeModalVisible}
+          bodyStyle={{
+            height: "inherit",
+            width: "inherit",
+            font: "Helvetica",
+            textAlign: "left",
+          }}
+          alignItems={{top: Window}}
+          onCancel={() => setlikeModalVisible(false)}
+          footer={null}
+          maskClosable={false}
+        ></Modal>
 
-      <Modal
-        title={
-          <h1
-            style={{fontSize: "180%", marginTop: "10px", color: "Dodgerblue"}}
-          >
-            Retweeted by{" "}
-          </h1>
-        }
-        style={{textAlign: "left"}}
-        cancelButtonProps={{style: {display: "none"}}}
-        visible={isretweetModalVisible}
-        bodyStyle={{
-          height: "inherit",
-          width: "inherit",
-          font: "Helvetica",
-          textAlign: "left",
-        }}
-        alignItems={{top: Window}}
-        onCancel={() => setretweetModalVisible(false)}
-        footer={null}
-        maskClosable={false}
-      ></Modal>
-      {/* <ToastContainer/> */}
+        <Modal
+          title={
+            <h1
+              style={{fontSize: "180%", marginTop: "10px", color: "Dodgerblue"}}
+            >
+              Retweeted by{" "}
+            </h1>
+          }
+          style={{textAlign: "left"}}
+          cancelButtonProps={{style: {display: "none"}}}
+          visible={isretweetModalVisible}
+          bodyStyle={{
+            height: "inherit",
+            width: "inherit",
+            font: "Helvetica",
+            textAlign: "left",
+          }}
+          alignItems={{top: Window}}
+          onCancel={() => setretweetModalVisible(false)}
+          footer={null}
+          maskClosable={false}
+        ></Modal>
+        {/* <ToastContainer/> */}
+      </div>
     </div>
   );
 };

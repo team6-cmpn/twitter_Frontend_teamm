@@ -21,6 +21,8 @@ function BlockForm() {
       console.log(resp)
       alert("User is Blocked By : " + duration + " Days");
       e.preventDefault();
+      localStorage.setItem("selectedIDs", null);
+
     }
   };
   var body={duration:duration}

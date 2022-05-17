@@ -54,7 +54,7 @@ function Changephone(){
                 name="PhoneNumber"
               >
                 <span style={{color: 'red'}}>
-                  <Input id="change_phone_number" style={{ height:40,width:550}}  onChange={GetphoneValidation}  onKeyUp={Getphonenumber} maxLength={100}  placeholder="Phone number" />
+                  <Input id="change_phone_number"   onChange={GetphoneValidation}  onKeyUp={Getphonenumber} maxLength={100}  placeholder="Phone number" />
                   {PhoneError}<br></br>
                 </span>
               </Form.Item>

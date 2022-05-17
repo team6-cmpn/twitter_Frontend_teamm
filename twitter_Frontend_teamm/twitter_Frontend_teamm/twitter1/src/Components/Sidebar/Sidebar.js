@@ -98,9 +98,9 @@ function Sidebar() {
         notify();
       }
     });
-  });
+  },[]);
   const notify = () => {
-    toast.info("." + dataTemp.notificationHeader.text + ".", {
+    toast.info("Notifications: " + dataTemp.notificationHeader.text + ".", {
       position: toast.POSITION.BOTTOM_CENTER,
     });
   };

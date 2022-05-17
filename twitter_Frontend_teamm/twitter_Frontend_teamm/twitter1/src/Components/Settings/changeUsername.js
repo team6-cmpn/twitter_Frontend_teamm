@@ -60,7 +60,7 @@ const ChangeUsername = () =>{
                 ]} 
               >
                 <span style={{color: 'red'}}>
-                  <Input id="usernameChange" style={{ height:40,width:550}}   onChange={getUserNameValidation}  onKeyUp={getUserName}  maxLength={50}  placeholder="Username" />
+                  <Input id="usernameChange"    onChange={getUserNameValidation}  onKeyUp={getUserName}  maxLength={50}  placeholder="Username" />
                   {userNameError}
                 </span>
               </Form.Item>

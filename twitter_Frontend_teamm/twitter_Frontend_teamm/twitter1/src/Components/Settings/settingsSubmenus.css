@@ -282,6 +282,7 @@
     background-color:#F7F9F9;
     cursor: pointer;
 }
+
 @media screen and (max-width: 768px) {
     .settingsSubMenu {
       width:50%;
@@ -299,6 +300,7 @@
         color: white;
     }
    .savebutton{
-       margin-left:50%;
+       margin-left: 50%;
    }
+    
   }

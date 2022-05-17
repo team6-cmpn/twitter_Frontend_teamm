@@ -74,7 +74,7 @@ const Changepassword = () =>{
             </div>
             <br/>
             <br/>
-            <Form>
+            <Form className="textfield">
             <Form.Item 
                 name="password"
                 rules={[{
@@ -83,7 +83,7 @@ const Changepassword = () =>{
                 ]} 
               >
                 <span style={{color: 'red'}}>
-                  <Input.Password  id='password' type='password'style={{ height:40,width:550}}  onChange={getPasswordValidation}   onKeyUp={getPassword}    placeholder="password" iconRender={visible => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)} /> 
+                  <Input.Password  id='Enterpassword' type='password'  onChange={getPasswordValidation}   onKeyUp={getPassword}    placeholder="password" iconRender={visible => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)} /> 
                   {passwordError}
                 </span>
               </Form.Item>
@@ -96,7 +96,7 @@ const Changepassword = () =>{
                 ]} 
               >
                 <span style={{color: 'red'}}>
-                  <Input.Password  id='Newpassword' type='password'style={{ height:40,width:550}}  onChange={getNewPasswordValidation}   onKeyUp={getNewPassword}    placeholder=" new password" iconRender={visible => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)} /> 
+                  <Input.Password  id='Newpassword' type='password'  onChange={getNewPasswordValidation}   onKeyUp={getNewPassword}    placeholder=" new password" iconRender={visible => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)} /> 
                   {newpasswordError}
                 </span>
               </Form.Item>
@@ -108,7 +108,7 @@ const Changepassword = () =>{
                 ]} 
               >
                 <span style={{color: 'red'}}>
-                  <Input.Password  id='Confirmpassword' type='password'style={{ height:40,width:550}}  onChange={getConfPasswordValidation}   onKeyUp={getConfirmPassword}    placeholder=" confirm password" iconRender={visible => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)} /> 
+                  <Input.Password  id='Confirmpassword' type='password'  onChange={getConfPasswordValidation}   onKeyUp={getConfirmPassword}    placeholder=" confirm password" iconRender={visible => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)} /> 
                   {newConfpasswordError}
                    </span>
               </Form.Item>

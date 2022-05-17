@@ -18,13 +18,14 @@ import {
   GetSignedUpMethod,
   GetDashBoard,
 } from "../../MockRegistrationAdmin";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 
 export default function UserNumChart() {
   const userpermonthmock = GetNumberOfUsersOfMonth();
   const signedupmethodnum = GetSignedUpMethod();
   const [usersPerMonth, setUsersPerMonth] = useState(undefined);
   // const usersPerMonth= UserNumberMonthBack[3]?.users_Per_Month;
+  useEffect(() => {
   (async () => {
     const resp = await GetDashBoard();
     let tempUsersPerMonth = [...resp.data[3].users_Per_Month];
@@ -33,6 +34,8 @@ export default function UserNumChart() {
     });
     setUsersPerMonth(tempUsersPerMonth);
   })();
+}, []);
+
 
   return (
     <div className="charts">

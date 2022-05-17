@@ -16,42 +16,37 @@ import {
   GetDashBoard,
   GetDashBoardstat,
 } from "../MockRegistrationAdmin";
+import { useEffect } from "react";
 
 export default function BiaxialLineChart() {
-  const tweetsperyear = GetDashBoardstat()[10];
-
   const [tweetsPerMonth, setTweetsPerMonth] = useState(undefined);
-  let d=[];
-  (async () => {
-    const resp = await GetDashBoard();
-    let temptweetsPerMonth = [...resp.data[9].tweets_Per_Month];
-    temptweetsPerMonth.forEach((element, index) => {
-      temptweetsPerMonth[index].month = element._id.month;
-    });
-    d.push(temptweetsPerMonth)
-    setTweetsPerMonth(temptweetsPerMonth);
-  })();
+  let d = [];
 
-  const datapermonth = [];
-  for (let i = 0; i < GetDashBoardstat()[9]?.length; i++) {
-    let d = {
-      month: GetDashBoardstat()[9][i]?._id.month,
-      value: GetDashBoardstat()[9][i]?.total,
-    };
-
-    datapermonth.push(d);
-  }
+  useEffect(() => {
+    (async () => {
+      const resp = await GetDashBoard();
+      let temptweetsPerMonth = [...resp.data[9].tweets_Per_Month];
+      temptweetsPerMonth.forEach((element, index) => {
+        temptweetsPerMonth[index].month = element._id.month;
+      });
+      console.log("tww", temptweetsPerMonth);
+      d.push(temptweetsPerMonth);
+      setTweetsPerMonth(temptweetsPerMonth);
+    })();
+  }, []);
 
   const [tweetsPeryear, setTweetsPeryear] = useState(undefined);
-  (async () => {
-    const resp = await GetDashBoard();
-    let temptweetsPeryear = [...resp.data[10].tweets_Per_Year];
-    temptweetsPeryear.forEach((element, index) => {
-      temptweetsPeryear[index].year = element._id;
-      temptweetsPeryear[index].totaltweets = element.totalTweets;
-    });
-    setTweetsPeryear(temptweetsPeryear);
-  })();
+  useEffect(() => {
+    (async () => {
+      const resp = await GetDashBoard();
+      let temptweetsPeryear = [...resp.data[10].tweets_Per_Year];
+      temptweetsPeryear.forEach((element, index) => {
+        temptweetsPeryear[index].year = element._id;
+        temptweetsPeryear[index].totaltweets = element.totalTweets;
+      });
+      setTweetsPeryear(temptweetsPeryear);
+    })();
+  }, []);
 
   return (
     <div className="chartone">
@@ -67,9 +62,7 @@ export default function BiaxialLineChart() {
             }}
           >
             <CartesianGrid />
-            <XAxis
-              dataKey="month"
-            />
+            <XAxis dataKey="month" />
             <YAxis domain={[0, (dataMax) => Number(dataMax) + 50]} />
             <Tooltip />
             <Legend />

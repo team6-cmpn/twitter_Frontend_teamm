@@ -19,7 +19,7 @@ import {Avatar, Button} from "@material-ui/core";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import HeaderTweet from "../homepage/Header_Tweet";
 import * as userbackend from "../Profile/backEndProfile";
-import {getUserInfo} from "../Profile/backEndProfile";
+// import {getUserInfo} from "../Profile/backEndProfile";
 import getUsernames from "../Profile/ProfileMock";
 import {style} from "@mui/system";
 import Pusher from "pusher-js";
@@ -38,12 +38,12 @@ import {toast, ToastContainer} from "react-toastify";
 function Sidebar() {
   const [Item, setItem] = useState();
   const [isModalVisible, setModalVisible] = useState(false);
-  const user_info = userbackend.getUserInfo();
-  user_info.then((name) => {
-    //setusername(name.username);
-    // setDisplay(name.name);
-    console.log(user);
-  });
+  // const user_info = userbackend.getUserInfo();
+  // user_info.then((name) => {
+  //   //setusername(name.username);
+  //   // setDisplay(name.name);
+  //   console.log(user);
+  // });
   const user = localStorage.getItem("getName");
   const username = localStorage.getItem("getUsername");
   //const usern=localStorage.getItem1("getName")

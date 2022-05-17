@@ -23,10 +23,13 @@ const FollowersList = ({ FollowerAccount }) => {
     const onExist = () => {
       setModalVisible(false);
     };
+    // const follow=getFollowingList();
+    // follow.then(data=>{setfollowing(data)});
+    // console.log(following);
     return (
       <div className="Accountinfo_dec">
           <Avatar src={FollowerAccount.userImage} />
-          <h5><Link to={`/${FollowerAccount.username}`}>{FollowerAccount.displayName}</Link></h5>
+          <h5><Link to={`/${FollowerAccount.username}`}>{FollowerAccount.name}</Link></h5>
           <h6>{FollowerAccount.username}</h6>
           <button id="FollowButton" class="ButtonFollow" onClick={() =>{if (textState==="Follow")
             toggleText();

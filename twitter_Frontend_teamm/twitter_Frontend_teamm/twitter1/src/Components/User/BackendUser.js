@@ -3,7 +3,7 @@ import Configure from '../../Configure'
 
 export async function getUserInfo() {
     var user;
-    var id = localStorage.getItem("userId");
+    var id = localStorage.getItem("userId"); //userid mn mai
    
     await axios
       .get(`${Configure.backURL}user/show/${id}`, {
@@ -28,8 +28,9 @@ export async function getUserInfo() {
   }
   export async function gettweetlist() {
     var tweet;
+    var id=localStorage.getItem('clicked_') //mn mai
     await axios
-      .get(`${Configure.backURL}user/tweetsList/`, {
+      .get(`${Configure.backURL}user/tweetsList/${id}`, {
         headers: {
           "Content-Type": "application/json",
           "x-access-token": `${sessionStorage.getItem("token")}`,
@@ -51,8 +52,33 @@ export async function getUserInfo() {
 
   export async function getlikedtweetlist() {
     var tweet;
+    var id=localStorage.getItem('clicked_') //mn mai
     await axios
-      .get(`${Configure.backURL}user/likedTweetsList/`, {
+      .get(`${Configure.backURL}user/likedTweetsList/${id}`, {
+        headers: {
+          "Content-Type": "application/json",
+          "x-access-token": `${sessionStorage.getItem("token")}`,
+        },
+      })
+      .then((response) => {
+        console.log(response);
+        if (response.status === 200) {
+          tweet = response.data;
+          console.log(response.data);
+        }
+      })
+      .catch((error) => {
+       console.log(error);
+      });
+  
+    return tweet;
+  }
+  
+  export async function getMedialist() {
+    var tweet;
+    var id=localStorage.getItem('clicked_') //user id mn mai
+    await axios
+      .get(`${Configure.backURL}user/mediaList/${id}`, {
         headers: {
           "Content-Type": "application/json",
           "x-access-token": `${sessionStorage.getItem("token")}`,
@@ -104,7 +130,7 @@ export async function getUserInfo() {
     // var id = localStorage.getItem("userId"); hnzbat el id mn mai
     
     await axios
-      .get(`${Configure.backURL}friendships/destroy/${id}`, {
+      .post(`${Configure.backURL}friendships/destroy/${id}`, {
         headers: {
           "Content-Type": "application/json",
           "x-access-token": `${localStorage.getItem("token")}`,
@@ -139,7 +165,6 @@ export async function getUserInfo() {
       })
       .then((response) => {
         console.log(response);
-        console.log("bla");
         if (response.status === 200) {
           message = response.data.message;
         }
@@ -150,6 +175,85 @@ export async function getUserInfo() {
   
     return message;
   }
+  export async function Mute(id) {
+    var message;
+    // var id = localStorage.getItem("userId"); hnzbat el id mn mai
+    const body={
+
+    }
+   
+    await axios
+      .post(`${Configure.backURL}friendships/mute/${id}`, body ,{
+        headers: {
+          "Content-Type": "application/json",
+          "x-access-token": `${localStorage.getItem("token")}`,
+        },
+      })
+      .then((response) => {
+        console.log(response);
+        if (response.status === 200) {
+          message = response.data.message;
+        }
+      })
+      .catch((error) => {
+        message = error.response.data.message;
+      });
+  
+    return message;
+  }
+  export async function unBlock(id) {
+    var message;
+    // var id = localStorage.getItem("userId"); hnzbat el id mn mai
+    const body={
+
+    }
+   
+    await axios
+      .post(`${Configure.backURL}friendships/unblock/${id}`, body ,{
+        headers: {
+          "Content-Type": "application/json",
+          "x-access-token": `${localStorage.getItem("token")}`,
+        },
+      })
+      .then((response) => {
+        console.log(response);
+        if (response.status === 200) {
+          message = response.data.message;
+        }
+      })
+      .catch((error) => {
+        message = error.response.data.message;
+      });
+  
+    return message;
+  }
+  export async function Unmute(id) {
+    var message;
+    // var id = localStorage.getItem("userId"); hnzbat el id mn mai
+    const body={
+
+    }
+   
+    await axios
+      .post(`${Configure.backURL}friendships/unmute/${id}`, body ,{
+        headers: {
+          "Content-Type": "application/json",
+          "x-access-token": `${localStorage.getItem("token")}`,
+        },
+      })
+      .then((response) => {
+        console.log(response);
+        if (response.status === 200) {
+          message = response.data.message;
+        }
+      })
+      .catch((error) => {
+        message = error.response.data.message;
+      });
+  
+    return message;
+  }
+
   
 
 

@@ -22,7 +22,7 @@ import { GetPostTweet } from "./homepage/feedmock";
 import FriendSuggestionItem from "./Widgets/FriendSuggestions/FriendSuggestionItem/FriendSuggestionItem";
 import { type } from "@testing-library/user-event/dist/type";
 import { Tab } from "@material-ui/core";
-import {getUserInfo} from './Profile/backEndProfile'
+// import {getUserInfo} from './Profile/backEndProfile'
 /**Explore
  * Shows explore page for the user 
  *  
@@ -198,7 +198,7 @@ function Explore() {
     const promise=BE.backEndTop(body);
     promise.then((text)=>{setItem(text)});
     localStorage.getItem("userI");
-    const user=getUserInfo();
+    // const user=getUserInfo();
     user.then(data=>{setItem4(data)});
     
     

@@ -56,17 +56,15 @@ const Post = ({
   const [if_liked, setif_liked] = useState(false);
   const [if_retweeted, setif_retweeted] = useState(false);
   const [like_no, setcount] = useState(likes);
-  const [retwee_no, setretwee_no] = useState(retweets);
-  const [tryy, settry] = useState();
+  const [retwee_number, setretwee_no] = useState(retweets);
   const [btnColor, setBtnClass] = useState("black");
   const [like_color, setlike_color] = useState("black");
   const [islikeModalVisible, setlikeModalVisible] = useState(false);
   const [isretweetModalVisible, setretweetModalVisible] = useState(false);
   const [isOpen, setIsOpen] = useRecoilState(modalState);
   const [mentioned, setmentioned] = useState(false);
-  const [likes_list, setlikes_list] = useState([]);
-  const [retweetname_list, setretweetname_list] = useState([]);
-  const [res, setres] = useState([]);
+  const [lie, setlikeslist] = useState([]);
+  const [ret, setretweeters] = useState([]);
 
   /**
    * function like post toggle like button
@@ -98,7 +96,7 @@ const Post = ({
    * function open like modelof list of profiles who liked this post
    */
   const mocked_tweet = localStorage.getItem("ID_tweet");
-  console.log(mocked_tweet);
+  //console.log(mocked_tweet);
   var clicked;
   const openPost = async () => {
     clicked = localStorage.setItem("clicked.ID", tweet_id);
@@ -112,25 +110,31 @@ const Post = ({
   /**
    * function open post in seperat page navigate
    */
-  var mocke_list = [];
+  var likes_list = [];
+  var retweeters_list = [];
   function openlikes() {
     setlikeModalVisible(true);
-    mocke_list = backend.likes_list(mocked_tweet);
-    console.log("test",mocke_list);
-    
-    var promiseB = mocke_list.then(function(tempresult) {
-      setres(tempresult?.favoriteusers)
-      console.log("what",tempresult)
-      
-   });
-   console.log("tempp",promiseB)
+    likes_list = backend.likes_list(mocked_tweet);
+    console.log("test", likes_list);
+
+    var promiseB = likes_list.then(function (tempresult) {
+      setlikeslist(tempresult?.favoriteusers);
+      console.log("what", tempresult);
+    });
+    // console.log("tempp", promiseB);
   }
-  console.log("res",res)
   /**
    * function open retweet modelof list of profiles who retweeted this post
    */
   const openretweet = async () => {
     setretweetModalVisible(true);
+    retweeters_list = backend.Retweeters_list(mocked_tweet);
+    console.log("test", retweeters_list);
+
+    var promiseB = retweeters_list.then(function (tempresult) {
+      setretweeters(tempresult?.retweetersList);
+    });
+    console.log(retwee_number);
   };
   function retweeted() {
     if (btnColor === "black") {
@@ -233,11 +237,11 @@ const Post = ({
               {open === true && (
                 <div className="app lists">
                   <div className="like_list" onClick={() => openlikes()}>
-                    {like_no}likes
+                    {like_no > 0 && {like_no}}likes
                   </div>
 
                   <div className="retweets" onClick={() => openretweet()}>
-                    retweets
+                    {retwee_number > 0 && {retwee_number}} retweets
                   </div>
                 </div>
               )}
@@ -285,9 +289,9 @@ const Post = ({
                   </button>
                 </div>
                 <div className="numbered">
-                  {retwee_no > 0 && (
+                  {retwee_number > 0 && (
                     <span className="count" style={{color: btnColor}}>
-                      {retwee_no}
+                      {retwee_number}
                     </span>
                   )}
 
@@ -333,7 +337,7 @@ const Post = ({
         >
           {like_no !== 0 ? (
             <div>
-              {res.map((users, index) => (
+              {lie.map((users, index) => (
                 <FollowersList key={index} FollowerAccount={users} />
               ))}
             </div>
@@ -363,7 +367,17 @@ const Post = ({
           onCancel={() => setretweetModalVisible(false)}
           footer={null}
           maskClosable={false}
-        ></Modal>
+        >
+          {retwee_number !== 0 ? (
+            <div>
+              {ret.map((users, index) => (
+                <FollowersList key={index} FollowerAccount={users} />
+              ))}
+            </div>
+          ) : (
+            <div>no retweets yet!</div>
+          )}
+        </Modal>
       </div>
     </div>
   );

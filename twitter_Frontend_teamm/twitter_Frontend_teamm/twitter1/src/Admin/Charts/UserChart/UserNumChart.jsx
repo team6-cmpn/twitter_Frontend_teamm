@@ -23,30 +23,31 @@ import { useState,useEffect } from "react";
 
 export default function UserNumChart() {
   const signedupmethodnum = GetDashBoardstat()[4]?.users_Per_Year;
-  const [usersPerMonth, setUsersPerMonth] = useState(undefined);
+  // const [usersPerMonth, setUsersPerMonth] = useState(undefined);
   // const usersPerMonth= UserNumberMonthBack[3]?.users_Per_Month;
-  useEffect(() => {
-  (async () => {
-    const resp = await GetDashBoard();
-    let tempUsersPerMonth = [...resp.data[3].users_Per_Month];
-    tempUsersPerMonth.forEach((element, index) => {
-      tempUsersPerMonth[index].month = element._id.month;
-    });
-    setUsersPerMonth(tempUsersPerMonth);
-  })();
-}, []);
+//   useEffect(() => {
+//   (async () => {
+//     const resp = await GetDashBoard();
+//     let tempUsersPerMonth = [...resp.data[3].users_Per_Month];
+//     tempUsersPerMonth.forEach((element, index) => {
+//       tempUsersPerMonth[index].month = element._id.month;
+//     });
+//     setUsersPerMonth(tempUsersPerMonth);
+//   })();
+// }, []);
 
-useEffect(() => {
-  (async () => {
-    const resp = await GetDashBoard();
-    let tempUsersPerMonth = [...resp.data[4].users_Per_Month];
-    tempUsersPerMonth.forEach((element, index) => {
-      tempUsersPerMonth[index].month = element._id.month;
-    });
-    setUsersPerMonth(tempUsersPerMonth);
-  })();
-}, []);
+// useEffect(() => {
+//   (async () => {
+//     const resp = await GetDashBoard();
+//     let tempUsersPerMonth = [...resp.data[4].users_Per_Month];
+//     tempUsersPerMonth.forEach((element, index) => {
+//       tempUsersPerMonth[index].month = element._id.month;
+//     });
+//     setUsersPerMonth(tempUsersPerMonth);
+//   })();
+// }, []);
 
+const usersPerMonth=GetDashBoardstat()[3]?.users_Per_Month
 
   return (
     <div className="charts">
@@ -65,11 +66,11 @@ useEffect(() => {
             }}
           >
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="month" />
+            <XAxis dataKey="_id" />
             <YAxis />
             <Tooltip />
             <Legend />
-            <Bar dataKey="total" fill="#82ca9d" />
+            <Bar dataKey="count" fill="#82ca9d" />
           </BarChart>
         </ResponsiveContainer>
       </div>

@@ -1,5 +1,8 @@
 import React, {useState, useEffect} from "react";
+import {Modal,Popover} from "antd";
 import "./Sidebar.css";
+import { Link, useLocation, Outlet } from "react-router-dom";
+
 import {
   FaTwitter,
   FaHome,
@@ -14,7 +17,7 @@ import {
 } from "react-icons/fa";
 import {BiDotsHorizontal} from "react-icons/bi";
 import {FiSettings} from "react-icons/fi";
-import {Modal} from "antd";
+
 import {Avatar, Button} from "@material-ui/core";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import HeaderTweet from "../homepage/Header_Tweet";
@@ -61,6 +64,11 @@ function Sidebar() {
   const onSubModel = (stateMain = true) => {
     setModalVisible(stateMain);
   };
+  const content = (
+    <div>
+      <Link to='/logout'>Logout username</Link>
+    </div>
+  )
   var pusher;
   var userid = localStorage.getItem("userId");
   var dataTemp;
@@ -98,10 +106,18 @@ function Sidebar() {
         notify();
       }
     });
+    channel.bind(["unblock-event"], function (data) {
+      dataTemp = data;
+      //console.log(dataTemp)
+      //alert(".."+data+"..")
+      {
+        notify();
+      }
+    });
   },[]);
   const notify = () => {
-    toast.info("Notifications: " + dataTemp.notificationHeader.text + ".", {
-      position: toast.POSITION.BOTTOM_CENTER,
+    toast.info("Notifications: " + dataTemp + ".", {
+      position: toast.POSITION.BOTTOM_RIGHT,
     });
   };
 
@@ -181,7 +197,7 @@ function Sidebar() {
                 }}
               >
                 {username}{" "}
-                <BiDotsHorizontal style={{display: "row"}} className="more" />{" "}
+                <Popover content={content} trigger="hover" title='Username'><BiDotsHorizontal className="more" /></Popover>
               </span>
               {/* <BiDotsHorizontal style={{"display":"row"}} className="more" /> */}
             </div>

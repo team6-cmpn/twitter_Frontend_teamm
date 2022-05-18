@@ -17,7 +17,14 @@ const Notified = ({ notify,nType }) => {
         <b>{notify.notificationHeader.text}</b>
         </span>
         </div>}
+        {nType.notificationType==='unblock'&&
 
+        <div>
+
+        <span>
+        <b>{notify.notificationHeader.text}</b>
+        </span>
+        </div>}
 
         { nType.notificationType!=='block'&&
         <div>

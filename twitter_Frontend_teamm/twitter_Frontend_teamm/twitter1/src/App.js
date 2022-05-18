@@ -34,27 +34,32 @@ import ChangeEmail from "./Components/Settings/ChangeEmail";
 import MutedAccounts from "./Components/Settings/MutedAccounts";
 
 function App() {
+  const privateUser=localStorage.getItem('userId');
+  console.log(privateUser)
   const authenticate=()=>{
-    if (localStorage.userId){
-      return '/home'
+    console.log()
+    if (privateUser){
+
+      return "/home"
     }else{
-      return '/start'
+
+      return "/"
     }
   }
   return (
     <Router>
       <div className="App">
         <Routes>
-          {!localStorage.userId && <>
-          <Route path="/start" element={<StartPage />}/>
+          {!privateUser && <>
+          <Route path="/" element={<StartPage />}/>
           <Route path="/signup" element={<SignUp />} />
           <Route path="/googlesignup" element={<GoogleSignUp />} />
           <Route path="/login" element={<LogIn />}></Route>
-          <Route path="/logout" element={<LogOut />}></Route>
           <Route path="/forgetpassword" element={<ForgetPassword />}></Route>
           </>}
 
-          {localStorage.userId && <>
+          {privateUser && <>
+            <Route path="/logout" element={<LogOut />}></Route>
             <Route path="/home" element={<Home />} />
             <Route path="/post" element={<Post />} />
             <Route path="/explore" element={<Explore />} />

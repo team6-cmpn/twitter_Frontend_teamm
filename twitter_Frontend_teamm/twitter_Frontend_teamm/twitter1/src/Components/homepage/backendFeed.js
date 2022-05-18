@@ -37,10 +37,10 @@ export async function Get_newTweet() {
       },
     })
     .then((response) => {
-      console.log(response);
+      // console.log(response);
       if (response.status === 200) {
         messgae = response.data;
-        console.log(response.data);
+        // console.log(response.data);
         localStorage.setItem("ID", response.data._id);
       }
     })
@@ -60,10 +60,10 @@ export async function getTweet(id) {
       },
     })
     .then((response) => {
-      console.log(response);
+      // console.log(response);
       if (response.status === 200) {
         messgae = response.data;
-        console.log(response.data);
+        // console.log(response.data);
         localStorage.setItem("ID", response.data._id);
       }
     })
@@ -85,10 +85,10 @@ export async function likePost(id) {
       },
     })
     .then((response) => {
-      console.log(response);
+      // console.log(response);
       if (response.status === 200) {
         messgae = response.data.tweet;
-        console.log(response.data);
+        // console.log(response.data);
       }
     })
     .catch((error) => {
@@ -109,10 +109,10 @@ export async function dislikePost(id) {
       },
     })
     .then((response) => {
-      console.log(response);
+      // console.log(response);
       if (response.status === 200) {
         messgae = response.data.tweet;
-        console.log(response.data);
+        // console.log(response.data);
       }
     })
     .catch((error) => {
@@ -132,10 +132,10 @@ export async function DeleteTweet(id) {
       },
     })
     .then((response) => {
-      console.log(response);
+      // console.log(response);
       if (response.status === 200) {
         messgae = response.data;
-        console.log(response.data);
+        // console.log(response.data);
       }
     })
     .catch((error) => {
@@ -181,8 +181,8 @@ export async function Tweets_lookup(page, tweet_no) {
     .then((response) => {
       console.log(response.data.message);
       if (response.status === 200) {
-        messgae = response.data;
-        console.log(response.data);
+        messgae = response.data.tweet;
+        console.log(response);
       }
     })
     .catch((error) => {
@@ -191,6 +191,7 @@ export async function Tweets_lookup(page, tweet_no) {
 
   return messgae;
 }
+
 export async function Retweet_tweet(id) {
   var messgae;
   const body = {};
@@ -203,10 +204,10 @@ export async function Retweet_tweet(id) {
       },
     })
     .then((response) => {
-      console.log(response.data.retweetUsers);
+      // console.log(response.data.retweetUsers);
       if (response.status === 200) {
         messgae = response.data.retweetUsers.length;
-        console.log(response.data);
+        // console.log(response.data);
       }
     })
     .catch((error) => {
@@ -227,10 +228,10 @@ export async function UNRetweet_tweet(id) {
       },
     })
     .then((response) => {
-      console.log(response.data);
+      // console.log(response.data);
       if (response.status === 200) {
         messgae = response.data.retweetUsers.length;
-        console.log(response.data);
+        // console.log(response.data);
       }
     })
     .catch((error) => {
@@ -250,7 +251,7 @@ export async function Retweeters_list(id) {
       },
     })
     .then((response) => {
-      console.log(response.data);
+      // console.log(response.data);
       if (response.status === 200) {
         messgae = response.data;
         console.log(response.data);
@@ -285,25 +286,4 @@ export async function likes_list(id) {
     });
 
   return messgae;
-}
-export function GetDashBoardstat(id) {
-  const [dashBoard, setDashBoard] = React.useState([]);
-
-  useEffect(() => {
-    const fetchProduct = async () => {
-      const dashBoard = await axios.get(
-        `${Configure.backURL}tweets/favoritelist/${id}`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            "x-access-token": `${localStorage.getItem("token")}`,
-          },
-        }
-      );
-      setDashBoard(dashBoard.data);
-    };
-    fetchProduct();
-  }, []);
-  if (!dashBoard) return null;
-  return dashBoard;
 }

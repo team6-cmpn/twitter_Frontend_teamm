@@ -40,7 +40,7 @@ function Feed(subreddit) {
   const display = localStorage.getItem("getUsername");
   const user = localStorage.getItem("name");
 
-  console.log(mocked.gettweet(tweets.text));
+  //console.log(mocked.gettweet(tweets.text));
   useEffect(() => {
     (async () => {
       const resp = await mocked.GetPostTweet();
@@ -54,24 +54,24 @@ function Feed(subreddit) {
       postedtweet(resp);
     })();
   }, []);
+
   const fetchData = () => {
     (async () => {
       setpage(page + 1);
-      const resp = await backend.Tweets_lookup(page + 1, 2);
+
+      const resp = await fetch(backend.Tweets_lookup(page + 1, 2));
       console.log("pages=  " + page + "responce  " + resp);
       if (resp.status === 200) {
-        setpostData([...postData, ...resp.data]);
-        console.log("sucess" + postData);
+        setpostData([...postData, ...resp]);
+
+        console.log(postData);
       }
     })();
   };
+  console.log(page);
+  console.log(backend.Tweets_lookup(1, 1));
 
-  // useEffect(() => {
-  //   (async () => {
-  //     const resp = await mocked.GetUserContent();
-  //     getcontent(resp);
-  //   })();
-  // }, []);
+  // console.log(postData);
 
   const tweeted_user = backend.Get_newTweet();
   tweeted_user.then((text) => {
@@ -95,13 +95,13 @@ function Feed(subreddit) {
         <h1>Home</h1>
       </div>
       <HomeTweet />
-      <InfiniteScrool
-        dataLength={postData.length}
-        next={fetchData}
-        hasMore
-        loader={<h4 className="loading ">Loading..</h4>}
-      >
-        <RecoilRoot>
+      <RecoilRoot>
+        <InfiniteScrool
+          dataLength={postData.length}
+          next={fetchData}
+          hasMore
+          loader={<h4 className="loading ">Loading..</h4>}
+        >
           <Post
             username={username}
             displayName={displayName}
@@ -142,6 +142,7 @@ function Feed(subreddit) {
                 avatar={userlist.avatar}
                 mention={userlist.mention}
                 //date={userlist.date}
+                date="2022-04-23T19:38:40.674+0000"
                 user_tweeted_id={userlist.id}
                 logedin_user_id={loginuser_id}
                 likes={userlist.likes.length}
@@ -149,8 +150,8 @@ function Feed(subreddit) {
               />
             ))}
           </article>
-        </RecoilRoot>
-      </InfiniteScrool>
+        </InfiniteScrool>
+      </RecoilRoot>
     </div>
   );
 }

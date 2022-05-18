@@ -3,6 +3,13 @@ import { useEffect } from "react";
 import Configure from "../Configure";
 import React from "react";
 import { Dashboard } from "@material-ui/icons";
+import { message } from "antd";
+/**
+ * 
+ * this file contains all api calls from backend and from mock
+ * which be used before calling api 
+ * @returns 
+ */
 
 export async function getTopUsers() {
   let response = "";
@@ -196,12 +203,44 @@ export async function BLockUser(params) {
     )
     .then((response) => {
       console.log(response);
-      if (response.status === 201) {
+      if (response.status === 200) {
         messgae = response.data;
       }
     })
     .catch((error) => {
       messgae = error.response.data.message;
+    });
+
+  return messgae;
+}
+export async function UnBLockUser() {
+  var messgae;
+  const params = {
+  };
+  //   localStorage.getItem("id");
+  await axios
+    .post(
+      `${Configure.backURL}adminBlock/destroy?userid=${localStorage.getItem(
+        "selectedIDs"
+      )}`,
+      params,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "x-access-token": `${localStorage.getItem("token")}`,
+        },
+      }
+    )
+    .then((response) => {
+      console.log(response);
+      if (response.status === 200) {
+        messgae = response.data;
+        console.log("work")
+      }
+    })
+    .catch((error) => {
+      messgae = error.response.data.message;
+      console.log("error")
     });
 
   return messgae;

@@ -3,6 +3,11 @@ import "./topfiveusers.css";
 import { GetDashBoardstat, GetHashtags } from "./MockRegistrationAdmin";
 import TopUserItem from "./TopUserComponent";
 import TopHashtagComponent from "./TopHashtagComponent";
+/**
+ * 
+ * this function returns top five most followers
+ * @returns 
+ */
 function TopUsers() {
   const topUsers = GetDashBoardstat()[0];
   const hashtag = GetDashBoardstat()[5];

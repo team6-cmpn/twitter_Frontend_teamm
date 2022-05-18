@@ -1,11 +1,19 @@
 import React, { useState } from "react";
 import AdminSideBar from "../AdminSideBar";
 import { BlockFormBackEnd, BLockUser } from "../MockRegistrationAdmin";
+import { ErrorMessage } from '@hookform/error-message';
 import TopBar from "../TopBar";
 import "./blockform.css";
+/**
+ * 
+ * this function returns a block form which you input number of days that the admin
+ * make to block the user and this number must be greater than 0
+ * @returns 
+ */
 
 function BlockForm() {
   const [duration, setBlockedDaysNumber] = useState("");
+  // const [errorMessage, setErrorMessage] = useState('');
   // function to update state of Blocked daysy number with
   // value enter by user in form
   const handleChange = (e) => {
@@ -15,12 +23,22 @@ function BlockForm() {
   // click on submit button .
   const handleSubmit = (e) => {
     if (duration < 0) {
-      alert("Please enter a validate number");
+      alert("please enter valid value for block days")
+      // setErrorMessage("Please enter whole integr greater than 0")
+      // {errorMessage && <div className="error"> {errorMessage} </div>}
     } else {
       var resp = BLockUser(body);
       console.log(resp);
       localStorage.setItem("selectedIDs", null);
-      window.setTimeout(20000);
+      // window.location.href = 'http://www.google.com'
+      for (let i = 0; i < 1000; i++) {
+        if(resp.status===200)
+        {
+          window.location.href="Users"
+          console.log("test")
+        }
+      } 
+
       e.preventDefault(); //prevent refresh of page
     }
   };

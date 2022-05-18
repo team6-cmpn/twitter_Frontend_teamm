@@ -4,6 +4,11 @@ import { NotificationsNone } from "@material-ui/icons";
 import { DarkModeContext } from "./context/darkModeContext";
 import { useContext } from 'react';
 
+/**
+ * 
+ * topbar of the admin pages
+ * @returns 
+ */
 export default function Topbar() {
   return (
     <div className="topbar" id="AdminTopBar">

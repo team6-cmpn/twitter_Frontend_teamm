@@ -1,5 +1,9 @@
 import React from 'react'
-
+/**
+ * 
+ * this function returns component for each most five blokced users
+ * @returns 
+ */
 export default function TopBlockedUserItem(user) {
   return (
     <div className="newUsersListItem" id="TopUsersItem">

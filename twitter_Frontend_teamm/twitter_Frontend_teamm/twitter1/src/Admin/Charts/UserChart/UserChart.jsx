@@ -30,7 +30,7 @@ export default function UserChart() {
             cx="50%"
             cy="50%"
             outerRadius={80}
-            fill="#10BF"
+            fill="#264836"
             label
           />
 

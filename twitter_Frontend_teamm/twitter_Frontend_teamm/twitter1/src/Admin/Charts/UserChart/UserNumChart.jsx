@@ -22,7 +22,7 @@ import {
 import { useState,useEffect } from "react";
 
 export default function UserNumChart() {
-  const signedupmethodnum = GetDashBoardstat()[4]?.users_Per_Year;
+  const usersperyear = GetDashBoardstat()[4]?.users_Per_Year;
   // const [usersPerMonth, setUsersPerMonth] = useState(undefined);
   // const usersPerMonth= UserNumberMonthBack[3]?.users_Per_Month;
 //   useEffect(() => {
@@ -75,12 +75,12 @@ const usersPerMonth=GetDashBoardstat()[3]?.users_Per_Month
         </ResponsiveContainer>
       </div>
       <div className="chart">
-        <h3 className="charttitle"> Signed Up Method</h3>
+        <h3 className="charttitle"> Users Per Years</h3>
         <ResponsiveContainer aspect={4 / 3}>
           <LineChart
             width={500}
             height={300}
-            data={signedupmethodnum}
+            data={usersperyear}
             margin={{
               top: 5,
               right: 30,
@@ -93,7 +93,7 @@ const usersPerMonth=GetDashBoardstat()[3]?.users_Per_Month
             <YAxis />
             <Tooltip />
             <Legend />
-            <Line type="monotone" dataKey="totalUsers" stroke="#82ca9d" />
+            <Line type="monotone" dataKey="totalUsers" stroke="#06562B" />
           </LineChart>
         </ResponsiveContainer>
       </div>

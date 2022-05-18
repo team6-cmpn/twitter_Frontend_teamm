@@ -359,6 +359,17 @@
         "password": "Fathy@123"
       },
       "id": 22
+    },
+    {
+      "data": {
+        "name": "ahmed",
+        "username": "@ahmed123",
+        "email": "bpavxseshszzhfempf@bvhrs.com",
+        "phoneNumber": null,
+        "dateOfBirth": "1999-05-26T01:48:21.403Z",
+        "password": "123456Aa@"
+      },
+      "id": 23
     }
   ],
   "logInUsers": [
@@ -976,6 +987,34 @@
         "password": "Fathy@123"
       },
       "id": 95
+    },
+    {
+      "data": {
+        "data": "@fa",
+        "password": "123456Fa@"
+      },
+      "id": 96
+    },
+    {
+      "data": {
+        "data": "@fa",
+        "password": "123456Fa@"
+      },
+      "id": 97
+    },
+    {
+      "data": {
+        "data": "bpavxseshszzhfempf@bvhrs.com",
+        "password": "123456Aa@"
+      },
+      "id": 98
+    },
+    {
+      "data": {
+        "data": "@fa",
+        "password": "123456Fa@"
+      },
+      "id": 99
     }
   ],
   "resetPassword": [

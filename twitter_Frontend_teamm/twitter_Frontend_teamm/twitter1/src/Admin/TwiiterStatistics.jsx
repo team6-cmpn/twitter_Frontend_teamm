@@ -1,6 +1,7 @@
 import React from "react";
 import "./twitterstatistics.css";
 import {GetDashBoardstat} from "./MockRegistrationAdmin";
+import { Tweets_lookup } from "../Components/homepage/backendFeed";
 
 
 export default function Twiiterstatistics() {
@@ -28,9 +29,9 @@ export default function Twiiterstatistics() {
         </div>
       </div>
       <div className="adminstatisticsItem">
-        <span className="adminstatisticsTitle">Number Of Users Per Day</span>
+        <span className="adminstatisticsTitle">Number Of Users During Week</span>
         <div className="staticsItemContainer">
-          <span className="itemNum"> {staatic[12]?.new_Users_Per_Day[0].count} Users</span>
+          <span className="itemNum"> {staatic[7]?.new_Users_During_aWeek[0].count} Users</span>
         </div>
       </div>
     </div>

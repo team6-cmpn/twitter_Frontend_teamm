@@ -187,12 +187,12 @@ function Sidebar() {
             </div>
           </a>
         </li>
-        <li>
+        {localStorage.getItem("adminFlag")==='true'?(        <li>
           <a href="/adminPage">
             <AdminPanelSettingsIcon className="icons" />
             <div className="t">Admin</div>
           </a>
-        </li>
+        </li>):(null)}
         {/* <Avatar className="icons"/>hhhhhh  <BiDotsHorizontal className="more"/> */}
 
         {/* </div> */}

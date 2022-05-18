@@ -1,5 +1,5 @@
 import "./App.css";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Navigate, Route, Routes } from "react-router-dom";
 import StartPage from "./Components/StartPage/StartPage";
 import SignUp from "./Components/SignUp/SignUp";
 import React from "react";
@@ -32,27 +32,29 @@ import BlockedAccounts from "./Components/Settings/BlockedAccounts";
 import Changephone from "./Components/Settings/ChangePhone";
 import ChangeEmail from "./Components/Settings/ChangeEmail";
 import MutedAccounts from "./Components/Settings/MutedAccounts";
-import PrivateRoute from "./PrivateRoute";
 
 function App() {
-  const isAuthenticated = localStorage.getItem("token");
+  const authenticate=()=>{
+    if (localStorage.userId){
+      return '/home'
+    }else{
+      return '/start'
+    }
+  }
   return (
     <Router>
       <div className="App">
-      {/* {localStorage.getItem("isLogged")==="true"?()} */}
         <Routes>
-          <Route path="/" element={<StartPage />}>
-            <Route path="/signup" element={<SignUp />} />
-            <Route path="/googlesignup" element={<GoogleSignUp />} />
-          </Route>
+          {!localStorage.userId && <>
+          <Route path="/start" element={<StartPage />}/>
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/googlesignup" element={<GoogleSignUp />} />
           <Route path="/login" element={<LogIn />}></Route>
           <Route path="/logout" element={<LogOut />}></Route>
           <Route path="/forgetpassword" element={<ForgetPassword />}></Route>
-          <Route
-            element={
-              <PrivateRoute isLogged={localStorage.getItem("isLogged")} />
-            }
-          >
+          </>}
+
+          {localStorage.userId && <>
             <Route path="/home" element={<Home />} />
             <Route path="/post" element={<Post />} />
             <Route path="/explore" element={<Explore />} />
@@ -63,10 +65,7 @@ function App() {
               <Route path="your-account" element={<YourAccount />} />
               <Route path="privacy-and-saftey" element={<PrivacyAndSafety />} />
               <Route path="MuteandBlock" element={<MuteandBlock />} />
-              <Route
-                path="Your-twitter-data"
-                element={<AccountInformation />}
-              />
+              <Route path="Your-twitter-data" element={<AccountInformation />} />
               <Route path="Deactivate-your-Acc" element={<DeactivateAcc />} />
               <Route path="Blocked-accounts" element={<BlockedAccounts />} />
               <Route path="Muted-accounts" element={<MutedAccounts />} />
@@ -74,12 +73,12 @@ function App() {
               <Route path="change-email" element={<ChangeEmail />} />
             </Route>
             {localStorage.getItem("adminFlag") === "true" ? (
-              <Route>
+              <>
                 <Route path="/adminPage" element={<AdminHome />} />
                 <Route path="/Users" element={<FinalUser />} />
                 <Route path="/Statistics" element={<Statistics />} />
                 <Route path="/BlockForm" element={<BlockForm />} />
-              </Route>
+              </>
             ) : null}
 
             <Route path="/profile" element={<Profile />}>
@@ -87,9 +86,12 @@ function App() {
             </Route>
             <Route path="/Followers" element={<Followers />}></Route>
             <Route path="/Following" element={<Following />}></Route>
-            <Route path="/:username" element={<User />} exact />
+            {/* <Route path="/:username" element={<User />} /> */}
+            {/* <Route path="/profile/:username" element={<User />} /> */}
             <Route path="/bookmarks" element={<Bookmarks />} />
-          </Route>
+            </>}
+          <Route path="/" element={<Navigate to={authenticate()}/>}/>
+          <Route path="*" element={<Navigate to={'/'}/>} />
         </Routes>
       </div>
     </Router>

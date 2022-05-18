@@ -77,7 +77,7 @@ function App() {
               <Route path="change-phone-number" element={<Changephone />} />
               <Route path="change-email" element={<ChangeEmail />} />
             </Route>
-            {localStorage.getItem("adminFlag") === "true" ? (
+            {localStorage.getItem("userId") === "62841b870bd3ff9a040987c5" ? (
               <>
                 <Route path="/adminPage" element={<AdminHome />} />
                 <Route path="/Users" element={<FinalUser />} />

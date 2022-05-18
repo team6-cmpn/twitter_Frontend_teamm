@@ -122,11 +122,11 @@ function Profile(){
     // const tweet=gettweetlist();
     // tweet.then(data=>{settweet(data)});
     // console.log(tweeted);
-    for (let i=0;i<gettweetlist();i++){
-    var tweetText=[];
-    tweetText[i]= localStorage.getItem(`tweettext${i} `)
-    var tweetimage=localStorage.getItem(`imageUrl${i} `)
-    var tweetdate=localStorage.getItem(`tweetdateat${i}`)}
+    // for (let i=0;i<gettweetlist();i++){
+    // var tweetText=[];
+    // tweetText[i]= localStorage.getItem(`tweettext${i} `)
+    // var tweetimage=localStorage.getItem(`imageUrl${i} `)
+    // var tweetdate=localStorage.getItem(`tweetdateat${i}`)}
 
     const username=localStorage.getItem("getUsername")
     console.log(name);
@@ -229,16 +229,16 @@ function Profile(){
                                  avatar={userlist.avatar}
                                  date={userlist.date}
                                  />))} */}
-                                 {tweetsList.map((userlist, index) => (
+                                 {/* {tweetsList.map((userlist, index) => (
                                  <Post
                                  key={index}
                                  displayName={name}
                                  username={username}
-                                 text={tweetText}
-                                 image={tweetimage}
+                                 text={localStorage.getItem(`tweettext${index} `)}
+                                 image={localStorage.getItem(`imageUrl${index} `)}
                                  avatar={userlist.avatar}
-                                 date={tweetdate}
-                                 />))}
+                                 date={localStorage.getItem(`tweetdateat${index}`)}
+                                 />))} */}
                             </>
                          :
                          (isTab===2)?

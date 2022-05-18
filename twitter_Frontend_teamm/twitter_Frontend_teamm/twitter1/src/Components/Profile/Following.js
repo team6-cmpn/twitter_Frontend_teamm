@@ -7,27 +7,72 @@ import { getFollowerUsers } from "./FollowersMock";
 import { getFollowingUsers } from "./FollowersMock";
 import FollowersList from './FollowersList';
 import FollowingList from './FollowingList';
-import {getFollowersList,getFollowingList} from './backEndProfile';
+// import {getFollowersList,getFollowingList} from './backEndProfile';
+import axios from 'axios';
+import Configure from '../../Configure'
 /**Following page
  * Shows following pages
  *  
  * @returns (Layout of following page)
  */
 function Following(){
+    console.log("folllowww")
+    async function getFollowersList() {
+        var id = localStorage.getItem("userId");
+        await axios
+          .get(`${Configure.backURL}user/followersList/${id}`, {
+            headers: {
+              "Content-Type": "application/json",
+              "x-access-token": `${localStorage.getItem("token")}`,
+            },
+          })
+          .then((response) => {
+            console.log(response);
+            console.log("zeft");
+            setFollowersList(response.data.follower);
+            console.log("mmmmmmm",response.data.follower); 
+            return response;
+          })
+          .catch((error) => {
+          });}
+
     const [FollowersLists,setFollowersList]=React.useState([])
     React.useEffect(()=>{
-        (async () => {
-            const resp = await getFollowersList();
-            setFollowersList(resp);
+        ( () => {
+            getFollowersList();
+            // setFollowersList(resp);
           })();
     
         },[])
 
+    async function getFollowingList() {
+        var id = localStorage.getItem("userId");
+        await axios
+          .get(`${Configure.backURL}user/followingList/${id}`, {
+            headers: {
+              "Content-Type": "application/json",
+              "x-access-token": `${localStorage.getItem("token")}`,
+            },
+          })
+          .then((response) => {
+            // console.log(response);
+            // console.log("zeft");
+            setFollowingList(response.data.following);
+            // console.log("mmmmmmm",response) 
+            return response;
+          })
+          .catch((error) => {
+          });
+      
+        
+      }
+    
+        
+
         const [FollowingLists,setFollowingList]=React.useState([])
         React.useEffect(()=>{
-            (async () => {
-                const resp = await getFollowingList();
-                setFollowingList(resp);
+            ( () => {
+                getFollowingList();
               })();
         
             },[])
@@ -72,15 +117,19 @@ function Following(){
                 <article>
                     {isFollowers ? (
                         <>
-                        {FollowingUsers.map((FollowingUsers,index)=>(
-                            <FollowingList key={index} FollowingAccount={FollowingUsers}/>))}
-                            <div> <FollowersList FollowerAccount={FollowersLists}/> </div>
+                        <div>{FollowingUsers.map((FollowingUsers,index)=>(
+                            <FollowingList key={index} FollowingAccount={FollowingUsers}/>))}</div>
+                            <div>
+                            {FollowingLists.map((FollowingUsers,index)=>(
+                            <FollowingList key={index} FollowingAccount={FollowingUsers}/>))}</div>
                         </>
                     ) : (
                         <>
-                        {FollowerUsers.map((FollowerUsers,index)=>(
-                            <FollowersList key={index} FollowerAccount={FollowerUsers}/>))}
-                            <div> <FollowersList FollowerAccount={FollowingLists}/></div>
+                        <div>{FollowerUsers.map((FollowerUsers,index)=>(
+                            <FollowersList key={index} FollowerAccount={FollowerUsers}/>))}</div>
+                            <div> 
+                            {FollowersLists.map((FollowerUsers,index)=>(
+                            <FollowersList key={index} FollowingAccount={FollowerUsers}/>))}</div>
                         </>
                     )}
                 </article>

@@ -177,7 +177,7 @@ const Post = ({
     navigate("/Notifications");
   };
   const store_userID = () => {
-    sessionStorage.setItem("clicked_userID", user_tweeted_id);
+    localStorage.setItem("clicked_userID", user_tweeted_id);
   };
 
   return (
@@ -219,7 +219,7 @@ const Post = ({
           <div className="post__body">
             <div className="inherted">
               <div className="post__headerText app">
-                <div nClick={store_userID}>
+                <div onClick={store_userID}>
                   <h3 className="bolding " id="user @ displayname">
                     <Link to={`/${username}`}>{displayName}</Link>
                   </h3>

@@ -9,7 +9,7 @@ import  getUserInformation    from './UserMock';
 import Trends from "../Widgets/Trends";
 import Sidebar from "../Sidebar/Sidebar";
 // import {GetUserInfo} from '../Profile/backEndProfile';
-import {Follow,destroyFollow, Block} from './BackendUser';
+import {Follow,destroyFollow, Block,unBlock,getUserInfo,Unmute,Mute} from './BackendUser';
 import {Modal} from "antd";
 import "../Widgets/FriendSuggestions/FriendSuggestionItem/FriendSuggestionItem.css";
 import { GetPostTweet } from "../homepage/feedmock";
@@ -70,13 +70,21 @@ function User(){
       setModalVisible(false);
       setBModalVisible(false)
     };
+    function BlockButton(){
+
+        if (BlockState==="Block")
+        onBModal()
+        else
+        {toggleBlock()
+        unBlock()}
+    }
 
     // const user=getUserInfo();
     // user.then(data=>{setItem(data)});
     // console.log(user);
     
     function FollowButtonActions(){
-        Follow(localStorage.getItem("userId"));
+        Follow();
         mockAPI.follow(body);
         if (textState==="Follow")
         toggleText();

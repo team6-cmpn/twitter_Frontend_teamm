@@ -30,34 +30,41 @@ export async function GetUserInfo() {
 }
  
 
-  export async function getFollowingList() {
-    var following;
-    var id = localStorage.getItem("userId");
+  // export async function getFollowingList() {
+    
+    
+  //   var id = localStorage.getItem("userId");
    
-    await axios
-      .get(`${Configure.backURL}user/followingList/${id}`, {
-        headers: {
-          "Content-Type": "application/json",
-          "x-access-token": `${localStorage.getItem("token")}`,
-        },
-      })
-      .then((response) => {
-        console.log(response);
-        if (response.status === 200) {
-          // user = response.data;
-          for (let i=0;i<response.data.user.length;i++){
-            following=response.data.user[i]
-            localStorage.setItem(`followingUser ${i}`,response.data.user[i]);
-            localStorage.setItem(`followerUsername ${i}`,response.data.user[i].username);
-          }
-        }
-      })
-      .catch((error) => {
-        following = error.response.data.message;
-      });
+  //  const followingList = await axios
+  //     .get(`${Configure.backURL}user/followingList/${id}`, {
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         "x-access-token": `${localStorage.getItem("token")}`,
+  //       },
+  //     })
+  //     .then((response) => {
+  //       console.log(response);
+  //       // console.log(response.data[0].name);
+  //       console.log("zeft");
+  //       // if (response.status === 200) {
+  //         // user = response.data;
+        
+  //         // const followingname = response;
+  //         console.log("mmmmmmm",response) 
+  //       return response;
+  //         // for (let i=0;i<response.data.length;i++){
+            
+  //         //   localStorage.setItem(`followingUser ${i}`,response.data[i].name);
+  //         //   localStorage.setItem(`followingUsername ${i}`,response.data[i].username);
+  //         // }
+  //       // }
+  //     })
+  //     .catch((error) => {
+  //       // following = error.response.data.message;
+  //     });
   
-    return following;
-  }
+  //   // return followingname;
+  // }
   export async function getFollowersList() {
     var user;
     var id = localStorage.getItem("userId");
@@ -71,8 +78,14 @@ export async function GetUserInfo() {
       })
       .then((response) => {
         console.log(response);
+        console.log("araf");
         if (response.status === 200) {
           user = response.data;
+          console.log(response.data[0].name)
+          for (let i=0;i<response.data.length;i++){
+            localStorage.setItem(`followerUser ${i}`,response.data[i].name);
+            localStorage.setItem(`followerUsername ${i}`,response.data[i].username);
+          }
         }
       })
       .catch((error) => {
@@ -96,9 +109,9 @@ export async function GetUserInfo() {
         console.log(response);
         if (response.status === 200) {
           // tweet = response.data;
-          for (let i=0;i<response.data.length;i++){
+          for (let i=0;i<response.data.tweet.length;i++){
             
-            localStorage.setItem(`text ${i}`,response.data.user[i].text);
+            localStorage.setItem(`text ${i}`,response.data.tweet[i].text);
             localStorage.setItem(`imageUrl ${i}`,response.data[i].imageUrl);
             localStorage.setItem(`tweetdateat ${i}`,response.data[i].created_at);
           }
@@ -109,7 +122,7 @@ export async function GetUserInfo() {
        console.log(error);
       });
   
-    return response.data.length;
+    return response.data;
   }
   
   export async function getlikedtweetlist() {

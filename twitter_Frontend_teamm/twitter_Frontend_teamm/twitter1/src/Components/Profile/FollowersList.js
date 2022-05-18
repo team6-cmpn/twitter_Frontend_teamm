@@ -28,7 +28,7 @@ const FollowersList = ({ FollowerAccount }) => {
     // console.log(following);
     return (
       <div className="Accountinfo_dec">
-          <Avatar src={FollowerAccount.userImage} />
+          <Avatar src='' />
           <h5><Link to={`/${FollowerAccount.username}`}>{FollowerAccount.name}</Link></h5>
           <h6>{FollowerAccount.username}</h6>
           <button id="FollowButton" class="ButtonFollow" onClick={() =>{if (textState==="Follow")

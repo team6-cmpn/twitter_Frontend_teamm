@@ -3,13 +3,13 @@ import Configure from '../../Configure'
 
 export async function getUserInfo() {
     var user;
-    var id = localStorage.getItem("userId"); //userid mn mai
+    var id = localStorage.getItem("clicked_userID"); 
    
     await axios
       .get(`${Configure.backURL}user/show/${id}`, {
         headers: {
           "Content-Type": "application/json",
-          "x-access-token": `${sessionStorage.getItem("token")}`,
+          "x-access-token": `${localStorage.getItem("token")}`,
         },
       })
       .then((response) => {
@@ -26,14 +26,15 @@ export async function getUserInfo() {
   
     return user;
   }
+
   export async function gettweetlist() {
     var tweet;
-    var id=localStorage.getItem('clicked_') //mn mai
+    var id = localStorage.getItem("clicked_userID");
     await axios
       .get(`${Configure.backURL}user/tweetsList/${id}`, {
         headers: {
           "Content-Type": "application/json",
-          "x-access-token": `${sessionStorage.getItem("token")}`,
+          "x-access-token": `${localStorage.getItem("token")}`,
         },
       })
       .then((response) => {
@@ -52,12 +53,12 @@ export async function getUserInfo() {
 
   export async function getlikedtweetlist() {
     var tweet;
-    var id=localStorage.getItem('clicked_') //mn mai
+    var id=localStorage.getItem("clicked_userID"); 
     await axios
       .get(`${Configure.backURL}user/likedTweetsList/${id}`, {
         headers: {
           "Content-Type": "application/json",
-          "x-access-token": `${sessionStorage.getItem("token")}`,
+          "x-access-token": `${localStorage.getItem("token")}`,
         },
       })
       .then((response) => {
@@ -76,12 +77,12 @@ export async function getUserInfo() {
   
   export async function getMedialist() {
     var tweet;
-    var id=localStorage.getItem('clicked_') //user id mn mai
+    var id=localStorage.getItem("clicked_userID");
     await axios
       .get(`${Configure.backURL}user/mediaList/${id}`, {
         headers: {
           "Content-Type": "application/json",
-          "x-access-token": `${sessionStorage.getItem("token")}`,
+          "x-access-token": `${localStorage.getItem("token")}`,
         },
       })
       .then((response) => {
@@ -98,9 +99,9 @@ export async function getUserInfo() {
     return tweet;
   }
 
-  export async function Follow(id) {
+  export async function Follow() {
     var user;
-    // var id = localStorage.getItem("userId"); hnzbat el id mn mai
+    var id = localStorage.getItem("clicked_userID");
     const body={
 
     }
@@ -125,9 +126,9 @@ export async function getUserInfo() {
     return user;
   }
   
-  export async function destroyFollow(id) {
+  export async function destroyFollow() {
     var user;
-    // var id = localStorage.getItem("userId"); hnzbat el id mn mai
+    var id=localStorage.getItem("clicked_userID");
     
     await axios
       .post(`${Configure.backURL}friendships/destroy/${id}`, {
@@ -149,9 +150,9 @@ export async function getUserInfo() {
     return user;
   }
   
-  export async function Block(id) {
+  export async function Block() {
     var message;
-    // var id = localStorage.getItem("userId"); hnzbat el id mn mai
+    var id = localStorage.getItem("clicked_userID");
     const body={
 
     }
@@ -175,9 +176,9 @@ export async function getUserInfo() {
   
     return message;
   }
-  export async function Mute(id) {
+  export async function Mute() {
     var message;
-    // var id = localStorage.getItem("userId"); hnzbat el id mn mai
+    var id = localStorage.getItem("clicked_userID");
     const body={
 
     }
@@ -201,9 +202,9 @@ export async function getUserInfo() {
   
     return message;
   }
-  export async function unBlock(id) {
+  export async function unBlock() {
     var message;
-    // var id = localStorage.getItem("userId"); hnzbat el id mn mai
+    var id = localStorage.getItem("clicked_userID");
     const body={
 
     }
@@ -227,9 +228,9 @@ export async function getUserInfo() {
   
     return message;
   }
-  export async function Unmute(id) {
+  export async function Unmute() {
     var message;
-    // var id = localStorage.getItem("userId"); hnzbat el id mn mai
+    var id = localStorage.getItem("clicked_userID");
     const body={
 
     }

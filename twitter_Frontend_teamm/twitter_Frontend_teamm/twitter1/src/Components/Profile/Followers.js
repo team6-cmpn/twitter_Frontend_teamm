@@ -7,7 +7,7 @@ import { getFollowerUsers } from "./FollowersMock";
 import { getFollowingUsers } from "./FollowersMock";
 import FollowersList from './FollowersList';
 import FollowingList from './FollowingList';
-import {getFollowersList,getFollowingList} from './backEndProfile';
+import {getFollowersList} from './backEndProfile';
 /**Followers page
  * Shows followers page
  *  
@@ -24,13 +24,13 @@ function Followers() {
         },[])
 
         const [FollowingLists,setFollowingList]=React.useState([])
-        React.useEffect(()=>{
-            (async () => {
-                const resp = await getFollowingList();
-                setFollowingList(resp);
-              })();
+        // React.useEffect(()=>{
+        //     (async () => {
+        //         const resp = await getFollowingList();
+        //         setFollowingList(resp);
+        //       })();
         
-            },[])
+        //     },[])
 
         
     const [FollowerUsers,setFollowerUsers]=React.useState([])
@@ -72,11 +72,12 @@ function Followers() {
                 <article>
           {isFollowers ? (
             <>
-             <div> {FollowerUsers.map((FollowerUsers,index)=>(
+             {/* <div> {FollowerUsers.map((FollowerUsers,index)=>(
                 <FollowersList key={index} FollowerAccount={FollowerUsers}/>))}
-              </div>
+              </div> */}
               <div> 
-                <FollowersList FollowerAccount={FollowersLists}/>
+              {FollowersLists.map((FollowerUsers,index)=>(
+                <FollowersList key={index} FollowerAccount={localStorage.getItem(`followerUsername ${index}`)} FollowerName={localStorage.getItem(`followerUser ${index}`)}/>))}
               </div>
             </>
           ) : (
@@ -85,7 +86,7 @@ function Followers() {
                 <FollowingList key={index} FollowingAccount={FollowingUsers}/>))}
                 </div>
                 <div>{FollowingLists.map((FollowingUsers,index)=>(
-                <FollowingList key={index} FollowingAccount={localStorage.getItem(`followingUser ${index}`)}/>))}
+                <FollowingList key={index} FollowingAccount={FollowingUsers}/>))}
                 </div>
             </>
           )}

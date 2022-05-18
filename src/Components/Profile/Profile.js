@@ -8,12 +8,16 @@ import "antd/dist/antd.css";
 import { Link } from 'react-router-dom';
 import { DatePicker } from 'antd';
 import   * as mockAPI   from './ProfileMock';
-import  getUsernames    from './ProfileMock';
+// import  getUsernames    from './ProfileMock';
 import Trends from "../Widgets/Trends";
 import Sidebar from "../Sidebar/Sidebar";
 import {GrLocation} from "react-icons/gr"
-import {BiLink, BiArrowBack} from "react-icons/bi"
-import {getUserInfo} from './backEndProfile'
+import {BiLink} from "react-icons/bi"
+import { gettweetlist ,UpdateProfile} from './backEndProfile'
+import { GetPostTweet } from "../homepage/feedmock";
+import Post from "../homepage/Post";
+import { RecoilRoot } from "recoil";
+
 
 /**Profile
  * Shows User profile layout and enables user to edit profile info
@@ -24,7 +28,28 @@ function Profile(){
     const [date, setDate] = useState(null);
     const [isMainModalVisible, setMainModalVisible] = useState(false);
     const [isTab, setIsTab] = useState(1);
+    const [twetted, postedtweet] = React.useState([]);
     
+    
+    React.useEffect(() => {
+      (async () => {
+        const resp = await GetPostTweet();
+        postedtweet(resp);
+      })();
+    }, []);
+
+    const [tweetsList, setTweetList] = React.useState([]);
+    React.useEffect(() => {
+        (async () => {
+          const resp = await gettweetlist();
+          setTweetList(resp);
+        })();
+      }, []);
+    
+    const [{alt2, src2}, setImg2] = useState({
+        src2: placeholder,
+    });
+
     const [{alt, src}, setImg] = useState({
         src: placeholder,
     });
@@ -34,17 +59,22 @@ function Profile(){
             setImg({
                 src: URL.createObjectURL(e.target.files[0]),
                 alt: e.target.files[0].name
-            });    
+            }); 
+              
+             
         }   
     }
-    const [Username, setUsernames] = React.useState([]);
-    React.useEffect(() => {
-    (async () => {
-        const resp = await getUsernames();
-        setUsernames(resp);
-      })();
-    }, []);
-    const [name, setName] = useState('');
+    
+    // const [Username, setUsernames] = React.useState([]);
+    // React.useEffect(() => {
+    // (async () => {
+    //     const resp = await getUsernames();
+    //     setUsernames(resp);
+    //   })();
+    // }, []);
+
+   
+    var [name, setName] = useState('');
     const [bio, setBio] = useState(null)
     const [location, setLocation] = useState(null)
     const [website, setWebsite] = useState(null)
@@ -52,16 +82,30 @@ function Profile(){
     const [editbio, setEditBio] = useState(null)
     const [editlocation, setEditLocation] = useState(null)
     const [editwebsite, setEditWebsite] = useState(null)
-    const [Item, setItem] = useState();
+    // const [Item, setItem] = useState();
+    const [upd, setupdate] = useState();
 
     function SaveButtonActions(){
-    mockAPI.Profile(body);
+    mockAPI.Profile(body); 
+    var up = UpdateProfile(update);
+    up.then(data=>{setupdate(data)});
+    console.log(upd);
+    
     setMainModalVisible(false);
     setName(editname);
     setBio(editbio);
+    localStorage.setItem("description", editbio);
     setLocation(editlocation);
     setWebsite(editwebsite);
+    localStorage.setItem("name", editname);
+    setImg2({
+        src2: src,
+        alt2: alt
+    }); 
     }
+    sessionStorage.setItem("name",editname);
+    sessionStorage.setItem("description",editbio);
+    
     var body={
         name: editname,
         bio: editbio,
@@ -70,9 +114,26 @@ function Profile(){
         date:date,
         img: {alt,src},
     }
-    const user=getUserInfo();
-    user.then(data=>{setItem(data)});
-    console.log(Item);
+    var update={
+        name: editname,
+        description: editbio,
+    }
+
+    // const tweet=gettweetlist();
+    // tweet.then(data=>{settweet(data)});
+    // console.log(tweeted);
+    // for (let i=0;i<gettweetlist();i++){
+    // var tweetText=[];
+    // tweetText[i]= localStorage.getItem(`tweettext${i} `)
+    // var tweetimage=localStorage.getItem(`imageUrl${i} `)
+    // var tweetdate=localStorage.getItem(`tweetdateat${i}`)}
+
+    const username=localStorage.getItem("getUsername")
+    console.log(name);
+  
+    name = localStorage.getItem("name")
+    // const joined=localStorage.getItem("joinedAt")
+     
 
     return(
         <div>
@@ -80,27 +141,27 @@ function Profile(){
             <div className='Expmenu'>
                 <div> 
                     <div className="notificationsTitle" id="ProfileTitle">
-                        <BiArrowBack ></BiArrowBack>
-                        <span>Profile</span>
+                        <span>{name}</span>
                     </div> 
                     <div>
                         <div>
-                            <img id="img" src={src} alt={alt} className="form-img__img-preview"/>
+                            <img id="img" src={src2} alt={alt2} className="form-img__img-preview"/>
                         </div>
                         <div id="bioName" className='name'> {name}</div>
                         <br></br>
-                       <div className='Username'> 
+                       <div className='Username'> {username} </div> 
+                        {/* <div className='Username'> 
                            {Object.keys(Username).map((user, index) => {
                             return (
                                 <div>
-                                    {Username[user].User} ;
+                                    {Username[user].User} 
                                 
                                 </div> )
                             })}
-                        </div> 
-                        <div className='Username'>{Item}</div>
+                        </div>  */}
+                        
                         <br></br>
-                        <div id="bioBio" className='Bio'>{bio}</div>
+                        <div id="bioBio" className='Bio'>{localStorage.getItem("description")}</div>
                         <br></br>
                         <GrLocation className='Bio'></GrLocation>
                         <div id="bioLocation" className='Bio'>{location}</div>
@@ -108,14 +169,16 @@ function Profile(){
                         <br></br>
                         <BiLink className='Bio'></BiLink>
                         <div id="bioWebsite" className='Bio'>{website}</div>
-
                         <br></br>
+                        {/* <div id="bioWebsite" className='Bio'>{joined}</div> */}
+                        {/* <br></br> */}
                         <div>
                         <button id="editButton" class="ButtonEditProfile" onClick={()=>setMainModalVisible(true)}><span>Edit Profile</span></button>
                         </div>
                         <br></br>
+                        
                         <div id="followers"className="FollowLink">
-                            <Link to ="/Followers">Followers </Link>
+                            <Link to ="/Followers">{localStorage.getItem("numberOfFollowers")}Followers </Link>
                         </div>
                         
                         <div id="following" className='FollowLink'>
@@ -123,32 +186,111 @@ function Profile(){
                         </div>
                         <br></br>
                         <br></br>
-                        <div className="notificationsCategory">
-                            <div id="tweets"
-                            className={isTab === 1 && "notificationActive"}
-                            onClick={() => setIsTab(1) }
-                            >
-                            <span>Tweets</span>
-                            </div>
-                            <div id="tweets&replies"
-                            className={isTab === 2 && "notificationActive"}
-                            onClick={() => setIsTab(2)}
-                            >
-                            <span>Tweets & Replies</span>
-                            </div>
-                            <div id="Media"
-                            className={isTab === 3 && "notificationActive"}
-                            onClick={() => setIsTab(3)}
-                            >
-                            <span>Media</span>
-                            </div>
-                            <div id="likes"
-                            className={isTab === 4 && "notificationActive" }
-                            onClick={() => setIsTab(4) }
-                            >
-                            <span>Likes</span>
-                            </div>
+                        <RecoilRoot>
+                <div className="notificationsCategory">
+                    <div id="tweets"
+                    className={isTab === 1 && "notificationActive"}
+                    onClick={() => setIsTab(1) }
+                    >
+                    <span>Tweets</span>
                     </div>
+                    <div id="tweets&replies"
+                    className={isTab === 2 && "notificationActive"}
+                    onClick={() => setIsTab(2)}
+                    >
+                    <span>Tweets & Replies</span>
+                    </div>
+                    <div id="Media"
+                    className={isTab === 3 && "notificationActive"}
+                    onClick={() => setIsTab(3)}
+                    >
+                    <span>Media</span>
+                    </div>
+                    <div id="likes"
+                    className={isTab === 4 && "notificationActive" }
+                    onClick={() => setIsTab(4) }
+                    >
+                    <span>Likes</span>
+                    </div>
+                    </div>
+                    <article>
+                        {
+                         (isTab===1)?
+                        
+                            <>
+
+                            {/* {twetted.map((userlist, index) => (
+                                 <Post
+                                 key={index}
+                                 displayName={userlist.displayName}
+                                 username={userlist.username}
+                                 text={userlist.text}
+                                 image={userlist.image}
+                                 avatar={userlist.avatar}
+                                 date={userlist.date}
+                                 />))} */}
+                                 {/* {tweetsList.map((userlist, index) => (
+                                 <Post
+                                 key={index}
+                                 displayName={name}
+                                 username={username}
+                                 text={localStorage.getItem(`tweettext${index} `)}
+                                 image={localStorage.getItem(`imageUrl${index} `)}
+                                 avatar={userlist.avatar}
+                                 date={localStorage.getItem(`tweetdateat${index}`)}
+                                 />))} */}
+                            </>
+                         :
+                         (isTab===2)?
+                            <>
+
+                            {twetted.map((userlist, index) => (
+                                 <Post
+                                 key={index}
+                                 displayName={name}
+                                 username={username}
+                                 text={userlist.text}
+                                 image={userlist.image}
+                                 avatar={userlist.avatar}
+                                 date={userlist.date}
+                                 />))}
+                            </>
+                        : (isTab===3)?
+                            <>
+
+                            {twetted.map((userlist, index) => (
+                                 <Post
+                                 key={index}
+                                 displayName={userlist.displayName}
+                                 username={userlist.username}
+                                 text={userlist.text}
+                                 image={userlist.image}
+                                 avatar={userlist.avatar}
+                                 date={userlist.date}
+                                 />))}
+                            
+                            </>
+                        : 
+                            <>
+                            {twetted.map((userlist, index) => (
+                                 <Post
+                                 key={index}
+                                 displayName={userlist.displayName}
+                                 username={userlist.username}
+                                 text={userlist.text}
+                                 image={userlist.image}
+                                 avatar={userlist.avatar}
+                                 date={userlist.date}
+                                 />))}
+                            </> 
+                        
+                        
+                        }
+          
+           
+                    </article>
+                
+                </RecoilRoot>
                         <div>
                             <Modal className="ant-modal-content"  title={<div><h3>Edit profile</h3><button onClick={()=> SaveButtonActions()} class="ButtonSave">Save</button></div>} bodyStyle={{overflowY:'scroll'}} visible={isMainModalVisible} onCancel={()=>setMainModalVisible(false)}  footer={null}> 
 
@@ -172,9 +314,10 @@ function Profile(){
                             <label for="name">
                                 
                                     <div>
-                                        <input value={editname} className="TextBox" type="text" id="name" name="name"  onChange={e => setEditName(e.target.value)} required minlength="0" showCount maxlength="50" size="50" placeholder="Name"></input>
+                                        <input value={editname} className="TextBox" type="text" id="name" name="name"  onChange={e => setEditName(e.target.value) } required minlength="0" showCount maxlength="50" size="50" placeholder="Name"></input>
                                         
                                     </div>
+                                    
                                 
                             </label>
                             <br></br>
@@ -207,10 +350,6 @@ function Profile(){
                                     <div>
                                         <h4> Birthdate </h4>
                                         <DatePicker id= "date" style={{ width:450, borderRadius: 5, height:50, borderStyle: 'solid'}} onChange={setDate} />
-                                        {/* <input class="Month" type="text" id="month" name="month" size="50" placeholder="Month"></input>
-                                        <input class="Day" type="text" id="day" name="day" size="50" placeholder="Day"></input>
-                                        <input class="Day" type="text" id="year" name="year" size="50" placeholder="year"></input> */}
-                                    
                                     </div>
                                 
                             </label>

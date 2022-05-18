@@ -1,5 +1,6 @@
 .friendSuggestionsItem {
   display: flex;
+  
   flex-direction: row;
   overflow-x: auto;
   overflow-y: hidden;
@@ -15,7 +16,7 @@
   margin-top: 30px;
   margin-left: 0px;
   position: fixed;
-
+ 
   flex-direction: column;
   line-height: 19px;
   text-align: left;
@@ -57,18 +58,19 @@
 .keywor {
   
   position: fixed;
-  bottom: -40px;
+  bottom: 0%;
+  top: 50%;
   right: 0;
   width: 30%;
   padding: 20px 20px;
-  margin-top: 20px;
+  
 } 
 
 .key {
   background: #d6d9db79;   
-  padding: 15px;
+  
   border-radius: 20px;
-  margin-bottom: 20px;
+  margin-bottom: 70px;
 }
 .keyword__heading {
   font-size: 20px;
@@ -92,4 +94,20 @@
   font-weight: 700;
   font-size: 18px;
  
+}
+.butto:hover {
+  cursor: pointer;
+}
+.followButton {
+  background: #000;
+  color: #fff;
+  text-align: center;
+  justify-content: center;
+  margin-left: 35%;
+  border-radius: 9999px;
+  font-size: 15px;
+  font-weight: 700;
+  
+  
+  padding: 5px 16px;
 }

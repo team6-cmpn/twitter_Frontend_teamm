@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Widgets/FriendSuggestions/FriendSuggestions.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Widgets/FriendSuggestions/FriendSuggestions.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from "react";
+//import "./FriendSuggestions.css";
+import FriendSuggestionItem from "./FriendSuggestionItem/FriendSuggestionItem";
+/**FriendSuggestions
+ * Shows friends suggetions for the user
+ *  
+ * @returns (Layout of friends suggetion)
+ */
+function FriendSuggestions() {
+  return (
+    &lt;div className="keywor">
+    &lt;div  className="key">
+      &lt;div className="keyword__heading">
+        &lt;h4>Who to follow&lt;/h4>
+      &lt;/div>
+      &lt;div>
+        &lt;br/>
+      &lt;/div>
+      
+      &lt;FriendSuggestionItem
+        username="Dr Magdi"  
+        displayName="Magdi Yaakob"
+        image="https://myhero.com/images/guest/g277272/hero103155/Magdi-Yacoub.jpg"
+      />
+       &lt;div>
+        &lt;br/>
+      &lt;/div>
+      
+      &lt;FriendSuggestionItem
+        username="William Henry Gates"
+        displayName="Bill Gates"
+        image="https://static.techspot.com/images2/news/bigimage/2020/03/2020-03-14-image-4-j.webp"
+      />
+       &lt;div>
+        &lt;br/>
+      &lt;/div>
+      
+       &lt;FriendSuggestionItem
+        username="Steven Paul Jobs"
+        displayName="Steve Jobs"
+        image="https://cdn.vox-cdn.com/thumbor/o7bA0tOZDGi-Y7reXlBHcOXC180=/0x137:575x520/920x613/filters:focal(0x137:575x520):format(webp)/cdn.vox-cdn.com/assets/695120/jobs_hero20110329.png"
+      />
+      {/* &lt;div className="side">
+      &lt;ul>
+      &lt;li>
+      &lt;a href="">
+      
+       &lt;/a>
+      &lt;/li>
+      &lt;/ul>
+      &lt;ul>
+      &lt;li>
+      &lt;a href="">
+      &lt;FriendSuggestionItem
+        username="gitH"
+        displayName="Billll Gatesss"
+        image="https://static.techspot.com/images2/news/bigimage/2020/03/2020-03-14-image-4-j.webp"
+      />
+       &lt;/a>
+       &lt;/li>
+       &lt;/ul>
+      &lt;ul>
+      &lt;li>
+      &lt;a href="">
+      &lt;FriendSuggestionItem
+        username="node"
+        displayName="Node.js"
+        image="https://pbs.twimg.com/profile_images/1262824892535373825/BiXDFDDp_200x200.jpg"
+      />
+      &lt;/a>
+      &lt;/li>
+      &lt;/ul>
+      &lt;/div> */}
+      &lt;/div>
+    &lt;/div>
+  );
+}
+
+export default FriendSuggestions;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#backEndGoogleLogIn">backEndGoogleLogIn</a></li><li><a href="global.html#backEndGooglePost">backEndGooglePost</a></li><li><a href="global.html#backEndLatest">backEndLatest</a></li><li><a href="global.html#backEndLogIn">backEndLogIn</a></li><li><a href="global.html#backEndPeople">backEndPeople</a></li><li><a href="global.html#backEndPost">backEndPost</a></li><li><a href="global.html#backEndTop">backEndTop</a></li><li><a href="global.html#Explore">Explore</a></li><li><a href="global.html#Feed">Feed</a></li><li><a href="global.html#ForgetPassword">ForgetPassword</a></li><li><a href="global.html#forgetPassword">forgetPassword</a></li><li><a href="global.html#FriendSuggestions">FriendSuggestions</a></li><li><a href="global.html#GoogleSignUp">GoogleSignUp</a></li><li><a href="global.html#LogIn">LogIn</a></li><li><a href="global.html#LogOut">LogOut</a></li><li><a href="global.html#mock">mock</a></li><li><a href="global.html#Notifications">Notifications</a></li><li><a href="global.html#Post">Post</a></li><li><a href="global.html#Profile">Profile</a></li><li><a href="global.html#reactivateAccount">reactivateAccount</a></li><li><a href="global.html#resendEmail">resendEmail</a></li><li><a href="global.html#resendSMS">resendSMS</a></li><li><a href="global.html#resetPassword">resetPassword</a></li><li><a href="global.html#Sidebar">Sidebar</a></li><li><a href="global.html#SignUp">SignUp</a></li><li><a href="global.html#StartPage">StartPage</a></li><li><a href="global.html#Topics">Topics</a></li><li><a href="global.html#Trends">Trends</a></li><li><a href="global.html#Tweetbox">Tweetbox</a></li><li><a href="global.html#validateEmail">validateEmail</a></li><li><a href="global.html#validatePassword">validatePassword</a></li><li><a href="global.html#validateUserName">validateUserName</a></li><li><a href="global.html#verifyEmail">verifyEmail</a></li><li><a href="global.html#verifyEmailForgetPassword">verifyEmailForgetPassword</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Sun May 15 2022 02:11:20 GMT+0200 (Eastern European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

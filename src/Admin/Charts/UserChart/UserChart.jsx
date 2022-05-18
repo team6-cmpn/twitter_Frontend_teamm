@@ -1,10 +1,23 @@
-import React, { PureComponent } from "react";
-import { PieChart, Pie, Legend, Tooltip, ResponsiveContainer } from "recharts";
-import { GetAgesRanges } from "../../MockRegistrationAdmin";
+import React, { PureComponent, useState, useEffect } from "react";
+import { PieChart, Pie, Tooltip, ResponsiveContainer } from "recharts";
+import { GetDashBoard, GetAgesRange } from "../../MockRegistrationAdmin";
 import "./userchart.css";
 
 export default function UserChart() {
-  var agesrange = GetAgesRanges();
+  // var agesrange = GetAgesRange();
+  const [agesrange, setAgesRange] = useState(undefined);
+
+  useEffect(() => {
+    (async () => {
+      const resp = await GetDashBoard();
+      let tempagesrange = [...resp.data[8].users_Ages];
+      tempagesrange.forEach((element, index) => {
+        tempagesrange[index].value = element.persons;
+        tempagesrange[index].name = element.age;
+      });
+      setAgesRange(tempagesrange);
+    })();
+  }, []);
 
   return (
     <div className="userchart">
@@ -17,7 +30,7 @@ export default function UserChart() {
             cx="50%"
             cy="50%"
             outerRadius={80}
-            fill="#10BFCC"
+            fill="#264836"
             label
           />
 

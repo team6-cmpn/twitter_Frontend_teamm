@@ -28,37 +28,6 @@ const mock={
 
   
 
-  backEndPost:async( payload)=>{
-
-    let go = false;
-    const {
-      name, username, email, dateOfBirth, password,
-    } = payload;
-    await axios
-      .post(`${Configure.backURL}auth/signup/`, {
-
-        headers: {
-          'content-type': 'application/json',
-          
-        },
-
-        name,
-        username,
-        email,
-        dateOfBirth,
-        password,
-      })
-      .then((response) => {
-        console.log(response);
-        if (response.status === 201) {
-          go = true;
-        }
-      }).catch(error => {
-        console.log(error.response.data.message)
-        });
-    return go;
-},
-
  
   logInPost : async (payload) => {
 
@@ -111,6 +80,25 @@ const mock={
       });
 
     return go;
-},
+   },
+   resetPasswordPost : async (payload) => {
+
+    let go = false;
+    await axios
+      .post(`${Configure.mockURL}resetPassword/`, {
+        data: payload,
+      })
+      .then((response) => {
+        console.log(response);
+        if (response.status === 201) {
+          go = true;
+        }
+      });
+
+    return go;
+}
+
+
+    
 };
 export default mock;

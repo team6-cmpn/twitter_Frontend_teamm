@@ -1,17 +1,47 @@
-.followedYou {
+.BlockedYou {
   display: flex;
   align-items: flex-start;
   padding: 10px 35px;
   border-bottom: 0.5px #e6ecf0 solid;
 
   }
+.BlockedYou:hover {
+  background-color: rgb(237, 202, 202) !important;
+}
+.BlockedYouIcon {
+  border-color: red;
+  color: red ;
+  fill: red;
+  width: 30px;
+  text-align: center;
+  border-radius: 9999px;
+  margin-right: 10px;
+}
+.BlockedYou > div > span {
+  color: #5D6D79;
+  font-size: 15px;
+}
+.BlockedYou > div > .MuiAvatar-root {
+  width: 30px;
+  height: 30px;
+  margin-bottom: 8px;
+}
+
+.followedYou {
+  display: flex;
+  align-items: flex-start;
+  padding: 10px 35px;
+  border-bottom: 0.5px #e6ecf0 solid;
+
+}
 .followedYou:hover {
-  background-color: #EFF3F4;
+  background-color: #ECEDEE!important;
+
 }
 .followedYouIcon {
-  border-color: lightblue;
-  color: lightblue;
-  fill: lightblue;
+  border-color: #1DA1F2;
+  color: #1DA1F2;
+  fill: #1DA1F2;
   width: 30px;
   text-align: center;
   border-radius: 9999px;

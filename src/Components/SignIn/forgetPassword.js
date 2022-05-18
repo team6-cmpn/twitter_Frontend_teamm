@@ -8,6 +8,7 @@ import { Modal, Input, Checkbox, Form  } from "antd";
 import {TwitterOutlined} from '@ant-design/icons';
 import {validatePassword} from '../SignUp/Validate'
 import  * as BE  from '../SignUp/backEndRegistration';
+import mock from "../SignUp/mockRegistration";
 /**
  *Forget Password
  * allows users to reset their passwords after verifying them
@@ -16,7 +17,7 @@ import  * as BE  from '../SignUp/backEndRegistration';
 function ForgetPassword(){
 
     const history = useNavigate();
-    const [isModalVisible, modelVisible] = useState(false);
+    const [isModalVisible, modelVisible] = useState(true);
     const [isModal2Visible, model2Visible] = useState(false);
     const [isModal3Visible, model3Visible] = useState(false);
     const [isModal4Visible, model4Visible] = useState(false);
@@ -29,7 +30,7 @@ function ForgetPassword(){
     const [password, setPassword] = useState(null);
     const [confirmPassword, setConfirmPassword] = useState(null);
     const [userName, setUserName] = useState(null);
-    const [email, setEmail] = useState(null);
+    const [emailOrPhone, setEmailOrPhone] = useState(null);
     const [apiResponseMessage, setApiResponseMessage] = useState();
     const [resetPasswordMessage, setResetPasswordMessage] = useState();
     const [code, setCode] = useState();
@@ -72,8 +73,8 @@ function ForgetPassword(){
     function getUserName(val){
       setUserName(val.target.value)
     };
-    function getEmail(val){
-      setEmail(val.target.value)
+    function getEmailOrPhone(val){
+      setEmailOrPhone(val.target.value)
     };
     function getPasswordValidation(val){
       setPasswordError(validatePassword(val.target.value))
@@ -81,7 +82,7 @@ function ForgetPassword(){
     
     function getConfirmPasswordValidation(val){
       setConfirmPasswordError(validatePassword(val.target.value))
-      if(password!=val.target.value){
+      if(password!==val.target.value){
         setConfirmPasswordError('Passwords do not match')
       }
       else{
@@ -103,7 +104,7 @@ function ForgetPassword(){
     
     var body={
       username:userName,
-      email:email
+      data:emailOrPhone
     }
 
     var resetPasswordBody={
@@ -136,6 +137,7 @@ function ForgetPassword(){
    
 
     function resetPasswordButtonAction(){
+      mock.resetPasswordPost(resetPasswordBody);
       const promise =  BE.resetPassword(resetPasswordBody);
       promise.then((message)=> {
         setResetPasswordMessage(message)
@@ -151,12 +153,12 @@ function ForgetPassword(){
       <div>
         <Modal
           title={<TwitterOutlined style={{ fontSize: '200%',marginTop:'1px',color:'Dodgerblue'}} />}
-          style={{textAlign:"center"}}
+          style={{textAlign:"center",display:"inline-flex"}}
           okText='Search'
           okButtonProps={{id:'passSearchButton',shape:'round' , disabled:btnDisabled,size:'large', style:{width: 450,fontWeight:'bold',alignItems:'center',justifyContent:'center',
           display:'flex',color:"white",backgroundColor:"black"}}}
           cancelButtonProps={{ id:'cancelbutton1',style: { display: "none" } }}
-          visible={modelVisible}
+          visible={isModalVisible}
           bodyStyle={{height: 390 ,font:'Helvetica',textAlign:'left'}}
           width={500}
           centered={true}
@@ -171,7 +173,7 @@ function ForgetPassword(){
                 <Input id='forgetPassUserName' style={{width:450,marginLeft:5,marginTop:30,height:50}} onKeyUp={getUserName} placeholder="Enter your username"></Input>
               </Form.Item>
               <Form.Item name='next2'>
-                <Input id='forgetPassEmail' style={{width:450,marginLeft:5,height:50}} onKeyUp={getEmail} placeholder="Enter your email "></Input>
+                <Input id='forgetPassEmail' style={{width:450,marginLeft:5,height:50}} onKeyUp={getEmailOrPhone} placeholder="Enter your email or phone number"></Input>
               </Form.Item>
             </Form>
             <span style={{color: 'dodgerBlue',fontSize:'100',fontWeight:'bold'}}> {apiResponseMessage}</span> 
@@ -181,7 +183,7 @@ function ForgetPassword(){
         </Modal>
         <Modal
           title={<TwitterOutlined style={{ fontSize: '200%',marginTop:'1px',color:'Dodgerblue'}} />}
-          style={{textAlign:"center"}}
+          style={{textAlign:"center",display:"inline-flex"}}
           okText='Cancel'
           cancelText='Next'
           okButtonProps={{id:'backbutton',shape:'round' , size:'large', style:{border:'none',width: 450,fontWeight:'bold',alignItems:'center',justifyContent:'center',
@@ -201,12 +203,12 @@ function ForgetPassword(){
           <div >
             <span>We found the following information associated with your account.</span>
             <br></br>
-            <span>Email a confirmation code to {email} </span>   
+            <span>Send a confirmation code to {emailOrPhone} </span>   
           </div>
         </Modal>
         <Modal
           title={<TwitterOutlined style={{ fontSize: '200%',marginTop:'1px',color:'Dodgerblue'}} />}
-          style={{textAlign:"center"}}
+          style={{textAlign:"center",display:"inline-flex"}}
           okText='Next'
           okButtonProps={{id:'VerifycodeButton',shape:'round' , size:'large', style:{border:'none',marginTop:30,textDecoration:'underline',width: 450,fontWeight:'bold',alignItems:'center',justifyContent:'center',
           display:'flex',color:"black",backgroundColor:"white"}}}
@@ -219,7 +221,7 @@ function ForgetPassword(){
           onOk={() =>verifyButtonAction()}
           maskClosable={false}
         >
-          <span class='text3'>Check your email</span>
+          <span class='text3'>Check your inbox</span>
     
           <div >
             <span>You'll receive a code to verify here so you can reset your account password.</span>
@@ -231,7 +233,7 @@ function ForgetPassword(){
         <Modal
     
           title={<TwitterOutlined style={{ fontSize: '200%',marginTop:'1px',color:'Dodgerblue'}} />}
-          style={{textAlign:"center"}}
+          style={{textAlign:"center",display:"inline-flex"}}
           okText='Reset password'
           okButtonProps={{id:'ResetPassButton',shape:'round' , size:'large',disabled:btn2Disabled, style:{border:'none',marginTop:30,width: 450,fontWeight:'bold',alignItems:'center',justifyContent:'center',
           display:'flex',color:"white",backgroundColor:"black"}}}
@@ -270,7 +272,7 @@ function ForgetPassword(){
         </Modal>
         <Modal
           title={<TwitterOutlined style={{ fontSize: '200%',marginTop:'1px',color:'Dodgerblue'}} />}
-          style={{textAlign:"center"}}
+          style={{textAlign:"center",display:"inline-flex"}}
           visible={isModal5Visible}
           bodyStyle={{height: 450 ,font:'Helvetica',textAlign:'left'}}
           width={500}

@@ -17,14 +17,14 @@ import  * as BE  from '../SignUp/backEndRegistration';
 function LogIn() {
 
     const navigate = useNavigate();
-    const [isModalVisible, setModalVisible] = useState(false);
+    const [isModalVisible, setModalVisible] = useState(true);
     const [isModal2Visible, setModal2Visible] = useState(false);
     const [btnDisabled, setBtnDisabled] = useState(true);
     const [data, setData] = useState(null);
     const [password, setPassword] = useState(null);
     const [apiResponseMessage, setApiResponseMessage] = useState();
     const [googleApiResponseMessage, setGoogleApiResponseMessage] = useState();
-
+    localStorage.setItem('isLogged',false)
    
 
     function getData(val){
@@ -62,7 +62,6 @@ function LogIn() {
     }
       const promise=BE.backEndGoogleLogIn(googlebody)
       promise.then((message)=> {
-        // setGoogleApiResponseMessage(message)
         if(message===''){navigate('/home');}
         else {alert(message);}
         
@@ -88,11 +87,12 @@ function LogIn() {
     
    
     function nextButtonAction(){
-      const GotoHome = mock.logInPost(body);
+      const mockPromise = mock.logInPost(body);
       const promise =  BE.backEndLogIn(body);
       promise.then((message)=> {
         setApiResponseMessage(message+'. You can re-enter your info by pressing on close (x) sign')
         if(message===''){navigate('/home');}
+        localStorage.setItem('isLogged',true)
      })
 
       // console.log(home);
@@ -107,12 +107,12 @@ function LogIn() {
       <div>
         <Modal
           title={<TwitterOutlined style={{ fontSize: '200%',marginTop:'1px',color:'Dodgerblue'}} />}
-          style={{textAlign:"center"}}
+          style={{textAlign:"center",display:"inline-flex"}}
           okText='Next'
           okButtonProps={{id:'nextbutton1',shape:'round' , size:'large', style:{width: 450,fontWeight:'bold',alignItems:'center',justifyContent:'center',
           display:'flex'}}}
           cancelButtonProps={{ style: { display: "none" } }}
-          visible={setModalVisible}
+          visible={isModalVisible}
           bodyStyle={{height: 490 ,font:'Helvetica',textAlign:'left'}}
           width={500}
           centered={true}
@@ -120,7 +120,8 @@ function LogIn() {
           footer={null}
           maskClosable={false}  
         >
-          <span className="text4">Sign in to Twitter</span>
+          
+          <span className="text7">Sign in to Twitter</span>
           <div>
             <GoogleLogin
               clientId="667720928468-9o7ou05mbdh2o6qe97kericodua0nstq.apps.googleusercontent.com"
@@ -148,7 +149,7 @@ function LogIn() {
                 </Form.Item>
               </Form>
 
-              <button className="googleButton button-color" disabled={btnDisabled} onClick={()=>onSubModel()}>Next</button>
+              <button id='nexttButton' className="googleButton button-color" disabled={btnDisabled} onClick={()=>onSubModel()}>Next</button>
               <Link id='forgetPass' to='/forgetpassword'> <button className="googleButton button2-color">Forget Password?</button></Link>
             </div>
           
@@ -161,7 +162,7 @@ function LogIn() {
 
         <Modal
           title={<TwitterOutlined style={{ fontSize: '200%',marginTop:'1px',color:'Dodgerblue'}} />}
-          style={{textAlign:"center"}}
+          style={{textAlign:"center",display:"inline-flex"}}
           okText='Next'
           okButtonProps={{id:'nextbutton2',shape:'round' , size:'large', style:{width: 450,fontWeight:'bold',alignItems:'center',justifyContent:'center',
           display:'flex'}}}
@@ -180,9 +181,14 @@ function LogIn() {
               <Input.Password id='password' style={{width:450,height:50}} placeholder="Password" onChange={getPassword} iconRender={visible => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}></Input.Password>
             </Form.Item>
           </Form>
-          <Link id='forgetPassRedirect' to='/forgetpassword'>Forget password?</Link><br></br>
-          <span style={{color: 'red',fontSize:'100',fontWeight:'bold'}}> {apiResponseMessage}</span> 
-          <div><button id='nextButton' className="googleButton button3-color" onClick={()=>nextButtonAction()} >Log in</button></div>
+          <Link id='forgetPassRedirect' to='/forgetpassword'>Forget password?</Link><br></br><br></br>
+          {apiResponseMessage==='This account is deactivated!. You can re-enter your info by pressing on close (x) sign'?(
+                <span style={{color: 'red',fontSize:'100',fontWeight:'bold'}}> {apiResponseMessage}
+                <br></br>
+                <button id="reactivateButton" className="reactivateButton" to='' onClick={()=>{BE.reactivateAccount()}} >Reactivate?</button>
+                </span> 
+              ):(<span style={{color: 'red',fontSize:'100',fontWeight:'bold'}}> {apiResponseMessage}</span> )}
+          <div><button id="nextButton" className="googleButton button3-color" onClick={()=>nextButtonAction()} >Log in</button></div>
           <div><span className="txt3">Dont have an account? </span><Link id='signUpLink'  to="/signup">Sign up</Link></div>
         
 

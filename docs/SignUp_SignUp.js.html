@@ -36,8 +36,8 @@ import moment from 'moment'
 import validator from 'validator'
 import  mock  from './mockRegistration';
 import  * as BE  from './backEndRegistration';
-
-import {validatePassword,validateEmail,validateUserName} from './Validate'
+import {Link} from "react-router-dom";
+import {validatePassword,validateEmail,validateUserName,validatePhone} from './Validate'
 
 
 
@@ -49,7 +49,7 @@ import {validatePassword,validateEmail,validateUserName} from './Validate'
 function SignUp() {
 
   const navigate = useNavigate();
-  const [isMainModalVisible, setMainModalVisible] = useState(false);
+  const [isMainModalVisible, setMainModalVisible] = useState(true);
   const [isSubModalVisible, setSubModalVisible] = useState(false);
   const [isSubModal2Visible, setSubModal2Visible] = useState(false); 
   const [isSubModal3Visible, setSubModal3Visible] = useState(false); 
@@ -57,14 +57,19 @@ function SignUp() {
   const [name, setName] = useState(null);
   const [userName, setUserName] = useState(null);
   const [email, setEmail] = useState(null);
+  const [phoneNumber, setPhoneNumber] = useState(null);
   const [password, setPassword] = useState(null);
   const [passwordError, setPasswordError] = useState('')
-  const [emailError, setEmailError] = useState('')
+  const [emailOrPhoneError, setEmailOrPhoneError] = useState('')
   const [userNameError, setuserNameError] = useState('')
   const [date, setDate] = useState(null);
   const [apiResponseMessage, setApiResponseMessage] = useState();
   const [mess, setMess] = useState();
   const [code, setCode] = useState();
+  const [emailOrPhoneSwitch, setEmailOrPhoneSwitch] = useState('Use Phone Instead');
+  const [emailOrPhone, setEmailOrPhone] = useState(null);
+  const [emailOrMessage, setEmailOrMessage] = useState(null);
+  const [emailOrPhoneDisplay, setEmailOrPhoneDisplay] = useState(null);
   
   
 
@@ -93,6 +98,12 @@ function SignUp() {
     setSubModal2Visible(stateMain);
   };
 
+  const onMainModal = (e, stateSub = true, stateMain = false) => {
+    setMainModalVisible(stateMain);
+    
+    setSubModalVisible(stateSub);
+  };
+
   
 
   function getName(val){
@@ -102,7 +113,13 @@ function SignUp() {
     setUserName(val.target.value)
   };
   function getEmail(val){
-    setEmail(val.target.value)
+    if(document.getElementById("email").placeholder === "Email"){
+      setEmail(val.target.value);
+      
+    }
+    else if(document.getElementById("email").placeholder === "Phone"){
+      setPhoneNumber(val.target.value)
+    }
   };
 
   function getPassword(val){
@@ -110,9 +127,21 @@ function SignUp() {
   };
   function getPasswordValidation(val){
     setPasswordError(validatePassword(val.target.value))
+    sessionStorage.setItem('passError',validatePassword(val.target.value))
   };
   function getEmailValidation(val){
-    setEmailError(validateEmail(val.target.value))
+    if(document.getElementById("email").placeholder === "Email"){
+    setEmailOrPhoneError(validateEmail(val.target.value));
+    setEmailOrPhone('Email');
+    setEmailOrMessage('email');
+    setEmailOrPhoneDisplay(email);
+  }
+    else if(document.getElementById("email").placeholder === "Phone"){
+      setEmailOrPhoneError(validatePhone(val.target.value));
+      setEmailOrPhone('Phone');
+      setEmailOrMessage('message');
+      setEmailOrPhoneDisplay(phoneNumber);
+    }
   };
 
   function getUserNameValidation(val){
@@ -131,9 +160,10 @@ function SignUp() {
  
   
   function buttonState (changedValues, allValues) {
+    var passError=sessionStorage.getItem('passError');
     if ( allValues.name !== undefined &amp;&amp; allValues.username !== undefined &amp;&amp; allValues.email !== undefined
        &amp;&amp; allValues.password !== undefined &amp;&amp; allValues.email !== '' &amp;&amp; allValues.name !== '' 
-       &amp;&amp; allValues.email !== '' &amp;&amp; allValues.password !== '' &amp;&amp; emailError==='' &amp;&amp;  passwordError==='' &amp;&amp; userNameError==='' ) {
+       &amp;&amp; allValues.email !== '' &amp;&amp; allValues.password !== '' &amp;&amp; emailOrPhoneError==='' &amp;&amp;  passError==='' &amp;&amp; userNameError==='' ) {
       setBtnDisabled(false);
     } 
     else {
@@ -141,32 +171,43 @@ function SignUp() {
     }
   };
 
+  var entry = 0;
+
+  function change() {
+
+  if (entry === 0) {
+    document.getElementById("email").placeholder = "Phone";
+    setEmailOrPhoneSwitch('Use Email Instead');
+    entry++;
+  }
+  else{
+    document.getElementById("email").placeholder = "Email";
+    setEmailOrPhoneSwitch('Use Phone Instead');
+    entry--;
+  }
+  
+}
     
 
   
 
   function SignUpButtonActions(){
-    const GotoComplete = mock.post(body);
+    // const mockCompleteSignUp =
+    const mockPromise=mock.post(body);
     const promise=BE.backEndPost(body);
     console.log(promise);
     promise.then((message)=> {
       setApiResponseMessage(message+'. You can re-enter your info by pressing on close (x) sign')
       if(message===''){onSubModal2();}
-      // if(result===false){
-      //   console.log('account with this email already exist');
-      //   setMess(go);
-      // }
-      // else if(result===true){
-      //   setMess('');
-      //   onSubModal2();
-      // }
    })
+   
   }
   
   var body={
     name:name,
     username:userName,
     email:email,
+    phoneNumber:phoneNumber,
     dateOfBirth:date,
     password:password
   }
@@ -180,28 +221,31 @@ function SignUp() {
     console.log(promise);
     promise.then((message)=> {
       setMess(message)
-      if(message===''){navigate("/home");}
+      if(message===''){navigate("/login");}
      
    })
-  //   promise.then((result)=> {
-  //     console.log(result);
-  //     if(result===true){setMess('Verified.Click to proceed');navigate("/home");}
-  //     else if (result ===false){setMess('Plz verify');}
-  //  })
+  }
+  function resendButtonActions(){
+    if (emailOrMessage==='email'){
+      BE.resendEmail();
+    }
+    else if(emailOrMessage==='message'){
+      BE.resendSMS();
+    }
+
   }
  
 
+ 
     
-
-   
     return(
       &lt;div>
         &lt;Modal  
           id='modal1'
           title={&lt;TwitterOutlined style={{ fontSize: '200%',marginTop:'1px',color:'Dodgerblue'}} />}
-          style={{borderRadius: "70px",textAlign:"center",fontSize:100}}
+          style={{borderRadius: "70px",textAlign:"center",fontSize:100,display:"inline-flex"}}
           bodyStyle={{height: 520 ,font:'Helvetica',borderRadius:'30px',textAlign:"left",marginTop:10}}
-          visible={setMainModalVisible}
+          visible={isMainModalVisible}
           okText='Next'
           okButtonProps={{ id:'button',disabled:btnDisabled,shape:'round' , size:'large', style:{width: 450,fontWeight:'bold',alignItems:'center',justifyContent:'center',
           display:'flex'}}}
@@ -209,8 +253,9 @@ function SignUp() {
           width={500}
           type='circle'
           centered={true}
-          onOk={() => setSubModalVisible(true)}
+          onOk={() => onMainModal()}
           onCancel={() => navigate("/")}
+        
           >
           
             &lt;span className="text">Create your account&lt;/span>
@@ -221,21 +266,17 @@ function SignUp() {
             >
               &lt;Form.Item 
                 name="name"
-                rules={[{
-                  required: true,
-                  message: 'Whats your name?',
-                },
-                ]}
+                // rules={[{
+                //   required: true,
+                //   message: 'Whats your name?',
+                // },
+                // ]}
               >
                 &lt;Input style={{ height:40,marginTop:10}}  onChange={ getName} showCount maxLength={50} id="name" placeholder="Name" />
               &lt;/Form.Item>
 
               &lt;Form.Item 
                 name="username"
-                rules={[{
-                  required: true,
-                },
-                ]} 
               >
                 &lt;span style={{color: 'red'}}>
                   &lt;Input id="username" style={{ height:40}}   onChange={getUserNameValidation}  onKeyUp={getUserName}  maxLength={50}  placeholder="Username" />
@@ -245,26 +286,18 @@ function SignUp() {
             
               &lt;Form.Item 
                 name="email"
-                rules={[{
-                  required: true,
-                // message: 'Please enter a valid email',
-                },
-                ]} 
               >
                 &lt;span style={{color: 'red'}}>
                   &lt;Input id="email" style={{ height:40}}  onChange={getEmailValidation}  onKeyUp={getEmail} maxLength={100}  placeholder="Email" />
-                  {emailError}
+                  {emailOrPhoneError}&lt;br>&lt;/br>
+                  &lt;button onClick={()=>{change()}} className='usePhoneButton' >{emailOrPhoneSwitch}&lt;/button>
                 &lt;/span>
               &lt;/Form.Item>
               &lt;Form.Item 
                 name="password"
-                rules={[{
-                  required: true,
-                },
-                ]} 
               >
                 &lt;span style={{color: 'red'}}>
-                  &lt;Input.Password  id='password' type='password'style={{ height:40}}  onChange={getPasswordValidation}   onKeyUp={getPassword}    placeholder="password" iconRender={visible => (visible ? &lt;EyeTwoTone /> : &lt;EyeInvisibleOutlined />)} /> 
+                  &lt;Input.Password  id='password' type='password'style={{ height:40,marginTop:0}}  onChange={getPasswordValidation}   onKeyUp={getPassword}    placeholder="password" iconRender={visible => (visible ? &lt;EyeTwoTone /> : &lt;EyeInvisibleOutlined />)} /> 
                   {passwordError}
                 &lt;/span>
               &lt;/Form.Item>
@@ -282,7 +315,7 @@ function SignUp() {
 
         &lt;Modal
           title={&lt;TwitterOutlined style={{ fontSize: '200%',marginTop:'1px',color:'Dodgerblue'}} />}
-          style={{textAlign:"center"}}
+          style={{textAlign:"center",display:"inline-flex"}}
           okText='Next'
           okButtonProps={{id:'nextButton3',shape:'round' , size:'large', style:{width: 450,fontWeight:'bold',alignItems:'center',justifyContent:'center',
           display:'flex'}}}
@@ -307,7 +340,7 @@ function SignUp() {
           
         &lt;Modal
           title={&lt;TwitterOutlined style={{ fontSize: '200%',marginTop:'1px',color:'Dodgerblue'}} />}
-          style={{textAlign:"center"}}
+          style={{textAlign:"center",display:"inline-flex"}}
           okText='Sign Up'
           okButtonProps={{id:'signUpButton',shape:'round' , size:'large', style:{width: 450,fontWeight:'bold',alignItems:'center',justifyContent:'center',
           display:'flex'}}}
@@ -339,16 +372,17 @@ function SignUp() {
             &lt;/Form.Item>
 
             &lt;Form.Item>
-              &lt;span>Email&lt;/span>
-              &lt;Input id="email2"  disabled={true} value={email} style={{ height:50}} />
+              &lt;span>{emailOrPhone}&lt;/span>
+              &lt;Input id="email2"  disabled={true} value={emailOrPhoneDisplay} style={{ height:50}} />
             &lt;/Form.Item>
               &lt;span style={{color: 'red',fontSize:'100',fontWeight:'bold'}}> {apiResponseMessage}&lt;/span> 
+              
           &lt;/Form>
           
         &lt;/Modal>
         &lt;Modal
           title={&lt;TwitterOutlined style={{ fontSize: '200%',marginTop:'1px',color:'Dodgerblue'}} />}
-          style={{textAlign:"center"}}
+          style={{textAlign:"center",display:"inline-flex"}}
           okText='Next'
           okButtonProps={{id:'verifyButton',shape:'round' , disabled:false,size:'large', style:{width: 450,fontWeight:'bold',alignItems:'center',justifyContent:'center',
           display:'flex'}}}
@@ -362,13 +396,13 @@ function SignUp() {
           onOk={() => verifyButtonActions()}  
         >
    
-          &lt;span className="text">We sent you a verfication code  &lt;/span>
+          &lt;span className="text9">We sent you a verfication code  &lt;/span>
           &lt;br>&lt;/br>
-          &lt;span>Write the code to verify {email}&lt;/span>
+          &lt;span>Write the code to verify {emailOrPhoneDisplay}&lt;/span>
           &lt;Input style={{ height:40,marginTop:10}} onChange={getCode} id="code" placeholder="Code" />
           &lt;span>{mess}&lt;/span>
           &lt;br>&lt;/br>
-          &lt;span>&lt;button onClick={()=>BE.resendEmail()}>Didn't recieve email?&lt;/button>&lt;/span>
+          &lt;span>&lt;button id='resendEmail' className='resendButton' onClick={()=>{resendButtonActions()}}>Didn't recieve {emailOrMessage}?&lt;/button>&lt;/span>
         &lt;/Modal>
 
       &lt;/div>
@@ -388,13 +422,13 @@ export default SignUp;
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#ForgetPassword">ForgetPassword</a></li><li><a href="global.html#GoogleSignUp">GoogleSignUp</a></li><li><a href="global.html#LogIn">LogIn</a></li><li><a href="global.html#mock">mock</a></li><li><a href="global.html#Notifications">Notifications</a></li><li><a href="global.html#Post">Post</a></li><li><a href="global.html#Profile">Profile</a></li><li><a href="global.html#SignUp">SignUp</a></li><li><a href="global.html#StartPage">StartPage</a></li><li><a href="global.html#validateEmail">validateEmail</a></li><li><a href="global.html#validatePassword">validatePassword</a></li><li><a href="global.html#validateUserName">validateUserName</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#backEndGoogleLogIn">backEndGoogleLogIn</a></li><li><a href="global.html#backEndGooglePost">backEndGooglePost</a></li><li><a href="global.html#backEndLatest">backEndLatest</a></li><li><a href="global.html#backEndLogIn">backEndLogIn</a></li><li><a href="global.html#backEndPeople">backEndPeople</a></li><li><a href="global.html#backEndPost">backEndPost</a></li><li><a href="global.html#backEndTop">backEndTop</a></li><li><a href="global.html#Explore">Explore</a></li><li><a href="global.html#Feed">Feed</a></li><li><a href="global.html#ForgetPassword">ForgetPassword</a></li><li><a href="global.html#forgetPassword">forgetPassword</a></li><li><a href="global.html#FriendSuggestions">FriendSuggestions</a></li><li><a href="global.html#GoogleSignUp">GoogleSignUp</a></li><li><a href="global.html#LogIn">LogIn</a></li><li><a href="global.html#LogOut">LogOut</a></li><li><a href="global.html#mock">mock</a></li><li><a href="global.html#Notifications">Notifications</a></li><li><a href="global.html#Post">Post</a></li><li><a href="global.html#Profile">Profile</a></li><li><a href="global.html#reactivateAccount">reactivateAccount</a></li><li><a href="global.html#resendEmail">resendEmail</a></li><li><a href="global.html#resendSMS">resendSMS</a></li><li><a href="global.html#resetPassword">resetPassword</a></li><li><a href="global.html#Sidebar">Sidebar</a></li><li><a href="global.html#SignUp">SignUp</a></li><li><a href="global.html#StartPage">StartPage</a></li><li><a href="global.html#Topics">Topics</a></li><li><a href="global.html#Trends">Trends</a></li><li><a href="global.html#Tweetbox">Tweetbox</a></li><li><a href="global.html#validateEmail">validateEmail</a></li><li><a href="global.html#validatePassword">validatePassword</a></li><li><a href="global.html#validateUserName">validateUserName</a></li><li><a href="global.html#verifyEmail">verifyEmail</a></li><li><a href="global.html#verifyEmailForgetPassword">verifyEmailForgetPassword</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Sat Apr 23 2022 17:57:13 GMT+0200 (Eastern European Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Sun May 15 2022 02:11:20 GMT+0200 (Eastern European Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

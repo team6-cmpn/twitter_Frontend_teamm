@@ -1,43 +1,73 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import Modal from 'react-modal';
+import React, { useState } from "react";
+import AdminSideBar from "../AdminSideBar";
+import { BlockFormBackEnd, BLockUser } from "../MockRegistrationAdmin";
+import TopBar from "../TopBar";
+import "./blockform.css";
 
-const customStyles = {
-  content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
-  },
-};
-
-// Make sure to bind modal to your appElement (https://reactcommunity.org/react-modal/accessibility/)
-
-
-export default function BlockForm() {
-  let subtitle;
-
-
-
-  function afterOpenModal() {
-    // references are now sync'd and can be accessed.
-    subtitle.style.color = '#f00';
-  }
-
-
+function BlockForm() {
+  const [duration, setBlockedDaysNumber] = useState("");
+  // function to update state of Blocked daysy number with
+  // value enter by user in form
+  const handleChange = (e) => {
+    setBlockedDaysNumber(e.target.value);
+  };
+  // below function will be called when user
+  // click on submit button .
+  const handleSubmit = (e) => {
+    if (duration < 0) {
+      alert("Please enter a validate number");
+    } else {
+      var resp = BLockUser(body);
+      console.log(resp);
+      localStorage.setItem("selectedIDs", null);
+      window.setTimeout(20000);
+      e.preventDefault(); //prevent refresh of page
+    }
+  };
+  var body = { duration: duration };
+  sessionStorage.setItem("duration", duration);
   return (
     <div>
-      <Modal
-        onAfterOpen={afterOpenModal}
-        style={customStyles}
-        contentLabel="Example Modal"
-      >
-        <h2 ref={(_subtitle) => (subtitle = _subtitle)}>Hello</h2>
-        <button>close</button>
-        <div>I am a modal</div>
-      </Modal>
+      <div id="FinalUsersPage">
+        <TopBar />
+        <div className="admincontainer">
+          <AdminSideBar />
+          <div className="BlockForm_Widget">
+            <div className="UserWidget">
+              <div className="BlockForm">
+                <header className="BlockForm-header">
+                  <form
+                    className="Block_Form"
+                    onSubmit={(e) => {
+                      handleSubmit(e);
+                    }}
+                  >
+                    <h2>Block Form</h2>
+                    <label>Number Of Days:</label>
+                    <br />
+                    <br />
+                    <input
+                      type="number"
+                      value={duration}
+                      required
+                      onChange={(e) => {
+                        handleChange(e);
+                      }}
+                    />
+                    <br />
+                    <br />
+                    <a>
+                      <input type="submit" value="Submit" />
+                    </a>
+                  </form>
+                </header>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
+
+export default BlockForm;

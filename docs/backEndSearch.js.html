@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: backEndSearch.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: backEndSearch.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import axios from 'axios';
+import Configure from '../Configure'
+
+/**
+ *Search top BE Integration
+ *
+ *get search top data from BE server
+ * 
+ * @returns {string} -message from BE
+ */
+export async function backEndTop(){
+    const body = {};
+    var message;
+      console.log(localStorage.getItem("searchData"))
+      await axios
+        .get(`${Configure.backURL}search/top?text=${localStorage.getItem("searchData")}`, body,
+        {
+          // params: {
+            
+          //   'text string': `${localStorage.getItem("searchData")}`,
+          // },
+        })
+        .then((response) => {
+          console.log(response);
+          if (response.status === 200) {
+            message = response.data.tweets[0].text;
+            console.log(message);
+        }
+       
+       console.log(response.data); 
+      }).catch(error => {
+          //console.log(error);
+          message = error.response.data.message;
+          console.log(message);
+          });
+    return message;
+  };
+
+/**
+ *Search people BE Integration
+ *
+ *get search people data from BE server
+ * 
+ * @returns {string} -message from BE
+ */
+
+export async function backEndPeople(){
+  const body = {};
+  var message;
+      await axios
+        .get(`${Configure.backURL}search/people?text=${localStorage.getItem("searchData")}`,body,
+         {
+
+         })
+        
+        .then((response) => {
+          console.log(response);
+          if (response.status === 200) {
+            message = response.data.tweets[0].text;
+            console.log(message);
+        } 
+        else if (response.status=== 404){
+          console.log(message);
+        }
+      }).catch(error => {
+        message = error.response.data.message;
+        console.log(message);
+         
+          });
+    return message;
+    };
+
+  /**
+ *search latest BE Integration
+ *
+ * get search latest data from BE server
+ *
+ * @returns {string} -message from BE
+ */
+
+export async function backEndLatest(){
+  const body = {};
+  var message;
+      
+      await axios
+        .get(`${Configure.backURL}search/latest/?text=${localStorage.getItem("searchData")}`,body,
+        {
+
+        })
+       
+       .then((response) => {
+         console.log(response);
+         if (response.status === 200) {
+           message = response.data.tweets[0].text;
+           console.log(message);
+       } 
+       else if (response.status=== 404){
+         console.log(message);
+       }
+     }).catch(error => {
+       message = error.response.data.message;
+       console.log(message);
+        
+         });
+   return message;
+   };</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#backEndGoogleLogIn">backEndGoogleLogIn</a></li><li><a href="global.html#backEndGooglePost">backEndGooglePost</a></li><li><a href="global.html#backEndLatest">backEndLatest</a></li><li><a href="global.html#backEndLogIn">backEndLogIn</a></li><li><a href="global.html#backEndPeople">backEndPeople</a></li><li><a href="global.html#backEndPost">backEndPost</a></li><li><a href="global.html#backEndTop">backEndTop</a></li><li><a href="global.html#Explore">Explore</a></li><li><a href="global.html#Feed">Feed</a></li><li><a href="global.html#ForgetPassword">ForgetPassword</a></li><li><a href="global.html#forgetPassword">forgetPassword</a></li><li><a href="global.html#FriendSuggestions">FriendSuggestions</a></li><li><a href="global.html#GoogleSignUp">GoogleSignUp</a></li><li><a href="global.html#LogIn">LogIn</a></li><li><a href="global.html#LogOut">LogOut</a></li><li><a href="global.html#mock">mock</a></li><li><a href="global.html#Notifications">Notifications</a></li><li><a href="global.html#Post">Post</a></li><li><a href="global.html#Profile">Profile</a></li><li><a href="global.html#reactivateAccount">reactivateAccount</a></li><li><a href="global.html#resendEmail">resendEmail</a></li><li><a href="global.html#resendSMS">resendSMS</a></li><li><a href="global.html#resetPassword">resetPassword</a></li><li><a href="global.html#Sidebar">Sidebar</a></li><li><a href="global.html#SignUp">SignUp</a></li><li><a href="global.html#StartPage">StartPage</a></li><li><a href="global.html#Topics">Topics</a></li><li><a href="global.html#Trends">Trends</a></li><li><a href="global.html#Tweetbox">Tweetbox</a></li><li><a href="global.html#validateEmail">validateEmail</a></li><li><a href="global.html#validatePassword">validatePassword</a></li><li><a href="global.html#validateUserName">validateUserName</a></li><li><a href="global.html#verifyEmail">verifyEmail</a></li><li><a href="global.html#verifyEmailForgetPassword">verifyEmailForgetPassword</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Sun May 15 2022 02:11:20 GMT+0200 (Eastern European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: homepage/Feed.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: homepage/Feed.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, {useState, useEffect} from "react";
+import HomeTweet from "./Header_Tweet";
+import Post from "./Post";
+import * as mocked from "./feedmock";
+import * as backend from "./backendFeed";
+import * as userbackend from "../Profile/backEndProfile";
+
+import {RecoilRoot} from "recoil";
+
+import "./feed.css";
+import {getTweet} from "./backendFeed";
+import {Select} from "antd";
+/**
+ * feed component
+ * @param {*} subreddit
+ * @returns layout of home page
+ */
+
+function Feed(subreddit) {
+  //const [user, setusername] = useState([]);
+  const [displayN, setDisplay] = useState([]);
+  const [tweet_id, setid_tweet] = useState([]);
+  const [user_id, setid_user] = useState([]);
+  const [tweets, showTweet] = useState([]);
+  const [mention, setmention] = useState();
+  const [date, setdate] = useState();
+  const [text_tweet, setItem] = useState();
+  const [content, getcontent] = useState([]);
+  const [twetted, postedtweet] = useState([]);
+  const [disp_img, getimg] = useState([]);
+  
+
+  console.log(mocked.gettweet(tweets.text));
+  useEffect(() => {
+    (async () => {
+      const resp = await mocked.GetPostTweet();
+      postedtweet(resp);
+    })();
+  }, []);
+
+  useEffect(() => {
+    (async () => {
+      const resp = await mocked.GetUserContent();
+      getcontent(resp);
+    })();
+  }, []);
+
+  console.log(twetted.text);
+  const tweeted_user = backend.getTweet();
+  tweeted_user.then((text) => {
+    setItem(text.text);
+    setmention(text.mention);
+
+    //setid_tweet(text.id);
+    setid_user(text.user);
+    //setdate(STR_TO_DATE(text.date, "%h,%i"));
+    console.log(date);
+    //console.log(tweet.id);
+  });
+  
+
+  const user_info = userbackend.getUserInfo();
+  user_info.then((name) => {
+    //setusername(name.username);
+    // setDisplay(name.name);
+    console.log(user);
+  });
+  const user=localStorage.getItem("getUsername")
+  
+  return (
+    &lt;div className="feed">
+      &lt;div className=" feed feed__header">
+        &lt;h1>Home&lt;/h1>
+      &lt;/div>
+      &lt;HomeTweet />
+      &lt;RecoilRoot>
+        &lt;Post
+          //username={displayN}
+          displayName={user}
+          //avatar={userlist}
+          mention={mention}
+          text={text_tweet}
+          //date="date"
+          id_user={tweeted_user.id}
+          //avatar={disp_img}
+          //id_post={id_post}
+          post="false"
+        />
+
+        &lt;article>
+          {twetted.map((userlist, index) => (
+            &lt;Post
+              key={index}
+              displayName={userlist.displayName}
+              username={userlist.username}
+              text={userlist.text}
+              image={userlist.image}
+              avatar={userlist.avatar}
+              date={userlist.date}
+              id_user={user_id}
+              //tweeted_id={tweet_id}
+            />
+          ))}
+        &lt;/article>
+      &lt;/RecoilRoot>
+    &lt;/div>
+  );
+}
+
+export default Feed;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#backEndGoogleLogIn">backEndGoogleLogIn</a></li><li><a href="global.html#backEndGooglePost">backEndGooglePost</a></li><li><a href="global.html#backEndLatest">backEndLatest</a></li><li><a href="global.html#backEndLogIn">backEndLogIn</a></li><li><a href="global.html#backEndPeople">backEndPeople</a></li><li><a href="global.html#backEndPost">backEndPost</a></li><li><a href="global.html#backEndTop">backEndTop</a></li><li><a href="global.html#Explore">Explore</a></li><li><a href="global.html#Feed">Feed</a></li><li><a href="global.html#ForgetPassword">ForgetPassword</a></li><li><a href="global.html#forgetPassword">forgetPassword</a></li><li><a href="global.html#FriendSuggestions">FriendSuggestions</a></li><li><a href="global.html#GoogleSignUp">GoogleSignUp</a></li><li><a href="global.html#LogIn">LogIn</a></li><li><a href="global.html#LogOut">LogOut</a></li><li><a href="global.html#mock">mock</a></li><li><a href="global.html#Notifications">Notifications</a></li><li><a href="global.html#Post">Post</a></li><li><a href="global.html#Profile">Profile</a></li><li><a href="global.html#reactivateAccount">reactivateAccount</a></li><li><a href="global.html#resendEmail">resendEmail</a></li><li><a href="global.html#resendSMS">resendSMS</a></li><li><a href="global.html#resetPassword">resetPassword</a></li><li><a href="global.html#Sidebar">Sidebar</a></li><li><a href="global.html#SignUp">SignUp</a></li><li><a href="global.html#StartPage">StartPage</a></li><li><a href="global.html#Topics">Topics</a></li><li><a href="global.html#Trends">Trends</a></li><li><a href="global.html#Tweetbox">Tweetbox</a></li><li><a href="global.html#validateEmail">validateEmail</a></li><li><a href="global.html#validatePassword">validatePassword</a></li><li><a href="global.html#validateUserName">validateUserName</a></li><li><a href="global.html#verifyEmail">verifyEmail</a></li><li><a href="global.html#verifyEmailForgetPassword">verifyEmailForgetPassword</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Sun May 15 2022 02:11:20 GMT+0200 (Eastern European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -11,7 +11,7 @@ import Configure from '../../Configure'
 export const backEndPost=async payload=>{
   var message;
       const {
-        name, username, email, dateOfBirth, password,
+        name, username, email,phoneNumber, dateOfBirth, password,
       } = payload;
       await axios
         .post(`${Configure.backURL}auth/signup/`, {
@@ -22,6 +22,7 @@ export const backEndPost=async payload=>{
           name,
           username,
           email,
+          phoneNumber,
           dateOfBirth,
           password,
         })
@@ -66,8 +67,14 @@ export const backEndLogIn=async payload=>{
             message='';
             
             localStorage.setItem('token', response.data.accessToken);
+            sessionStorage.setItem('token', response.data.accessToken);
+            localStorage.setItem('name', response.data.user.name);
+            localStorage.setItem('joinedAt', response.data.user.created_at);
             localStorage.setItem('userId', response.data.user._id);
             localStorage.setItem('getUsername', response.data.user.username);
+            localStorage.setItem('getName', response.data.user.name);
+            localStorage.setItem('adminFlag', response.data.user.isAdmin);
+
        
          
             
@@ -152,6 +159,53 @@ export async function resendEmail  (){
             });
       return go;
   };
+/**
+ *Resend SMS BE Integration
+ *
+ *post emailtoken to request for resending of confirmation email
+ * @returns {boolean} -a check to verify the process is done correctly or not
+ */
+
+export async function resendSMS  (){
+    let go=false;
+    
+    console.log(`${localStorage.getItem('emailToken')}`)
+    const body = {};
+    
+     await axios
+       .post(`${Configure.backURL}auth/resendSMS/`, body,{
+           
+         headers: {
+           
+           'Content-Type': 'application/json',
+           'x-access-token': ` ${localStorage.getItem('emailToken')}`,
+           
+         },   
+       })
+       .then((response) => {
+         console.log(response);
+         if (response.status === 200) {
+           // localStorage.setItem('access token', response.data.emailtoken);
+           go=true;
+         } 
+         else if (response.status=== 401){
+             go=false;
+         }
+         else if (response.status=== 500){
+          go=false;
+      }
+       }).catch(error => {
+           console.log(error);
+          
+           });
+     return go;
+ };
+
+
+
+
+
+
 
 /**
  *Google SignUp BE Integration
@@ -183,7 +237,7 @@ export const backEndGooglePost=async payload=>{
           console.log(response);
           if (response.status === 200) {
             message='';
-            localStorage.setItem('googleAccessToken', response.data.accessToken);
+   
             
             
           }
@@ -220,6 +274,9 @@ export const backEndGoogleLogIn=async payload=>{
           console.log(response);
           if (response.status === 200) {
             message='';
+            localStorage.setItem('token', response.data.accessToken);
+            localStorage.setItem('getUsername', response.data.user.username);
+            localStorage.setItem('userId', response.data.user._id);
             
           }
         }).catch(error => {
@@ -341,3 +398,43 @@ export async function resetPassword(){
             });
       return message;
   };
+
+ /**
+ *Ractivate Account BE Integration
+ *
+ *reactivates an account that was deactivated by the user
+ * @returns {string} -message from BE
+ */
+ export async function reactivateAccount(){
+  var message;
+  const body =  {}
+    console.log(`${localStorage.getItem('token')}`)
+    await axios
+      .put(`${Configure.backURL}settings/reactivateAccount/`,body, {
+        
+
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          'x-access-token': `${localStorage.getItem('token')}`,
+        },
+       
+      })
+      .then((response) => {
+        console.log(response);
+        if (response.status === 200) {
+          message='';
+          
+        }
+        else if (response.status === 403) {
+          message='  ';
+          console.log(response.data.message);
+        }
+        else if(response.status === 401  || response.status === 500 ){
+          message=response.data.message;
+        }
+
+      }).catch(error => {
+          console.log(error);
+          });
+    return message;
+};

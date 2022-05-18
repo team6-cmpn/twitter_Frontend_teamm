@@ -1,5 +1,5 @@
 import React from "react";
-import "../settingsSubmenus.css";
+import "./settingsSubmenus.css";
 
 function AccountInfoMenuss({ Icon ,text, data,active }) {
   return (

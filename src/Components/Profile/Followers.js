@@ -1,37 +1,104 @@
 import '../Notifications.css'
 import React from 'react';
-import  { useState } from 'react';
+import { useState } from 'react';
 import Trends from "../Widgets/Trends";
 import Sidebar from "../Sidebar/Sidebar";
-function Followers(){
+import { getFollowerUsers } from "./FollowersMock";
+import { getFollowingUsers } from "./FollowersMock";
+import FollowersList from './FollowersList';
+import FollowingList from './FollowingList';
+import {getFollowersList} from './backEndProfile';
+/**Followers page
+ * Shows followers page
+ *  
+ * @returns (Layout of followers page)
+ */
+function Followers() {
+    const [FollowersLists,setFollowersList]=React.useState([])
+    React.useEffect(()=>{
+        (async () => {
+            const resp = await getFollowersList();
+            setFollowersList(resp);
+          })();
+    
+        },[])
+
+        const [FollowingLists,setFollowingList]=React.useState([])
+        // React.useEffect(()=>{
+        //     (async () => {
+        //         const resp = await getFollowingList();
+        //         setFollowingList(resp);
+        //       })();
+        
+        //     },[])
+
+        
+    const [FollowerUsers,setFollowerUsers]=React.useState([])
+    React.useEffect(()=>{
+        (async () => {
+            const resp = await getFollowerUsers();
+            setFollowerUsers(resp);
+          })();
+    
+        },[])
+    const [FollowingUsers,setFollowingUsers]=React.useState([])
+    React.useEffect(()=>{
+        (async () => {
+            const resp = await getFollowingUsers();
+            setFollowingUsers(resp);
+          })();
+    
+        },[])
     const [isFollowers, setIsFollowers] = useState(true);
-    return(
+    return (
         <div>
             <Sidebar />
             <div className='Expmenu'>
-                <div id="FollowersTab"className="notificationsCategory">
+                <div id="FollowersTab" className="notificationsCategory">
                     <div
-                    className={isFollowers && "notificationActive"}
-                    onClick={() => setIsFollowers(true)}
+                        className={isFollowers && "notificationActive"}
+                        onClick={() => setIsFollowers(true)}
                     >
-                    <span>Followers</span>
+                        <span>Followers</span>
                     </div>
-                    
+                   
                     <div id="FollowingTab"
-                    className={!isFollowers && "notificationActive"}
-                    onClick={() => setIsFollowers(false)}
+                        className={!isFollowers && "notificationActive"}
+                        onClick={() => setIsFollowers(false)}
                     >
-                    <span>Following</span>
+                        <span>Following</span>
                     </div>
-                </div> 
-                <div > 
-                    <Trends />  
+                </div>
+                <article>
+          {isFollowers ? (
+            <>
+             {/* <div> {FollowerUsers.map((FollowerUsers,index)=>(
+                <FollowersList key={index} FollowerAccount={FollowerUsers}/>))}
+              </div> */}
+              <div> 
+              {FollowersLists.map((FollowerUsers,index)=>(
+                <FollowersList key={index} FollowerAccount={localStorage.getItem(`followerUsername ${index}`)} FollowerName={localStorage.getItem(`followerUser ${index}`)}/>))}
+              </div>
+            </>
+          ) : (
+            <>
+                <div>{FollowingUsers.map((FollowingUsers,index)=>(
+                <FollowingList key={index} FollowingAccount={FollowingUsers}/>))}
+                </div>
+                <div>{FollowingLists.map((FollowingUsers,index)=>(
+                <FollowingList key={index} FollowingAccount={FollowingUsers}/>))}
+                </div>
+            </>
+          )}
+        </article>
+                <div >
+                    <Trends />
                 </div>
             </div>
         </div>
     )
 }
- 
 
 
- export default Followers;
+
+export default Followers;

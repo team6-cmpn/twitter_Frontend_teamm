@@ -1,11 +1,3 @@
-.settingsMenu{
-    border-right: 1px solid #e6ecf0;
-    min-height: 100vh;
-    height: max-content;
-    background-color:white;
-    width: 720px;
-
-}
 
 .settingsTitle {
     background-color:white;
@@ -13,8 +5,8 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-left: 220px;
-    margin-bottom: 10px;
+    margin-left: -11%;
+    border-bottom: 1px solid #e6ecf0;
     
 }
 .settingsTitle > span {
@@ -28,23 +20,23 @@
     display: flex;
     align-items: center;
     cursor: pointer;
-    width: 430px;
     justify-content: space-between;
-    margin-top: 5px;
-    margin-left:222px ;
+    margin-top: 5%;
+    width:100%;
     height: 50px;
     background-color:white;
     padding-right: -10px;
+    margin-left: -11%;
+
     
 
 }
 .SettingsContent>span{
 
- margin-left: 20px;
-
+ padding:10%;
 }
-  .SettingsContent> .MuiSvgIcon-root {
-    margin-top: 5px;
+.SettingsContent> .MuiSvgIcon-root {
+    margin-top: 0%;
 }
 .SettingsContent:hover {
     
@@ -64,3 +56,23 @@
 
     
 }
+
+@media screen and (max-width: 768px) {
+.settingsTitle{
+    margin-left: 0%;
+}
+.SettingsContent{
+    margin-left: 0%;
+}
+}
+@media (min-width:1200px) {
+    .settingsTitle{
+        margin-left: 0%;
+    }
+    .SettingsContent{
+        margin-left: 0%;
+    }
+    
+  }
+  
+

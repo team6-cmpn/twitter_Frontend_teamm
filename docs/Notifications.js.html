@@ -34,7 +34,10 @@ import FollowedYou from "./FollowedYou";
 import SettingsBox from "./SettingsBox/SettingsBox";
 import LikedYou from "./LikedYou";
 import getFollowingUsers from "./NotificationsMock";
+import { GetPostTweet } from "./homepage/feedmock";
 import {getLikedUsers} from "./NotificationsMock";
+import Post from "./homepage/Post";
+import { RecoilRoot } from "recoil";
 /**
  * [the notification component is mainly used to get the notifications from the server to the user to see it 
  *  and it contains all the mentions and liked posts and followers you got and i made a menu to scoope on the mentioned posts only
@@ -47,10 +50,15 @@ import {getLikedUsers} from "./NotificationsMock";
 function Notifications() {
   const [followingUser, setFollowingUser] = React.useState([]);
   const [LikedUser, setLikedUser] = React.useState([]);
-  
+  const [twetted, postedtweet] = React.useState([]);
+
   const [isAll, setIsAll] = React.useState(true);
   document.title = "Notifications / Twitter";
   React.useEffect(() => {
+    (async () => {
+      const resp = await GetPostTweet();
+      postedtweet(resp);
+    })();
     (async () => {
       const resp = await getFollowingUsers();
       setFollowingUser(resp);
@@ -62,6 +70,7 @@ function Notifications() {
   }, []);
 
   return (
+    &lt;RecoilRoot>
     &lt;SettingsBox>
       &lt;div className="Notimenu" id="NotificationMenu">
         &lt;div className="notificationsTitle" id="NotificationsTitle">
@@ -78,9 +87,9 @@ function Notifications() {
           &lt;div
             className={!isAll &amp;&amp; "notificationActive"}
             onClick={() => setIsAll(false)}
-            id="LikedButton"
+            id="MentionsButton"
           >
-            &lt;span>Liked&lt;/span>
+            &lt;span>Mentions&lt;/span>
           &lt;/div>
         &lt;/div>
         &lt;article>
@@ -92,12 +101,31 @@ function Notifications() {
               {LikedUser.map((userNotification, index) => (
               &lt;LikedYou key={index} likePost={userNotification} />
               ))}
+               {twetted.map((userlist, index) => (
+            &lt;Post
+              key={index}
+              displayName={userlist.displayName}
+              username={userlist.username}
+              text={userlist.text}
+              image={userlist.image}
+              avatar={userlist.avatar}
+              date={userlist.date}
+            />
+          ))}
             &lt;/>
           ) : (
             &lt;>
-              {LikedUser.map((userNotification, index) => (
-              &lt;LikedYou key={index} likePost={userNotification} />
-              ))}
+             {twetted.map((userlist, index) => (
+            &lt;Post
+              key={index}
+              displayName={userlist.displayName}
+              username={userlist.username}
+              text={userlist.text}
+              image={userlist.image}
+              avatar={userlist.avatar}
+              date={userlist.date}
+            />
+          ))}
             &lt;/>
           )}
         &lt;/article>
@@ -105,6 +133,7 @@ function Notifications() {
 
       &lt;Trends />
     &lt;/SettingsBox>
+    &lt;/RecoilRoot>
   );
 }
 export default Notifications;
@@ -118,13 +147,13 @@ export default Notifications;
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#ForgetPassword">ForgetPassword</a></li><li><a href="global.html#GoogleSignUp">GoogleSignUp</a></li><li><a href="global.html#LogIn">LogIn</a></li><li><a href="global.html#mock">mock</a></li><li><a href="global.html#Notifications">Notifications</a></li><li><a href="global.html#Post">Post</a></li><li><a href="global.html#Profile">Profile</a></li><li><a href="global.html#SignUp">SignUp</a></li><li><a href="global.html#StartPage">StartPage</a></li><li><a href="global.html#validateEmail">validateEmail</a></li><li><a href="global.html#validatePassword">validatePassword</a></li><li><a href="global.html#validateUserName">validateUserName</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#backEndGoogleLogIn">backEndGoogleLogIn</a></li><li><a href="global.html#backEndGooglePost">backEndGooglePost</a></li><li><a href="global.html#backEndLatest">backEndLatest</a></li><li><a href="global.html#backEndLogIn">backEndLogIn</a></li><li><a href="global.html#backEndPeople">backEndPeople</a></li><li><a href="global.html#backEndPost">backEndPost</a></li><li><a href="global.html#backEndTop">backEndTop</a></li><li><a href="global.html#Explore">Explore</a></li><li><a href="global.html#Feed">Feed</a></li><li><a href="global.html#ForgetPassword">ForgetPassword</a></li><li><a href="global.html#forgetPassword">forgetPassword</a></li><li><a href="global.html#FriendSuggestions">FriendSuggestions</a></li><li><a href="global.html#GoogleSignUp">GoogleSignUp</a></li><li><a href="global.html#LogIn">LogIn</a></li><li><a href="global.html#LogOut">LogOut</a></li><li><a href="global.html#mock">mock</a></li><li><a href="global.html#Notifications">Notifications</a></li><li><a href="global.html#Post">Post</a></li><li><a href="global.html#Profile">Profile</a></li><li><a href="global.html#reactivateAccount">reactivateAccount</a></li><li><a href="global.html#resendEmail">resendEmail</a></li><li><a href="global.html#resendSMS">resendSMS</a></li><li><a href="global.html#resetPassword">resetPassword</a></li><li><a href="global.html#Sidebar">Sidebar</a></li><li><a href="global.html#SignUp">SignUp</a></li><li><a href="global.html#StartPage">StartPage</a></li><li><a href="global.html#Topics">Topics</a></li><li><a href="global.html#Trends">Trends</a></li><li><a href="global.html#Tweetbox">Tweetbox</a></li><li><a href="global.html#validateEmail">validateEmail</a></li><li><a href="global.html#validatePassword">validatePassword</a></li><li><a href="global.html#validateUserName">validateUserName</a></li><li><a href="global.html#verifyEmail">verifyEmail</a></li><li><a href="global.html#verifyEmailForgetPassword">verifyEmailForgetPassword</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Sat Apr 23 2022 17:57:13 GMT+0200 (Eastern European Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Sun May 15 2022 02:11:20 GMT+0200 (Eastern European Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

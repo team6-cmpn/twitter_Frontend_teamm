@@ -2,14 +2,18 @@ import React from "react";
 import "./Notifications.css";
 import "./Home.css";
 import Trends from "./Widgets/Trends";
+import Blocked_days from "./YouBlocked";
 import FollowedYou from "./FollowedYou";
 import SettingsBox from "./SettingsBox/SettingsBox";
 import LikedYou from "./LikedYou";
 import getFollowingUsers from "./NotificationsMock";
-import { GetPostTweet } from "./homepage/feedmock";
+import { getfollowedUsers } from "./NotificationsMock";
 import {getLikedUsers} from "./NotificationsMock";
-import Post from "./homepage/Post";
-import { RecoilRoot } from "recoil";
+import { GetNotificationsFavourites } from "./NotificationBackend";
+import { GetNotifications } from "./NotificationBackend";
+import LikedYouBe from "./LikedYouBe";
+import Notified from "./Notified";
+
 /**
  * [the notification component is mainly used to get the notifications from the server to the user to see it 
  *  and it contains all the mentions and liked posts and followers you got and i made a menu to scoope on the mentioned posts only
@@ -20,29 +24,29 @@ import { RecoilRoot } from "recoil";
  * 
  */
 function Notifications() {
-  const [followingUser, setFollowingUser] = React.useState([]);
+  const [Blockeddays, setBlockeddays] = React.useState([]);
   const [LikedUser, setLikedUser] = React.useState([]);
-  const [twetted, postedtweet] = React.useState([]);
+  const [followedyou, setfollowedyou] = React.useState([]);
 
   const [isAll, setIsAll] = React.useState(true);
   document.title = "Notifications / Twitter";
   React.useEffect(() => {
     (async () => {
-      const resp = await GetPostTweet();
-      postedtweet(resp);
+      const resp = await getfollowedUsers();
+      setfollowedyou(resp);
     })();
     (async () => {
       const resp = await getFollowingUsers();
-      setFollowingUser(resp);
+      setBlockeddays(resp);
     })();
     (async () => {
       const resp = await getLikedUsers();
       setLikedUser(resp);
     })();
   }, []);
-
+  const notifi=GetNotificationsFavourites();
+  const BE=GetNotifications();
   return (
-    <RecoilRoot>
     <SettingsBox>
       <div className="Notimenu" id="NotificationMenu">
         <div className="notificationsTitle" id="NotificationsTitle">
@@ -61,43 +65,41 @@ function Notifications() {
             onClick={() => setIsAll(false)}
             id="MentionsButton"
           >
-            <span>Mentions</span>
+            <span>Favourites</span>
           </div>
         </div>
         <article>
           {isAll ? (
             <>
-              {followingUser.map((userNotification, index) => (
-                <FollowedYou key={index} followingUser={userNotification} />
+
+              {BE.map((Notifications, index) => (
+              <Notified key={index} notify={Notifications} nType={Notifications} />
+              ))}
+
+              {Blockeddays.map((Blockeddays,index)=>(
+              <Blocked_days
+              key={index}
+              numberOfDays={Blockeddays.numberOfDays}
+              
+              />
               ))}
               {LikedUser.map((userNotification, index) => (
               <LikedYou key={index} likePost={userNotification} />
               ))}
-               {twetted.map((userlist, index) => (
-            <Post
-              key={index}
-              displayName={userlist.displayName}
-              username={userlist.username}
-              text={userlist.text}
-              image={userlist.image}
-              avatar={userlist.avatar}
-              date={userlist.date}
-            />
-          ))}
+              {followedyou.map((userNotification, index) => (
+              <FollowedYou key={index} followingUser={userNotification} />
+              ))}
+            
+              
             </>
           ) : (
             <>
-             {twetted.map((userlist, index) => (
-            <Post
-              key={index}
-              displayName={userlist.displayName}
-              username={userlist.username}
-              text={userlist.text}
-              image={userlist.image}
-              avatar={userlist.avatar}
-              date={userlist.date}
-            />
-          ))}
+              {LikedUser.map((userNotification, index) => (
+              <LikedYou key={index} likePost={userNotification} />
+              ))}
+              {notifi.map((favourites, index) => (
+              <LikedYouBe key={index} liked={favourites} />
+              ))}
             </>
           )}
         </article>
@@ -105,7 +107,6 @@ function Notifications() {
 
       <Trends />
     </SettingsBox>
-    </RecoilRoot>
   );
 }
 export default Notifications;

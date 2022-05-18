@@ -14,7 +14,7 @@
   width: 50%;
   height: 50%;
   display: flex;
-  margin-top: 100px;
+  margin-top: 20px;
 }
 
 .Charts {
@@ -26,5 +26,5 @@
 .agecharttitle {
   font-size: 25px;
   font-weight: 600;
-  color: red;
+  color: brown;
 }

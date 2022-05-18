@@ -46,15 +46,46 @@ var validateEmail=(value)=> {
  */
 function validateUserName(value){
   var error='';
-  if (value[0] == '@') {
+  if (value[0] === '@' && /\s/.test(value)===false) {
     error='';
 
   }
   else {
-    error='Please start your username with @ symbol';
+    error='Please start your username with @ symbol without spaces';
   }
   return (error);
 
 };
+function validateConfirmPassword(){
+  var error='';
+  var newpassword = document.getElementById("Newpassword").value;
+  var confirmNewPassword =  document.getElementById("Confirmpassword").value;
+  console.log(newpassword);
+  console.log(confirmNewPassword);
+  if (newpassword != confirmNewPassword || confirmNewPassword != newpassword){
+    error='Password do not match' ;
+  }
+  else {
 
-export {validatePassword,validateEmail,validateUserName};
+    error=''
+  }
+  return(error);
+};
+var validatePhone=(value)=> 
+{
+  var error='';
+  var egyptPhonePattern=/^\+20(\d{10})$/
+  
+  if((egyptPhonePattern.test(value))){
+    error='';
+    
+  }
+  else{
+    error='Please enter a valid phone number (starting with +20)';
+   
+  }
+ return (error);
+};
+
+
+export {validatePassword,validateConfirmPassword,validateEmail,validateUserName,validatePhone};

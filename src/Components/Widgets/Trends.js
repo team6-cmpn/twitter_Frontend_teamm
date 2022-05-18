@@ -5,11 +5,35 @@ import "antd/dist/antd.css";
 import FriendSuggestions from "./FriendSuggestions/FriendSuggestions";
 import TopicItem from "./Topics/Topics";
 import {Form,Input} from "antd";
+import { BrowserRouter as Route, Routes } from "react-router-dom";
+import {useNavigate, Link} from "react-router-dom";
+import Explore from "../Explore";
 //import "./FriendSuggestions/FriendSuggestionItem/FriendSuggestionItem.css";
+/**Trends
+ * Shows search bar & topics & friendsuggetion
+ *  
+ * @returns (Layout of search & topics & friendsuggetion compnents)
+*/
 function Trends (){
-
+  const history = useNavigate();
   const [data, setData] = useState(null);
   const [btndisabled, setbtndisabled] = useState(true);
+  
+  const handleSubmit=(e) =>{
+    if (e.key === 'Enter') {
+      return (
+        history("/Explore")
+        // <Routes>
+        //    <Route element={<Explore />}></Route>
+        // </Routes>
+        //console.log("bye")
+        //<Redirect push to="/Explore"/>
+      )
+        // TODO redirect user to '/explore'
+       
+       // <Link to="/Explore"></Link>
+    }
+}
   const buttonState = (changedValues, allValues) => {
     //allValues[1]=<h1>hiiiyasta</h1>;
     if ( allValues.ne !== undefined &&  allValues.ne !== ''  ) {
@@ -28,6 +52,7 @@ function Trends (){
   };
   function getData(val){
    setData(val.target.value)
+   localStorage.setItem('word', val.target.value);
    };
   var body={
     data:data
@@ -37,11 +62,12 @@ function Trends (){
     <div className="hide_tr">
       <div className="trends__search">
       <Form  onValuesChange={buttonState}>
-       <Form.Item name="hhh" >
+       <Form.Item  >  
         <Input
           onChange={getData}
           id="searchbar"
           className="trend__control"
+          onKeyPress={handleSubmit.bind(this)}
           placeholder="Search Twitter">
         </Input>
         </Form.Item>

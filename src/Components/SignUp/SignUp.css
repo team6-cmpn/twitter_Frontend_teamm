@@ -1,6 +1,7 @@
-.text {
+.text9 {
   text-align: center;
   /* margin-left: 120px; */
+  display: inline-flexbox;
   font-size: 25px;
   font-weight: bold;
   font-family: "Georgia Pro Black";
@@ -27,4 +28,28 @@
   line-height: 30px;
   border:none;
   text-decoration: underline;
+}
+.resendButton:hover {
+  cursor: pointer;
+  background-color: rgb(213, 235, 224);
+}
+
+.usePhoneButton {
+  
+  /* margin-left: 120px; */
+  
+  background: white;
+  color: dodgerblue;
+  border-radius: 30px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  font-size: 10px;
+  font-weight: bold;
+  line-height: 30px;
+  border:none;
+  text-decoration: underline;
+}
+.usePhoneButton:hover {
+  cursor: pointer;
+  
 }

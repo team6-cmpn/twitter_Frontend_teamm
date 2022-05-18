@@ -3,7 +3,10 @@ import "./settingsSubmenus.css"
 import { Link, useLocation,Outlet } from "react-router-dom";
 import { ChevronRight } from "@mui/icons-material";
 import SettingsContentInMenus from "./SettingsContentInMenus";
-
+/**
+ * make you able to change the between muted and blocked account
+ * @returns [muted and blocked menus]
+ */
 const MuteandBlock = () => {
     const [location] = React.useState(useLocation().pathname);
     document.title = "Mute and block / Twitter";
@@ -14,9 +17,9 @@ const MuteandBlock = () => {
             <span>Mute and block </span>
             </div>
             <div className="submenu_discription">
-                <h3>Manage the accounts, words, and notifications that you've muted or blocked.</h3>
+                <h3>Manage the accounts that you've muted or blocked.</h3>
                 <br/>
-                <Link to="../your-account" style={{ textDecoration: "none", color:"inherit" }}>
+                <Link to="../Blocked-accounts" style={{ textDecoration: "none", color:"inherit" }}>
           <SettingsContentInMenus
             text="Blocked Accounts"
             Icon={ChevronRight}
@@ -25,7 +28,7 @@ const MuteandBlock = () => {
 
           />
         </Link>
-        <Link to="your-account" style={{ textDecoration: "none", color:"inherit" }}>
+        <Link to="../Muted-accounts" style={{ textDecoration: "none", color:"inherit" }}>
           <SettingsContentInMenus
             text="Muted Accounts"
             Icon={ChevronRight}
@@ -33,23 +36,8 @@ const MuteandBlock = () => {
             
 
           />
-        </Link> <Link to="your-account" style={{ textDecoration: "none", color:"inherit" }}>
-          <SettingsContentInMenus
-            text="Muted words"
-            Icon={ChevronRight}
-            active={location === "/MuteandBlock" && true}
-            
-
-          />
-        </Link> <Link to="your-account" style={{ textDecoration: "none", color:"inherit" }}>
-          <SettingsContentInMenus
-            text="Muted notifications"
-            Icon={ChevronRight}
-            active={location === "/MuteandBlock" && true}
-            
-
-          />
         </Link>
+        
             </div>
       </div>
       

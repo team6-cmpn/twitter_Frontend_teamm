@@ -2,7 +2,11 @@ import React from "react";
 //import "../FriendSuggestions/FriendSuggestionItem/FriendSuggestionItem.css";
 import TopicItem from "./TopicItem/TopicItem";
 import "./TopicItem/TopicItem.css";
-
+/**Topics
+ * Shows topics for user
+ *  
+ * @returns (Layout of topics)
+ */
 function Topics() {
   return (
     

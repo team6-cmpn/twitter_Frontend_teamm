@@ -1,9 +1,10 @@
-.text4 {
+.text7 {
     text-align: center;
     margin-left: 130px;
     font-size: 20px;
     font-weight: bold;
     font-family: "Georgia Pro Black";
+    display: flex;
   }
 
 .googleButton {
@@ -58,7 +59,7 @@
   color: white !important;
   box-shadow: none;
   margin-left: 5px;
-  margin-top: 200px;
+  margin-top: 160px;
   height:35px;
   width:450px;
   text-align: center;
@@ -108,4 +109,28 @@
   margin-left: 60px;
   margin-bottom: 10px;
   margin-top: 10px;
+}
+
+.reactivateButton {
+  display: inline-block;
+  background: red;
+  color: white;
+  width: 200px;
+  height: 25px;
+  border-radius: 30px;
+  border: thin solid #888;
+  box-shadow: none;
+  white-space: nowrap;
+  margin-top: 15px;
+  margin-left: 130px;
+  align-items: center;
+  font-size: 15px;
+  font-weight: bold;
+  text-align: center;
+
+}
+
+.reactivateButton:hover {
+  cursor: pointer;
+  background-color: gray;
 }

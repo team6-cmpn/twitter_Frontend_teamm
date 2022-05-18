@@ -5,12 +5,12 @@ import { Avatar } from "@material-ui/core";
 
 const FollowedYou = ({ followingUser }) => {
   return (
-    <div className="followedYou" id="followedyou">
+    <div className="followedYou">
       <UserIcon className="followedYouIcon" />
       <div>
         <Avatar src={followingUser.userImage} />
         <span>
-          <b>{followingUser.displayName}</b> followed you
+          <b>{followingUser.name}</b> followed you
         </span>
       </div>
     </div>

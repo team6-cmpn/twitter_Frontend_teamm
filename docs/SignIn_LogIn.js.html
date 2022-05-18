@@ -45,7 +45,7 @@ import  * as BE  from '../SignUp/backEndRegistration';
 function LogIn() {
 
     const navigate = useNavigate();
-    const [isModalVisible, setModalVisible] = useState(false);
+    const [isModalVisible, setModalVisible] = useState(true);
     const [isModal2Visible, setModal2Visible] = useState(false);
     const [btnDisabled, setBtnDisabled] = useState(true);
     const [data, setData] = useState(null);
@@ -90,7 +90,6 @@ function LogIn() {
     }
       const promise=BE.backEndGoogleLogIn(googlebody)
       promise.then((message)=> {
-        // setGoogleApiResponseMessage(message)
         if(message===''){navigate('/home');}
         else {alert(message);}
         
@@ -116,7 +115,7 @@ function LogIn() {
     
    
     function nextButtonAction(){
-      const GotoHome = mock.logInPost(body);
+      const mockPromise = mock.logInPost(body);
       const promise =  BE.backEndLogIn(body);
       promise.then((message)=> {
         setApiResponseMessage(message+'. You can re-enter your info by pressing on close (x) sign')
@@ -135,12 +134,12 @@ function LogIn() {
       &lt;div>
         &lt;Modal
           title={&lt;TwitterOutlined style={{ fontSize: '200%',marginTop:'1px',color:'Dodgerblue'}} />}
-          style={{textAlign:"center"}}
+          style={{textAlign:"center",display:"inline-flex"}}
           okText='Next'
           okButtonProps={{id:'nextbutton1',shape:'round' , size:'large', style:{width: 450,fontWeight:'bold',alignItems:'center',justifyContent:'center',
           display:'flex'}}}
           cancelButtonProps={{ style: { display: "none" } }}
-          visible={setModalVisible}
+          visible={isModalVisible}
           bodyStyle={{height: 490 ,font:'Helvetica',textAlign:'left'}}
           width={500}
           centered={true}
@@ -148,10 +147,11 @@ function LogIn() {
           footer={null}
           maskClosable={false}  
         >
-          &lt;span className="text4">Sign in to Twitter&lt;/span>
+          
+          &lt;span className="text7">Sign in to Twitter&lt;/span>
           &lt;div>
             &lt;GoogleLogin
-              clientId="335712697506-qcljv0u785qm93fk3ej1hg3ch3u5l9kj.apps.googleusercontent.com"
+              clientId="667720928468-9o7ou05mbdh2o6qe97kericodua0nstq.apps.googleusercontent.com"
               render={renderProps =>(&lt;button id='googleButton' onClick={renderProps.onClick} disabled={renderProps.disabled} class="googleButton">
               &lt;img className="imggoogle" alt='' src={googleIcon} >&lt;/img>
               &lt;span >Sign in with Google&lt;/span>
@@ -176,7 +176,7 @@ function LogIn() {
                 &lt;/Form.Item>
               &lt;/Form>
 
-              &lt;button className="googleButton button-color" disabled={btnDisabled} onClick={()=>onSubModel()}>Next&lt;/button>
+              &lt;button id='nexttButton' className="googleButton button-color" disabled={btnDisabled} onClick={()=>onSubModel()}>Next&lt;/button>
               &lt;Link id='forgetPass' to='/forgetpassword'> &lt;button className="googleButton button2-color">Forget Password?&lt;/button>&lt;/Link>
             &lt;/div>
           
@@ -189,7 +189,7 @@ function LogIn() {
 
         &lt;Modal
           title={&lt;TwitterOutlined style={{ fontSize: '200%',marginTop:'1px',color:'Dodgerblue'}} />}
-          style={{textAlign:"center"}}
+          style={{textAlign:"center",display:"inline-flex"}}
           okText='Next'
           okButtonProps={{id:'nextbutton2',shape:'round' , size:'large', style:{width: 450,fontWeight:'bold',alignItems:'center',justifyContent:'center',
           display:'flex'}}}
@@ -208,9 +208,14 @@ function LogIn() {
               &lt;Input.Password id='password' style={{width:450,height:50}} placeholder="Password" onChange={getPassword} iconRender={visible => (visible ? &lt;EyeTwoTone /> : &lt;EyeInvisibleOutlined />)}>&lt;/Input.Password>
             &lt;/Form.Item>
           &lt;/Form>
-          &lt;Link id='forgetPassRedirect' to='/forgetpassword'>Forget password?&lt;/Link>&lt;br>&lt;/br>
-          &lt;span style={{color: 'red',fontSize:'100',fontWeight:'bold'}}> {apiResponseMessage}&lt;/span> 
-          &lt;div>&lt;button id='nextButton' className="googleButton button3-color" onClick={()=>nextButtonAction()} >Log in&lt;/button>&lt;/div>
+          &lt;Link id='forgetPassRedirect' to='/forgetpassword'>Forget password?&lt;/Link>&lt;br>&lt;/br>&lt;br>&lt;/br>
+          {apiResponseMessage==='This account is deactivated!. You can re-enter your info by pressing on close (x) sign'?(
+                &lt;span style={{color: 'red',fontSize:'100',fontWeight:'bold'}}> {apiResponseMessage}
+                &lt;br>&lt;/br>
+                &lt;button id="reactivateButton" className="reactivateButton" to='' onClick={()=>{BE.reactivateAccount()}} >Reactivate?&lt;/button>
+                &lt;/span> 
+              ):(&lt;span style={{color: 'red',fontSize:'100',fontWeight:'bold'}}> {apiResponseMessage}&lt;/span> )}
+          &lt;div>&lt;button id="nextButton" className="googleButton button3-color" onClick={()=>nextButtonAction()} >Log in&lt;/button>&lt;/div>
           &lt;div>&lt;span className="txt3">Dont have an account? &lt;/span>&lt;Link id='signUpLink'  to="/signup">Sign up&lt;/Link>&lt;/div>
         
 
@@ -224,7 +229,8 @@ function LogIn() {
   
   
   
-export default LogIn;</code></pre>
+export default LogIn;
+</code></pre>
         </article>
     </section>
 
@@ -234,13 +240,13 @@ export default LogIn;</code></pre>
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#ForgetPassword">ForgetPassword</a></li><li><a href="global.html#GoogleSignUp">GoogleSignUp</a></li><li><a href="global.html#LogIn">LogIn</a></li><li><a href="global.html#mock">mock</a></li><li><a href="global.html#Notifications">Notifications</a></li><li><a href="global.html#Post">Post</a></li><li><a href="global.html#Profile">Profile</a></li><li><a href="global.html#SignUp">SignUp</a></li><li><a href="global.html#StartPage">StartPage</a></li><li><a href="global.html#validateEmail">validateEmail</a></li><li><a href="global.html#validatePassword">validatePassword</a></li><li><a href="global.html#validateUserName">validateUserName</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#backEndGoogleLogIn">backEndGoogleLogIn</a></li><li><a href="global.html#backEndGooglePost">backEndGooglePost</a></li><li><a href="global.html#backEndLatest">backEndLatest</a></li><li><a href="global.html#backEndLogIn">backEndLogIn</a></li><li><a href="global.html#backEndPeople">backEndPeople</a></li><li><a href="global.html#backEndPost">backEndPost</a></li><li><a href="global.html#backEndTop">backEndTop</a></li><li><a href="global.html#Explore">Explore</a></li><li><a href="global.html#Feed">Feed</a></li><li><a href="global.html#ForgetPassword">ForgetPassword</a></li><li><a href="global.html#forgetPassword">forgetPassword</a></li><li><a href="global.html#FriendSuggestions">FriendSuggestions</a></li><li><a href="global.html#GoogleSignUp">GoogleSignUp</a></li><li><a href="global.html#LogIn">LogIn</a></li><li><a href="global.html#LogOut">LogOut</a></li><li><a href="global.html#mock">mock</a></li><li><a href="global.html#Notifications">Notifications</a></li><li><a href="global.html#Post">Post</a></li><li><a href="global.html#Profile">Profile</a></li><li><a href="global.html#reactivateAccount">reactivateAccount</a></li><li><a href="global.html#resendEmail">resendEmail</a></li><li><a href="global.html#resendSMS">resendSMS</a></li><li><a href="global.html#resetPassword">resetPassword</a></li><li><a href="global.html#Sidebar">Sidebar</a></li><li><a href="global.html#SignUp">SignUp</a></li><li><a href="global.html#StartPage">StartPage</a></li><li><a href="global.html#Topics">Topics</a></li><li><a href="global.html#Trends">Trends</a></li><li><a href="global.html#Tweetbox">Tweetbox</a></li><li><a href="global.html#validateEmail">validateEmail</a></li><li><a href="global.html#validatePassword">validatePassword</a></li><li><a href="global.html#validateUserName">validateUserName</a></li><li><a href="global.html#verifyEmail">verifyEmail</a></li><li><a href="global.html#verifyEmailForgetPassword">verifyEmailForgetPassword</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Sat Apr 23 2022 17:57:13 GMT+0200 (Eastern European Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Sun May 15 2022 02:11:20 GMT+0200 (Eastern European Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

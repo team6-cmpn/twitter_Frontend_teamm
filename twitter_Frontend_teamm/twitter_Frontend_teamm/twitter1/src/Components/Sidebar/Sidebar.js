@@ -116,7 +116,7 @@ function Sidebar() {
     });
   },[]);
   const notify = () => {
-    toast.info("Notifications: " + dataTemp + ".", {
+    toast.info("Notifications: " + dataTemp.notificationHeader.text + ".", {
       position: toast.POSITION.BOTTOM_RIGHT,
     });
   };

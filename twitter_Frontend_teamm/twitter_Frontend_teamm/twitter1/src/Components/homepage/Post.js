@@ -9,7 +9,7 @@ import FollowersList from "../Profile/FollowersList";
 import * as mocked from "./feedmock";
 import * as backend from "./backendFeed";
 import {likes_list} from "./backendFeed";
-import {Modal} from "antd";
+import {Modal, Result} from "antd";
 import timeDifference from "./date";
 import {style} from "@mui/system";
 import ImageBox from "./ImageBox";
@@ -66,6 +66,7 @@ const Post = ({
   const [mentioned, setmentioned] = useState(false);
   const [likes_list, setlikes_list] = useState([]);
   const [retweetname_list, setretweetname_list] = useState([]);
+  const [res, setres] = useState([]);
 
   /**
    * function like post toggle like button
@@ -115,10 +116,16 @@ const Post = ({
   function openlikes() {
     setlikeModalVisible(true);
     mocke_list = backend.likes_list(mocked_tweet);
-    console.log("test");
-    const test = backend.GetDashBoardstat(mocked_tweet);
-    console.log("test", test);
+    console.log("test",mocke_list);
+    
+    var promiseB = mocke_list.then(function(tempresult) {
+      setres(tempresult?.favoriteusers)
+      console.log("what",tempresult)
+      
+   });
+   console.log("tempp",promiseB)
   }
+  console.log("res",res)
   /**
    * function open retweet modelof list of profiles who retweeted this post
    */
@@ -326,7 +333,7 @@ const Post = ({
         >
           {like_no !== 0 ? (
             <div>
-              {mocke_list.map((users, index) => (
+              {res.map((users, index) => (
                 <FollowersList key={index} FollowerAccount={users} />
               ))}
             </div>

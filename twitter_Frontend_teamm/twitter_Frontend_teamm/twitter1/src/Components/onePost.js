@@ -20,6 +20,7 @@ function Home() {
   const loginuser_id = localStorage.getItem("userId");
   const [likesno, setlikesno] = useState();
   const [retweetno, setretweetno] = useState();
+  const [id_tweet, setid_tweet] = useState();
 
   var clicked_tweet_id = localStorage.getItem("clicked.ID");
   const tweeted_user = backend.getTweet(clicked_tweet_id);
@@ -32,8 +33,9 @@ function Home() {
     setDisplayname(text.user.name);
     setlikesno(text.tweet.favorites.length);
     setretweetno(text.tweet.retweetUsers.length);
-    //setid_tweet(text._id);
+    setid_tweet(text.tweet._id);
     setid_user(text.user.id);
+    console.log(text.tweet.favorites.length);
     console.log(text.tweet.retweetUsers.length);
     //console.log(text.mention);
   });
@@ -53,6 +55,7 @@ function Home() {
             logedin_user_id={loginuser_id}
             retweets={retweetno}
             likes={likesno}
+            tweet_id={id_tweet}
             //avatar={disp_img}
             //id_post={id_post}
             open={true}

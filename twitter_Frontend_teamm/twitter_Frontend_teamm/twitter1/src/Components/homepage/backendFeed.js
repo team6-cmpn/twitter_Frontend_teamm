@@ -179,10 +179,10 @@ export async function Tweets_lookup(page, tweet_no) {
       },
     })
     .then((response) => {
-      console.log(response.data.message);
+      // console.log(response.data.message);
       if (response.status === 200) {
-        messgae = response.data.tweet;
-        console.log(response);
+        messgae = response;
+        // console.log(response);
       }
     })
     .catch((error) => {
@@ -254,7 +254,7 @@ export async function Retweeters_list(id) {
       // console.log(response.data);
       if (response.status === 200) {
         messgae = response.data;
-        console.log(response.data);
+        // console.log(response.data);
       }
     })
     .catch((error) => {

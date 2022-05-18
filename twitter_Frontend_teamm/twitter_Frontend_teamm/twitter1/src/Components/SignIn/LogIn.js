@@ -24,7 +24,7 @@ function LogIn() {
     const [password, setPassword] = useState(null);
     const [apiResponseMessage, setApiResponseMessage] = useState();
     const [googleApiResponseMessage, setGoogleApiResponseMessage] = useState();
-
+    localStorage.setItem('isLogged',false)
    
 
     function getData(val){
@@ -92,6 +92,7 @@ function LogIn() {
       promise.then((message)=> {
         setApiResponseMessage(message+'. You can re-enter your info by pressing on close (x) sign')
         if(message===''){navigate('/home');}
+        localStorage.setItem('isLogged',true)
      })
 
       // console.log(home);

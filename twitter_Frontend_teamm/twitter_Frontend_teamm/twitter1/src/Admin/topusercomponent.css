@@ -12,13 +12,13 @@
 .newUsersListItem {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  margin: 50px 0px;
+  margin-right: 20rem;
 }
 
 .newUsersUser {
   display: flex;
   flex-direction: column;
+  margin-left: 20px;
 }
 
 .newUsersUsername {
@@ -36,7 +36,7 @@
   align-items: center;
   border: none;
   border-radius: 10px;
-  padding: 7px 10px;
+  padding: 7px 1px;
   background-color: #eeeef7;
   color: #555;
   cursor: pointer;

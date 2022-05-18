@@ -2,11 +2,12 @@ import React from "react";
 import "./Notifications.css";
 import "./Home.css";
 import Trends from "./Widgets/Trends";
-import Blocked_days from "./FollowedYou";
+import Blocked_days from "./YouBlocked";
+import FollowedYou from "./FollowedYou";
 import SettingsBox from "./SettingsBox/SettingsBox";
 import LikedYou from "./LikedYou";
 import getFollowingUsers from "./NotificationsMock";
-import { GetPostTweet } from "./homepage/feedmock";
+import { getfollowedUsers } from "./NotificationsMock";
 import {getLikedUsers} from "./NotificationsMock";
 import { GetNotificationsFavourites } from "./NotificationBackend";
 import { GetNotifications } from "./NotificationBackend";
@@ -25,14 +26,14 @@ import Notified from "./Notified";
 function Notifications() {
   const [Blockeddays, setBlockeddays] = React.useState([]);
   const [LikedUser, setLikedUser] = React.useState([]);
-  const [twetted, postedtweet] = React.useState([]);
+  const [followedyou, setfollowedyou] = React.useState([]);
 
   const [isAll, setIsAll] = React.useState(true);
   document.title = "Notifications / Twitter";
   React.useEffect(() => {
     (async () => {
-      const resp = await GetPostTweet();
-      postedtweet(resp);
+      const resp = await getfollowedUsers();
+      setfollowedyou(resp);
     })();
     (async () => {
       const resp = await getFollowingUsers();
@@ -84,6 +85,9 @@ function Notifications() {
               ))}
               {LikedUser.map((userNotification, index) => (
               <LikedYou key={index} likePost={userNotification} />
+              ))}
+              {followedyou.map((userNotification, index) => (
+              <FollowedYou key={index} followingUser={userNotification} />
               ))}
             
               

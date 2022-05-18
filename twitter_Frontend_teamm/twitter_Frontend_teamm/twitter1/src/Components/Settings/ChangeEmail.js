@@ -56,7 +56,7 @@ function ChangeEmail(){
                 name="Email"
               >
                 <span style={{color: 'red'}}>
-                  <Input id="change_Email" style={{ height:40,width:550}}  onChange={GetEmailValidation}  onKeyUp={GetEmail} maxLength={100}  placeholder="Email" />
+                  <Input id="change_Email"   onChange={GetEmailValidation}  onKeyUp={GetEmail} maxLength={100}  placeholder="Email" />
                   {EmailError}<br></br>
                 </span>
               </Form.Item>

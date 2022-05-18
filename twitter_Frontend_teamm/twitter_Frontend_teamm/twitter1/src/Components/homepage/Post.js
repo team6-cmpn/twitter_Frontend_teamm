@@ -4,9 +4,12 @@ import {modalState, postIdState} from "../atoms/modalAtom";
 import {useRecoilState} from "recoil";
 import {HeartIcon as HeartIconFilled} from "@heroicons/react/solid";
 import {HeartIcon, ShareIcon, TrashIcon} from "@heroicons/react/outline";
+import FollowersList from "../Profile/FollowersList";
+
 import * as mocked from "./feedmock";
 import * as backend from "./backendFeed";
-import {Modal} from "antd";
+import {likes_list} from "./backendFeed";
+import {Modal, Result} from "antd";
 import timeDifference from "./date";
 import {style} from "@mui/system";
 import ImageBox from "./ImageBox";
@@ -61,8 +64,9 @@ const Post = ({
   const [isretweetModalVisible, setretweetModalVisible] = useState(false);
   const [isOpen, setIsOpen] = useRecoilState(modalState);
   const [mentioned, setmentioned] = useState(false);
-  const [likes_list, setlikes_list] = useState();
+  const [likes_list, setlikes_list] = useState([]);
   const [retweetname_list, setretweetname_list] = useState([]);
+  const [res, setres] = useState([]);
 
   /**
    * function like post toggle like button
@@ -78,7 +82,6 @@ const Post = ({
         console.log(text);
         setcount(text);
       });
-      // ///////////////////////////////////////////////////////////////////////////////{liveNotifications()}
       setif_liked(true);
     } else if (if_liked === true) {
       //post disliked
@@ -91,54 +94,38 @@ const Post = ({
     }
   };
 
-  // // // // // // // // /** live notificationas actions */
-  // // // // // // // // var pusher;
-  // // // // // // // // var userid=localStorage.getItem('userId');
-  // // // // // // // // var dataTemp;
-  // // // // // // // //  useEffect(async() => {
-
-  // // // // // // // //   Pusher.logToConsole = true;
-  // // // // // // // //   pusher = new Pusher('a02c7f30c561968a632d', {
-  // // // // // // // //     appId : "1406245",
-
-  // // // // // // // //     secret : "5908937248eea3363b9e",
-  // // // // // // // //     cluster : "eu",
-  // // // // // // // //     useTLS: true,
-
-  // // // // // // // //   });
-  // // // // // // // // });
-  // // // // // // // // function liveNotifications(){
-  // // // // // // // //   var channel = pusher.subscribe(String(userid));
-  // // // // // // // //   channel.bind('favourite-event', function(data) {
-  // // // // // // // //     dataTemp=data;
-  // // // // // // // //     {notify()}
-  // // // // // // // //   });
-
-  // // // // // // // // }
-  // // // // // // // // const notify = () =>{
-
-  // // // // // // // //     //dataTemp.notificationHeader.text
-  // // // // // // // //   toast.info(+dataTemp.notificationHeader.text+".",
-  // // // // // // // //   {position: toast.POSITION.TOP_CENTER})}
-
   /**
    * function open like modelof list of profiles who liked this post
    */
-  var clicked_tweet_id = localStorage.getItem("clicked.ID");
-
+  const mocked_tweet = localStorage.getItem("ID_tweet");
+  console.log(mocked_tweet);
+  var clicked;
   const openPost = async () => {
-    localStorage.setItem("clicked.ID", tweet_id);
+    clicked = localStorage.setItem("clicked.ID", tweet_id);
+
     navigate("/post");
     if (mentioned === true) {
       get_mention();
     }
   };
+
   /**
    * function open post in seperat page navigate
    */
+  var mocke_list = [];
   function openlikes() {
     setlikeModalVisible(true);
+    mocke_list = backend.likes_list(mocked_tweet);
+    console.log("test",mocke_list);
+    
+    var promiseB = mocke_list.then(function(tempresult) {
+      setres(tempresult?.favoriteusers)
+      console.log("what",tempresult)
+      
+   });
+   console.log("tempp",promiseB)
   }
+  console.log("res",res)
   /**
    * function open retweet modelof list of profiles who retweeted this post
    */
@@ -343,7 +330,17 @@ const Post = ({
           onCancel={() => setlikeModalVisible(false)}
           footer={null}
           maskClosable={false}
-        ></Modal>
+        >
+          {like_no !== 0 ? (
+            <div>
+              {res.map((users, index) => (
+                <FollowersList key={index} FollowerAccount={users} />
+              ))}
+            </div>
+          ) : (
+            <div>no likes yet!</div>
+          )}
+        </Modal>
 
         <Modal
           title={
@@ -367,7 +364,6 @@ const Post = ({
           footer={null}
           maskClosable={false}
         ></Modal>
-        {/* <ToastContainer/> */}
       </div>
     </div>
   );

@@ -17,14 +17,15 @@ function BlockForm() {
     if (duration < 0) {
       alert("Please enter a validate number");
     } else {
-      var resp=BLockUser(body);
-      console.log(resp)
-      alert("User is Blocked By : " + duration + " Days");
-      e.preventDefault();
+      var resp = BLockUser(body);
+      console.log(resp);
+      localStorage.setItem("selectedIDs", null);
+      window.setTimeout(20000);
+      e.preventDefault(); //prevent refresh of page
     }
   };
-  var body={duration:duration}
-  sessionStorage.setItem('duration',duration)
+  var body = { duration: duration };
+  sessionStorage.setItem("duration", duration);
   return (
     <div>
       <div id="FinalUsersPage">
@@ -35,7 +36,8 @@ function BlockForm() {
             <div className="UserWidget">
               <div className="BlockForm">
                 <header className="BlockForm-header">
-                  <form className="Block_Form"
+                  <form
+                    className="Block_Form"
                     onSubmit={(e) => {
                       handleSubmit(e);
                     }}
@@ -54,7 +56,9 @@ function BlockForm() {
                     />
                     <br />
                     <br />
-                    <input type="submit" value="Submit" />
+                    <a>
+                      <input type="submit" value="Submit" />
+                    </a>
                   </form>
                 </header>
               </div>

@@ -15,6 +15,11 @@ import { Modal} from "antd";
 function LogOut(){
     const navigate = useNavigate();
     const [isModalVisible, setModalVisible] = useState(false);
+    function LogOutButtonAction(){
+      localStorage.setItem('isLogged',false);
+      navigate("/");
+
+    }
     return(
         <div>
   
@@ -31,7 +36,7 @@ function LogOut(){
           bodyStyle={{height: 90,font:'Helvetica',textAlign:'left'}}
           width={300}
           centered={true}
-          onCancel={() => navigate("/")}
+          onCancel={() => LogOutButtonAction()}
           onOk={() =>navigate("/home")}
           maskClosable={false}
         >

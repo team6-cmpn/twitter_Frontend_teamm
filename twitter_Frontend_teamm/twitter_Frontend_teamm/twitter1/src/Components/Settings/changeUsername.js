@@ -32,8 +32,12 @@ const ChangeUsername = () =>{
     var body={
         username:username
     }
+    function changeInSideBar(){
+
+      localStorage.setItem('getUsername',username)
+
+    }
     sessionStorage.setItem('username',username)
-    localStorage.setItem('getUsername',username)
     const notify = () =>{
 
       toast.info('Username succesfully changed',
@@ -60,7 +64,7 @@ const ChangeUsername = () =>{
                 ]} 
               >
                 <span style={{color: 'red'}}>
-                  <Input id="usernameChange" style={{ height:40,width:550}}   onChange={getUserNameValidation}  onKeyUp={getUserName}  maxLength={50}  placeholder="Username" />
+                  <Input id="usernameChange"    onChange={getUserNameValidation}  onKeyUp={getUserName}  maxLength={50}  placeholder="Username" />
                   {userNameError}
                 </span>
               </Form.Item>
@@ -71,7 +75,9 @@ const ChangeUsername = () =>{
             
             
             <div className="savebutton" >
-                <Button onClick={()=> SaveButtonActions()}
+                <Button onClick={()=> {SaveButtonActions()
+                
+                  changeInSideBar()}}
                         
                     id="save_Username"
                     //onClick={}

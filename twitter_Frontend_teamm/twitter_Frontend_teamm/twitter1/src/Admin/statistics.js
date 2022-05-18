@@ -15,7 +15,9 @@ export default function Statistics() {
         <AdminSideBar />
         <div className="satisticshome">
           <TwiiterStatistics />
-          <BaxialComponent />
+          <div className="carousel">
+            <BaxialComponent />
+          </div>
           <div className="statwidgets">
             <TopUsers />
           </div>

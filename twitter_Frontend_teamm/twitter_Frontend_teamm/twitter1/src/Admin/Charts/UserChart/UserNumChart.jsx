@@ -17,25 +17,37 @@ import {
   GetNumberOfUsersOfMonth,
   GetSignedUpMethod,
   GetDashBoard,
+  GetDashBoardstat
 } from "../../MockRegistrationAdmin";
 import { useState,useEffect } from "react";
 
 export default function UserNumChart() {
-  const userpermonthmock = GetNumberOfUsersOfMonth();
-  const signedupmethodnum = GetSignedUpMethod();
-  const [usersPerMonth, setUsersPerMonth] = useState(undefined);
+  const usersperyear = GetDashBoardstat()[4]?.users_Per_Year;
+  // const [usersPerMonth, setUsersPerMonth] = useState(undefined);
   // const usersPerMonth= UserNumberMonthBack[3]?.users_Per_Month;
-  useEffect(() => {
-  (async () => {
-    const resp = await GetDashBoard();
-    let tempUsersPerMonth = [...resp.data[3].users_Per_Month];
-    tempUsersPerMonth.forEach((element, index) => {
-      tempUsersPerMonth[index].month = element._id.month;
-    });
-    setUsersPerMonth(tempUsersPerMonth);
-  })();
-}, []);
+//   useEffect(() => {
+//   (async () => {
+//     const resp = await GetDashBoard();
+//     let tempUsersPerMonth = [...resp.data[3].users_Per_Month];
+//     tempUsersPerMonth.forEach((element, index) => {
+//       tempUsersPerMonth[index].month = element._id.month;
+//     });
+//     setUsersPerMonth(tempUsersPerMonth);
+//   })();
+// }, []);
 
+// useEffect(() => {
+//   (async () => {
+//     const resp = await GetDashBoard();
+//     let tempUsersPerMonth = [...resp.data[4].users_Per_Month];
+//     tempUsersPerMonth.forEach((element, index) => {
+//       tempUsersPerMonth[index].month = element._id.month;
+//     });
+//     setUsersPerMonth(tempUsersPerMonth);
+//   })();
+// }, []);
+
+const usersPerMonth=GetDashBoardstat()[3]?.users_Per_Month
 
   return (
     <div className="charts">
@@ -54,21 +66,21 @@ export default function UserNumChart() {
             }}
           >
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="month" />
+            <XAxis dataKey="_id" />
             <YAxis />
             <Tooltip />
             <Legend />
-            <Bar dataKey="total" fill="#82ca9d" />
+            <Bar dataKey="count" fill="#82ca9d" />
           </BarChart>
         </ResponsiveContainer>
       </div>
       <div className="chart">
-        <h3 className="charttitle"> Signed Up Method</h3>
+        <h3 className="charttitle"> Users Per Years</h3>
         <ResponsiveContainer aspect={4 / 3}>
           <LineChart
             width={500}
             height={300}
-            data={signedupmethodnum}
+            data={usersperyear}
             margin={{
               top: 5,
               right: 30,
@@ -77,17 +89,11 @@ export default function UserNumChart() {
             }}
           >
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
+            <XAxis dataKey="_id" />
             <YAxis />
             <Tooltip />
             <Legend />
-            <Line
-              type="monotone"
-              dataKey="EmailSign"
-              stroke="#8884d8"
-              activeDot={{ r: 8 }}
-            />
-            <Line type="monotone" dataKey="GoogleSign" stroke="#82ca9d" />
+            <Line type="monotone" dataKey="totalUsers" stroke="#06562B" />
           </LineChart>
         </ResponsiveContainer>
       </div>

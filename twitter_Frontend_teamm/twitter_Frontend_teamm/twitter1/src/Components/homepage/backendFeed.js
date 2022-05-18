@@ -1,13 +1,10 @@
 import axios from "axios";
 import Configure from "../../Configure";
+import React, {useEffect} from "react";
 
-export async function Post_Tweet() {
+export async function Post_Tweet(body) {
   var messgae;
-  const body = {
-    text: localStorage.getItem("input_set"),
-    mention: localStorage.getItem("mention_set"),
-    imageUrl: "any",
-  };
+
   //   localStorage.getItem("id");
   await axios
     .post(`${Configure.backURL}tweets/update`, body, {
@@ -20,7 +17,7 @@ export async function Post_Tweet() {
       //console.log(response);
       if (response.status === 201) {
         messgae = response.data;
-        sessionStorage.setItem("ID_tweet", response.data._id);
+        localStorage.setItem("ID_tweet", response.data._id);
       }
     })
     .catch((error) => {
@@ -31,7 +28,7 @@ export async function Post_Tweet() {
 }
 export async function Get_newTweet() {
   var messgae;
-  var id = sessionStorage.getItem("ID_tweet");
+  var id = localStorage.getItem("ID_tweet");
   await axios
     .get(`${Configure.backURL}tweets/show/${id}`, {
       headers: {
@@ -150,7 +147,6 @@ export async function DeleteTweet(id) {
 
 export async function UploadImg(image) {
   var messgae;
-  //const image = sessionStorage.getItem("image_obj");
 
   await axios
     .post(`${Configure.backURL}image/tweet/upload`, image, {
@@ -245,34 +241,9 @@ export async function UNRetweet_tweet(id) {
 }
 export async function Retweeters_list(id) {
   var messgae;
-  const body = {};
 
   await axios
-    .get(`${Configure.backURL}tweets/retweeters/${id}`, body, {
-      headers: {
-        "Content-Type": "application/json",
-        "x-access-token": `${localStorage.getItem("token")}`,
-      },
-    })
-    .then((response) => {
-      console.log(response.data);
-      if (response.status === 200) {
-        messgae = response.data.retweetersList.length;
-        console.log(response.data);
-      }
-    })
-    .catch((error) => {
-      messgae = error.response.data.message;
-    });
-
-  return messgae;
-}
-export async function likes_list(id) {
-  var messgae;
-  const body = {};
-
-  await axios
-    .get(`${Configure.backURL}tweets/favoritelist/${id}`, body, {
+    .get(`${Configure.backURL}tweets/retweeters/${id}`, {
       headers: {
         "Content-Type": "application/json",
         "x-access-token": `${localStorage.getItem("token")}`,
@@ -290,4 +261,49 @@ export async function likes_list(id) {
     });
 
   return messgae;
+}
+
+export async function likes_list(id) {
+  var messgae;
+
+  await axios
+    .get(`${Configure.backURL}tweets/favoritelist/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        "x-access-token": `${localStorage.getItem("token")}`,
+      },
+    })
+    .then((response) => {
+      //console.log(response.data);
+      if (response.status === 200) {
+        messgae = response.data;
+        //console.log(response.data);
+      }
+    })
+    .catch((error) => {
+      messgae = error.response.data.message;
+    });
+
+  return messgae;
+}
+export function GetDashBoardstat(id) {
+  const [dashBoard, setDashBoard] = React.useState([]);
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      const dashBoard = await axios.get(
+        `${Configure.backURL}tweets/favoritelist/${id}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "x-access-token": `${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      setDashBoard(dashBoard.data);
+    };
+    fetchProduct();
+  }, []);
+  if (!dashBoard) return null;
+  return dashBoard;
 }

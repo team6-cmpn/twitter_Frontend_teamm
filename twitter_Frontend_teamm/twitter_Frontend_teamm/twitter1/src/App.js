@@ -28,15 +28,12 @@ import ChangeUsername from "./Components/Settings/changeUsername";
 import Changepassword from "./Components/Settings/changepassword";
 import DeactivateAcc from "./Components/Settings/DeactiviateAcc";
 import Bookmarks from './Components/Bookmarks/Bookmarks';
-import {
-  PrivateRouteAdmin,
-  PrivateRouteStat,
-  PrivateRouteUSers,
-} from "./Admin/PrivateRoute";
 import BlockedAccounts from "./Components/Settings/BlockedAccounts";
 import Changephone from "./Components/Settings/ChangePhone";
 import ChangeEmail from "./Components/Settings/ChangeEmail";
 import MutedAccounts from "./Components/Settings/MutedAccounts";
+import PrivateRoute from "./PrivateRoute";
+
 function App() {
   const isAuthenticated = localStorage.getItem("token");
   return (
@@ -50,37 +47,38 @@ function App() {
           <Route path="/login" element={<LogIn />}></Route>
           <Route path="/logout" element={<LogOut />}></Route>
           <Route path="/forgetpassword" element={<ForgetPassword />}></Route>
-          <Route path="/home" element={<Home />} />
-          <Route path="/post" element={<Post />} />
-          <Route path="/explore" element={<Explore />} />
-          <Route path="/Notifications" element={<Notifications />} />
-          <Route path="/Settings" element={<Settings />}>
-            <Route path="change-username" element={<ChangeUsername />} />
-            <Route path="change-password" element={<Changepassword />} />
-            <Route path="your-account" element={<YourAccount />} />
-            <Route path="privacy-and-saftey" element={<PrivacyAndSafety />} />
-            <Route path="MuteandBlock" element={<MuteandBlock />} />
-            <Route path="Your-twitter-data" element={<AccountInformation />} />
-            <Route path="Deactivate-your-Acc" element={<DeactivateAcc />} />
-            <Route path="Blocked-accounts" element={<BlockedAccounts />} />
-            <Route path="Muted-accounts" element={<MutedAccounts />} />
-            <Route path="change-phone-number" element={<Changephone />} />
-            <Route path="change-email" element={<ChangeEmail />} />
-          </Route>
-          <Route path="/adminPage" element={<AdminHome />} />
-          <Route path="/Users" element={<FinalUser />} />
-          <Route path="/Statistics" element={<Statistics />} />
-          {/* <PrivateRouteAdmin path="/adminPage" isAuthenticated={isAuthenticated}/>
-          <PrivateRouteStat path="/Statistics" isAuthenticated={isAuthenticated}/>
-          <PrivateRouteUSers path="/Users" isAuthenticated={isAuthenticated}/> */}
-          <Route path="/BlockForm" element={<BlockForm />} />
-          <Route path="/profile" element={<Profile />}>
-            {" "}
-          </Route>
-          <Route path="/Followers" element={<Followers />}></Route>
-          <Route path="/Following" element={<Following />}></Route>
-          <Route path="/:username" element={<User />} exact />
-          <Route path="/bookmarks" element={<Bookmarks />} />
+          <Route element = {<PrivateRoute isLogged={localStorage.getItem('isLogged')}/>} > 
+
+                <Route path="/home" element={<Home />} />
+                <Route path="/post" element={<Post />} />
+                <Route path="/explore" element={<Explore />} />
+                <Route path="/Notifications" element={<Notifications />} />
+                <Route path="/Settings" element={<Settings />}>
+                  <Route path="change-username" element={<ChangeUsername />} />
+                  <Route path="change-password" element={<Changepassword />} />
+                  <Route path="your-account" element={<YourAccount />} />
+                  <Route path="privacy-and-saftey" element={<PrivacyAndSafety />} />
+                  <Route path="MuteandBlock" element={<MuteandBlock />} />
+                  <Route path="Your-twitter-data" element={<AccountInformation />} />
+                  <Route path="Deactivate-your-Acc" element={<DeactivateAcc />} />
+                  <Route path="Blocked-accounts" element={<BlockedAccounts />} />
+                  <Route path="Muted-accounts" element={<MutedAccounts />} />
+                  <Route path="change-phone-number" element={<Changephone />} />
+                  <Route path="change-email" element={<ChangeEmail />} />
+                </Route>
+                <Route path="/adminPage" element={<AdminHome />} />
+                <Route path="/Users" element={<FinalUser />} />
+                <Route path="/Statistics" element={<Statistics />} />
+                <Route path="/BlockForm" element={<BlockForm />} />
+                <Route path="/profile" element={<Profile />}>
+                  {" "}
+                </Route>
+                <Route path="/Followers" element={<Followers />}></Route>
+                <Route path="/Following" element={<Following />}></Route>
+                <Route path="/:username" element={<User />} exact />
+                <Route path="/bookmarks" element={<Bookmarks />} />
+               </Route>
+
         </Routes>
       </div>
     </Router>

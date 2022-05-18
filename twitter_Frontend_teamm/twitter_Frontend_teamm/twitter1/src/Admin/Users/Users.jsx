@@ -2,34 +2,22 @@ import React from "react";
 import "./users.css";
 import BlockIcon from "@material-ui/icons/Block";
 import { DataGrid } from "@mui/x-data-grid";
-import { GetUserList } from "../MockRegistrationAdmin";
+import { GetDashBoardstat, GetUserList } from "../MockRegistrationAdmin";
 import BlockForm from "./BlockForm";
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import { useEffect } from "react";
 
 const columns = [
-  {
-    title: "Avatar",
-    field: "avatar",
-    headerName: "Image",
-    sortable: false,
-    renderCell: (params) => (
-      <img
-        style={{ width: 36, height: 36, borderRadius: "50%" }}
-        src={params.value}
-        alt="userimg"
-      />
-    ),
-  },
   { field: "name", headerName: "Name", width: 130 },
   { field: "username", headerName: "UserName", width: 130 },
   { field: "followers_count", headerName: "Followers", width: 130 },
   { field: "followings_count", headerName: "Folllowing", width: 130 },
   { field: "dateOfBirth", headerName: "Date Of Birth", width: 130 },
-  { field: "isDeactivated", headerName: "Deactivation Status", width: 150 },
-  { field: "_id", headerName: "User ID", width: 150 },
+  { field: "isDeactivated", headerName: "Deactivation Status", width: 130 },
+  { field: "_id", headerName: "User ID", width: 130 },
   {
-    field: "action",
-    headerName: "Action",
+    field: "block",
+    headerName: "Block",
     sortable: false,
     renderCell: (params) => {
       const onClick = (e) => {
@@ -43,6 +31,26 @@ const columns = [
       return (
         <a href="BlockForm" onClick={onClick}>
           <BlockIcon />
+        </a>
+      );
+    },
+  },
+  {
+    field: "action",
+    headerName: "Uncblock",
+    sortable: false,
+    renderCell: (params) => {
+      const onClick = (e) => {
+        return (
+          <div>
+            <BlockForm />
+          </div>
+        );
+      };
+
+      return (
+        <a href="BlockForm" onClick={onClick}>
+          <CheckCircleOutlineIcon />
         </a>
       );
     },

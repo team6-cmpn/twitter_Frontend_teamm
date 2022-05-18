@@ -39,6 +39,7 @@ function App() {
   return (
     <Router>
       <div className="App">
+      {/* {localStorage.getItem("isLogged")==="true"?()} */}
         <Routes>
           <Route path="/" element={<StartPage />}>
             <Route path="/signup" element={<SignUp />} />

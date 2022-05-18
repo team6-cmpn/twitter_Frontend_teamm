@@ -48,7 +48,7 @@ export default function UserNumChart() {
 // }, []);
 
 const usersPerMonth=GetDashBoardstat()[3]?.users_Per_Month
-
+const sortedData = usersperyear?.sort((a,b) => a.x - b.x)
   return (
     <div className="charts">
       <div className="chart">
@@ -80,7 +80,7 @@ const usersPerMonth=GetDashBoardstat()[3]?.users_Per_Month
           <LineChart
             width={500}
             height={300}
-            data={usersperyear}
+            data={sortedData}
             margin={{
               top: 5,
               right: 30,
@@ -89,7 +89,7 @@ const usersPerMonth=GetDashBoardstat()[3]?.users_Per_Month
             }}
           >
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="_id" />
+            <XAxis dataKey="_id"  domain={[0, 10000]} />
             <YAxis />
             <Tooltip />
             <Legend />

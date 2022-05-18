@@ -100,45 +100,16 @@ function Tweetbox(props) {
     let emoji = String.fromCodePoint(...codesArray);
     setinput(input + emoji);
   };
-  // // // // // // // // var pusher;
-  // // // // // // // // var userid=localStorage.getItem('userId');
-  // // // // // // // // var dataTemp;
-  // // // // // // // //  useEffect(async() => {
-
-  // // // // // // // //   Pusher.logToConsole = true;
-  // // // // // // // //   pusher = new Pusher('a02c7f30c561968a632d', {
-  // // // // // // // //     appId : "1406245",
-
-  // // // // // // // //     secret : "5908937248eea3363b9e",
-  // // // // // // // //     cluster : "eu",
-  // // // // // // // //     useTLS: true,
-
-  // // // // // // // //   });
-  // // // // // // // // });
-  // // // // // // // // function liveNotifications(){
-  // // // // // // // //   var channel = pusher.subscribe(String(userid));
-  // // // // // // // //   channel.bind('tweet-event', function(data) {
-  // // // // // // // //     dataTemp=data;
-  // // // // // // // //     {notify()}
-  // // // // // // // //   });
-
-  // // // // // // // // }
-  // // // // // // // // const notify = () =>{
-  // // // // // // // //   toast.info(+dataTemp.notificationHeader.text+".",
-  // // // // // // // //   {position: toast.POSITION.TOP_CENTER})}
-
-  // // // // // // // // useEffect(() => {
-  // // // // // // // //   (async () => {
-  // // // // // // // //     const resp = await mocked.GetUserContent();
-  // // // // // // // //     getcontent(resp);
-  // // // // // // // //   })();
-  // // // // // // // // }, []);
 
   /**
    *
    * @param {*} event
    */
-
+  var body = {
+    text: input,
+    mentions: mentions,
+    imageUrl: "any",
+  };
   function submitTweet(event) {
     setinput("");
     setmentions("");
@@ -149,7 +120,6 @@ function Tweetbox(props) {
     const tweet_user = localStorage.setItem("new_tweet", true);
     localStorage.setItem("input_set", input);
     localStorage.setItem("mention_set", mentions);
-    //event.preventDefault();
     if (showEmoji) {
       setShowEmoji(!showEmoji);
     }
@@ -170,10 +140,6 @@ function Tweetbox(props) {
     }
   }
 
-  var body = {
-    text: input,
-    mentions: mentions,
-  };
   /**
    *conditioning mentions
    * @param {*} value
@@ -251,13 +217,8 @@ function Tweetbox(props) {
           </div>
           <Button
             id="post tweet button"
-            disabled={!input && selectedFile === 0}
-            onClick={() => {
-              {
-                submitTweet();
-              }
-              //////////////////////////////////////////////////// liveNotifications()
-            }}
+            disabled={!input}
+            onClick={submitTweet}
             className="tweet__Button"
           >
             Tweet

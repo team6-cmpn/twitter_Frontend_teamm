@@ -22,12 +22,14 @@ function Home() {
   var clicked_tweet_id = localStorage.getItem("clicked.ID");
   const tweeted_user = backend.getTweet(clicked_tweet_id);
   tweeted_user.then((text) => {
-    setItem(text.text);
-    setmention(text.mention);
-    setdate(text.created_at);
+    setItem(text.tweet.text);
+    setmention(text.tweet.mention);
+    setdate(text.tweet.created_at);
+    setusername(text.user.username);
+    setDisplayname(text.user.name);
     //setid_tweet(text._id);
-    setid_user(text.user);
-    console.log(text.mention);
+    setid_user(text.user.id);
+    //console.log(text.mention);
   });
   return (
     <div className="twitter ">
@@ -35,8 +37,8 @@ function Home() {
       <RecoilRoot>
         <div className=" posted">
           <Post
-            // username={display}
-            // displayName={user}
+            username={displayName}
+            displayName={username}
             //avatar={userlist}
             mention={mention}
             text={text_tweet}

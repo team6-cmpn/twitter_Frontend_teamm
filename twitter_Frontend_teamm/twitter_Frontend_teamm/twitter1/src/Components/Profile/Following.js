@@ -129,7 +129,7 @@ function Following(){
                             <FollowersList key={index} FollowerAccount={FollowerUsers}/>))}</div>
                             <div> 
                             {FollowersLists.map((FollowerUsers,index)=>(
-                            <FollowersList key={index} FollowingAccount={FollowerUsers}/>))}</div>
+                            <FollowersList key={index} FollowerAccount={FollowerUsers}/>))}</div>
                         </>
                     )}
                 </article>

@@ -4,6 +4,11 @@ import { Avatar } from "@material-ui/core";
 import { Visibility } from "@material-ui/icons";
 import { Link, BrowserRouter } from "react-router-dom";
 
+/**
+ * 
+ * this function returns component for each top five users with most followers
+ * @returns 
+ */
 const TopUserItem = ({ user }) => {
   return (
     <div className="newUsersListItem" id="TopUsersItem">

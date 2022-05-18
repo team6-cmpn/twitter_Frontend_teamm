@@ -2,10 +2,22 @@ import React from "react";
 import "./users.css";
 import BlockIcon from "@material-ui/icons/Block";
 import { DataGrid } from "@mui/x-data-grid";
-import { GetDashBoardstat, GetUserList } from "../MockRegistrationAdmin";
+import {
+  GetDashBoardstat,
+  GetUserList,
+  UnBLockUser,
+} from "../MockRegistrationAdmin";
 import BlockForm from "./BlockForm";
-import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import { useEffect } from "react";
+/**
+ * 
+ * this function returns a sortable datagrid that shows all the users in twitter
+ * each coloumn can be sorted ascending or descending order according to 
+ * alphapitical orders of numbers as following count and followers count
+ * in this grid you can also block user and unblock users
+ * @returns 
+ */
 
 const columns = [
   { field: "name", headerName: "Name", width: 130 },
@@ -40,16 +52,17 @@ const columns = [
     headerName: "Uncblock",
     sortable: false,
     renderCell: (params) => {
-      const onClick = (e) => {
-        return (
-          <div>
-            <BlockForm />
-          </div>
-        );
+      const unblock = (e) => {
+        var resp = UnBLockUser();
+        console.log("unblocked res", resp);
+        localStorage.setItem("selectedIDs", null);
+        e.preventDefault(); //prevent refresh of page
+        // const userlistafterblocking = GetUserList();
+        // console.log("users after blocking",userlistafterblocking )
       };
 
       return (
-        <a href="BlockForm" onClick={onClick}>
+        <a onClickCapture={unblock}>
           <CheckCircleOutlineIcon />
         </a>
       );
@@ -90,7 +103,7 @@ export default function AdminUsers() {
               return [...this.values()].pop();
             };
             var lastValue = selectedIDs.lastValue();
-            console.log(selectedIDs);
+            console.log("selected id", selectedIDs);
             // var val = [...selectedIDs].filter(x => x.hasOwnProperty('first'))[0]['first'];
             localStorage.setItem("selectedIDs", lastValue);
           }}

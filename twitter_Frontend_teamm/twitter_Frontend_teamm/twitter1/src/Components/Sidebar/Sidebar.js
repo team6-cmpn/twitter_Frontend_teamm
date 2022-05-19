@@ -156,7 +156,7 @@ function Sidebar() {
         </li>
 
         <li>
-          <a href="">
+          <a href="/Bookmarks">
             <FaRegBookmark className="icons" />
             <div className="t">Bookmarks</div>
           </a>
@@ -216,11 +216,11 @@ function Sidebar() {
 
         {/* </div> */}
       </ul>
-           <div className="icons">
-            <DarkModeOutlinedIcon style={{fontSize: 50 ,marginRight:"150px"}}
-              onClick={() => dispatch({ type: "TOGGLE" })}
-            />
-            </div>
+       <div className="icons">
+         <DarkModeOutlinedIcon style={{fontSize: 50 ,marginRight:"150px"}}
+            onClick={() => dispatch({ type: "TOGGLE" })}
+          />
+           </div>
       <Modal
         title={
           <h1

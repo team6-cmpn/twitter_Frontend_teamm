@@ -128,7 +128,6 @@
     overflow-y: scroll;
     margin-top: 20px;
     padding-top: 20px;
-      
     width: 100%;
 }
 
@@ -148,6 +147,7 @@
     padding-bottom: 2%;
     padding-top: -2%;
     border-bottom-width: thin;
+    height: max-content;
     
     
 }
@@ -429,6 +429,9 @@ cursor: default;
     color: rgba(226, 51, 28, 0.696);
     transition: color 40ms ease-out;
     text-decoration: underline;
+}
+.retweets{
+    cursor: pointer;
 }
 .retweets:hover{
     cursor: pointer;

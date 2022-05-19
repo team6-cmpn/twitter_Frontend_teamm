@@ -3,7 +3,7 @@ import "./settingsSubmenus.css";
 
 function SubsettingsContent({ discrip,Icon ,text, active,Icon2 }) {
   return (
-    <div className={`SubsettingsContent ${active && "SubsettingsContent--active"}`}>
+    <div className={`SubsettingsContent `}>
       <Icon2 className="SubsettingsIcons" active={active && true} />
       <div className="text_discrip">
         <h5>{text}</h5>

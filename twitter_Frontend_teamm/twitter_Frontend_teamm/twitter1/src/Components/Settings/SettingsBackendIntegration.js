@@ -201,7 +201,7 @@ export function Get_BlockedList(id) {
           "x-access-token": `${localStorage.getItem("token")}`,
         },
       });
-      setNotifications(dashBoard.data)
+      setNotifications(dashBoard.data.blocks)
       };
       fetchProduct();
   }, []);
@@ -220,7 +220,7 @@ export function Get_MutedList(id) {
           "x-access-token": `${localStorage.getItem("token")}`,
         },
       });
-      setNotifications(dashBoard.data)
+      setNotifications(dashBoard.data.muted)
       };
       fetchProduct();
   }, []);

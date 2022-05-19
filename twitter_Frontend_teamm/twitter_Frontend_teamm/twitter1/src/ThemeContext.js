@@ -3,7 +3,7 @@ import React, { createContext, useReducer } from "react";
 export const ThemeContext = createContext();
 
 const initialState = {
-  darkMode: localStorage.getItem('dark')===null?false:localStorage.getItem('dark')
+  darkMode: localStorage.getItem('dark')===null?true:localStorage.getItem('dark')
 };
 // const LightState ={
 //     darkMode: false,

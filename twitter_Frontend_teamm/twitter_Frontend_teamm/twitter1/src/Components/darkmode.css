@@ -1,0 +1,62 @@
+.App.dark {
+  background-color: #15202B;
+}
+
+.App.dark .SettingsContent:hover {
+  -webkit-transition: color 100ms ease-out;
+  transition: color 100ms ease-out;
+  background-color: #1DA1F2;
+}
+
+.App.dark .notificationsCategory > div:hover {
+  background-color: #1DA1F2;
+  cursor: pointer;
+}
+
+.App.dark a {
+  color: white;
+}
+
+.App.dark .sidebar ul li a:hover {
+  background: #1DA1F2;
+  color: #e8f5fe;
+}
+
+.App.dark .sidebar ul li a {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  text-overflow: ellipsis;
+  white-space: wrap;
+  overflow: hidden;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-decoration: none;
+  color: #e8f5fe;
+  padding: 18px 25px;
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.App.dark .notificationsTitle > span {
+  color: #e8f5fe;
+  display: inline;
+  font-size: 19px;
+  font-weight: 800;
+}
+
+.App.dark .settingsTitle > span {
+  color: #e8f5fe;
+  display: inline;
+  font-size: 19px;
+  font-weight: 800;
+}
+
+.App.dark .SubMenuTitle > span {
+  color: #e8f5fe;
+  display: inline;
+  font-size: 19px;
+  font-weight: 800;
+}
+/*# sourceMappingURL=darkmode.css.map */

@@ -26,7 +26,18 @@ const Notified = ({ notify,nType }) => {
         </span>
         </div>}
 
-        { nType.notificationType!=='block'&&
+        { nType.notificationType==='favourite'&&
+        <div>
+         <div>
+            <Avatar src={notify.notificationHeader.images} />
+          
+        </div>
+        <span>
+          <b>{notify.notificationHeader.text}</b> {" "}
+        </span>
+        <span>{notify.notificationContent.text}</span>
+      </div>}
+      { nType.notificationType==='tweet'&&
         <div>
          <div>
             <Avatar src={notify.notificationHeader.images} />

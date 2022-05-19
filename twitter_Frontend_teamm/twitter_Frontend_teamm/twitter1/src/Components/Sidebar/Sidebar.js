@@ -2,6 +2,9 @@ import React, {useState, useEffect} from "react";
 import {Modal,Popover} from "antd";
 import "./Sidebar.css";
 import { Link, useLocation, Outlet } from "react-router-dom";
+import { DarkModeContext } from "../context/darkModeContext";
+import { useContext } from "react";
+import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 
 import {
   FaTwitter,
@@ -120,7 +123,7 @@ function Sidebar() {
       position: toast.POSITION.BOTTOM_RIGHT,
     });
   };
-
+  const{dispatch}=useContext(DarkModeContext);
   return (
     <div className="sidebar d">
       <ul>
@@ -213,7 +216,11 @@ function Sidebar() {
 
         {/* </div> */}
       </ul>
-
+           <div className="icons">
+            <DarkModeOutlinedIcon style={{fontSize: 50 ,marginRight:"150px"}}
+              onClick={() => dispatch({ type: "TOGGLE" })}
+            />
+            </div>
       <Modal
         title={
           <h1

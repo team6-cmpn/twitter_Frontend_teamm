@@ -2,7 +2,7 @@ import "./App.css";
 import { BrowserRouter as Router, Navigate, Route, Routes } from "react-router-dom";
 import StartPage from "./Components/StartPage/StartPage";
 import SignUp from "./Components/SignUp/SignUp";
-import React from "react";
+import React, { useContext } from "react";
 import LogIn from "./Components/SignIn/LogIn";
 import LogOut from "./Components/SignOut/LogOut";
 import ForgetPassword from "./Components/SignIn/forgetPassword";
@@ -32,8 +32,11 @@ import BlockedAccounts from "./Components/Settings/BlockedAccounts";
 import Changephone from "./Components/Settings/ChangePhone";
 import ChangeEmail from "./Components/Settings/ChangeEmail";
 import MutedAccounts from "./Components/Settings/MutedAccounts";
+import './Components/darkmode.css'
+import { DarkModeContext } from "./Components/context/darkModeContext";
 
 function App() {
+  const {darkMode}=useContext(DarkModeContext)
   const privateUser=localStorage.getItem('userId');
   console.log(privateUser)
   const authenticate=()=>{
@@ -48,7 +51,7 @@ function App() {
   }
   return (
     <Router>
-      <div className="App">
+      <div className={darkMode ?"App dark":"App"}>
         <Routes>
           {!privateUser && <>
           <Route path="/" element={<StartPage />}/>

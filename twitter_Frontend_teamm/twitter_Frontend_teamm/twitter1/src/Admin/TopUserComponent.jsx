@@ -12,7 +12,6 @@ import { Link, BrowserRouter } from "react-router-dom";
 const TopUserItem = ({ user }) => {
   return (
     <div className="newUsersListItem" id="TopUsersItem">
-      <img src={user.imgurl} alt="" className="newUsersImg" />
       <div className="newUsersUser">
         <span className="newUsersUserTitle">{user.username}</span>
         <span >{user.followers_count}</span>

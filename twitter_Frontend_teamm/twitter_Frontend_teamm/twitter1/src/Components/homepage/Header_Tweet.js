@@ -38,6 +38,8 @@ function Tweetbox(props) {
   const [loading, setLoading] = useState(false);
   const [model, setmodel] = useState();
 
+  const if_blocked = localStorage.getItem("is_blocked");
+  // console.log(if_blocked);
   /**
    *
    * @param {*} e
@@ -215,15 +217,17 @@ function Tweetbox(props) {
               </Tooltip>
             </Button>
           </div>
-          <Button
-            id="post tweet button"
-            disabled={!input}
-            onClick={submitTweet}
-            className="tweet__Button"
-          >
-            Tweet
-          </Button>
-          {/* <ToastContainer/> */}
+
+          {if_blocked === "false" ? (
+            <Button
+              id="post tweet button"
+              disabled={!input}
+              onClick={submitTweet}
+              className="tweet__Button"
+            >
+              Tweet
+            </Button>
+          ) : null}
         </div>
         {showEmoji && (
           <Picker

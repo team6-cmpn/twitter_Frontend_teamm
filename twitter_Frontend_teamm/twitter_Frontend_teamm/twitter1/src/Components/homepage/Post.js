@@ -45,13 +45,15 @@ const Post = ({
   retweets,
   user_liked_tweet,
   user_retweted_tweet,
+  show,
 }) => {
   const navigate = useNavigate();
   var timeStamp = timeDifference(new Date(), new Date(date));
 
-  const [if_liked, setif_liked] = useState();
-  const [if_retweeted, setif_retweeted] = useState(false);
-  const [like_no, setcount] = useState();
+  const [if_liked, setif_liked] = useState(false);
+  const [user_like, setuser_like] = useState(false);
+  const [if_retweeted, setif_retweeted] = useState();
+  const [like_no, setlike_no] = useState();
   const [retwee_number, setretwee_no] = useState();
   const [btnColor, setBtnClass] = useState("black");
   const [like_color, setlike_color] = useState("black");
@@ -62,13 +64,17 @@ const Post = ({
   const [lie, setlikeslist] = useState([]);
   const [ret, setretweeters] = useState([]);
   const [likes_ids_tweet, setlikes_ids_tweet] = useState([]);
-  const [retween_ids_tweet, setretween_ids_tweet] =
-    useState(user_retweted_tweet);
+  const [retween_ids_tweet, setretween_ids_tweet] = useState([]);
+
+  const if_blocked = localStorage.getItem("is_blocked");
+
   /**
    * function like post toggle like button set tweet liked in database
    */
-  // console.log(user_liked_tweet);
-  // console.log({likes_ids_tweet});
+  if (user_liked_tweet === true) {
+    setif_liked(true);
+    console.log("liiiiiike");
+  }
   const likePost = async () => {
     if (if_liked === false) {
       //post is liked
@@ -77,16 +83,18 @@ const Post = ({
       setlike_color("#e21f05");
       like_post.then((text) => {
         console.log(text);
-        setcount(text);
+        setlike_no(text);
       });
-
+      setuser_like(true);
       setif_liked(true);
     } else if (if_liked === true) {
       //post disliked
       setlike_color("black");
+      setuser_like(false);
+
       const dislike_post = backend.dislikePost(tweet_id);
       dislike_post.then((text) => {
-        setcount(text);
+        setlike_no(text);
       });
       setif_liked(false);
     }
@@ -95,8 +103,7 @@ const Post = ({
   /**
    * function open post in seperat page navigate
    */
-  const mocked_tweet = localStorage.getItem("ID_tweet");
-  //console.log(mocked_tweet);
+
   var clicked;
   const openPost = async () => {
     if (tweet_id === "undefined") {
@@ -110,46 +117,52 @@ const Post = ({
       }
     }
   };
+  // if (if_liked || if_retweeted) {
+  useEffect((e) => {
+    (async () => {
+      const loop = backend.getTweet(tweet_id);
+      loop.then(function (tempresult) {
+        setlikes_ids_tweet(tempresult.tweet?.favorites);
+        console.log("what likes id", tempresult.user.favorites);
+      });
+      // e.preventDefault();
+      /////////////////////////////////////////////////////////////////////////////////////////////////
+      for (var i = 0; i < 3; i++) {
+        console.log(likes_ids_tweet);
+        console.log(username);
+        if ({likes_ids_tweet}?.likes_ids_tweet[i] === logedin_user_id) {
+          setif_liked(true);
+        }
+      }
+    })();
+  }, []);
 
+  useEffect(() => {
+    (async () => {
+      const loop = backend.getTweet(tweet_id);
+
+      loop.then(function (tempresult) {
+        setretween_ids_tweet(tempresult.tweet?.retweetUsers);
+        console.log("what likes id", tempresult.tweet.retweetUsers);
+      });
+      for (var j = 0; j < 3; j++) {
+        // console.log(retween_ids_tweet[j]);
+        if (retween_ids_tweet[j] === logedin_user_id) {
+          setBtnClass("#14fe10");
+          // setretwee_no(retweeters_list.length);
+        }
+      }
+    })();
+  }, []);
+  // }
   /**
    * function open like modelof list of profiles who liked this post
    */
   var likes_list = [];
   var retweeters_list = [];
 
-  function setlist_likes() {
-    const loop = backend.getTweet(tweet_id);
-    loop.then(function (tempresult) {
-      setlikes_ids_tweet(tempresult.user.favorites);
-      console.log("what likes id", tempresult.user.favorites);
-    });
-
-    for (var i = 0; i < 3; i++) {
-      console.log(likes_ids_tweet[i]);
-      console.log(username);
-      if (likes_ids_tweet[i] === tweet_id) {
-        setif_liked(true);
-      }
-    }
-  }
-  function setretweet_list() {
-    // console.log("test retweet id", retweeters_list);
-
-    // retweeters_list.then(function (tempresult) {
-    //   setretween_ids_tweet(tempresult?.retweetersList);
-    // });
-
-    for (var j = 0; j < 3; j++) {
-      console.log(retween_ids_tweet[j]);
-      if (retween_ids_tweet[j] === tweet_id) {
-        setBtnClass("#14fe10");
-        // setretwee_no(retweeters_list.length);
-      }
-    }
-  }
-
   function openlikes() {
-    likes_list = backend.likes_list(mocked_tweet);
+    likes_list = backend.likes_list(tweet_id);
     likes_list.then(function (tempresult) {
       setlikeslist(tempresult?.favoriteusers);
     });
@@ -159,7 +172,7 @@ const Post = ({
    * function open retweet model of list of profiles who retweeted this post
    */
   const openretweet = async () => {
-    retweeters_list = backend.Retweeters_list(mocked_tweet);
+    retweeters_list = backend.Retweeters_list(tweet_id);
 
     retweeters_list.then(function (tempresult) {
       setretweeters(tempresult?.retweetersList);
@@ -173,12 +186,12 @@ const Post = ({
     if (btnColor === "black") {
       //retweet
       setBtnClass("#14fe10");
+
       const retweet = backend.Retweet_tweet(tweet_id);
       retweet.then((text) => {
         setretwee_no(text);
       });
-      if (open) {
-      }
+      setif_retweeted(true);
     }
     if (btnColor === "#14fe10") {
       //unretwett
@@ -187,6 +200,7 @@ const Post = ({
       retweet.then((text) => {
         setretwee_no(text);
       });
+      setif_retweeted(true);
     }
   }
   /**
@@ -266,8 +280,6 @@ const Post = ({
                 className="post__tweet app"
                 onClick={() => {
                   openPost();
-                  setlist_likes();
-                  setretweet_list();
                 }}
               >
                 <span class="input" role="textbox" contenteditable>
@@ -344,20 +356,21 @@ const Post = ({
                       {retwee_number}
                     </span>
                   )}
-
-                  <div className="blocked">
-                    <button id=" retweet button" className=" icon share">
-                      <ShareIcon
-                        style={{color: btnColor}}
-                        strokeWidth={1}
-                        fontSize="small"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          retweet();
-                        }}
-                      />
-                    </button>
-                  </div>
+                  {if_blocked === "false" ? (
+                    <div className="blocked">
+                      <button id=" retweet button" className=" icon share">
+                        <ShareIcon
+                          style={{color: btnColor}}
+                          strokeWidth={1}
+                          fontSize="small"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            retweet();
+                          }}
+                        />
+                      </button>
+                    </div>
+                  ) : null}
                 </div>
               </div>
             </div>

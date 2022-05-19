@@ -93,7 +93,8 @@ function LogIn() {
         if(message===''){
           
           navigate("/home");
-        window.location.reload();
+          window.location.reload();
+        
       }
      })
 

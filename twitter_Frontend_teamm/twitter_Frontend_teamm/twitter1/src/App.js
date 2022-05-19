@@ -33,12 +33,13 @@ import Changephone from "./Components/Settings/ChangePhone";
 import ChangeEmail from "./Components/Settings/ChangeEmail";
 import MutedAccounts from "./Components/Settings/MutedAccounts";
 import './Components/darkmode.css'
-import { DarkModeContext } from "./Components/context/darkModeContext";
+import { ThemeContext } from "./ThemeContext";
 
 function App() {
-  const {darkMode}=useContext(DarkModeContext)
+  const theme = useContext(ThemeContext);
+  //const {darkMode}=useContext(DarkModeContext)
   const privateUser=localStorage.getItem('userId');
-  console.log(privateUser)
+  //console.log(privateUser)
   const authenticate=()=>{
     console.log()
     if (privateUser){
@@ -51,7 +52,7 @@ function App() {
   }
   return (
     <Router>
-      <div className={darkMode ?"App dark":"App"}>
+      <div className={theme.state.darkMode ?"App dark":"App"}>
         <Routes>
           {!privateUser && <>
           <Route path="/" element={<StartPage />}/>

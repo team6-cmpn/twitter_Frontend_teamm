@@ -31,6 +31,7 @@ import {style} from "@mui/system";
 import Pusher from "pusher-js";
 
 import {toast, ToastContainer} from "react-toastify";
+import SwitchButton from "../../Button";
 //import FriendSuggestionItem from "../Widgets/FriendSuggestions/FriendSuggestionItem/FriendSuggestionItem";
 // import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 // import Explore from "../Explore";
@@ -216,11 +217,12 @@ function Sidebar() {
 
         {/* </div> */}
       </ul>
-       <div className="icons">
+       {/* <div className="icons">
          <DarkModeOutlinedIcon style={{fontSize: 50 ,marginRight:"150px"}}
             onClick={() => dispatch({ type: "TOGGLE" })}
           />
-           </div>
+           </div> */}
+           <SwitchButton/>
       <Modal
         title={
           <h1

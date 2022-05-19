@@ -17,7 +17,7 @@ import {
   GetDashBoardstat,
 } from "../MockRegistrationAdmin";
 import { useEffect } from "react";
-/**
+/**statistics charts
  * 
  * this function returns a carousel item which have 2 items
  * first item for users per month in 2022
@@ -68,7 +68,7 @@ import { useEffect } from "react";
       <Carousel>
         <ResponsiveContainer width="100%" aspect={4 / 2}>
           <BarChart
-            data={GetDashBoardstat()[3]?.users_Per_Month}
+            data={GetDashBoardstat()[9]?.tweets_Per_Month}
             margin={{
               top: 5,
               right: 30,

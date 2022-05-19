@@ -10,40 +10,95 @@ import {
 import BlockForm from "./BlockForm";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 /**
- * 
+ *
  * this function returns a sortable datagrid that shows all the users in twitter
- * each coloumn can be sorted ascending or descending order according to 
+ * each coloumn can be sorted ascending or descending order according to
  * alphapitical orders of numbers as following count and followers count
  * in this grid you can also block user and unblock users
- * @returns 
+ * @returns
  */
+//   useEffect(() => {
+//     (async () => {
+//       const resp = await GetDashBoard();
+//       let temptweetsPerMonth = [...resp.data[9].tweets_Per_Month];
+//       temptweetsPerMonth.forEach((element, index) => {
+//         temptweetsPerMonth[index].month = element._id.month;
+//       });
+//       setTweetsPerMonth(temptweetsPerMonth);
+//     })();
+//   }, []);
+const Getblockedtimes = () => {
+  const [isblocked, setIsBlock] = React.useState([]);
 
+  useEffect(() => {
+    (async () => {
+      const resp = await GetUserList();
+      let tempisblocked = [...resp.data];
+      tempisblocked.forEach((element, index) => {
+        tempisblocked[index].isblocked = element.admin_block.blocked_by_admin;
+      });
+      setIsBlock(tempisblocked);
+      console.log(tempisblocked);
+    })();
+  }, []);
+  return isblocked;
+};
 const columns = [
+  {
+    title: "Avatar",
+    field: "profile_image_url",
+    headerName: "Image",
+    sortable: false,
+    renderCell: (params) => (
+      <img
+        style={{ width: 36, height: 36, borderRadius: "50%" }}
+        src={params.value}
+        alt="userimg"
+      />
+    ),
+  },
   { field: "name", headerName: "Name", width: 130 },
   { field: "username", headerName: "UserName", width: 130 },
-  { field: "followers_count", headerName: "Followers", width: 130 },
-  { field: "followings_count", headerName: "Folllowing", width: 130 },
-  { field: "dateOfBirth", headerName: "Date Of Birth", width: 130 },
-  { field: "isDeactivated", headerName: "Deactivation Status", width: 130 },
-  { field: "_id", headerName: "User ID", width: 130 },
+  { field: "followers_count", headerName: "Followers", width: 100 },
+  { field: "followings_count", headerName: "Folllowing", width: 100 },
+  {
+    field: "admin_block",
+    headerName: "Is Blocked",
+    sortable: false,
+    valueFormatter: ({ value }) => value.blocked_by_admin,
+    cellClassName: "isblocked",
+    type: "string",
+    seed: "12",
+    width: 120,
+  },
+  // {
+  //   field: "admin_block",
+  //   headerName: "Block Times",
+  //   sortable:false,
+  //   valueFormatter: ({ value }) => value?.blockNumTimes,
+  //   cellClassName: 'blocktimes',
+  //   type: "string",
+  //   seed:'11',
+  //   width: 120,
+  // },
+  { field: "dateOfBirth", headerName: "Date Of Birth", width: 110 },
+  { field: "_id", headerName: "User ID", width: 110 },
   {
     field: "block",
     headerName: "Block",
+    width: 70,
     sortable: false,
     renderCell: (params) => {
-      const onClick = (e) => {
-        return (
-          <div>
-            <BlockForm />
-          </div>
-        );
-      };
-
       return (
-        <a href="BlockForm" onClick={onClick}>
-          <BlockIcon />
-        </a>
+        <div>
+          <div className="cellAction">
+            <Link to="/BlockForm" style={{ textDecoration: "none" }}>
+              <div className="viewButton">Block</div>
+            </Link>
+          </div>
+        </div>
       );
     },
   },
@@ -56,15 +111,16 @@ const columns = [
         var resp = UnBLockUser();
         console.log("unblocked res", resp);
         localStorage.setItem("selectedIDs", null);
-        e.preventDefault(); //prevent refresh of page
         // const userlistafterblocking = GetUserList();
         // console.log("users after blocking",userlistafterblocking )
       };
 
       return (
-        <a onClickCapture={unblock}>
-          <CheckCircleOutlineIcon />
-        </a>
+        <div>
+          <div className="deleteButton" onClick={() => unblock([])}>
+            Unblock
+          </div>
+        </div>
       );
     },
   },

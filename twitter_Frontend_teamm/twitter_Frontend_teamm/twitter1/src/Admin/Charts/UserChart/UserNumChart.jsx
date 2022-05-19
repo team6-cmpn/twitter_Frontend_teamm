@@ -30,30 +30,6 @@ import { useState,useEffect } from "react";
 
 export default function UserNumChart() {
   const usersperyear = GetDashBoardstat()[4]?.users_Per_Year;
-  // const [usersPerMonth, setUsersPerMonth] = useState(undefined);
-  // const usersPerMonth= UserNumberMonthBack[3]?.users_Per_Month;
-//   useEffect(() => {
-//   (async () => {
-//     const resp = await GetDashBoard();
-//     let tempUsersPerMonth = [...resp.data[3].users_Per_Month];
-//     tempUsersPerMonth.forEach((element, index) => {
-//       tempUsersPerMonth[index].month = element._id.month;
-//     });
-//     setUsersPerMonth(tempUsersPerMonth);
-//   })();
-// }, []);
-
-// useEffect(() => {
-//   (async () => {
-//     const resp = await GetDashBoard();
-//     let tempUsersPerMonth = [...resp.data[4].users_Per_Month];
-//     tempUsersPerMonth.forEach((element, index) => {
-//       tempUsersPerMonth[index].month = element._id.month;
-//     });
-//     setUsersPerMonth(tempUsersPerMonth);
-//   })();
-// }, []);
-
 const usersPerMonth=GetDashBoardstat()[3]?.users_Per_Month
 const sortedData = usersperyear?.sort((a,b) => a.x - b.x)
   return (

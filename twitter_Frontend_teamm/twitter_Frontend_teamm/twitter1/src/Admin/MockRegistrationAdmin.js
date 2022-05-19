@@ -40,6 +40,15 @@ export async function GetDashBoard() {
   });
   return dashBoard;
 }
+export async function GetAdminUserList() {
+  const dashBoard = await axios.get(`${Configure.backURL}admin/showUsers`, {
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+      "x-access-token": `${localStorage.getItem("token")}`,
+    },
+  });
+  return dashBoard;
+}
 export function GetDashBoardstat() {
   const [dashBoard, setDashBoard] = React.useState([]);
 

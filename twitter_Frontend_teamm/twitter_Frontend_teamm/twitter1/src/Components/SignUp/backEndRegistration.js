@@ -73,6 +73,7 @@ export const backEndLogIn=async payload=>{
             localStorage.setItem('userId', response.data.user._id);
             localStorage.setItem('getUsername', response.data.user.username);
             localStorage.setItem('getName', response.data.user.name);
+            localStorage.setItem('UserImg', response.data.user.profile_image_url);
 
        
          

@@ -31,15 +31,14 @@ function Feed(data, updatedata, canScroll, isEnded) {
   const fetchData = () => {
     (async () => {
       // console.log(backend.Tweets_lookup(page + 1, 2));
-      resp = await backend.Tweets_lookup(page + 1, 10);
+      resp = await backend.Tweets_lookup(page + 1, 2);
       console.log("page=", page);
+      setpage(page + 1);
       if (resp.status === 200) {
         setpostData([...postData, ...resp.data]);
-        setpage(page + 1);
-        // console.log(postData);
+        //console.log(postData);
       } else {
       }
-      // console.log(postData);
     })();
   };
 
@@ -49,13 +48,13 @@ function Feed(data, updatedata, canScroll, isEnded) {
         <InfiniteScrool
           dataLength={postData.length}
           next={fetchData}
-          hasMore={!ended}
+          hasMore
           loader={<h4 className="loading ">Loading..</h4>}
-          // endMessage={
-          //   <p style={{textAlign: "center"}}>
-          //     <b>Yay! You are up to date </b>
-          //   </p>
-          // }
+          endMessage={
+            <p style={{textAlign: "center"}}>
+              <b>Yay! You are up to date </b>
+            </p>
+          }
         >
           {postData &&
             postData.map((userlist, index) => (
@@ -63,7 +62,7 @@ function Feed(data, updatedata, canScroll, isEnded) {
                 displayName={userlist.user?.name}
                 username={userlist.user?.username}
                 text={userlist.tweet?.text}
-                image={userlist.tweet?.imageUrl}
+                //image={userlist.tweet?.imageUrl}
                 //avatar={userlist.avatar}
                 tweet_id={userlist.tweet?._id}
                 mention={userlist.tweet?.mention}
@@ -72,8 +71,8 @@ function Feed(data, updatedata, canScroll, isEnded) {
                 logedin_user_id={loginuser_id}
                 likes={userlist.tweet?.favorites.length}
                 retweets={userlist.tweet?.retweetUsers.length}
-                // user_liked_tweet={[userlist.user.favorites]}
-                // user_retweted_tweet={[userlist.user.retweets]}
+                user_liked_tweet={userlist?.isLiked}
+                user_retweted_tweet={userlist?.isRetweeted}
               />
             ))}
         </InfiniteScrool>

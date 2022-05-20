@@ -10,6 +10,21 @@
     border-bottom: 1px solid black;
     padding-right: 20px;
 }
+.bookmarked{
+    background-color: transparent;
+    outline: none;
+    border: transparent;
+}
+.book_position{
+    flex-direction: row-reverse;
+    display: flex;
+    align-items: center;  
+    direction: rtl;  
+}
+
+.bookmarked:hover{
+    color: var(--twitter-blue);
+}
 /*******************************************************/
 .dateflex{
     padding-left: 10px;
@@ -229,8 +244,8 @@
     cursor: pointer;
 }
 .post__headerText{
-    display: flex;
     padding-left: 2%;
+    flex-direction: row;
     
 }
 .post__headerText>h3 {

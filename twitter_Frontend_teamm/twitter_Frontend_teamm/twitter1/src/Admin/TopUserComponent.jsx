@@ -9,7 +9,7 @@ import { Link, BrowserRouter } from "react-router-dom";
  * this function returns component for each top five users with most followers
  * @returns 
  */
-const TopUserItem = ({ user }) => {
+export default function TopUserItem ({user}) {
   return (
     <div className="newUsersListItem" id="TopUsersItem">
       <div className="newUsersUser">
@@ -20,4 +20,3 @@ const TopUserItem = ({ user }) => {
   );
 };
 
-export default TopUserItem;

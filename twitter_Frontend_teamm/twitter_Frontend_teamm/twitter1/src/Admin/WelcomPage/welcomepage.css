@@ -1,20 +1,19 @@
-.welcomepage     {
-    display: flex;
-    justify-content: space-between;
-  }
-  
-  .welcomepageItem {
-    flex: 1;
-    margin-left: 20rem;
-    margin-right: 20rem;
-    margin-top: 10rem;
-    border-radius: 10px;
-    cursor: pointer;}
-  
-  .welcomepageTitle{
-      font-size: 50px;
-      font-weight: 600;
-      color: white;
-  }
-  
-  
+.welcomepage {
+  display: flex;
+  justify-content: space-between;
+}
+
+.welcomepageItem {
+  flex: 1;
+  margin-left: 20rem;
+  margin-right: 20rem;
+  margin-top: 10rem;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.welcomepageTitle {
+  font-size: 50px;
+  font-weight: 600;
+  color: white;
+}

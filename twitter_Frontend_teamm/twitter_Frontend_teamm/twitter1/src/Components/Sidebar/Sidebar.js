@@ -20,7 +20,7 @@ import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import HeaderTweet from "../homepage/Header_Tweet";
 import * as userbackend from "../Profile/backEndProfile";
 // import {getUserInfo} from "../Profile/backEndProfile";
-import getUsernames from "../Profile/ProfileMock";
+// import getUsernames from "../Profile/ProfileMock";
 import {style} from "@mui/system";
 import Pusher from "pusher-js";
 
@@ -50,13 +50,13 @@ function Sidebar() {
   // usern.then(data=>{setItem(data)});
   // console.log(Item);
 
-  const [Username, setUsernames] = React.useState([]);
-  React.useEffect(() => {
-    (async () => {
-      const resp = await getUsernames();
-      setUsernames(resp);
-    })();
-  }, []);
+  // const [Username, setUsernames] = React.useState([]);
+  // React.useEffect(() => {
+  //   (async () => {
+  //     const resp = await getUsernames();
+  //     setUsernames(resp);
+  //   })();
+  // }, []);
 
   const onSubModel = (stateMain = true) => {
     setModalVisible(stateMain);

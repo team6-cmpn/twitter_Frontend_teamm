@@ -19,6 +19,7 @@ export async function GetUserInfo() {
           console.log(response.data.user);
           localStorage.setItem("description",response.data.user.description);
           localStorage.setItem("numberOfFollowers",response.data.user.followings_count);
+          localStorage.setItem("Image",response.data.user.profile_image_url);
         }
       })
       .catch((error) => {
@@ -65,88 +66,88 @@ export async function GetUserInfo() {
   
   //   // return followingname;
   // }
-  export async function getFollowersList() {
-    var user;
-    var id = localStorage.getItem("userId");
+  // export async function getFollowersList() {
+  //   var user;
+  //   var id = localStorage.getItem("userId");
    
-    await axios
-      .get(`${Configure.backURL}user/followersList/${id}`, {
-        headers: {
-          "Content-Type": "application/json",
-          "x-access-token": `${localStorage.getItem("token")}`,
-        },
-      })
-      .then((response) => {
-        console.log(response);
-        console.log("araf");
-        if (response.status === 200) {
-          user = response.data;
-          console.log(response.data[0].name)
-          for (let i=0;i<response.data.length;i++){
-            localStorage.setItem(`followerUser ${i}`,response.data[i].name);
-            localStorage.setItem(`followerUsername ${i}`,response.data[i].username);
-          }
-        }
-      })
-      .catch((error) => {
-        user = error.response.data.message;
-      });
+  //   await axios
+  //     .get(`${Configure.backURL}user/followersList/${id}`, {
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         "x-access-token": `${localStorage.getItem("token")}`,
+  //       },
+  //     })
+  //     .then((response) => {
+  //       console.log(response);
+  //       console.log("araf");
+  //       if (response.status === 200) {
+  //         user = response.data;
+  //         console.log(response.data[0].name)
+  //         for (let i=0;i<response.data.length;i++){
+  //           localStorage.setItem(`followerUser ${i}`,response.data[i].name);
+  //           localStorage.setItem(`followerUsername ${i}`,response.data[i].username);
+  //         }
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       user = error.response.data.message;
+  //     });
   
-    return user;
-  }
+  //   return user;
+  // }
 
-  export async function gettweetlist() {
-    var response='';
-    var id = localStorage.getItem("userId");
-    await axios
-      .get(`${Configure.backURL}user/tweetsList/${id}`, {
-        headers: {
-          "Content-Type": "application/json",
-          "x-access-token": `${localStorage.getItem("token")}`,
-        },
-      })
-      .then((response) => {
-        console.log(response);
-        if (response.status === 200) {
-          // tweet = response.data;
-          for (let i=0;i<response.data.tweet.length;i++){
+  // export async function gettweetlist() {
+  //   var response='';
+  //   var id = localStorage.getItem("userId");
+  //   await axios
+  //     .get(`${Configure.backURL}user/tweetsList/${id}`, {
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         "x-access-token": `${localStorage.getItem("token")}`,
+  //       },
+  //     })
+  //     .then((response) => {
+  //       console.log(response);
+  //       if (response.status === 200) {
+  //         // tweet = response.data;
+  //         for (let i=0;i<response.data.tweet.length;i++){
             
-            localStorage.setItem(`text ${i}`,response.data.tweet[i].text);
-            localStorage.setItem(`imageUrl ${i}`,response.data[i].imageUrl);
-            localStorage.setItem(`tweetdateat ${i}`,response.data[i].created_at);
-          }
-          console.log(response.data);
-        }
-      })
-      .catch((error) => {
-       console.log(error);
-      });
+  //           localStorage.setItem(`text ${i}`,response.data.tweet[i].text);
+  //           localStorage.setItem(`imageUrl ${i}`,response.data[i].imageUrl);
+  //           localStorage.setItem(`tweetdateat ${i}`,response.data[i].created_at);
+  //         }
+  //         console.log(response.data);
+  //       }
+  //     })
+  //     .catch((error) => {
+  //      console.log(error);
+  //     });
   
-    return response.data;
-  }
+  //   return response.data;
+  // }
   
-  export async function getlikedtweetlist() {
-    var tweet;
-    await axios
-      .get(`${Configure.backURL}user/likedTweetsList/`, {
-        headers: {
-          "Content-Type": "application/json",
-          "x-access-token": `${sessionStorage.getItem("token")}`,
-        },
-      })
-      .then((response) => {
-        console.log(response);
-        if (response.status === 200) {
-          tweet = response.data;
-          console.log(response.data);
-        }
-      })
-      .catch((error) => {
-       console.log(error);
-      });
+  // export async function getlikedtweetlist() {
+  //   var tweet;
+  //   await axios
+  //     .get(`${Configure.backURL}user/likedTweetsList/`, {
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         "x-access-token": `${sessionStorage.getItem("token")}`,
+  //       },
+  //     })
+  //     .then((response) => {
+  //       console.log(response);
+  //       if (response.status === 200) {
+  //         tweet = response.data;
+  //         console.log(response.data);
+  //       }
+  //     })
+  //     .catch((error) => {
+  //      console.log(error);
+  //     });
   
-    return tweet;
-  }
+  //   return tweet;
+  // }
 
   export async function UpdateProfile(body){
     var message;
@@ -186,31 +187,31 @@ export async function GetUserInfo() {
       return message;
   };
 
-  // export const UploadImageProfile=async payload=>{
-  //   var Image;
-  //     const {
-  //       src,
-  //       alt,
-  //     } = payload;
-  //     await axios
-  //       .post(`${Configure.backURL}image/profile/upload`, {
+  export async function UploadImageProfile(imageFile){
+    var Image;
+    var bodyFormData = new FormData();
+    bodyFormData.append('image', imageFile); 
+    console.log(bodyFormData);
+      await axios
+        .post(`${Configure.backURL}image/profile/upload`, bodyFormData,{
   
-  //         headers: {
-  //           'Content-Type': 'application/json',
-  //           "x-access-token": `${localStorage.getItem("token")}`,
-  //         },
-  //        src,
-  //        alt,
-  //       })
-  //       .then((response) => {
-  //         console.log(response);
-  //         if (response.status === 200) {
-  //           Image='';
-  //           // localStorage.setItem('logInAccessToken', response.data.accessToken);
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            "x-access-token": `${localStorage.getItem("token")}`,
+          },
+        //  src,
+        //  alt,
+        })
+        .then((response) => {
+          console.log(response);
+          if (response.status === 200) {
+            Image=response.data.path;
+            console.log(Image)
             
-  //         }
-  //       }).catch(error => {
-  //           console.log()
-  //           });
-  //     return Image;
-  // };
+            
+          }
+        }).catch(error => {
+            console.log()
+            });
+      return Image;
+  };

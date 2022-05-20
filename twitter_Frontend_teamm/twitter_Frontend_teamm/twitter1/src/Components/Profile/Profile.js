@@ -13,7 +13,7 @@ import Trends from "../Widgets/Trends";
 import Sidebar from "../Sidebar/Sidebar";
 import {GrLocation} from "react-icons/gr"
 import {BiLink} from "react-icons/bi"
-import { gettweetlist ,UpdateProfile} from './backEndProfile'
+import { UpdateProfile, UploadImageProfile} from './backEndProfile'
 import { GetPostTweet } from "../homepage/feedmock";
 import Post from "../homepage/Post";
 import { RecoilRoot } from "recoil";
@@ -38,13 +38,13 @@ function Profile(){
       })();
     }, []);
 
-    const [tweetsList, setTweetList] = React.useState([]);
-    React.useEffect(() => {
-        (async () => {
-          const resp = await gettweetlist();
-          setTweetList(resp);
-        })();
-      }, []);
+    // const [tweetsList, setTweetList] = React.useState([]);
+    // React.useEffect(() => {
+    //     (async () => {
+    //       const resp = await gettweetlist();
+    //       setTweetList(resp);
+    //     })();
+    //   }, []);
     
     const [{alt2, src2}, setImg2] = useState({
         src2: placeholder,
@@ -56,12 +56,15 @@ function Profile(){
 
     const handleImg = (e) => {
         if(e.target.files[0]) {
+            
             setImg({
                 src: URL.createObjectURL(e.target.files[0]),
                 alt: e.target.files[0].name
             }); 
-              
-             
+            console.log(e.target.files[0])
+            UploadImageProfile(e.target.files[0]); 
+            const PImage=localStorage.getItem("Image")
+            setImg2(PImage)
         }   
     }
     
@@ -102,10 +105,11 @@ function Profile(){
         src2: src,
         alt2: alt
     }); 
+    
     }
     sessionStorage.setItem("name",editname);
     sessionStorage.setItem("description",editbio);
-    
+    // localStorage.getItem("Image")
     var body={
         name: editname,
         bio: editbio,

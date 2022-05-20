@@ -16,7 +16,6 @@ import Configure from '../../Configure'
  * @returns (Layout of following page)
  */
 function Following(){
-    console.log("folllowww")
     async function getFollowersList() {
         var id = localStorage.getItem("userId");
         await axios
@@ -27,10 +26,9 @@ function Following(){
             },
           })
           .then((response) => {
-            console.log(response);
-            console.log("zeft");
+            // console.log(response);
+            // console.log("zeft");
             setFollowersList(response.data.follower);
-            console.log("mmmmmmm",response.data.follower); 
             return response;
           })
           .catch((error) => {
@@ -40,7 +38,6 @@ function Following(){
     React.useEffect(()=>{
         ( () => {
             getFollowersList();
-            // setFollowersList(resp);
           })();
     
         },[])
@@ -55,19 +52,13 @@ function Following(){
             },
           })
           .then((response) => {
-            // console.log(response);
-            // console.log("zeft");
             setFollowingList(response.data.following);
-            // console.log("mmmmmmm",response) 
+            
             return response;
           })
           .catch((error) => {
           });
-      
-        
       }
-    
-        
 
         const [FollowingLists,setFollowingList]=React.useState([])
         React.useEffect(()=>{

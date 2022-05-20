@@ -26,10 +26,11 @@ const FollowersList = ({ FollowerAccount }) => {
     // const follow=getFollowingList();
     // follow.then(data=>{setfollowing(data)});
     // console.log(following);
+    console.log(FollowerAccount._id)
     return (
       <div className="Accountinfo_dec">
           <Avatar src='' />
-          <h5><Link to={`/${FollowerAccount.username}`}>{FollowerAccount.name}</Link></h5>
+          <h5 onClick={localStorage.setItem("clicked_userID",FollowerAccount._id)}><Link to={`/${FollowerAccount.username}`}>{FollowerAccount.name}</Link></h5>
           <h6>{FollowerAccount.username}</h6>
           <button id="FollowButton" class="ButtonFollow" onClick={() =>{if (textState==="Follow")
             toggleText();

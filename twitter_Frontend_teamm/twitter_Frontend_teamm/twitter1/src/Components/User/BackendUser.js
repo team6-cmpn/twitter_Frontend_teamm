@@ -2,7 +2,7 @@ import axios from 'axios';
 import Configure from '../../Configure'
 
 export async function getUserInfo() {
-    var user;
+    var userinfo;
     var id = localStorage.getItem("clicked_userID"); 
    
     await axios
@@ -14,18 +14,24 @@ export async function getUserInfo() {
       })
       .then((response) => {
         console.log(response);
-        console.log("blabla")
         if (response.status === 200) {
-          user = response.data.user[0].username;
+          userinfo = response.data.user;
           console.log(response.data.user);
+          localStorage.setItem("userClickedName",response.data.user.name);
+          console.log(response.data.user.name);
+          localStorage.setItem("userClickedUsername",response.data.user.username);
+          localStorage.setItem("userdescription",response.data.user.description);
+          localStorage.setItem("usernumberOfFollowers",response.data.user.followings_count);
         }
       })
       .catch((error) => {
-        user = error.response.data.message;
+        userinfo = error.response.data.message;
       });
   
-    return user;
-  }
+    return userinfo;
+  
+}
+ 
 
   export async function gettweetlist() {
     var tweet;
@@ -131,7 +137,7 @@ export async function getUserInfo() {
     var id=localStorage.getItem("clicked_userID");
     
     await axios
-      .post(`${Configure.backURL}friendships/destroy/${id}`, {
+      .get(`${Configure.backURL}friendships/destroy/${id}`, {
         headers: {
           "Content-Type": "application/json",
           "x-access-token": `${localStorage.getItem("token")}`,

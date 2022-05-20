@@ -4,7 +4,7 @@ import './User.css'
 import React from 'react';
 import  { useState} from 'react';
 import { Link } from 'react-router-dom';
-import   * as mockAPI   from './UserMock';
+// import   * as mockAPI   from './UserMock';
 import  getUserInformation    from './UserMock';
 import Trends from "../Widgets/Trends";
 import Sidebar from "../Sidebar/Sidebar";
@@ -24,7 +24,7 @@ import { Popover } from 'antd';
 function User(){
     const [isTab, setIsTab] = useState(1);
     const [twetted, postedtweet] = React.useState([]);
-    
+    const [info, setinfo] = useState();
     
     React.useEffect(() => {
       (async () => {
@@ -42,7 +42,7 @@ function User(){
     }, []);
    
    
-    const [Item, setItem] = useState();
+    
     
 
   
@@ -78,51 +78,39 @@ function User(){
         {toggleBlock()
         unBlock()}
     }
+    function MuteButton(){
 
-    // const user=getUserInfo();
-    // user.then(data=>{setItem(data)});
-    // console.log(user);
+        if (MuteState==="Mute")
+        {toggleMute(); 
+        Mute();}
+        else
+        {toggleMute()
+        Unmute()}
+    }
     
+    React.useEffect(() => {
+        (async () => {
+           const infoo= getUserInfo();
+           setinfo(infoo);
+            
+          })();
+        }, [info]);
+
     function FollowButtonActions(){
         Follow();
-        mockAPI.follow(body);
         if (textState==="Follow")
         toggleText();
         else
         onSubModel();
     } 
 
-    var body={
-        userImage: Object.keys(UserInfo).map((user, index) => {
-            return (
-                <div>
-                    {UserInfo[user].img} 
-                
-                </div> )
-            }),
-        displayname: Object.keys(UserInfo).map((user, index) => {
-            return (
-                <div>
-                    {UserInfo[user].name} 
-                
-                </div> )
-            }),
-        username: Object.keys(UserInfo).map((user, index) => {
-            return (
-                <div>
-                    {UserInfo[user].username} 
-                
-                </div> )
-            }),
-    }
+   
+    // const name=localStorage.getItem("userClickedName");
+    // console.log(name);
     const content = (
             <div>
-                <div className="MoreList" onClick={() => toggleMute()}><div>{MuteState}</div></div>
-                <div className="MoreList" onClick={() => 
-                {if (BlockState==="Block")
-                onBModal()
-                else
-                toggleBlock()}}><div>{BlockState}</div></div>
+                <div className="MoreList" onClick={() => MuteButton()}><div>{MuteState}</div></div>
+                <div className="MoreList" onClick={() => BlockButton()}><div>{BlockState}</div></div>
             </div>
       );
     return(
@@ -131,13 +119,14 @@ function User(){
     <div className='Expmenu'>
         <div> 
             <div className="notificationsTitle" id="ProfileTitle">
-                <span>{Object.keys(UserInfo).map((user, index) => {
+                {/* <span>{Object.keys(UserInfo).map((user, index) => {
                     return (
                         <div>
                             {UserInfo[user].name} 
                         
                         </div> )
-                    })}</span>
+                    })}</span> */}
+                    <span>{localStorage.getItem("userClickedName")}</span>
             </div> 
             <div>
                 
@@ -152,7 +141,7 @@ function User(){
                 </div>
                 <br></br>
                 <br></br>
-                <div id="bioName" className='name'>
+                {/* <div id="bioName" className='name'>
                 {Object.keys(UserInfo).map((user, index) => {
                     return (
                         <div>
@@ -162,7 +151,7 @@ function User(){
                     })}
                      </div>
                 {/* <br></br> */}
-               <div className='Username'> 
+               {/* <div className='Username'> 
                    {Object.keys(UserInfo).map((user, index) => {
                     return (
                         <div>
@@ -170,8 +159,12 @@ function User(){
                         
                         </div> )
                     })}
-                </div> 
-                <div className='Username'>{Item}</div>
+                </div>   */}
+                <div className='name'>{localStorage.getItem("userClickedName")}</div>
+                <br></br>
+                <div className='Username'>{localStorage.getItem("userClickedUsername")} </div>
+                <br></br>
+                <div className='Username'>{localStorage.getItem("userdescription")} </div>
                 <br></br>
                 {/* <div id="bioBio" className='Bio'></div>
                 <br></br>
@@ -210,7 +203,7 @@ function User(){
                     <div className="for_model">
                     <div style={{fontSize: "200%", marginTop: "10px", color: "black", textAlign: "center" }}>Block this user?</div>
                     <div style={{padding: "30px 30px"}}>They will not be able to follow you or view your Tweets, and you will not see Tweets or notifications from this user. </div>
-                    <button id="Block" onClick={()=>{toggleBlock(); onExist(); Block(localStorage.getItem("userId"))}} className="ButtonBlock">Block</button>
+                    <button id="Block" onClick={()=>{toggleBlock(); onExist(); Block();}} className="ButtonBlock">Block</button>
                     </div>
                 </Modal>
                 
@@ -235,11 +228,12 @@ function User(){
                 </div>
                 <br></br>
                 <div id="followers"className="FollowLink">
-                    <Link to ="/Followers">Followers </Link>
+                {localStorage.getItem("usernumberOfFollowers")}
+                    <Link to ="/UserFollowers">Followers </Link>
                 </div>
                 
                 <div id="following" className='FollowLink'>
-                    <Link to ="/Following">  Following  </Link>
+                    <Link to ="/UserFollowing">  Following  </Link>
                 </div>
                 <br></br>
                 <br></br>

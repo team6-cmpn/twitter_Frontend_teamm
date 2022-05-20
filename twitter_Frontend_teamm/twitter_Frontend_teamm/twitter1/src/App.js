@@ -23,6 +23,8 @@ import Profile from "./Components/Profile/Profile";
 import User from "./Components/User/User";
 import Followers from "./Components/Profile/Followers";
 import Following from "./Components/Profile/Following";
+import UserFollowers from "./Components/User/UserFollowers";
+import UserFollowing from "./Components/User/UserFollowing";
 import AccountInformation from "./Components/Settings/AccountInfo";
 import ChangeUsername from "./Components/Settings/changeUsername";
 import Changepassword from "./Components/Settings/changepassword";
@@ -75,9 +77,11 @@ function App() {
                 </Route>
                 <Route path="/Followers" element={<Followers />}></Route>
                 <Route path="/Following" element={<Following />}></Route>
-                <Route path="/:username" element={<User />} exact />
+                <Route path="/UserFollowers" element={<UserFollowers />}></Route>
+                <Route path="/UserFollowing" element={<UserFollowing />}></Route>
                 <Route path="/bookmarks" element={<Bookmarks />} />
                </Route>
+               <Route path="/:username" element={<User />} exact /> 
 
         </Routes>
       </div>

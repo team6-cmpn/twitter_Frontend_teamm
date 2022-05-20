@@ -22,11 +22,11 @@ const FollowingList = ({ FollowingAccount }) => {
     const onExist = () => {
       setModalVisible(false);
     };
-    
+    console.log(FollowingAccount._id)
     return (
         <div className="Accountinfo_dec">
             <Avatar src='' />
-            <h5><Link to={`/${FollowingAccount.username}`}>{FollowingAccount.name}</Link></h5>
+            <h5 onClick={localStorage.setItem("clicked_userID",FollowingAccount._id)}><Link to={`/${FollowingAccount.username}`}>{FollowingAccount.name}</Link></h5>
             <h6>{FollowingAccount.username}</h6>
             <button id="FollowButton" class="ButtonFollow" onClick={() =>{if (textState==="Follow")
             toggleText();

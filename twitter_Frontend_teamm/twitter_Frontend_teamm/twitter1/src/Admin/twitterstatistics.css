@@ -20,11 +20,16 @@
   font-size: 25px;
   font-weight: 600;
 }
-
+.adminstatisticsItem>Span{
+  color:#1da1f2 !important;
+}
 .staticsItemContainer {
   margin: 10px 0px;
   display: flex;
   align-items: center;
+}
+.staticsItemContainer>span{
+  color: #1da1f2 !important;
 }
 @media screen and (max-width: 768px) {
   .adminstatisticsItem {

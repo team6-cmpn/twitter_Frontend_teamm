@@ -6,6 +6,9 @@
   padding: 20px;
   margin-right: 20px;
 }
+.newUsers>span{
+  color:#1da1f2 !important;
+}
 .toptweets{
   flex: 1;
   box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
@@ -13,6 +16,9 @@
   -moz-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
   padding: 20px;
 
+}
+.toptweets>span{
+  color: #1da1f2 !important;
 }
 .newUsersList {
   margin-right: 50px;

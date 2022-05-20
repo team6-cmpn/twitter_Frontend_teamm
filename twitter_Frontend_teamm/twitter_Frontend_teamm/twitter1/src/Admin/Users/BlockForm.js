@@ -51,7 +51,7 @@ function BlockForm() {
   var body = { duration: duration };
   sessionStorage.setItem("duration", duration);
   return (
-    <div>
+    <div >
       <div id="FinalUsersPage">
         <TopBar />
         <div className="admincontainer">
@@ -81,7 +81,7 @@ function BlockForm() {
                     <br />
                     <br />
                     <a>
-                      <input type="submit" value="Submit" />
+                      <input type="submit" value="Submit"  />
                     </a>
                   </form>
                 </header>

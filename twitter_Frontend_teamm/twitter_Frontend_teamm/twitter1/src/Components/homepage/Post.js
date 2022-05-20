@@ -94,7 +94,7 @@ const Post = ({
   const content = (
     <div>
       <Link
-        to=""
+        to="" id='addOrDeleteBookmarks'
         onClick={() => {
           addOrDeleteBookmarks();
         }}

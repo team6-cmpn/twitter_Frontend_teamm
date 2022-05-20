@@ -40,18 +40,15 @@ function BlockForm() {
         istest(result);
       });
       console.log("finn", promiseB);
-      if (test === 200) {
-        navigate("/Users");
-        console.log("test", test);
-      }
-
+      navigate("/Users");
+      console.log("test", test);
       e.preventDefault(); //prevent refresh of page
-    
+    }
   };
   var body = { duration: duration };
   sessionStorage.setItem("duration", duration);
   return (
-    <div >
+    <div>
       <div id="FinalUsersPage">
         <TopBar />
         <div className="admincontainer">
@@ -81,7 +78,7 @@ function BlockForm() {
                     <br />
                     <br />
                     <a>
-                      <input type="submit" value="Submit"  />
+                      <input type="submit" value="Submit" />
                     </a>
                   </form>
                 </header>

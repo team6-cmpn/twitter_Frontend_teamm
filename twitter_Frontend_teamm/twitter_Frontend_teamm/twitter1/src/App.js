@@ -57,9 +57,10 @@ function App() {
       <div className={theme.state.darkMode ?"App dark":"App"}>
         <Routes>
           {!privateUser && <>
-          <Route path="/" element={<StartPage />}/>
+          <Route path="/" element={<StartPage />}>
           <Route path="/signup" element={<SignUp />} />
           <Route path="/googlesignup" element={<GoogleSignUp />} />
+          </Route>
           <Route path="/login" element={<LogIn />}></Route>
           <Route path="/forgetpassword" element={<ForgetPassword />}></Route>
           </>}

@@ -5,11 +5,11 @@ import {useRecoilState} from "recoil";
 import {HeartIcon as HeartIconFilled} from "@heroicons/react/solid";
 import {HeartIcon, ShareIcon, TrashIcon} from "@heroicons/react/outline";
 import FollowersList from "../Profile/FollowersList";
-
+import  * as BE  from '../Bookmarks/backEndBookmarks';
 import * as mocked from "./feedmock";
 import * as backend from "./backendFeed";
 import {likes_list} from "./backendFeed";
-import {Modal, Result} from "antd";
+import {Modal, Result,Popover} from "antd";
 import timeDifference from "./date";
 import {style} from "@mui/system";
 import ImageBox from "./ImageBox";
@@ -17,6 +17,7 @@ import {useNavigate} from "react-router";
 import {Button} from "@material-ui/core";
 import {Link} from "react-router-dom";
 import {hover} from "@testing-library/user-event/dist/hover";
+import {FaRegBookmark} from "react-icons/fa";
 
 /**
  * post componnt
@@ -65,8 +66,36 @@ const Post = ({
   const [ret, setretweeters] = useState([]);
   const [likes_ids_tweet, setlikes_ids_tweet] = useState([]);
   const [retween_ids_tweet, setretween_ids_tweet] = useState([]);
+  const [add, setAdd] = useState('');
+  // localStorage.setItem('bookmarkFlag',false);
+  const [BookmarkState, setBookmarkState] = useState("add");
+    const toggleBookmarkState = () => {
+        setBookmarkState((state) => (state === "Unadd" ? "add" : "Unadd"));
+    };
 
   const if_blocked = localStorage.getItem("isblocked");
+  function addOrDeleteBookmarks(){
+    localStorage.setItem("clicked.ID", tweet_id);
+    if(BookmarkState==='add'){
+      toggleBookmarkState();
+      BE.addBookmarks();
+      console.log('added');
+      localStorage.setItem('dummy',true);
+      // setAdd('add')
+    }
+    else if(BookmarkState==='Unadd'){
+      toggleBookmarkState();
+      BE.deleteBookmark();
+      console.log('unadded');
+      localStorage.setItem('dummy',false);
+    }
+  }
+
+  const content = (
+    <div>
+      <Link to='' onClick={() => {addOrDeleteBookmarks()}}>{BookmarkState}</Link>
+    </div>
+  )
 
   /**
    * function like post toggle like button set tweet liked in database
@@ -368,10 +397,28 @@ const Post = ({
                             e.stopPropagation();
                             retweet();
                           }}
+                          
                         />
                       </button>
                     </div>
                   ) : null}
+                  <div className="blocked">
+                    <button id=" bookmarkButton" className=" icon share">
+                      
+                      <Popover  content={content} trigger="hover"  >
+                      <FaRegBookmark
+
+                        style={{color: btnColor}}
+                        strokeWidth={1}
+                        fontSize="small"
+                        
+                        
+                      
+                      />
+                      </Popover>
+                    
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>

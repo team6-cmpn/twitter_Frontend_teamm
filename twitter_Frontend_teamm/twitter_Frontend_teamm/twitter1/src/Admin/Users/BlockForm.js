@@ -1,18 +1,22 @@
 import React, { useState } from "react";
 import AdminSideBar from "../AdminSideBar";
 import { BlockFormBackEnd, BLockUser } from "../MockRegistrationAdmin";
-import { ErrorMessage } from '@hookform/error-message';
+import { ErrorMessage } from "@hookform/error-message";
 import TopBar from "../TopBar";
 import "./blockform.css";
+import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 /**
- * 
+ *
  * this function returns a block form which you input number of days that the admin
  * make to block the user and this number must be greater than 0
- * @returns 
+ * @returns
  */
 
 function BlockForm() {
   const [duration, setBlockedDaysNumber] = useState("");
+  const navigate = useNavigate();
+
   // const [errorMessage, setErrorMessage] = useState('');
   // function to update state of Blocked daysy number with
   // value enter by user in form
@@ -21,26 +25,28 @@ function BlockForm() {
   };
   // below function will be called when user
   // click on submit button .
+  const [test, istest] = React.useState();
   const handleSubmit = (e) => {
-    if (duration < 0) {
-      alert("please enter valid value for block days")
-      // setErrorMessage("Please enter whole integr greater than 0")
-      // {errorMessage && <div className="error"> {errorMessage} </div>}
-    } else {
-      var resp = BLockUser(body);
-      console.log(resp);
+    // if (duration < 0) {
+    //   alert("please enter valid value for block days");
+    //   // setErrorMessage("Please enter whole integr greater than 0")
+    //   // {errorMessage && <div className="error"> {errorMessage} </div>}
+    // } else {
+      const resp = BLockUser(body);
       localStorage.setItem("selectedIDs", null);
-      // window.location.href = 'http://www.google.com'
-      for (let i = 0; i < 1000; i++) {
-        if(resp.status===200)
-        {
-          window.location.href="Users"
-          console.log("test")
-        }
-      } 
+      console.log("..", resp);
+      var promiseB = resp.then(function (result) {
+        console.log("result", result);
+        istest(result);
+      });
+      console.log("finn", promiseB);
+      if (test === 200) {
+        navigate("/Users");
+        console.log("test", test);
+      }
 
       e.preventDefault(); //prevent refresh of page
-    }
+    
   };
   var body = { duration: duration };
   sessionStorage.setItem("duration", duration);

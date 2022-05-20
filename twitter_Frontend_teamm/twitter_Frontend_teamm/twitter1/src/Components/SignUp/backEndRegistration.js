@@ -74,6 +74,8 @@ export const backEndLogIn=async payload=>{
             localStorage.setItem('getUsername', response.data.user.username);
             localStorage.setItem('getName', response.data.user.name);
             localStorage.setItem('UserImg', response.data.user.profile_image_url);
+            localStorage.setItem('isblocked', response.data.user.admin_block.blocked_by_admin);
+
 
        
          

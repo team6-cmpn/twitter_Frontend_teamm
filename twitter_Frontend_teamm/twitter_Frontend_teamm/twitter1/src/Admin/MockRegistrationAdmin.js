@@ -213,7 +213,7 @@ export async function BLockUser(params) {
     .then((response) => {
       console.log(response);
       if (response.status === 200) {
-        messgae = response.data;
+        messgae = response.status;
       }
     })
     .catch((error) => {
@@ -243,7 +243,7 @@ export async function UnBLockUser() {
     .then((response) => {
       console.log(response);
       if (response.status === 200) {
-        messgae = response.data;
+        messgae = response;
         console.log("work")
       }
     })

@@ -29,22 +29,10 @@ import { Link } from "react-router-dom";
 //       setTweetsPerMonth(temptweetsPerMonth);
 //     })();
 //   }, []);
-const Getblockedtimes = () => {
-  const [isblocked, setIsBlock] = React.useState([]);
 
-  useEffect(() => {
-    (async () => {
-      const resp = await GetUserList();
-      let tempisblocked = [...resp.data];
-      tempisblocked.forEach((element, index) => {
-        tempisblocked[index].isblocked = element.admin_block.blocked_by_admin;
-      });
-      setIsBlock(tempisblocked);
-      console.log(tempisblocked);
-    })();
-  }, []);
-  return isblocked;
-};
+const postRowStyle = (record, index) => ({
+  backgroundColor: record?.admin_block == true ? '#aa2222' : 'white',
+});
 const columns = [
   {
     title: "Avatar",
@@ -110,9 +98,10 @@ const columns = [
       const unblock = (e) => {
         var resp = UnBLockUser();
         console.log("unblocked res", resp);
+        if(resp.status===200){
+          window.location.href="/Users"
+        }
         localStorage.setItem("selectedIDs", null);
-        // const userlistafterblocking = GetUserList();
-        // console.log("users after blocking",userlistafterblocking )
       };
 
       return (
@@ -150,6 +139,7 @@ export default function AdminUsers() {
         <DataGrid
           getRowId={(userlist) => userlist._id}
           rows={userlist}
+          getRowClassName={(params) => `super-app-theme--${params.row.status}`}
           checkboxSelection
           columns={columns}
           onSelectionModelChange={(ids) => {

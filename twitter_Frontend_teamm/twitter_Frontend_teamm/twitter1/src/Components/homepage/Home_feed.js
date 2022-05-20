@@ -13,7 +13,7 @@ function Home_feed() {
   var postState = [];
   useEffect(() => {
     (async () => {
-      postState = await backend.Tweets_lookup(1, 4);
+      postState = await backend.Tweets_lookup(1, 10);
 
       if (postState.status === 200) {
         setpostData(postState.data);
@@ -29,15 +29,14 @@ function Home_feed() {
       setpage(page + 1);
       if (postState.status === 200) {
         setpostData(postState.data);
-        setisEnded(true);
       } else {
         setisEnded(true);
       }
     })();
   };
-  console.log({isEnded});
-  console.log(backend.Tweets_lookup(page + 1, 2));
-  console.log({postData});
+  //   console.log({isEnded});
+  //   console.log(backend.Tweets_lookup(page + 1, 2));
+  //   console.log({postData});
   return (
     <div className="feed">
       <div className=" feed feed__header">

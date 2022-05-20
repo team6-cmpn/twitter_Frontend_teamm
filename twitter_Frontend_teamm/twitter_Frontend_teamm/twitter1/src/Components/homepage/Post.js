@@ -66,7 +66,7 @@ const Post = ({
   const [likes_ids_tweet, setlikes_ids_tweet] = useState([]);
   const [retween_ids_tweet, setretween_ids_tweet] = useState([]);
 
-  const if_blocked = localStorage.getItem("is_blocked");
+  const if_blocked = localStorage.getItem("isblocked");
 
   /**
    * function like post toggle like button set tweet liked in database
@@ -123,13 +123,13 @@ const Post = ({
       const loop = backend.getTweet(tweet_id);
       loop.then(function (tempresult) {
         setlikes_ids_tweet(tempresult.tweet?.favorites);
-        console.log("what likes id", tempresult.user.favorites);
+        // console.log("what likes id", tempresult.user.favorites);
       });
       // e.preventDefault();
       /////////////////////////////////////////////////////////////////////////////////////////////////
       for (var i = 0; i < 3; i++) {
-        console.log(likes_ids_tweet);
-        console.log(username);
+        // console.log(likes_ids_tweet);
+        // console.log(username);
         if ({likes_ids_tweet}?.likes_ids_tweet[i] === logedin_user_id) {
           setif_liked(true);
         }
@@ -143,7 +143,7 @@ const Post = ({
 
       loop.then(function (tempresult) {
         setretween_ids_tweet(tempresult.tweet?.retweetUsers);
-        console.log("what likes id", tempresult.tweet.retweetUsers);
+        // console.log("what likes id", tempresult.tweet.retweetUsers);
       });
       for (var j = 0; j < 3; j++) {
         // console.log(retween_ids_tweet[j]);
@@ -212,6 +212,7 @@ const Post = ({
   const deleteTweet = async () => {
     const deleteTweet = backend.DeleteTweet(tweet_id);
     // console.log(deleteTweet);
+    // navigate("/home");
     if (open === true) {
       navigate("/home");
     }

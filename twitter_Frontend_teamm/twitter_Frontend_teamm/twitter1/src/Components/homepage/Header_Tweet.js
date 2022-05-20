@@ -38,8 +38,8 @@ function Tweetbox(props) {
   const [loading, setLoading] = useState(false);
   const [model, setmodel] = useState();
 
-  const if_blocked = localStorage.getItem("is_blocked");
-  // console.log(if_blocked);
+  const if_blocked = localStorage.getItem("isblocked");
+  console.log(if_blocked);
   /**
    *
    * @param {*} e
@@ -58,11 +58,6 @@ function Tweetbox(props) {
         const tempUrl = URL.createObjectURL(e.target.files[i]);
         tempImages.push(tempUrl);
 
-        // const image_urlBE = backend.UploadImg();
-        // image_urlBE.then((text) => {
-        //   setImages_BE(text.path);
-        //   console.log(text.path);
-        // });
         arr_obj.push({
           imageObj: e.target.files[i],
           imageId: tempUrl,
@@ -107,18 +102,13 @@ function Tweetbox(props) {
    *
    * @param {*} event
    */
-  var body = {
-    text: input,
-    mentions: mentions,
-    imageUrl: "any",
-  };
+  var image_urlBE = [];
   function submitTweet(event) {
     setinput("");
     setmentions("");
     const imagesToSend = image_array.map(({imageId, imageObj}) => imageObj);
     console.log(imagesToSend);
 
-    const tweet = backend.Post_Tweet(body);
     const tweet_user = localStorage.setItem("new_tweet", true);
     localStorage.setItem("input_set", input);
     localStorage.setItem("mention_set", mentions);
@@ -129,18 +119,28 @@ function Tweetbox(props) {
       setimage(" ");
     }
     sessionStorage.setItem("image_obj", imagesToSend);
-    const image_urlBE = backend.UploadImg(imagesToSend);
-    image_urlBE.then((text) => {
-      setpath(text);
-    });
+    console.log(imagesToSend);
+    image_urlBE = backend.UploadImg(imagesToSend);
+    // console.log(backend.UploadImg(imagesToSend));
+    console.log(image_urlBE.length);
+    setpath(image_urlBE?.path);
     console.log(image_urlBE);
+    console.log("mesh mwaf2a");
+
+    // console.log(image_urlBE.path);
     console.log(path);
+    const tweet = backend.Post_Tweet(body);
 
     if (props.model) {
       //setmodel(!props.model);
       props.onSubmit(false);
     }
   }
+  var body = {
+    text: input,
+    mentions: mentions,
+    imageUrl: path,
+  };
 
   /**
    *conditioning mentions
@@ -199,6 +199,7 @@ function Tweetbox(props) {
               </Button>{" "}
               <input
                 //value={selectedFile}
+                id
                 type="file"
                 multiple
                 ref={filePickerRef}
@@ -229,6 +230,7 @@ function Tweetbox(props) {
             </Button>
           ) : null}
         </div>
+
         {showEmoji && (
           <Picker
             onSelect={addEmoji}

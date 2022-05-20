@@ -31,17 +31,15 @@ function Feed(data, updatedata, canScroll, isEnded) {
   const fetchData = () => {
     (async () => {
       // console.log(backend.Tweets_lookup(page + 1, 2));
-      resp = await backend.Tweets_lookup(page + 1, 2);
-      setpage(page + 1);
-
+      resp = await backend.Tweets_lookup(page + 1, 10);
+      console.log("page=", page);
       if (resp.status === 200) {
         setpostData([...postData, ...resp.data]);
-        console.log(postData);
-        setended(isEnded);
+        setpage(page + 1);
+        // console.log(postData);
       } else {
-        setended(true);
       }
-      console.log(postData);
+      // console.log(postData);
     })();
   };
 
@@ -53,11 +51,11 @@ function Feed(data, updatedata, canScroll, isEnded) {
           next={fetchData}
           hasMore={!ended}
           loader={<h4 className="loading ">Loading..</h4>}
-          endMessage={
-            <p style={{textAlign: "center"}}>
-              <b>Yay! You are up to date </b>
-            </p>
-          }
+          // endMessage={
+          //   <p style={{textAlign: "center"}}>
+          //     <b>Yay! You are up to date </b>
+          //   </p>
+          // }
         >
           {postData &&
             postData.map((userlist, index) => (
@@ -65,7 +63,7 @@ function Feed(data, updatedata, canScroll, isEnded) {
                 displayName={userlist.user?.name}
                 username={userlist.user?.username}
                 text={userlist.tweet?.text}
-                //image={userlist.image}
+                image={userlist.tweet?.imageUrl}
                 //avatar={userlist.avatar}
                 tweet_id={userlist.tweet?._id}
                 mention={userlist.tweet?.mention}

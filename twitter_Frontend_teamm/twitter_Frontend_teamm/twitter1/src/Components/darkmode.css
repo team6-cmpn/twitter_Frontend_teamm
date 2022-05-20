@@ -19,6 +19,12 @@
   cursor: pointer;
   color: #e8f5fe;
 }
+.retweets:hover{
+    cursor: pointer;
+    color: rgb(20, 254, 16);
+    transition: color 40ms ease-out;
+    text-decoration: underline;
+}
 
 .App.dark .tweet_return {
   color: #e8f5fe;

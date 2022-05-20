@@ -188,7 +188,7 @@ function Sidebar() {
           <a href="/Profile">
             <Avatar className="icons" />
             <div className="t">
-              <span style={{float: "left"}}>{user}</span>
+              <span style={{"display":"block", "textAlign":"left"}}>{user}</span>
               <span
                 style={{
                   color: "silver",

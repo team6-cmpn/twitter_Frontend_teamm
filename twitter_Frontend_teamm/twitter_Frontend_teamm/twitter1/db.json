@@ -2002,6 +2002,18 @@
         "src": "blob:http://localhost:3000/a4212cdf-e215-4a51-b85c-b548aa4d60fa"
       },
       "id": 61
+    },
+    {
+      "name": "",
+      "bio": null,
+      "location": null,
+      "website": null,
+      "date": null,
+      "img": {
+        "alt": "13b45239a123d6b066f03ed9155695c2.jpg",
+        "src": "blob:http://localhost:3000/d75cb4cf-ecbf-4130-98a5-eede1ea1bd36"
+      },
+      "id": 62
     }
   ],
   "StatisticsBlock": [

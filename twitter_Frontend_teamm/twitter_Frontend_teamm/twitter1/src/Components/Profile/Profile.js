@@ -64,7 +64,7 @@ function Profile(){
             console.log(e.target.files[0])
             UploadImageProfile(e.target.files[0]); 
             const PImage=localStorage.getItem("Image")
-            setImg2(PImage)
+            // setImg2(PImage)
         }   
     }
     

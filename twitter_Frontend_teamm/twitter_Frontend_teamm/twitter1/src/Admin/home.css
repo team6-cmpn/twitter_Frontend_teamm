@@ -1,8 +1,11 @@
 .adminhome {
   flex: 4;
   background-image: url("https://img.freepik.com/free-photo/scattered-pile-twitter-icons-background_125322-7.jpg?w=2000");
+  background-color: white !important;
 }
 .admincontainer {
   display: flex;
   margin-top: 10px;
+  background-color:white;
+
 }

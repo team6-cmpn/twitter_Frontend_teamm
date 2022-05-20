@@ -38,6 +38,12 @@ export default function AdminSideBar() {
                 Users
               </a>
             </li>
+            <li className="adminsidebarListItem" id="AdminUsers">
+              <a href="home">
+                <HomeIcon className="adminsidebarIcon" />
+                Twitter Home
+              </a>
+            </li>
           </ul>
         </div>
       </div>

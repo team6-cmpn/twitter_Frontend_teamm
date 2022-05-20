@@ -1,13 +1,13 @@
 import { Avatar } from "@material-ui/core";
 import React, {useState}  from "react";
 import {Modal} from "antd";
-import "./FriendSuggestionItem.css";
+//import "./FriendSuggestionItem.css";
 import { Link } from 'react-router-dom';
 import{
   MdVerified,
 } from "react-icons/md";
 
-const FriendSuggestionItem = ({props}) => {
+function TrendAccounts (props) {
   const [isModalVisible, setModalVisible] = useState(false);
   const onSubModel = (stateMain = true) => {
     setModalVisible(stateMain);
@@ -88,4 +88,4 @@ const FriendSuggestionItem = ({props}) => {
   );
 }
 
-export default FriendSuggestionItem;
+export default TrendAccounts;

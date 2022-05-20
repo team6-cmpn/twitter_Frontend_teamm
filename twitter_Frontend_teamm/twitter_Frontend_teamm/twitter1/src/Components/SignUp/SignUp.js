@@ -41,19 +41,19 @@ function SignUp() {
   const [emailOrPhoneSwitch, setEmailOrPhoneSwitch] = useState('Use Phone Instead');
   const [emailOrPhone, setEmailOrPhone] = useState(null);
   const [emailOrMessage, setEmailOrMessage] = useState(null);
-  const [emailOrPhoneDisplay, setEmailOrPhoneDisplay] = useState(null);
+  const [bothEmailPhone, setBothEmailPhone] = useState(null);  
+  
+
+
   
   
 
 
-  
-  
-
-
 
 
 
   
+
   // second Submodal appear over first submodal & first submodal disappears
   const onSubModal = (e, stateSub = true, stateMain = false) => {
     setSubModalVisible(stateMain);
@@ -87,10 +87,12 @@ function SignUp() {
   function getEmail(val){
     if(document.getElementById("email").placeholder === "Email"){
       setEmail(val.target.value);
+      setBothEmailPhone(val.target.value);
       
     }
     else if(document.getElementById("email").placeholder === "Phone"){
       setPhoneNumber(val.target.value)
+      setBothEmailPhone(val.target.value);
     }
   };
 
@@ -106,15 +108,18 @@ function SignUp() {
     setEmailOrPhoneError(validateEmail(val.target.value));
     setEmailOrPhone('Email');
     setEmailOrMessage('email');
-    setEmailOrPhoneDisplay(email);
+    // setEmailOrPhoneDisplay(email);
   }
     else if(document.getElementById("email").placeholder === "Phone"){
       setEmailOrPhoneError(validatePhone(val.target.value));
       setEmailOrPhone('Phone');
       setEmailOrMessage('message');
-      setEmailOrPhoneDisplay(phoneNumber);
+      // setEmailOrPhoneDisplay(phoneNumber);
     }
   };
+
+
+
 
   function getUserNameValidation(val){
     setuserNameError(validateUserName(val.target.value))
@@ -130,6 +135,7 @@ function SignUp() {
   };
     
  
+  
   
   function buttonState (changedValues, allValues) {
     var passError=sessionStorage.getItem('passError');
@@ -345,7 +351,7 @@ function SignUp() {
 
             <Form.Item>
               <span>{emailOrPhone}</span>
-              <Input id="email2"  disabled={true} value={emailOrPhoneDisplay} style={{ height:50}} />
+              <Input id="email2"  disabled={true} value={bothEmailPhone} style={{ height:50}} />
             </Form.Item>
               <span style={{color: 'red',fontSize:'100',fontWeight:'bold'}}> {apiResponseMessage}</span> 
               
@@ -370,7 +376,7 @@ function SignUp() {
    
           <span className="text9">We sent you a verfication code  </span>
           <br></br>
-          <span>Write the code to verify {emailOrPhoneDisplay}</span>
+          <span>Write the code to verify {bothEmailPhone}</span>
           <Input style={{ height:40,marginTop:10}} onChange={getCode} id="code" placeholder="Code" />
           <span>{mess}</span>
           <br></br>

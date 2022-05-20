@@ -16,6 +16,10 @@
   font-size: calc(10px + 2vmin);
   color: black;
 }
+.Block_Form>a{
+
+  color: #1da1f2 !important;
+}
 .admincontainer {
   display: flex;
   margin-top: 10px;

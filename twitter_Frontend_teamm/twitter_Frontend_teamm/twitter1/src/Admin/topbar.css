@@ -39,3 +39,6 @@
       border-radius: 50%;
       cursor: pointer;
   }
+  .topLeft>span{
+    color: #555 !important;
+  }

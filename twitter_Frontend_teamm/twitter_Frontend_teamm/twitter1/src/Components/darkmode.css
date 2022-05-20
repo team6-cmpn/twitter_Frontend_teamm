@@ -1,5 +1,5 @@
 .App.dark {
-  background-color: #15202B;
+  background-color: #15202B !important;
 }
 
 .App.dark .like_list {
@@ -19,11 +19,13 @@
   cursor: pointer;
   color: #e8f5fe;
 }
-.retweets:hover{
-    cursor: pointer;
-    color: rgb(20, 254, 16);
-    transition: color 40ms ease-out;
-    text-decoration: underline;
+
+.App.dark .retweets:hover {
+  cursor: pointer;
+  color: #14fe10;
+  -webkit-transition: color 40ms ease-out;
+  transition: color 40ms ease-out;
+  text-decoration: underline;
 }
 
 .App.dark .tweet_return {

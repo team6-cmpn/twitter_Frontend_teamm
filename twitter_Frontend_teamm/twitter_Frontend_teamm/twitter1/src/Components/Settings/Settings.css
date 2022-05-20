@@ -65,6 +65,17 @@
     margin-left: 0%;
 }
 }
+@media (min-width:768px ) and (max-width:1200px){
+
+.settingsTitle{
+    margin-left: -60%;
+}
+.SettingsContent{
+    margin-left: -60%;
+    
+}
+
+}
 @media (min-width:1200px) {
     .settingsTitle{
         margin-left: 0%;

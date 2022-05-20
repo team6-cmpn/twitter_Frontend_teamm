@@ -1,22 +1,20 @@
 .welcomepage     {
-    width: 50%;
     display: flex;
     justify-content: space-between;
   }
   
   .welcomepageItem {
     flex: 1;
-    margin: 0px 20px;
+    margin-left: 20rem;
+    margin-right: 20rem;
+    margin-top: 10rem;
     border-radius: 10px;
-    cursor: pointer;
-    box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
-    -webkit-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
-    -moz-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
-  }
+    cursor: pointer;}
   
   .welcomepageTitle{
       font-size: 50px;
       font-weight: 600;
+      color: white;
   }
   
   

@@ -2,14 +2,41 @@ import React from "react";
 import "./users.css";
 import BlockIcon from "@material-ui/icons/Block";
 import { DataGrid } from "@mui/x-data-grid";
-import { GetUserList } from "../MockRegistrationAdmin";
+import {
+  GetDashBoardstat,
+  GetUserList,
+  UnBLockUser,
+} from "../MockRegistrationAdmin";
 import BlockForm from "./BlockForm";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
+/**
+ *
+ * this function returns a sortable datagrid that shows all the users in twitter
+ * each coloumn can be sorted ascending or descending order according to
+ * alphapitical orders of numbers as following count and followers count
+ * in this grid you can also block user and unblock users
+ * @returns
+ */
+//   useEffect(() => {
+//     (async () => {
+//       const resp = await GetDashBoard();
+//       let temptweetsPerMonth = [...resp.data[9].tweets_Per_Month];
+//       temptweetsPerMonth.forEach((element, index) => {
+//         temptweetsPerMonth[index].month = element._id.month;
+//       });
+//       setTweetsPerMonth(temptweetsPerMonth);
+//     })();
+//   }, []);
 
+const postRowStyle = (record, index) => ({
+  backgroundColor: record?.admin_block == true ? '#aa2222' : 'white',
+});
 const columns = [
   {
     title: "Avatar",
-    field: "avatar",
+    field: "profile_image_url",
     headerName: "Image",
     sortable: false,
     renderCell: (params) => (
@@ -22,28 +49,67 @@ const columns = [
   },
   { field: "name", headerName: "Name", width: 130 },
   { field: "username", headerName: "UserName", width: 130 },
-  { field: "followers_count", headerName: "Followers", width: 130 },
-  { field: "followings_count", headerName: "Folllowing", width: 130 },
-  { field: "dateOfBirth", headerName: "Date Of Birth", width: 130 },
-  { field: "isDeactivated", headerName: "Deactivation Status", width: 150 },
-  { field: "_id", headerName: "User ID", width: 150 },
+  { field: "followers_count", headerName: "Followers", width: 100 },
+  { field: "followings_count", headerName: "Folllowing", width: 100 },
   {
-    field: "action",
-    headerName: "Action",
+    field: "admin_block",
+    headerName: "Is Blocked",
+    sortable: false,
+    valueFormatter: ({ value }) => value.blocked_by_admin,
+    cellClassName: "isblocked",
+    type: "string",
+    seed: "12",
+    width: 120,
+  },
+  // {
+  //   field: "admin_block",
+  //   headerName: "Block Times",
+  //   sortable:false,
+  //   valueFormatter: ({ value }) => value?.blockNumTimes,
+  //   cellClassName: 'blocktimes',
+  //   type: "string",
+  //   seed:'11',
+  //   width: 120,
+  // },
+  { field: "dateOfBirth", headerName: "Date Of Birth", width: 110 },
+  { field: "_id", headerName: "User ID", width: 110 },
+  {
+    field: "block",
+    headerName: "Block",
+    width: 70,
     sortable: false,
     renderCell: (params) => {
-      const onClick = (e) => {
-        return (
-          <div>
-            <BlockForm />
+      return (
+        <div>
+          <div className="cellAction">
+            <Link to="/BlockForm" style={{ textDecoration: "none" }}>
+              <div className="viewButton">Block</div>
+            </Link>
           </div>
-        );
+        </div>
+      );
+    },
+  },
+  {
+    field: "action",
+    headerName: "Uncblock",
+    sortable: false,
+    renderCell: (params) => {
+      const unblock = (e) => {
+        var resp = UnBLockUser();
+        console.log("unblocked res", resp);
+        if(resp.status===200){
+          window.location.href="/Users"
+        }
+        localStorage.setItem("selectedIDs", null);
       };
 
       return (
-        <a href="BlockForm" onClick={onClick}>
-          <BlockIcon />
-        </a>
+        <div>
+          <div className="deleteButton" onClick={() => unblock([])}>
+            Unblock
+          </div>
+        </div>
       );
     },
   },
@@ -73,6 +139,7 @@ export default function AdminUsers() {
         <DataGrid
           getRowId={(userlist) => userlist._id}
           rows={userlist}
+          getRowClassName={(params) => `super-app-theme--${params.row.status}`}
           checkboxSelection
           columns={columns}
           onSelectionModelChange={(ids) => {
@@ -82,7 +149,7 @@ export default function AdminUsers() {
               return [...this.values()].pop();
             };
             var lastValue = selectedIDs.lastValue();
-            console.log(selectedIDs);
+            console.log("selected id", selectedIDs);
             // var val = [...selectedIDs].filter(x => x.hasOwnProperty('first'))[0]['first'];
             localStorage.setItem("selectedIDs", lastValue);
           }}

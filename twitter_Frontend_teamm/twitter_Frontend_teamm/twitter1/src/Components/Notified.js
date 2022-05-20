@@ -17,9 +17,27 @@ const Notified = ({ notify,nType }) => {
         <b>{notify.notificationHeader.text}</b>
         </span>
         </div>}
+        {nType.notificationType==='unblock'&&
 
+        <div>
 
-        { nType.notificationType!=='block'&&
+        <span>
+        <b>{notify.notificationHeader.text}</b>
+        </span>
+        </div>}
+
+        { nType.notificationType==='favourite'&&
+        <div>
+         <div>
+            <Avatar src={notify.notificationHeader.images} />
+          
+        </div>
+        <span>
+          <b>{notify.notificationHeader.text}</b> {" "}
+        </span>
+        <span>{notify.notificationContent.text}</span>
+      </div>}
+      { nType.notificationType==='tweet'&&
         <div>
          <div>
             <Avatar src={notify.notificationHeader.images} />

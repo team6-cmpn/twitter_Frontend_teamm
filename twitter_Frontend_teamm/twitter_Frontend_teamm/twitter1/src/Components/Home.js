@@ -3,7 +3,7 @@ import "./Home.css";
 import Sidebar from "./Sidebar/Sidebar";
 import Trends from "./Widgets/Trends";
 import "antd/dist/antd.css";
-import Feed from "./homepage/Feed";
+import Home_feed from "./homepage/Home_feed";
 
 // import Explore from "./Explore";
 // import FriendSuggestions from "./Widgets/FriendSuggestions/FriendSuggestions";
@@ -15,7 +15,7 @@ function Home() {
   return (
     <div className="twitter ">
       <Sidebar />
-      <Feed />
+      <Home_feed />
       <Trends />
     </div>
   );

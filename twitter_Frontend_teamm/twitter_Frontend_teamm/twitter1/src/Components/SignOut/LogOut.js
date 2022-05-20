@@ -16,8 +16,9 @@ function LogOut(){
     const navigate = useNavigate();
     const [isModalVisible, setModalVisible] = useState(false);
     function LogOutButtonAction(){
-      localStorage.setItem('isLogged',false);
-      navigate("/");
+      localStorage.clear();
+      window.location.reload()
+      
 
     }
     return(

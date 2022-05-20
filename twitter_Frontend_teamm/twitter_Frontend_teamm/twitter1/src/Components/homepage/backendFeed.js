@@ -145,28 +145,56 @@ export async function DeleteTweet(id) {
   return messgae;
 }
 
-export async function UploadImg(image) {
-  var messgae;
+// export async function UploadImg(image) {
+//   var messgae;
+
+//   await axios
+//     .post(`${Configure.backURL}image/tweet/upload`, image, {
+//       headers: {
+//         "Content-Type": "application/json",
+//         "x-access-token": `${localStorage.getItem("token")}`,
+//       },
+//     })
+//     .then((response) => {
+//       //console.log(response);
+//       if (response.status === 200) {
+//         messgae = response.data.file.path;
+//         //console.log(response.data);
+//       }
+//     })
+//     .catch((error) => {
+//       messgae = error.response.data.message;
+//     });
+
+//   return messgae;
+// }
+export async function UploadImg(imageFile) {
+  var Image;
+  var bodyFormData = new FormData();
+
+  for (var i = 0; i < imageFile.length; i++) {
+    bodyFormData.append("image", imageFile[i]);
+    // console.log(imageFile[i]);
+  }
 
   await axios
-    .post(`${Configure.backURL}image/tweet/upload`, image, {
+    .post(`${Configure.backURL}image/tweet/upload`, bodyFormData, {
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "multipart/form-data",
         "x-access-token": `${localStorage.getItem("token")}`,
       },
     })
     .then((response) => {
-      //console.log(response);
+      console.log(response);
       if (response.status === 200) {
-        messgae = response.data.file.path;
-        //console.log(response.data);
+        Image = response.data;
+        console.log(Image);
       }
     })
     .catch((error) => {
-      messgae = error.response.data.message;
+      console.log();
     });
-
-  return messgae;
+  return Image;
 }
 
 export async function Tweets_lookup(page, tweet_no) {
@@ -179,10 +207,10 @@ export async function Tweets_lookup(page, tweet_no) {
       },
     })
     .then((response) => {
-      console.log(response.data.message);
+      // console.log(response.data.message);
       if (response.status === 200) {
-        messgae = response.data.tweet;
-        console.log(response);
+        messgae = response;
+        // console.log(response);
       }
     })
     .catch((error) => {
@@ -254,7 +282,7 @@ export async function Retweeters_list(id) {
       // console.log(response.data);
       if (response.status === 200) {
         messgae = response.data;
-        console.log(response.data);
+        // console.log(response.data);
       }
     })
     .catch((error) => {

@@ -3,6 +3,13 @@ import { useEffect } from "react";
 import Configure from "../Configure";
 import React from "react";
 import { Dashboard } from "@material-ui/icons";
+import { message } from "antd";
+/**
+ * 
+ * this file contains all api calls from backend and from mock
+ * which be used before calling api 
+ * @returns 
+ */
 
 export async function getTopUsers() {
   let response = "";
@@ -26,6 +33,15 @@ export async function getTopUsers() {
 
 export async function GetDashBoard() {
   const dashBoard = await axios.get(`${Configure.backURL}admin/dashBoard`, {
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+      "x-access-token": `${localStorage.getItem("token")}`,
+    },
+  });
+  return dashBoard;
+}
+export async function GetAdminUserList() {
+  const dashBoard = await axios.get(`${Configure.backURL}admin/showUsers`, {
     headers: {
       "Content-Type": "application/json; charset=utf-8",
       "x-access-token": `${localStorage.getItem("token")}`,
@@ -196,12 +212,44 @@ export async function BLockUser(params) {
     )
     .then((response) => {
       console.log(response);
-      if (response.status === 201) {
-        messgae = response.data;
+      if (response.status === 200) {
+        messgae = response.status;
       }
     })
     .catch((error) => {
       messgae = error.response.data.message;
+    });
+
+  return messgae;
+}
+export async function UnBLockUser() {
+  var messgae;
+  const params = {
+  };
+  //   localStorage.getItem("id");
+  await axios
+    .post(
+      `${Configure.backURL}adminBlock/destroy?userid=${localStorage.getItem(
+        "selectedIDs"
+      )}`,
+      params,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "x-access-token": `${localStorage.getItem("token")}`,
+        },
+      }
+    )
+    .then((response) => {
+      console.log(response);
+      if (response.status === 200) {
+        messgae = response;
+        console.log("work")
+      }
+    })
+    .catch((error) => {
+      messgae = error.response.data.message;
+      console.log("error")
     });
 
   return messgae;

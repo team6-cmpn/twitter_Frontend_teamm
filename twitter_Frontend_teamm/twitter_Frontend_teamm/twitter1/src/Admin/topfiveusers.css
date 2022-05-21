@@ -7,7 +7,7 @@
   margin-right: 20px;
 }
 .newUsers>span{
-  color:#1da1f2 !important;
+  color:#000000 !important;
 }
 .toptweets{
   flex: 1;
@@ -18,7 +18,7 @@
 
 }
 .toptweets>span{
-  color: #1da1f2 !important;
+  color: #000000 !important;
 }
 .newUsersList {
   margin-right: 50px;

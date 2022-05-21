@@ -27,12 +27,12 @@ function BlockForm() {
   // click on submit button .
   const [test, istest] = React.useState();
   const handleSubmit = (e) => {
-    // if (duration < 0) {
-    //   alert("please enter valid value for block days");
-    //   // setErrorMessage("Please enter whole integr greater than 0")
-    //   // {errorMessage && <div className="error"> {errorMessage} </div>}
-    // } else {
     const resp = BLockUser(body);
+    if (duration < 0) {
+      alert("please enter valid value for block days");
+      // setErrorMessage("Please enter whole integr greater than 0")
+      // {errorMessage && <div className="error"> {errorMessage} </div>}
+    } else {
     localStorage.setItem("selectedIDs", null);
     console.log("..", resp);
     var promiseB = resp.then(function (result) {
@@ -43,9 +43,11 @@ function BlockForm() {
     if (test === 200) {
       navigate("/Users");
     }
+
     console.log("test", test);
     e.preventDefault(); //prevent refresh of page
   };
+}
   var body = { duration: duration };
   sessionStorage.setItem("duration", duration);
   return (

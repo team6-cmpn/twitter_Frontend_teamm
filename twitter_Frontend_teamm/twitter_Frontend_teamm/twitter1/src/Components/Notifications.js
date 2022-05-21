@@ -50,13 +50,13 @@ function Notifications() {
     const resp = await GetNotifications();
     setNotifications(resp);
      })();
-  },[])
+  },[BE])
   React.useEffect(()=>{ 
     (async () => {
    const resp = await GetNotificationsFavourites();
    setNotificationsFavs(resp);
     })();
- },[])
+    },[notifi])
   return (
     <SettingsBox>
       <div className="Notimenu" id="NotificationMenu">

@@ -81,7 +81,7 @@ function BlockForm() {
                     <br />
                     <br />
                     <a>
-                      <input type="submit" value="Submit" />
+                      <input type="submit" value="Submit" id="SubmitBlocking" />
                     </a>
                   </form>
                 </header>

@@ -74,17 +74,6 @@
 }
 
 
-@media   ( max-width: 1180px) {
-    /* .feed {
-       width: 50%;
-        margin-right: 44% !important;
-        margin-left: 21%;
-      }
-       .tweetBox{   
-        width:100%;
-    } */
-}
-
 
 
 .feed__header {
@@ -167,7 +156,6 @@
 
 .border {
     padding-top: 2%;
-    padding-bottom: 2%;
     padding-left: 2%;
     padding-right: 2%;
     align-items: center;

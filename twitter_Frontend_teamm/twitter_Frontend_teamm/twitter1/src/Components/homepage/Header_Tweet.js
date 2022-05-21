@@ -40,7 +40,7 @@ function Tweetbox(props) {
   const [Awaitcolor, setAwaitcolor] = useState("transparent");
   const [clicked, setclicked] = useState(false);
 
-  const [if_blocked, setif_blocked] = useState();
+  // const [if_blocked, setif_blocked] = useState();
 
   const [loading, setLoading] = useState(false);
   const [model, setmodel] = useState();
@@ -50,6 +50,7 @@ function Tweetbox(props) {
   // if_blocked_resp.then((text) => {
   //   setif_blocked(text.admin_block?.blocked_by_admin);
   // });
+  const [if_blocked, setif_blocked] = React.useState();
 
   const user = backend.GetUserInfo(logedin_user_id);
 
@@ -57,9 +58,10 @@ function Tweetbox(props) {
   user.then(function (result) {
     console.log("result", result);
     istest(result);
-    setif_blocked(result?.admin_block.blocked_by_admin);
+    setif_blocked(result.admin_block?.blocked_by_admin);
   });
   var Url_avatar = test?.profile_image_url;
+  // var if_blocked = test.admin_block?.blocked_by_admin;
 
   console.log(if_blocked);
   /**
@@ -251,7 +253,7 @@ function Tweetbox(props) {
                 <EmojiEmotionsOutlinedIcon />
               </Tooltip>
             </Button>
-            {if_blocked === "false" ? (
+            {if_blocked === false ? (
               <Button
                 id="post tweet button"
                 disabled={!input}

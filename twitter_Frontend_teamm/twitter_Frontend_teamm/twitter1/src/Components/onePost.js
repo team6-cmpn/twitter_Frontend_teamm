@@ -35,7 +35,6 @@ function Home() {
             username={opened_tweet.user?.username}
             text={opened_tweet.tweet?.text}
             image={opened_tweet.tweet?.imageUrl}
-            //avatar={userlist.avatar}
             tweet_id={opened_tweet.tweet?._id}
             mention={opened_tweet.tweet?.mention}
             date={opened_tweet.tweet?.created_at}

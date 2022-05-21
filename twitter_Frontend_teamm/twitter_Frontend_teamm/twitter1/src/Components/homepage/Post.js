@@ -64,7 +64,6 @@ const Post = ({
   const [mentioned, setmentioned] = useState(false);
   const [lie, setlikeslist] = useState([]);
   const [ret, setretweeters] = useState([]);
-  const [if_blocked, setif_blocked] = useState();
 
   const [book_mark_color, setbook_mark_color] = useState("black");
   const [add, setAdd] = useState("");
@@ -72,14 +71,17 @@ const Post = ({
   const user = backend.GetUserInfo(user_tweeted_id);
 
   const [test, istest] = React.useState();
+  const [if_blocked, setif_blocked] = React.useState();
   user.then(function (result) {
     console.log("result", result);
     istest(result);
-    setif_blocked(result?.admin_block.blocked_by_admin);
+    setif_blocked(result.admin_block?.blocked_by_admin);
   });
   var Url_avatar = test?.profile_image_url;
 
-  // var if_blocked = test?.admin_block.blocked_by_admin;
+  console.log(if_blocked);
+
+  // var if_blocked = test.admin_block?.blocked_by_admin;
 
   // if_blocked_resp.then((text) => {
   //   setif_blocked(text.admin_block?.blocked_by_admin);
@@ -115,7 +117,8 @@ const Post = ({
   const content = (
     <div>
       <Link
-        to="" id='addOrDeleteBookmarks'
+        to=""
+        id="addOrDeleteBookmarks"
         onClick={() => {
           addOrDeleteBookmarks();
         }}
@@ -435,7 +438,7 @@ const Post = ({
                       {retweet_no}
                     </span>
                   )}
-                  {if_blocked === "false" ? (
+                  {if_blocked === false ? (
                     <div className="blocked">
                       <button
                         id=" retweet button"

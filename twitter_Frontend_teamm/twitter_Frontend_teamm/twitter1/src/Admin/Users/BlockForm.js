@@ -40,7 +40,9 @@ function BlockForm() {
       istest(result);
     });
     console.log("finn", promiseB);
-    navigate("/Users");
+    if (test === 200) {
+      navigate("/Users");
+    }
     console.log("test", test);
     e.preventDefault(); //prevent refresh of page
   };
@@ -88,6 +90,6 @@ function BlockForm() {
       </div>
     </div>
   );
- };
+}
 
 export default BlockForm;

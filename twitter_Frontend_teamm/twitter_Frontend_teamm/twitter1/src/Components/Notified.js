@@ -33,7 +33,7 @@ const Notified = ({ notify,nType }) => {
           
         </div>
         <span>
-          <b>{notify.notificationHeader.text}</b> {" "}
+          <b>{notify.notificationHeader.text}</b> 
         </span>
         <span>{notify.notificationContent.text}</span>
       </div>}
@@ -44,7 +44,7 @@ const Notified = ({ notify,nType }) => {
           
         </div>
         <span>
-          <b>{notify.notificationHeader.text}</b> {" "}
+          <b>{notify.notificationHeader.text}</b> 
         </span>
         <span>{notify.notificationContent.text}</span>
       </div>}

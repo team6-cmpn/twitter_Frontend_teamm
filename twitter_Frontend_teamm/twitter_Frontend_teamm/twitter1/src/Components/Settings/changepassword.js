@@ -43,7 +43,7 @@ const Changepassword = () =>{
     };
   
     function SaveButtonActions(){
-        mock.PostChangePassword(body);
+       // mock.PostChangePassword(body);
         BE.Post_ChangePassword(body);
         setPassword(currentPassword);
         setNewPassword(password);

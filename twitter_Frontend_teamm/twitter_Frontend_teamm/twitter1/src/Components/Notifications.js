@@ -50,13 +50,13 @@ function Notifications() {
     const resp = await GetNotifications();
     setNotifications(resp);
      })();
-  },[BE])
+  },[])
   React.useEffect(()=>{ 
     (async () => {
    const resp = await GetNotificationsFavourites();
    setNotificationsFavs(resp);
     })();
-    },[notifi])
+    },[])
   return (
     <SettingsBox>
       <div className="Notimenu" id="NotificationMenu">
@@ -87,27 +87,27 @@ function Notifications() {
               <Notified key={index} notify={Notifications} nType={Notifications} />
               ))}
 
-              {Blockeddays.map((Blockeddays,index)=>(
+              {/* {Blockeddays.map((Blockeddays,index)=>(
               <Blocked_days
               key={index}
               numberOfDays={Blockeddays.numberOfDays}
               
               />
-              ))}
-              {LikedUser.map((userNotification, index) => (
+              ))} */}
+              {/* {LikedUser.map((userNotification, index) => (
               <LikedYou key={index} likePost={userNotification} />
               ))}
               {followedyou.map((userNotification, index) => (
               <FollowedYou key={index} followingUser={userNotification} />
-              ))}
+              ))} */}
             
               
             </>
           ) : (
             <>
-              {LikedUser.map((userNotification, index) => (
+              {/* {LikedUser.map((userNotification, index) => (
               <LikedYou key={index} likePost={userNotification} />
-              ))}
+              ))} */}
               {notifi.map((favourites, index) => (
               <LikedYouBe key={index} liked={favourites} />
               ))}

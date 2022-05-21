@@ -28,7 +28,7 @@ const FriendSuggestionItem = ({props}) => {
         <Link to={`/${props.username}`}>{props.name}</Link> </div>
         <MdVerified className="verify"/>
     
-        <span className="user_name">@{props.username}</span>
+        <span className="user_name">{props.username}</span>
         <div className="friendFollowButton">
         <button className="butto" onClick={() => {
          if (textState==="Follow")

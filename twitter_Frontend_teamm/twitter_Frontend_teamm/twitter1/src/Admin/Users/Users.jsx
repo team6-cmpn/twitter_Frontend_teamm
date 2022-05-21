@@ -93,7 +93,7 @@ const columns = [
     headerName: "Uncblock",
     sortable: false,
     renderCell: (params) => {
-      const unblock = (e) => {
+      function unblock ()  {
         var resp = UnBLockUser();
         console.log("unblocked res", resp);
         if(resp.status===200){
@@ -104,7 +104,7 @@ const columns = [
 
       return (
         <div>
-          <div className="deleteButton" onClick={() => unblock([])}>
+          <div className="deleteButton" onClick={() => {unblock()}}>
             Unblock
           </div>
         </div>

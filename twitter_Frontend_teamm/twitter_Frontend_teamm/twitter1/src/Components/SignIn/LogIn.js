@@ -93,6 +93,7 @@ function LogIn() {
         if(message===''){
           
           navigate("/home");
+          localStorage.setItem('word', "");
           window.location.reload();
         
       }

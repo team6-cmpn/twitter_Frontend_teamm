@@ -7,9 +7,12 @@ import Tooltip from "@mui/material/Tooltip";
 import "emoji-mart/css/emoji-mart.css";
 import {Picker} from "emoji-mart";
 import ImageBox from "./ImageBox";
+import Configure from "../../Configure";
+
 import * as mocked from "./feedmock";
 import * as backend from "./backendFeed";
 import {useNavigate} from "react-router";
+import * as profile from "../Profile/backEndProfile";
 // // // // // // // // // // // // // // import Pusher from 'pusher-js'
 // // // // // // // // // // // // // // import {toast, ToastContainer} from 'react-toastify';
 // // // // // // // // // // // // // // import 'react-toastify/dist/ReactToastify.css';
@@ -24,8 +27,7 @@ import {useNavigate} from "react-router";
 function Tweetbox(props) {
   const navigate = useNavigate();
   const [input, setinput] = useState("");
-  const [path, setpath] = useState("");
-  const [image_value, setimage] = useState("");
+  const [path, setpath] = useState([]);
   const [image_array, setimage_array] = useState([]);
   const [image_urls, set_urls] = useState([]);
   const [selectedFile, setselectedFile] = useState(false);
@@ -35,10 +37,32 @@ function Tweetbox(props) {
   const [content, getcontent] = useState([]);
   const filePickerRef = useRef(null);
   const [images, setImages] = useState([]);
+  const [Awaitcolor, setAwaitcolor] = useState("transparent");
+  const [clicked, setclicked] = useState(false);
+
+  // const [if_blocked, setif_blocked] = useState();
+
   const [loading, setLoading] = useState(false);
   const [model, setmodel] = useState();
 
-  const if_blocked = localStorage.getItem("isblocked");
+  const logedin_user_id = localStorage.getItem("userId");
+  // const if_blocked_resp = profile.GetUserInfo(logedin_user_id);
+  // if_blocked_resp.then((text) => {
+  //   setif_blocked(text.admin_block?.blocked_by_admin);
+  // });
+  const [if_blocked, setif_blocked] = React.useState();
+
+  const user = backend.GetUserInfo(logedin_user_id);
+
+  const [test, istest] = React.useState();
+  user.then(function (result) {
+    console.log("result", result);
+    istest(result);
+    setif_blocked(result.admin_block?.blocked_by_admin);
+  });
+  var Url_avatar = test?.profile_image_url;
+  // var if_blocked = test.admin_block?.blocked_by_admin;
+
   console.log(if_blocked);
   /**
    *
@@ -68,8 +92,6 @@ function Tweetbox(props) {
       setimage_array([...image_array, ...arr_obj]);
       console.log(image_array);
       sessionStorage.setItem("image_obj", image_array);
-
-      console.log(body);
     }
   };
   const handleRemoveImage = (imageUrl) => {
@@ -104,47 +126,57 @@ function Tweetbox(props) {
    */
   var image_urlBE = [];
   function submitTweet() {
+    var path_try = [];
     const imagesToSend = image_array.map(({imageId, imageObj}) => imageObj);
+    var body = [];
+    let image_urlBE = {};
+    (async () => {
+      image_urlBE = await backend.UploadImg(imagesToSend);
+      console.log(image_urlBE.data.url);
+      path_try = image_urlBE.data.url;
+      console.log("path = " + path_try);
+      if (image_urlBE.status === 200) {
+        body = {
+          text: input,
+          mention: mentions,
+          imageUrl: path_try,
+        };
+        backend.Post_Tweet(body);
+      }
+      console.log("inbody " + body.imageUrl);
+    })();
+    console.log("length" + imagesToSend.length);
 
-    if (imagesToSend.length < 0) {
-      (async () => {
-        image_urlBE = backend.UploadImg(imagesToSend);
-
-        setpath(image_urlBE);
-        // console.log(image_urlBE);
-      })();
-    }
-    localStorage.setItem("input_set", input);
-    localStorage.setItem("mention_set", mentions);
-    backend.Post_Tweet(body);
-    console.log(image_urlBE);
+    console.log("inbody " + body.imageUrl);
+    console.log("urlssss " + image_urlBE?.url);
     // console.log(backend.UploadImg(imagesToSend));
-    console.log("body" + fetch(body));
+    console.log("body" + body);
     // console.log("path " + path);
     setinput("");
     setmentions("");
-    // console.log(imagesToSend);
-
-    // const tweet_user = localStorage.setItem("new_tweet", true);
+    setimage_array([]);
+    setImages([]);
+    if (imagesToSend.length === 0) {
+      setpath([]);
+    }
 
     if (showEmoji) {
       setShowEmoji(!showEmoji);
     }
-    // if (selectedFile === false) {
-    //   setimage(" ");
-    // }
-
     if (props.model) {
       //setmodel(!props.model);
       props.onSubmit(false);
     }
+    // setAwaitcolor("#e6ecf0");
+    setclicked(true);
+    setTimeout(() => {
+      // setAwaitcolor("#transparent");
+      //setAwaitcolor("#e6ecf0");
+    }, 2000);
   }
-  var body = {
-    text: input,
-    mentions: mentions,
-    imageUrl: path.path,
-  };
-  console.log("path " + path.path);
+
+  if (clicked === true) {
+  }
 
   /**
    *conditioning mentions
@@ -160,18 +192,17 @@ function Tweetbox(props) {
   }
 
   return (
-    <div className="tweetBox">
+    <div className="tweetBox" style={{background: Awaitcolor}}>
       <div className="paddedin">
-        <form className="app">
+        <form className="head_line">
           <div className="img_circle">
-            {content.map((tweetItem, index) => {
-              return <img src={tweetItem.avatar} alt="" />;
-            })}
+            <img src={`${Configure.backURL}${Url_avatar}`} alt="" />
           </div>
           <div className="tweetBox__input">
             <textarea
               id="tweet text area"
               value={input}
+              style={{background: Awaitcolor}}
               placeholder="What is happening"
               onChange={(e) => setinput(e.target.value)}
               className="min-h-[50px]"
@@ -184,14 +215,15 @@ function Tweetbox(props) {
           <input
             id="mentions text area"
             maxLength={50}
+            style={{background: Awaitcolor}}
             placeholder="mentions"
             value={mentions}
             onChange={(e) => inputmention(e.target.value)}
           ></input>
         </div>
         <ImageBox images={images} onDeleteImage={handleRemoveImage} />
-        <div className=" app">
-          <div className="app border">
+        <div>
+          <div className="emo border">
             <div
               className="iconbar"
               onClick={() => filePickerRef.current.click()}
@@ -221,18 +253,17 @@ function Tweetbox(props) {
                 <EmojiEmotionsOutlinedIcon />
               </Tooltip>
             </Button>
+            {if_blocked === false ? (
+              <Button
+                id="post tweet button"
+                disabled={!input}
+                onClick={submitTweet}
+                className="tweet__Button  "
+              >
+                Tweet
+              </Button>
+            ) : null}
           </div>
-
-          {if_blocked === "false" ? (
-            <Button
-              id="post tweet button"
-              disabled={!input}
-              onClick={submitTweet}
-              className="tweet__Button"
-            >
-              Tweet
-            </Button>
-          ) : null}
         </div>
 
         {showEmoji && (

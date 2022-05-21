@@ -8,7 +8,7 @@
 }
 .Users>span{
 
-  color:#A52A2A !important;
+  color:#000000 !important;
 }
 
 .Userstitle {
@@ -22,6 +22,9 @@
   color: darkblue;
   border: 1px dotted rgba(0, 0, 139, 0.596);
   cursor: pointer;
+}
+.blockedtimes{
+  text-align: center;
 }
 .viewButton {
   padding: 2px 5px;

@@ -16,12 +16,12 @@ import "./feed.css";
  * @returns layout of home page
  */
 
-function Feed(data, updatedata, canScroll, isEnded) {
+function Feed(data, isEnded) {
   const loginuser_id = localStorage.getItem("userId");
 
-  const [page, setpage] = useState(2);
+  const [pages, setpage] = useState(5);
   const [postData, setpostData] = useState([]);
-  const [ended, setended] = useState();
+  const [ended, setended] = useState(isEnded);
 
   useEffect(() => {
     setpostData(data.data);
@@ -31,19 +31,21 @@ function Feed(data, updatedata, canScroll, isEnded) {
   const fetchData = () => {
     (async () => {
       // console.log(backend.Tweets_lookup(page + 1, 2));
-      resp = await backend.Tweets_lookup(page + 1, 2);
-      console.log("page=", page);
-      setpage(page + 1);
+      resp = await backend.Tweets_lookup(pages + 1, 5);
+      console.log("page=", pages);
+      console.log("responst status " + resp.status);
+      setpage(pages + 1);
       if (resp.status === 200) {
         setpostData([...postData, ...resp.data]);
         //console.log(postData);
       } else {
+        setended(true);
       }
     })();
   };
 
   return (
-    <div>
+    <div className="for_infinite">
       <RecoilRoot>
         <InfiniteScrool
           dataLength={postData.length}
@@ -62,8 +64,9 @@ function Feed(data, updatedata, canScroll, isEnded) {
                 displayName={userlist.user?.name}
                 username={userlist.user?.username}
                 text={userlist.tweet?.text}
-                //image={userlist.tweet?.imageUrl}
+                image={userlist.tweet?.imageUrl}
                 //avatar={userlist.avatar}
+                mentioned_user={userlist.tweet?.mentionedUser}
                 tweet_id={userlist.tweet?._id}
                 mention={userlist.tweet?.mention}
                 date={userlist.tweet?.created_at}

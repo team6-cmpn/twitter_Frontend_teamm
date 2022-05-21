@@ -13,6 +13,7 @@ import styles from "./ImageBox.module.css";
 function ImageBox({images, onDeleteImage, deleteEnabled}) {
   let imageWidth = 65;
   const [imagesArr, setImagesArr] = useState([]);
+
   if (images.length > 1) {
     imageWidth = 33;
   }
@@ -51,6 +52,7 @@ function ImageBox({images, onDeleteImage, deleteEnabled}) {
       )}
     </div>
   );
+
   return (
     <div data-testid="imagebox" className={styles.imagebox} id="imagebox">
       <div className={styles["row-images"]}>

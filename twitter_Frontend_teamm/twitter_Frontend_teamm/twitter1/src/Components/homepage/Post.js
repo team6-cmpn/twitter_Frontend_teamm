@@ -8,11 +8,12 @@ import FollowersList from "../Profile/FollowersList";
 import * as BE from "../Bookmarks/backEndBookmarks";
 import * as mocked from "./feedmock";
 import * as backend from "./backendFeed";
-import {likes_list} from "./backendFeed";
 import {Modal, Result, Popover} from "antd";
 import timeDifference from "./date";
 import {style} from "@mui/system";
 import ImageBox from "./ImageBox";
+import Configure from "../../Configure";
+
 import {useNavigate} from "react-router";
 import {Button} from "@material-ui/core";
 import {Link} from "react-router-dom";
@@ -47,6 +48,7 @@ const Post = ({
   retweets,
   user_liked_tweet,
   user_retweted_tweet,
+  mentioned_user,
 }) => {
   const navigate = useNavigate();
   var timeStamp = timeDifference(new Date(), new Date(date));
@@ -62,17 +64,38 @@ const Post = ({
   const [mentioned, setmentioned] = useState(false);
   const [lie, setlikeslist] = useState([]);
   const [ret, setretweeters] = useState([]);
-  const [likes_ids_tweet, setlikes_ids_tweet] = useState([]);
-  const [retween_ids_tweet, setretween_ids_tweet] = useState([]);
+
   const [book_mark_color, setbook_mark_color] = useState("black");
   const [add, setAdd] = useState("");
+
+  const user = backend.GetUserInfo(user_tweeted_id);
+
+  const [test, istest] = React.useState();
+  const [if_blocked, setif_blocked] = React.useState();
+  user.then(function (result) {
+    console.log("result", result);
+    istest(result);
+    setif_blocked(result.admin_block?.blocked_by_admin);
+  });
+  var Url_avatar = test?.profile_image_url;
+
+  console.log(if_blocked);
+
+  // var if_blocked = test.admin_block?.blocked_by_admin;
+
+  // if_blocked_resp.then((text) => {
+  //   setif_blocked(text.admin_block?.blocked_by_admin);
+  //   console.log(if_blocked_resp)
+  // });
+  // const if_blocked = localStorage.getItem("isblocked");
+
   // localStorage.setItem('bookmarkFlag',false);
   const [BookmarkState, setBookmarkState] = useState("add");
+  console.log(if_blocked);
   const toggleBookmarkState = () => {
     setBookmarkState((state) => (state === "Unadd" ? "add" : "Unadd"));
   };
 
-  const if_blocked = localStorage.getItem("isblocked");
   function addOrDeleteBookmarks() {
     localStorage.setItem("clicked.ID", tweet_id);
     if (BookmarkState === "add") {
@@ -94,7 +117,8 @@ const Post = ({
   const content = (
     <div>
       <Link
-        to="" id='addOrDeleteBookmarks'
+        to=""
+        id="addOrDeleteBookmarks"
         onClick={() => {
           addOrDeleteBookmarks();
         }}
@@ -201,10 +225,6 @@ const Post = ({
     } else {
       navigate("/post");
       clicked = localStorage.setItem("clicked.ID", tweet_id);
-
-      if (mentioned === true) {
-        get_mention();
-      }
     }
   };
 
@@ -243,22 +263,31 @@ const Post = ({
   const returnhome = async () => {
     navigate("/home");
   };
+  /**
+   * delte butoon
+   * return to home if clicked
+   */
   const deleteTweet = async () => {
     const deleteTweet = backend.DeleteTweet(tweet_id);
     if (open === true) {
       navigate("/home");
     }
   };
+  /**
+   *
+   */
   const get_mention = async () => {
     open = false;
     setmentioned(true);
-    navigate("/Notifications");
+    localStorage.setItem("clicked_userID", mentioned_user);
+    navigate(`/${mention}`);
   };
   /**
    * store the clicked name's user id in storage
    */
   const store_userID = () => {
     localStorage.setItem("clicked_userID", user_tweeted_id);
+    navigate(`/${username}`);
   };
 
   return (
@@ -285,13 +314,18 @@ const Post = ({
           <div className="tweet_return">Tweet</div>
         </div>
       )}
-      <div className="border">
+      <div
+        onClick={() => {
+          openPost();
+        }}
+        className="border"
+      >
         <div className="post">
           <div className="img_circle">
             <span>
               <img
                 key="user imag "
-                src={avatar}
+                src={`${Configure.backURL}${Url_avatar}`}
                 onerror="this.style.display='none'"
                 alt=""
               />
@@ -300,10 +334,8 @@ const Post = ({
           <div className="post__body">
             <div className="inherted">
               <div className="post__headerText app">
-                <div onClick={store_userID}>
-                  <h3 className="bolding " id="user @ displayname">
-                    <Link to={`/${username}`}>{displayName}</Link>
-                  </h3>
+                <div onClickCapture={store_userID} className="bolding ">
+                  <span id="user @ displayname"> {displayName}</span>
                 </div>
                 {"  "}
                 <p className="post__headerSpecial">{username} </p>{" "}
@@ -321,12 +353,7 @@ const Post = ({
                 </div>
               </div>
 
-              <div
-                className="post__tweet app"
-                onClick={() => {
-                  openPost();
-                }}
-              >
+              <div className="post__tweet app">
                 <span class="input" role="textbox" contenteditable>
                   {text}
                   {"  "}
@@ -338,7 +365,11 @@ const Post = ({
                   </div>
                 </span>
               </div>
-              <div onClick={openPost}>
+              <div
+                onClickCapture={() => {
+                  openPost();
+                }}
+              >
                 {image && <ImageBox images={image} deleteEnabled />}
               </div>
               {open === true && (
@@ -362,7 +393,7 @@ const Post = ({
                       setIsOpen(true);
                     }}
                   >
-                    <div className="icon flex ">
+                    <div className=" flex ">
                       <button
                         id="delete button "
                         className=" icon delete "
@@ -407,7 +438,7 @@ const Post = ({
                       {retweet_no}
                     </span>
                   )}
-                  {if_blocked === "false" ? (
+                  {if_blocked === false ? (
                     <div className="blocked">
                       <button
                         id=" retweet button"

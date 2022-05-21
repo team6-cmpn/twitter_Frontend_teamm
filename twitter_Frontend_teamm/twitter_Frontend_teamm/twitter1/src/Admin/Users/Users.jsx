@@ -12,6 +12,7 @@ import BlockForm from "./BlockForm";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import Configure from "../../Configure";
 
 /**
  *
@@ -31,17 +32,18 @@ import { Link, useNavigate } from "react-router-dom";
 //       setTweetsPerMonth(temptweetsPerMonth);
 //     })();
 //   }, []);
-
+const getBlock = (params) => params.getValue(params.id, "admin_block");
+const getUserImg = (params) => params.getValue(params.id, "profile_image_url");
 const columns = [
   {
     title: "Avatar",
-    field: "profile_image_url",
+    field: "User_img",
     headerName: "Image",
     sortable: false,
     renderCell: (params) => (
       <img
         style={{ width: 36, height: 36, borderRadius: "50%" }}
-        src={params.value}
+        src={`${Configure.backURL}${getUserImg(params)}`}
         alt="userimg"
       />
     ),
@@ -69,20 +71,29 @@ const columns = [
   //   seed:'11',
   //   width: 120,
   // },
-  { field: "dateOfBirth", headerName: "Date Of Birth", width: 110 },
+  {
+    field: "Number Block",
+    headerName: "Blocked Times",
+    width: 110,
+    renderCell: (params) => {
+      return (
+        <div className="blockedtimes">
+            {getBlock(params).blockNumTimes}
+        </div>
+      );
+    },
+  },
   { field: "_id", headerName: "User ID", width: 110 },
   {
     field: "block",
     headerName: "Block",
     width: 70,
     sortable: false,
-    // valueFormatter: ({ value }) => value.blocked_by_admin,
     renderCell: (params) => {
       return (
         <div>
           <div className="cellAction">
-            {console.log(params.admin_block)}
-            {params?.admin_block=== true ? (
+            {getBlock(params).blocked_by_admin === false ? (
               <Link to="/BlockForm" style={{ textDecoration: "none" }}>
                 <div className="viewButton">Block</div>
               </Link>
@@ -114,14 +125,16 @@ const columns = [
 
       return (
         <div>
-          <div
-            className="deleteButton"
-            onClick={() => {
-              Unblock();
-            }}
-          >
-            Unblock
-          </div>
+          {getBlock(params).blocked_by_admin === true ? (
+            <div
+              className="deleteButton"
+              onClick={() => {
+                Unblock();
+              }}
+            >
+              Unblock
+            </div>
+          ) : null}
         </div>
       );
     },
@@ -143,6 +156,7 @@ export default function AdminUsers() {
           rows={userlist}
           checkboxSelection
           columns={columns}
+          onCellFocusOut={(e) => console.log(e.admin_block)}
           onSelectionModelChange={(ids) => {
             const selectedIDs = new Set(ids);
             setSelectedRows(selectedIDs);

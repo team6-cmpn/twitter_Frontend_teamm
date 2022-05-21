@@ -26,7 +26,7 @@
 .agecharttitle {
   font-size: 25px;
   font-weight: 600;
-  color: brown;
+  color: rgb(0, 0, 0);
 }
 .blockeduseritem{
 flex: 4;

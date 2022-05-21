@@ -19,13 +19,14 @@ function Home() {
   useEffect(() => {
     (async () => {
       const resp = await backend.getTweet(clicked_tweet_id);
+      console.log(resp);
       setopened_tweet(resp);
       setchange("ss");
     })();
-  }, [change]);
-console.log(opened_tweet.tweet?.favorites.length)
+  }, []);
+  console.log(opened_tweet.tweet?.favorites.length);
   return (
-    <div className="twitter ">
+    <div className="twitter  ">
       <Sidebar />
       <RecoilRoot>
         <div className=" posted">
@@ -33,8 +34,7 @@ console.log(opened_tweet.tweet?.favorites.length)
             displayName={opened_tweet.user?.name}
             username={opened_tweet.user?.username}
             text={opened_tweet.tweet?.text}
-            //image={userlist.tweet?.imageUrl}
-            //avatar={userlist.avatar}
+            image={opened_tweet.tweet?.imageUrl}
             tweet_id={opened_tweet.tweet?._id}
             mention={opened_tweet.tweet?.mention}
             date={opened_tweet.tweet?.created_at}
@@ -44,6 +44,7 @@ console.log(opened_tweet.tweet?.favorites.length)
             retweets={opened_tweet.tweet?.retweetUsers.length}
             user_liked_tweet={opened_tweet?.isLiked}
             user_retweted_tweet={opened_tweet?.isRetweeted}
+            mentioned_user={opened_tweet.tweet?.mentionedUser}
             open={true}
           />
         </div>

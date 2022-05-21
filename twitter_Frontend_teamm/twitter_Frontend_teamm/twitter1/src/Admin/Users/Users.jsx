@@ -30,7 +30,7 @@ import { Link } from "react-router-dom";
 //     })();
 //   }, []);
 
-
+const apiRef = React.useRef<DataGrid>(null);
 const columns = [
   {
     title: "Avatar",
@@ -54,7 +54,6 @@ const columns = [
     headerName: "Is Blocked",
     sortable: false,
     valueFormatter: ({ value }) => value.blocked_by_admin,
-    cellClassName: "isblocked",
     type: "string",
     seed: "12",
     width: 120,
@@ -138,7 +137,6 @@ export default function AdminUsers() {
         <DataGrid
           getRowId={(userlist) => userlist._id}
           rows={userlist}
-          getRowClassName={(params) => `super-app-theme--${params.row.status}`}
           checkboxSelection
           columns={columns}
           onSelectionModelChange={(ids) => {

@@ -2345,6 +2345,18 @@
         "src": "blob:http://localhost:3000/ae0d8e46-cd28-4b5c-8e2c-0524de763c7e"
       },
       "id": 69
+    },
+    {
+      "name": "",
+      "bio": null,
+      "location": null,
+      "website": null,
+      "date": null,
+      "img": {
+        "alt": "Picture1.jpg",
+        "src": "blob:http://localhost:3000/352ce257-0b02-45bb-8316-c5689fa80ff3"
+      },
+      "id": 70
     }
   ],
   "StatisticsBlock": [

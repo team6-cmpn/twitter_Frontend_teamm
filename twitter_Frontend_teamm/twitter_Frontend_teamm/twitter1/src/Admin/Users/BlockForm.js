@@ -32,18 +32,17 @@ function BlockForm() {
     //   // setErrorMessage("Please enter whole integr greater than 0")
     //   // {errorMessage && <div className="error"> {errorMessage} </div>}
     // } else {
-      const resp = BLockUser(body);
-      localStorage.setItem("selectedIDs", null);
-      console.log("..", resp);
-      var promiseB = resp.then(function (result) {
-        console.log("result", result);
-        istest(result);
-      });
-      console.log("finn", promiseB);
-      navigate("/Users");
-      console.log("test", test);
-      e.preventDefault(); //prevent refresh of page
-    }
+    const resp = BLockUser(body);
+    localStorage.setItem("selectedIDs", null);
+    console.log("..", resp);
+    var promiseB = resp.then(function (result) {
+      console.log("result", result);
+      istest(result);
+    });
+    console.log("finn", promiseB);
+    navigate("/Users");
+    console.log("test", test);
+    e.preventDefault(); //prevent refresh of page
   };
   var body = { duration: duration };
   sessionStorage.setItem("duration", duration);

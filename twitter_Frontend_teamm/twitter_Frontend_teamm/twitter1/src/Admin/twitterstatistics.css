@@ -19,17 +19,18 @@
 .adminstatisticsTitle {
   font-size: 25px;
   font-weight: 600;
+  color:rgb(0, 0, 0) !important;
 }
-.adminstatisticsItem>Span{
-  color:#1da1f2 !important;
-}
+/* .adminstatisticsItem>Span{
+  color:#0b0f11 !important;
+} */
 .staticsItemContainer {
   margin: 10px 0px;
   display: flex;
   align-items: center;
 }
 .staticsItemContainer>span{
-  color: #1da1f2 !important;
+  color: #27333b !important;
 }
 @media screen and (max-width: 768px) {
   .adminstatisticsItem {

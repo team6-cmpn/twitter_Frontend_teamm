@@ -40,7 +40,7 @@ export default function UserChart() {
             label
           />
 
-          <Tooltip />
+        <Tooltip contentStyle={{backgroundColor:'#1DA1F2'}} />
         </PieChart>
       </ResponsiveContainer>
     </div>

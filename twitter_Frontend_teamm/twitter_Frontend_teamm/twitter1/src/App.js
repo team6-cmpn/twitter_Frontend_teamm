@@ -104,7 +104,7 @@ function App() {
             {/* <Route path="/profile/:username" element={<User />} /> */}
             <Route path="/bookmarks" element={<Bookmarks />} />
             </>}
-            <Route path="/:username" element={<User />} exact /> 
+            {/* <Route path="/:username" element={<User />} exact />  */}
           <Route path="/" element={<Navigate to={authenticate()}/>}/>
           <Route path="*" element={<Navigate to={'/'}/>} />
         </Routes>

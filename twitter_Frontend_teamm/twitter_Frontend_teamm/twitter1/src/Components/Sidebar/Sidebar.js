@@ -70,7 +70,7 @@ function Sidebar() {
   };
   const content = (
     <div>
-      <Link to='/logout'>Logout username</Link>
+      <Link to='/logout'>Logout {username} </Link>
     </div>
   )
   var pusher;
@@ -201,7 +201,7 @@ function Sidebar() {
                 }}
               >
                 {username}{" "}
-                <Popover content={content} trigger="hover" title='Username'><BiDotsHorizontal className="more" /></Popover>
+                <Popover content={content} trigger="hover" title= {user}><BiDotsHorizontal className="more" /></Popover>
               </span>
               {/* <BiDotsHorizontal style={{"display":"row"}} className="more" /> */}
             </div>

@@ -87,7 +87,7 @@ export async function likePost(id) {
     .then((response) => {
       // console.log(response);
       if (response.status === 200) {
-        messgae = response.data.tweet;
+        messgae = response.data;
         // console.log(response.data);
       }
     })
@@ -111,7 +111,7 @@ export async function dislikePost(id) {
     .then((response) => {
       // console.log(response);
       if (response.status === 200) {
-        messgae = response.data.tweet;
+        messgae = response.data;
         // console.log(response.data);
       }
     })
@@ -232,10 +232,10 @@ export async function Retweet_tweet(id) {
       },
     })
     .then((response) => {
-      // console.log(response.data.retweetUsers);
+      console.log(response);
       if (response.status === 200) {
-        messgae = response.data.retweetUsers.length;
-        // console.log(response.data);
+        messgae = response.data;
+        console.log("retweet" + response.data);
       }
     })
     .catch((error) => {
@@ -256,10 +256,10 @@ export async function UNRetweet_tweet(id) {
       },
     })
     .then((response) => {
-      // console.log(response.data);
+      console.log(response);
       if (response.status === 200) {
-        messgae = response.data.retweetUsers.length;
-        // console.log(response.data);
+        messgae = response.data;
+        console.log("unretweet" + response.data);
       }
     })
     .catch((error) => {

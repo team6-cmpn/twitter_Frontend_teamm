@@ -30,9 +30,7 @@ import { Link } from "react-router-dom";
 //     })();
 //   }, []);
 
-const postRowStyle = (record, index) => ({
-  backgroundColor: record?.admin_block == true ? '#aa2222' : 'white',
-});
+
 const columns = [
   {
     title: "Avatar",
@@ -121,6 +119,7 @@ export default function AdminUsers() {
 
   console.log("users", userlist);
   const [isblocked, setIsBlock] = React.useState([]);
+  
 
   useEffect(() => {
     (async () => {

@@ -94,7 +94,7 @@ function User(){
            setinfo(infoo);
             
           })();
-        }, [info]);
+        }, []);
 
     function FollowButtonActions(){
         Follow();

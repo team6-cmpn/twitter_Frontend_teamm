@@ -13,10 +13,12 @@ import Trends from "../Widgets/Trends";
 import Sidebar from "../Sidebar/Sidebar";
 import {GrLocation} from "react-icons/gr"
 import {BiLink} from "react-icons/bi"
-import { UpdateProfile, UploadImageProfile} from './backEndProfile'
+import { UpdateProfile, UploadImageProfile, GetUserInfo, GetTweetList} from './backEndProfile'
 import { GetPostTweet } from "../homepage/feedmock";
 import Post from "../homepage/Post";
 import { RecoilRoot } from "recoil";
+// import axios from 'axios';
+// import Configure from '../../Configure';
 
 
 /**Profile
@@ -37,14 +39,10 @@ function Profile(){
         postedtweet(resp);
       })();
     }, []);
+    var TweetsLists= GetTweetList();
+    console.log("MApping",TweetsLists)
 
-    // const [tweetsList, setTweetList] = React.useState([]);
-    // React.useEffect(() => {
-    //     (async () => {
-    //       const resp = await gettweetlist();
-    //       setTweetList(resp);
-    //     })();
-    //   }, []);
+
     
     const [{alt2, src2}, setImg2] = useState({
         src2: placeholder,
@@ -63,7 +61,7 @@ function Profile(){
             }); 
             console.log(e.target.files[0])
             UploadImageProfile(e.target.files[0]); 
-            const PImage=localStorage.getItem("Image")
+            // const PImage=localStorage.getItem("Image")
             // setImg2(PImage)
         }   
     }
@@ -87,13 +85,22 @@ function Profile(){
     const [editwebsite, setEditWebsite] = useState(null)
     // const [Item, setItem] = useState();
     const [upd, setupdate] = useState();
+    const loginuser_id = localStorage.getItem("userId");
+    var info= GetUserInfo()
+    const [test, istest] = React.useState();
+    info.then(function (result) {
+        console.log("result", result);
+        istest(result);
+      });
+    console.log(info)
+    var Url=test?.profile_image_url
+    console.log(Url)
 
     function SaveButtonActions(){
     mockAPI.Profile(body); 
     var up = UpdateProfile(update);
     up.then(data=>{setupdate(data)});
     console.log(upd);
-    
     setMainModalVisible(false);
     setName(editname);
     setBio(editbio);
@@ -102,7 +109,7 @@ function Profile(){
     setWebsite(editwebsite);
     localStorage.setItem("name", editname);
     setImg2({
-        src2: src,
+        src2: URL.createObjectURL(Url),
         alt2: alt
     }); 
     
@@ -123,7 +130,7 @@ function Profile(){
         description: editbio,
     }
 
-    // const tweet=gettweetlist();
+    // const tweet=Gettweetlist();
     // tweet.then(data=>{settweet(data)});
     // console.log(tweeted);
     // for (let i=0;i<gettweetlist();i++){
@@ -233,31 +240,43 @@ function Profile(){
                                  avatar={userlist.avatar}
                                  date={userlist.date}
                                  />))} */}
-                                 {/* {tweetsList.map((userlist, index) => (
+                                 {TweetsLists.map((userlist, index) => (
                                  <Post
                                  key={index}
-                                 displayName={name}
-                                 username={username}
-                                 text={localStorage.getItem(`tweettext${index} `)}
-                                 image={localStorage.getItem(`imageUrl${index} `)}
-                                 avatar={userlist.avatar}
-                                 date={localStorage.getItem(`tweetdateat${index}`)}
-                                 />))} */}
+                                //  displayName={name}
+                                //  username={username}
+                                //  text={userlist.text}
+                                //  image={userlist.imageUrl}
+                                //  avatar={userlist.avatar}
+                                //  date={userlist.created_at}
+                                displayName={name}
+                                username={username}
+                                text={userlist?.text}
+                                // image={userlist?.imageUrl}
+                                // avatar={userlist?.avatar}
+                                tweet_id={userlist?._id}
+                                // mention={userlist?.mention}
+                                date={userlist?.created_at}
+                                user_tweeted_id={userlist?.user}
+                                logedin_user_id={loginuser_id}
+                                // likes={userlist?.favorites.length}
+                                // retweets={userlist?.retweetUsers.length}
+                                 />))}
                             </>
                          :
                          (isTab===2)?
                             <>
 
-                            {twetted.map((userlist, index) => (
+                            {/* {twetted.map((userlist, index) => (
                                  <Post
                                  key={index}
                                  displayName={name}
                                  username={username}
-                                 text={userlist.text}
-                                 image={userlist.image}
+                                 text={tweet.text}
+                                 image={tweet.imageUrl}
                                  avatar={userlist.avatar}
-                                 date={userlist.date}
-                                 />))}
+                                 date={tweet.created_at}
+                                 />))} */}
                             </>
                         : (isTab===3)?
                             <>

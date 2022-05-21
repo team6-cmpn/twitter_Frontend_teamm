@@ -32,26 +32,22 @@ function BlockForm() {
     //   // setErrorMessage("Please enter whole integr greater than 0")
     //   // {errorMessage && <div className="error"> {errorMessage} </div>}
     // } else {
-      const resp = BLockUser(body);
-      localStorage.setItem("selectedIDs", null);
-      console.log("..", resp);
-      var promiseB = resp.then(function (result) {
-        console.log("result", result);
-        istest(result);
-      });
-      console.log("finn", promiseB);
-      if (test === 200) {
-        navigate("/Users");
-        console.log("test", test);
-      }
-
-      e.preventDefault(); //prevent refresh of page
-    
+    const resp = BLockUser(body);
+    localStorage.setItem("selectedIDs", null);
+    console.log("..", resp);
+    var promiseB = resp.then(function (result) {
+      console.log("result", result);
+      istest(result);
+    });
+    console.log("finn", promiseB);
+    navigate("/Users");
+    console.log("test", test);
+    e.preventDefault(); //prevent refresh of page
   };
   var body = { duration: duration };
   sessionStorage.setItem("duration", duration);
   return (
-    <div >
+    <div>
       <div id="FinalUsersPage">
         <TopBar />
         <div className="admincontainer">
@@ -81,7 +77,7 @@ function BlockForm() {
                     <br />
                     <br />
                     <a>
-                      <input type="submit" value="Submit"  />
+                      <input type="submit" value="Submit" />
                     </a>
                   </form>
                 </header>
@@ -92,6 +88,6 @@ function BlockForm() {
       </div>
     </div>
   );
-}
+ };
 
 export default BlockForm;

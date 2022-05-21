@@ -13,7 +13,7 @@ function Home_feed() {
   var postState = [];
   useEffect(() => {
     (async () => {
-      postState = await backend.Tweets_lookup(1, 10);
+      postState = await backend.Tweets_lookup(page + 1, 4);
 
       if (postState.status === 200) {
         setpostData(postState.data);

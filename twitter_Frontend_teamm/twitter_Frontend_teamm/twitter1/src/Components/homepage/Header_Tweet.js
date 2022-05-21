@@ -103,33 +103,36 @@ function Tweetbox(props) {
    * @param {*} event
    */
   var image_urlBE = [];
-  function submitTweet(event) {
-    setinput("");
-    setmentions("");
+  function submitTweet() {
     const imagesToSend = image_array.map(({imageId, imageObj}) => imageObj);
-    console.log(imagesToSend);
 
-    const tweet_user = localStorage.setItem("new_tweet", true);
+    if (imagesToSend.length < 0) {
+      (async () => {
+        image_urlBE = backend.UploadImg(imagesToSend);
+
+        setpath(image_urlBE);
+        // console.log(image_urlBE);
+      })();
+    }
     localStorage.setItem("input_set", input);
     localStorage.setItem("mention_set", mentions);
+    backend.Post_Tweet(body);
+    console.log(image_urlBE);
+    // console.log(backend.UploadImg(imagesToSend));
+    console.log("body" + fetch(body));
+    // console.log("path " + path);
+    setinput("");
+    setmentions("");
+    // console.log(imagesToSend);
+
+    // const tweet_user = localStorage.setItem("new_tweet", true);
+
     if (showEmoji) {
       setShowEmoji(!showEmoji);
     }
-    if (selectedFile === false) {
-      setimage(" ");
-    }
-    sessionStorage.setItem("image_obj", imagesToSend);
-    console.log(imagesToSend);
-    image_urlBE = backend.UploadImg(imagesToSend);
-    // console.log(backend.UploadImg(imagesToSend));
-    console.log(image_urlBE.length);
-    setpath(image_urlBE?.path);
-    console.log(image_urlBE);
-    console.log("mesh mwaf2a");
-
-    // console.log(image_urlBE.path);
-    console.log(path);
-    const tweet = backend.Post_Tweet(body);
+    // if (selectedFile === false) {
+    //   setimage(" ");
+    // }
 
     if (props.model) {
       //setmodel(!props.model);
@@ -139,8 +142,9 @@ function Tweetbox(props) {
   var body = {
     text: input,
     mentions: mentions,
-    imageUrl: path,
+    imageUrl: path.path,
   };
+  console.log("path " + path.path);
 
   /**
    *conditioning mentions

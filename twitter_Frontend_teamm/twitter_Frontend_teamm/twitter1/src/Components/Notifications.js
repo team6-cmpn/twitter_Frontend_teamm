@@ -27,7 +27,8 @@ function Notifications() {
   const [Blockeddays, setBlockeddays] = React.useState([]);
   const [LikedUser, setLikedUser] = React.useState([]);
   const [followedyou, setfollowedyou] = React.useState([]);
-
+  const [BE,setNotifications]=React.useState([]);
+  const [notifi,setNotificationsFavs]=React.useState([]);
   const [isAll, setIsAll] = React.useState(true);
   document.title = "Notifications / Twitter";
   React.useEffect(() => {
@@ -44,8 +45,18 @@ function Notifications() {
       setLikedUser(resp);
     })();
   }, []);
-  const notifi=GetNotificationsFavourites();
-  const BE=GetNotifications();
+  React.useEffect(()=>{ 
+     (async () => {
+    const resp = await GetNotifications();
+    setNotifications(resp);
+     })();
+  },[])
+  React.useEffect(()=>{ 
+    (async () => {
+   const resp = await GetNotificationsFavourites();
+   setNotificationsFavs(resp);
+    })();
+ },[])
   return (
     <SettingsBox>
       <div className="Notimenu" id="NotificationMenu">

@@ -44,7 +44,7 @@ function BlockForm() {
       console.log("test", test);
       e.preventDefault(); //prevent refresh of page
     }
-  };
+  
   var body = { duration: duration };
   sessionStorage.setItem("duration", duration);
   return (
@@ -89,6 +89,6 @@ function BlockForm() {
       </div>
     </div>
   );
-}
+ };
 
 export default BlockForm;

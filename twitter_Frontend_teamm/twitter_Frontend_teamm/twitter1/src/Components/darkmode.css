@@ -1,6 +1,8 @@
 .App.dark {
   background-color: #15202B !important;
-}
+  height: auto !important;
+  min-height: 100vh;
+  }
 
 .App.dark .like_list {
   margin-right: 0.7%;

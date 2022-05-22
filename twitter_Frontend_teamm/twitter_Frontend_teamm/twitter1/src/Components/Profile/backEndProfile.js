@@ -18,7 +18,7 @@ export async function GetUserInfo() {
       setDashBoard(dashBoard.data.user);
     };
     fetchProduct();
-  }, [id]);
+  }, []);
   if (!dashBoard) return null;
   console.log(dashBoard);
   return dashBoard;
@@ -40,7 +40,7 @@ export async function GetUserInfo() {
         setfollowingList(followingList.data);
       };
       fetchProduct();
-    }, [id]);
+    }, []);
     if (!followingList) return null;
     console.log(followingList);
     return followingList;
@@ -62,7 +62,7 @@ export async function GetUserInfo() {
         setfollowerList(followerList.data);
       };
       fetchProduct();
-    }, [id]);
+    }, []);
     if (!followerList) return null;
     console.log(followerList);
     return followerList;
@@ -83,7 +83,7 @@ export async function GetUserInfo() {
         setTweetList(tweetList.data);
       };
       fetchProduct();
-    }, [id]);
+    }, []);
     if (!tweetList) return null;
     console.log(tweetList);
     return tweetList;
@@ -103,7 +103,7 @@ export async function GetUserInfo() {
         setTweetList(tweetList.data);
       };
       fetchProduct();
-    }, [id]);
+    }, []);
     if (!tweetList) return null;
     console.log(tweetList);
     return tweetList;
@@ -125,7 +125,7 @@ export async function GetUserInfo() {
         setTweetList(tweetList.data);
       };
       fetchProduct();
-    }, [id]);
+    }, []);
     if (!tweetList) return null;
     console.log(tweetList);
     return tweetList;
@@ -187,7 +187,7 @@ export async function GetUserInfo() {
         .then((response) => {
           console.log(response);
           if (response.status === 200) {
-            Image=response.data.path;
+            Image=response.data;
             console.log(Image)
             
             

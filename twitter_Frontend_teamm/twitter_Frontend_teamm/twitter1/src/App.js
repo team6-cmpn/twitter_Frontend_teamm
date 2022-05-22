@@ -102,6 +102,7 @@ function App() {
             <Route path="/UserFollowing" element={<UserFollowing />}></Route>
             {/* <Route path="/:username" element={<User />} /> */}
             {/* <Route path="/profile/:username" element={<User />} /> */}
+            {/* <Route path="User/:username" element={<User />} exact />  */}
             <Route path="/bookmarks" element={<Bookmarks />} />
             </>}
             <Route path="/:username" element={<User />} exact /> 

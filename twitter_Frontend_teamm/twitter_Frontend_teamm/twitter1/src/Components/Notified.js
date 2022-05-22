@@ -1,31 +1,23 @@
 import React from "react";
 import "./LikedYou.css";
-import FavoriteIcon from "@material-ui/icons/Favorite";
+import {useNavigate} from "react-router";
 import { Avatar } from "@material-ui/core";
 import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 const Notified = ({ notify, nType }) => {
+  const navigate = useNavigate();
+  function OnePost(){ navigate("/post");
+    localStorage.setItem("clicked.ID",notify.notificationContent._id );
+   
+      }
   return (
     <div className="likedYou" id="likedyou">
       <NotificationsActiveIcon />
-      {notify.notificationContent.text ? (
+      {notify.notificationContent ? (
         <>
-          {nType.notificationType === "block" && (
-            <div>
-              <span>
-                <b>{notify.notificationHeader.text}</b>
-              </span>
-            </div>
-          )}
-          {nType.notificationType === "unblock" && (
-            <div>
-              <span>
-                <b>{notify.notificationHeader.text}</b>
-              </span>
-            </div>
-          )}
+          
 
           {nType.notificationType === "favourite" && (
-            <div>
+            <div  onClick={()=>OnePost()}>
               <div>
                 <Avatar src={notify.notificationHeader.images} />
               </div>
@@ -36,7 +28,7 @@ const Notified = ({ notify, nType }) => {
             </div>
           )}
           {nType.notificationType === "tweet" && (
-            <div>
+            <div  onClick={()=>OnePost()}>
               <div>
                 <Avatar src={notify.notificationHeader.images} />
               </div>

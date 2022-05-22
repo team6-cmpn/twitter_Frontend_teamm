@@ -57,7 +57,8 @@ function Notifications() {
       setNotificationsFavs(resp);
     })();
   }, []);
-  
+  const notifications=GetNotifications();
+  console.log('notifications: ',notifications)
   return (
     <SettingsBox>
       <div className="Notimenu" id="NotificationMenu">
@@ -88,6 +89,7 @@ function Notifications() {
                   key={index}
                   notify={Notifications}
                   nType={Notifications}
+                  
                 />
               ))}
 

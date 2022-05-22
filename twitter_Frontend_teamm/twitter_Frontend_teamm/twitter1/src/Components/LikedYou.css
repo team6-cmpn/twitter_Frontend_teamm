@@ -6,6 +6,8 @@
 }
 .likedYou:hover {
   background-color: #ECEDEE;
+  cursor: pointer;
+
 }
 .likedYou > .MuiSvgIcon-root {
   color: #e0245e;

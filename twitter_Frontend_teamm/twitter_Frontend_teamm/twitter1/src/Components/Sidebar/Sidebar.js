@@ -52,7 +52,7 @@ function Sidebar() {
   //   // setDisplay(name.name);
   //   console.log(user);
   // });
-  const user = localStorage.getItem("getName");
+  const user = localStorage.getItem("name");
   const username = localStorage.getItem("getUsername");
   //const usern=localStorage.getItem1("getName")
   // usern.then(data=>{setItem(data)});

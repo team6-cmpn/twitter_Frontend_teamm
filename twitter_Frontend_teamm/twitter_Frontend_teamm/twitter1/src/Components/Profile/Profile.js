@@ -13,12 +13,10 @@ import Trends from "../Widgets/Trends";
 import Sidebar from "../Sidebar/Sidebar";
 import {GrLocation} from "react-icons/gr"
 import {BiLink} from "react-icons/bi"
-import { UpdateProfile, UploadImageProfile, GetUserInfo, GetTweetList,GetMediaList,GetLikedTweetList} from './backEndProfile'
-import { GetPostTweet } from "../homepage/feedmock";
+import { UpdateProfile, UploadImageProfile, GetUserInfo, GetTweetList,GetLikedTweetList,getUserLook} from './backEndProfile'
+// import { GetPostTweet } from "../homepage/feedmock";
 import Post from "../homepage/Post";
 import { RecoilRoot } from "recoil";
-import axios from 'axios';
-// import ImageComponent from "./ImageComponent"
 import Configure from '../../Configure';
 
 
@@ -31,27 +29,22 @@ function Profile(){
     const [date, setDate] = useState(null);
     const [isMainModalVisible, setMainModalVisible] = useState(false);
     const [isTab, setIsTab] = useState(1);
-    const [twetted, postedtweet] = React.useState([]);
+    // const [twetted, postedtweet] = React.useState([]);
     
-    
-    React.useEffect(() => {
-      (async () => {
-        const resp = await GetPostTweet();
-        postedtweet(resp);
-      })();
-    }, []);
+    getUserLook();
+    // React.useEffect(() => {
+    //   (async () => {
+    //     const resp = await GetPostTweet();
+    //     postedtweet(resp);
+    //   })();
+    // }, []);
     var TweetsLists= GetTweetList();
     console.log("MApping",TweetsLists)
 
     var LikedTweetsLists= GetLikedTweetList().tweets;
-    // var id = LikedTweeetsLists.
-    // const [test1, istest1] = React.useState();
-    // LikedTweetsLists.then(function (result) {
-    //     console.log("result", result);
-    //     istest1(result);
-    //   });
+   
     console.log("listsss",LikedTweetsLists)
-    var MediaLists=GetMediaList();
+    // var MediaLists=GetMediaList();
 
     var [{alt2, src2}, setImg2] = useState({
         src2: placeholder,
@@ -325,8 +318,8 @@ function Profile(){
                             {LikedTweetsLists.map((userlist, index) => (
                                 <Post
                                 key={index}
-                                displayName={name}
-                                username={username}
+                                displayName={localStorage.getItem(`namelikedtweet ${index}`)}
+                                username={localStorage.getItem(`usernamelikedtweet ${index}`)}
                                 text={userlist?.text}
                                 image={userlist?.imageUrl}
                                 avatar={`${Configure.backURL}${Url}`}

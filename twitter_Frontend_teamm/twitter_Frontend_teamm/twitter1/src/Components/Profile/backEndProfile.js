@@ -4,24 +4,24 @@ import React from 'react';
 import  {  useEffect} from 'react';
 
 export async function GetUserInfo() {
-  const [dashBoard, setDashBoard] = React.useState([]);
+  const [info, setInfo] = React.useState([]);
   var id = localStorage.getItem("userId");
 
   useEffect(() => {
     const fetchProduct = async () => {
-      const dashBoard = await axios.get(`${Configure.backURL}user/show/${id}`, {
+      const info = await axios.get(`${Configure.backURL}user/show/${id}`, {
         headers: {
           "Content-Type": "application/json",
           "x-access-token": `${localStorage.getItem("token")}`,
         },
       });
-      setDashBoard(dashBoard.data.user);
+      setInfo(info.data.user);
     };
     fetchProduct();
-  }, []);
-  if (!dashBoard) return null;
-  console.log(dashBoard);
-  return dashBoard;
+  }, [id]);
+  if (!info) return null;
+  console.log(info);
+  return info;
 }
 
 
@@ -40,7 +40,7 @@ export async function GetUserInfo() {
         setfollowingList(followingList.data);
       };
       fetchProduct();
-    }, []);
+    }, [id]);
     if (!followingList) return null;
     console.log(followingList);
     return followingList;
@@ -62,7 +62,7 @@ export async function GetUserInfo() {
         setfollowerList(followerList.data);
       };
       fetchProduct();
-    }, []);
+    }, [id]);
     if (!followerList) return null;
     console.log(followerList);
     return followerList;
@@ -83,11 +83,14 @@ export async function GetUserInfo() {
         setTweetList(tweetList.data);
       };
       fetchProduct();
-    }, []);
+    }, [id]);
     if (!tweetList) return null;
     console.log(tweetList);
     return tweetList;
   }
+
+  var idss=[];
+
   export function GetLikedTweetList() {
     const [tweetList, setTweetList] = React.useState([]);
     var id = localStorage.getItem("userId");
@@ -101,13 +104,48 @@ export async function GetUserInfo() {
           },
         });
         setTweetList(tweetList.data);
+        for (let i = 0; i < tweetList.data.tweets.length; i++) {
+          
+          idss += tweetList.data.tweets[i].user + ",";
+          localStorage.setItem(`idss ${i}`,idss)
+        }
+        idss=idss.slice(0,-1);
       };
       fetchProduct();
-    }, []);
+    }, [id]);
     if (!tweetList) return null;
     console.log(tweetList);
     return tweetList;
   }
+
+  export async function getUserLook(){
+    var userInfo=[];
+    await axios     
+        .get(`${Configure.backURL}user/lookup/${idss}`, {
+          headers: {
+            "Content-Type": "application/json; charset=ut-8",
+            "x-access-token": `${sessionStorage.getItem("token")}`,
+          },
+        }) 
+        .then((response) => {
+          if (response.status === 200) {
+            for (let i=0; i<response.data.user.length; i++){
+              userInfo += response.data.user[i].name + ",";
+              localStorage.setItem(`usernamelikedtweet ${i}`, response.data.user[i].username);
+              localStorage.setItem(`namelikedtweet ${i}`, response.data.user[i].name)
+              localStorage.setItem(`imagesss ${i}`, response.data.user[i].profile_image_url)
+            }
+            userInfo=userInfo.slice(0,-1);
+          
+          }
+        })
+       
+        .catch((error) => {
+          userInfo = error.response.data.message;
+        });
+    
+      return userInfo;
+    }
  
 
   export function GetMediaList() {
@@ -125,7 +163,7 @@ export async function GetUserInfo() {
         setTweetList(tweetList.data);
       };
       fetchProduct();
-    }, []);
+    }, [id]);
     if (!tweetList) return null;
     console.log(tweetList);
     return tweetList;

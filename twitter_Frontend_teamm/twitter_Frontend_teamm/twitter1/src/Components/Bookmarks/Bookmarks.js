@@ -108,7 +108,8 @@ function Bookmarks(){
               username={localStorage.getItem(`usernameForBookmarks ${index}`)}
               mention={userlist.mention}
               text={userlist.text}
-              image={userlist.image}
+              image={userlist.imageUrl}
+              logedin_user_id={localStorage.getItem("userId")}
               avatar={userlist.avatar}
               date={userlist.created_at}
               tweet_id={userlist._id}

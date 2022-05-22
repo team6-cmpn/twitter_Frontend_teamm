@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 // import  getUserInformation    from './UserMock';
 import Trends from "../Widgets/Trends";
 import Sidebar from "../Sidebar/Sidebar";
-import {Follow,destroyFollow, Block,unBlock,GetUserInfo,Unmute,Mute,GetTweetList,GetLikedTweetList,GetMediaList} from './BackendUser';
+import {Follow,destroyFollow, Block,unBlock,GetUserInfo,Unmute,Mute,GetTweetList,GetLikedTweetList,getUserLook} from './BackendUser';
 import {Modal} from "antd";
 import "../Widgets/FriendSuggestions/FriendSuggestionItem/FriendSuggestionItem.css";
 // import { GetPostTweet } from "../homepage/feedmock";
@@ -53,9 +53,9 @@ function User(){
     var Url=test?.profile_image_url
     
     var TweetsLists= GetTweetList();
-    var LikedTweetsLists= GetLikedTweetList();
-    // console.log("listsss",LikedTweetsLists)
-    var MediaLists=GetMediaList();
+    var LikedTweetsLists= GetLikedTweetList().tweets;
+    getUserLook();
+    // var MediaLists=GetMediaList();
   
     const [MuteState, setMuteState] = useState("Mute");
     const toggleMute = () => {
@@ -331,8 +331,8 @@ function User(){
                            {LikedTweetsLists.map((userlist, index) => (
                                 <Post
                                 key={index}
-                                displayName={test?.name}
-                                username={test?.username}
+                                displayName={localStorage.getItem(`namelikedtweet ${index}`)}
+                                username={localStorage.getItem(`usernamelikedtweet ${index}`)}
                                 text={userlist?.text}
                                 image={userlist?.imageUrl}
                                 avatar={`${Configure.backURL}${Url}`}
@@ -343,7 +343,7 @@ function User(){
                                 // logedin_user_id={loginuser_id}
                                 likes={userlist?.favorites.length}
                                 retweets={userlist?.retweetUsers.length}
-                                 />))}
+                                />))}
                             </> 
                         
                         

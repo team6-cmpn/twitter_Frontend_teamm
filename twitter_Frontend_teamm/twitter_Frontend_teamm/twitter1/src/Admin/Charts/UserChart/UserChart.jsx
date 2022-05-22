@@ -12,7 +12,7 @@ import "./userchart.css";
 export default function UserChart() {
   // var agesrange = GetAgesRange();
   const [agesrange, setAgesRange] = useState(undefined);
-
+  
   useEffect(() => {
     (async () => {
       const resp = await GetDashBoard();
@@ -24,6 +24,8 @@ export default function UserChart() {
       setAgesRange(tempagesrange);
     })();
   }, []);
+  
+
 
   return (
     <div className="userchart">

@@ -4,6 +4,8 @@ import { NotificationsNone } from "@material-ui/icons";
 import { DarkModeContext } from "../Components/context/darkModeContext";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { GetUserInfo } from "../Components/Profile/backEndProfile";
+import Configure from "../Configure";
 
 /**
  *
@@ -11,6 +13,14 @@ import { Link } from "react-router-dom";
  * @returns
  */
 export default function Topbar() {
+  var info = GetUserInfo();
+  const [test, istest] = React.useState();
+  info.then(function (result) {
+    console.log("result", result);
+    istest(result);
+  });
+  console.log(info);
+  var Url = test?.profile_image_url;
   return (
     <div className="topbar" id="AdminTopBar">
       <div className="topbarWrapper">
@@ -21,7 +31,7 @@ export default function Topbar() {
           <Link to={`/profile`}>
             {" "}
             <img
-              src={localStorage.getItem("UserImg")}
+              src={`${Configure.backURL}${Url}`}
               alt=""
               className="topAvatar"
             ></img>{" "}

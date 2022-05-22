@@ -2,9 +2,12 @@
   display: flex;
   padding: 10px 35px;
   border-bottom: 0.5px #e6ecf0 solid;
+  text-align: left;
 }
 .likedYou:hover {
   background-color: #ECEDEE;
+  cursor: pointer;
+
 }
 .likedYou > .MuiSvgIcon-root {
   color: #e0245e;

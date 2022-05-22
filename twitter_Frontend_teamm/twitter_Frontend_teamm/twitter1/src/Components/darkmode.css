@@ -17,7 +17,6 @@
   transition: color 40ms ease-out;
   text-decoration: underline;
 }
-
 .App.dark .retweets {
   cursor: pointer;
   color: #e8f5fe;
@@ -55,7 +54,7 @@
   overflow-y: scroll;
   margin-top: 20px;
   padding-top: 20px;
-  background-color: #ECEDEE;
+  color: #ECEDEE;
   width: 100%;
 }
 
@@ -73,7 +72,7 @@
   resize: none;
   overflow-y: hidden;
   width: 50%;
-  background-color: #ECEDEE;
+  color: #ECEDEE;
 }
 
 .App.dark .mentioned_inpost {

@@ -1,34 +1,36 @@
-import { useState, useEffect, useCallback } from "react";
+import router, { useState, useEffect, useCallback } from "react";
 //import {useEffect} from "react";
 // import {RecoilRoot} from "recoil";
 //import './Home.css';
 // import Sidebar from "./Sidebar/Sidebar";
 // import { FaSistrix } from "react-icons/fa";
-import Trends from "./Widgets/Trends";
+import Trends from "../Widgets/Trends";
 // import FriendSuggestions from "./Widgets/FriendSuggestions/FriendSuggestions";
 // import TopicItem from "./Widgets/Topics/Topics";
-import { Form, Input } from "antd";
+import { Form, Input, Popover, Button, Space } from "antd";
 // import { Avatar, Button } from "@material-ui/core";
 // import LikedYou from "./LikedYou";
 // import FollowedYou from "./FollowedYou";
 // import  * as mockAPI   from './mockSearch'; 
-import SettingsBox from "./SettingsBox/SettingsBox";
-import "./Profile/Profile.css";
+//import SettingsBox from "./SettingsBox/SettingsBox";
+import "../Profile/Profile.css";
 import * as BE from './backEndSearch';
 // import Post from "./homepage/Post";
-import * as mocked from "./homepage/feedmock";
-import Post from "./homepage/Post";
+
+import Post from "../homepage/Post";
 import { RecoilRoot } from "recoil";
 import { backEndTop } from "./backEndSearch";
 import { backEndP } from "./backEndSearch";
-import { GetPostTweet } from "./homepage/feedmock";
-import FriendSuggestionItem from "./Widgets/FriendSuggestions/FriendSuggestionItem/FriendSuggestionItem";
+
+import FriendSuggestionItem from "../Widgets/FriendSuggestions/FriendSuggestionItem/FriendSuggestionItem";
 import { type } from "@testing-library/user-event/dist/type";
 import { Tab } from "@material-ui/core";
-import { getUserInfo } from './Profile/backEndProfile'
+
 import { useNavigate, Link } from "react-router-dom";
-import Sidebar from "./Sidebar/Sidebar";
-import TrendAccounts from "./Trendaccounts";
+import Sidebar from "../Sidebar/Sidebar";
+
+
+import { PoweroffOutlined } from '@ant-design/icons';
 /**Explore
  * Shows explore page for the user 
  *  
@@ -57,7 +59,7 @@ function Explore() {
   //     e.preventDefault();
   //     setData(e.target.value);
 
-      
+
   //     //console.log(data)
 
   //     //const promise2=BE.backEndPeople(body1);
@@ -68,11 +70,23 @@ function Explore() {
   //   }
   // }
 
+  const handleSubmit = (e) => {
+    if (e.key === 'Enter') {
+      return (
+
+        //console.log("holyyyyy shitttttt")
+        history("/Explore")
+
+        // TODO redirect user to '/explore'
+      )
+      // <Link to="/Explore"></Link>
+    }
+  }
+
 
   function getData(val) {
     setData(val.target.value)
-    //console.log("bb")
-    //localStorage.setItem('dataa', val.target.value);
+    localStorage.setItem('word', val.target.value);
   }
 
 
@@ -84,6 +98,11 @@ function Explore() {
   }
 
 
+  let word1 = localStorage.getItem("word1");
+  if (word1[0] == "@") {
+    word1 = word1.substring(1)
+  }
+
   const [user, setusername] = useState([]);
   const [loading, setLoading] = useState(true);
   const [tweets, showTweet] = useState([]);
@@ -91,7 +110,7 @@ function Explore() {
   const [twette, postedtwee] = useState([]);
   const [twettes, posted] = useState([]);
   const [pe, people] = useState([]);
-  const [content, getcontent] = useState([]);
+  //const [content, getcontent] = useState([]);
 
 
 
@@ -100,6 +119,8 @@ function Explore() {
   const [date, setdate] = useState();
   const [disp_img, getimg] = useState([]);
 
+  const [, updateState] = useState();
+  const forceUpdate = useCallback(() => updateState({}), []);
 
   //const forceUpdate = useForceUpdate();
 
@@ -116,7 +137,12 @@ function Explore() {
   //console.log(pe) 
 
   const p2 = BE.GetSearchedName();
-  console.log(p2.data);
+  console.log("console", p2);
+
+  const p3 = BE.GetSearchedUserName();
+
+
+  const ph = BE.GetSearchedPhotos();
 
   const top = BE.GetSearchTop();
   console.log(p2.data);
@@ -152,19 +178,7 @@ function Explore() {
 
   //   },[])
   BE.getUserLook();
-  useEffect(() => {
-    (async () => {
-      const resp = await GetPostTweet();
-      postedtweet(resp);
-    })();
-  }, []);
 
-  useEffect(() => {
-    (async () => {
-      const resp = await GetPostTweet();
-      postedtwee(resp);
-    })();
-  }, []);
 
 
   // setTimeout(() => {
@@ -196,22 +210,22 @@ function Explore() {
   //   //onst promise4=BE.backEndUsername(body1);
   //   //promise4.then((text)=>{setItem2(text)});
   // }
-  const p3 = BE.GetSearched(body1);
-  console.log("triallllllll", p3)
+  // const p3 = BE.GetSearched(body1);
+  //console.log("triallllllll", p3)
 
   var resp;
 
 
   function fun() {
 
-    console.log("helloooooooooo", body1);
+    //console.log("helloooooooooo", body1);
     //const p2 = BE.GetSearchedName(body1);
     //console.log(p2.data);
 
-    const promise2 = BE.backEndLatest(body1);
-    promise2.then((text) => { setItem5(text) });
+    //const promise2 = BE.backEndLatest(body1);
+    //promise2.then((text) => { setItem5(text) });
 
-    
+
 
     //resp = backEndTop(body1);
     //console.log("offfffff",resp)
@@ -248,9 +262,9 @@ function Explore() {
 
   function funn() {
     console.log(data)
-    const promise6 = BE.backEndPeople(body1);
-    promise6.then((text) => { setItem2(text) });
-    console.log(item2)
+    //const promise6 = BE.backEndPeople(body1);
+    //promise6.then((text) => { setItem2(text) });
+    //console.log(item2)
   }
 
   // var d = data.toString();
@@ -261,11 +275,19 @@ function Explore() {
   //   console.log('str is not a string');
   // }
 
-  if (word) {
+  //   if (word) {
+  //     //console.log(word)
+  //     localStorage.setItem("searchData", word)
+  //     var body = {
+  //       data: word
+
+  //     }
+  //   }
+  if (word1) {
     //console.log(word)
-    localStorage.setItem("searchData", word)
+    localStorage.setItem("searchData", word1)
     var body = {
-      data: word
+      data: word1
 
     }
   }
@@ -282,15 +304,15 @@ function Explore() {
 
 
 
-  if (data) {
-    //console.log(data[0])
-    localStorage.setItem("searchData", data)
+  // if (data) {
+  //   //console.log(data[0])
+  //   localStorage.setItem("searchData", data)
 
-    var body1 = {
-      data: data
+  //   var body1 = {
+  //     data: data
 
-    }
-  }
+  //   }
+  // }
   //console.log(body)
 
   if (word[0] === "@") {
@@ -299,16 +321,16 @@ function Explore() {
     //console.log(item2);
   }
 
-  useEffect(() => {
-    (() => {
-      if (word) {
-        const promise3 = BE.backEndPeople(body);
-        promise3.then((text) => { setItem2(text) });
+  // useEffect(() => {
+  //   (() => {
+  //     if (word) {
+  //       const promise3 = BE.backEndPeople(body);
+  //       promise3.then((text) => { setItem2(text) });
 
-      }
-    })();
+  //     }
+  //   })();
 
-  }, [])
+  // }, [])
 
 
   if (data && data[0] === "@") {
@@ -331,21 +353,62 @@ function Explore() {
 
   }
 
-  function saved() {
+
+  function saveUser() {
+    const promise = BE.Put_SaveUser();
     //BE.backEndTop(body);
-    // const promise=BE.Put_SaveUser();
-    // //console.log(localStorage.getItem("ite"))
-    // promise.then((text)=>{setItem(text)});
+    //if(promise.status === 200 )
+    //{
+    console.log("shitttttttt on meee", promise)
+    //promise.then((text)=>{setItem(text)});
+    //}
+    //console.log(localStorage.getItem("ite"))
+
   }
   function go() {
     // BE.getUserLook();
     // console.log(localStorage.getItem("ite"))
   }
+  const promise3 = BE.SavedSearch(body);
+
   function savedSearch() {
-    // const promise3=BE.backEndSavedSearch(body);
-    // promise3.then((text)=>{setItem5(text)});
-    // console.log(item5);
+    var userInfo = [];
+    if (promise3.status === 200) {
+      //promise3.then((text)=>{setItem5(text)});
+      //var searchedusersave = promise3?.data;
+      for (let i = 0; i < promise3.data.savedText.length; i++) {
+        userInfo += promise3.data.savedText[i] + ",";
+      }
+    }
+    console.log("savedddd", userInfo)
+    userInfo = userInfo.slice(0, -1);
+    console.log("savedseachhhhhhhh", userInfo);
+    return (userInfo);
+    //alert(
+    //userInfo
+    // <article>
+    //       {searchedusersave?.map((userlist, index) => (
+    //           <Post
+    //             key={index}
+    //             //props={userlist}
+    //             //displayName={localStorage.getItem(`nametweet ${index}`)}
+    //             //username={localStorage.getItem(`usernametweet ${index}`)}
+    //             text={userlist.savedText}
+    //             //date={userlist.created_at}
+    //             //user_id={localStorage.getItem("userId")}
+    //             //displayName={userlist.user}
+
+    //           />))}
+    //  </article>
+    //);
   }
+  // var u=[];
+  // u=savedSearch();
+  // const content2 = (
+  //   <div>
+  //   farahhhh
+  //   </div>
+  // )
 
   //const promise=BE.Put_SaveUser();
   //console.log(localStorage.getItem("ite"))
@@ -367,12 +430,42 @@ function Explore() {
 
 
   console.log(localStorage.getItem("people"))
-  var searcheduser = p2.data?.user[1];
-  console.log("farah", searcheduser)
+  if (p2.status === 200 && word[0] !== "@") {
+    var searcheduser = p2.data?.user[1];
+    console.log("user", searcheduser)
+  }
 
-  var searchedtop = top.data?.tweets;
-  console.log(searchedtop)
-  console.log(top.data?.tweets.user)
+
+  if (p3.status === 200 && word[0] === "@") {
+    var searchedusername = p3.data?.usernames[1];
+    console.log("user", searchedusername)
+  }
+
+
+
+  if (top.status === 200 && word[0] !== "@") {
+    var searchedtop = top.data?.tweets;
+    console.log(searchedtop)
+  }
+
+
+  if (top.status === 200 && word[0] === "@") {
+    var m = top.data?.mentions;
+    console.log("hiiiiiiiihhh", top.data)
+  }
+
+
+  if (ph.status === 200 && word[0] !== "@") {
+    var photos = ph.data?.tweets;
+    console.log("hiiiiiiiihhh", top.data)
+  }
+
+
+
+
+
+
+
 
   var userr = usernametweet.data?.user;
 
@@ -384,19 +477,35 @@ function Explore() {
 
       {/* <SearchInput  placeholder="Search Twitter" /> */}
       <div className="Expmenu">
-      {/* onKeyPress={handleSubmit} */}
-        <Form >
-          <Form.Item name='n'>
-            <Input  onChange={getData}  id="search" className="trend__contr " type="text"
-              placeholder="Search Twitter" ></Input>
+        <Form>
+          <Form.Item >
+
+            <Popover content={savedSearch} trigger="hover" title="Search History">
+              <Input onChange={getData} onKeyPress={handleSubmit.bind(this)} id="search" className="trend__contr " type="text"
+                placeholder="Search Twitter" />
+            </Popover>
           </Form.Item>
+
         </Form>
-        {/* <button onClick={searchpeople}>search people</button> */}
-        <button onClick={fun} >search</button>  
+        {/* onKeyPress={handleSubmit} */}
+        {/* <Form >
+          <Form.Item name='n'>
+            <Input onChange={getData} onKeyPress={handleSubmit.bind(this)} id="search" className="trend__contr " type="text"
+              placeholder="Search Twitter" > <Popover content={content} trigger="hover" title="use" /></Input>
+
+          </Form.Item>
+        </Form> */}
+        {(p2.status === 200 || p3.status === 200) ?
+
+          <Button type="primary" onClick={saveUser} >SAVE USER</Button>
+          :
+          <Button type="primary" loading> Loading </Button>
+        }
+        {/* <button onClick={fun} >search</button>   */}
         {/* <button onClick={savedSearch}>saved Search</button>   <button onClick={() => go}>names</button> */}
         {/* <FaSistrix className="trend s" /> */}
-        <div><button style={{ "cursor": "pointer" }} id="searchbutton" onClick={funn}
-          type="button">Search name</button></div>
+        {/* <div><button style={{ "cursor": "pointer" }} id="searchbutton" onClick={funn}
+          type="button">Search name</button></div> */}
 
         <div className="notificationsCategory">
           <div
@@ -429,7 +538,7 @@ function Explore() {
 
         <div>
           <RecoilRoot>
-            {(section === 1 && (data || word || word === "@" || item5)) ?
+            {(section === 1 && (data || word1 || word1 === "@")) ?
               //Tabs()
               <>
                 <>
@@ -460,9 +569,9 @@ function Explore() {
            } */}
                   {(item5) ?
                     <>
-                      <Post
+                      {/* <Post
                         text={item5}
-                      />
+                      /> */}
                     </>
 
 
@@ -480,9 +589,49 @@ function Explore() {
                           //displayName={userlist.user}
 
                           />))}
-                      </article> 
+                      </article>
+                      <article>
+                        {photos?.map((userlist, index) => (
+                          <Post
+                            key={index}
+                            //props={userlist}
+                            displayName={localStorage.getItem(`nametweet ${index}`)}
+                            username={localStorage.getItem(`usernametweet ${index}`)}
+                            text={userlist.text}
+                            date={userlist.created_at}
+                            user_id={localStorage.getItem("userId")}
+                            image={userlist.imageUrl}
+                          //displayName={userlist.user}
+
+                          />))}
+                      </article>
+                      <article>
+                        {m?.map((userlist, index) => (
+                          <Post
+                            key={index}
+                            //props={userlist}
+                            displayName={localStorage.getItem(`nametweet ${index}`)}
+                            username={localStorage.getItem(`usernametweet ${index}`)}
+                            text={userlist.text}
+                            date={userlist.created_at}
+                            user_id={localStorage.getItem("userId")}
+                            mention={userlist.mention}
+                            image={userlist.imageUrl}
+                          //displayName={userlist.user}
+
+                          />))}
+                      </article>
                       <article>
                         {searcheduser?.map((userlist, index) => (
+
+                          <FriendSuggestionItem
+                            key={index}
+                            props={userlist}
+                          //displayName={localStorage.getItem(`people ${index}`)}
+                          />))}
+                      </article>
+                      <article>
+                        {searchedusername?.map((userlist, index) => (
 
                           <FriendSuggestionItem
                             key={index}
@@ -496,27 +645,25 @@ function Explore() {
                 </>
               </>
               :
-              (section === 2 || item5) ?
+              (section === 2) ?
                 //console.log("hello")
                 <>
-                  {(item5) ?
-                    <>
+                  <article>
+                    {searchedtop?.map((userlist, index) => (
                       <Post
-                        text={item5}
-                      />
-                    </>
-                    :
-                    <>
-                      {twettes.map((userlist, index) => (
-                        <Post
-                          key={index}
-                          //displayName={localStorage.getItem(`ite ${index}`)}
-                          username={localStorage.getItem(`ite ${index}`)}
-                          text={localStorage.getItem(`it ${index}`)}
+                        key={index}
+                        //props={userlist}
+                        displayName={localStorage.getItem(`nametweet ${index}`)}
+                        username={localStorage.getItem(`usernametweet ${index}`)}
+                        text={userlist.text}
+                        date={userlist.created_at}
+                        user_id={localStorage.getItem("userId")}
+                      //displayName={userlist.user}
 
-                        />))}
-                    </>
-                  }
+                      />))}
+                  </article>
+
+
 
                   {/* <TrendAccounts 
                         username={item2[1]}
@@ -540,14 +687,9 @@ function Explore() {
                                  date={userlist.date}
                                  />))} */}
                 </>
-                : (section === 3 || item2) ?
+                : (section === 3) ?
                   <>
-                  { (item2) ? 
-                    <TrendAccounts
-                      name={item2[0]}
-                      username={item2[1]}
-                    />
-                    :
+
                     <article>
                       {searcheduser?.map((userlist, index) => (
 
@@ -557,23 +699,48 @@ function Explore() {
                         //displayName={localStorage.getItem(`people ${index}`)}
                         />))}
                     </article>
-                  }
+                    <article>
+                      {searchedusername?.map((userlist, index) => (
+
+                        <FriendSuggestionItem
+                          key={index}
+                          props={userlist}
+                        //displayName={localStorage.getItem(`people ${index}`)}
+                        />))}
+                    </article>
+                    {/* <TrendAccounts
+                    name={item2[0]}
+                    username={item2[1]}
+                  /> */}
+
+                    {/* <article>
+                        {searchedusername?.map((userlist, index) => (
+                          <FriendSuggestionItem 
+                            key={index}
+                            //props={userlist}
+                            props={userlist}
+                          />))}
+                      </article> */}
+
                   </>
                   :
 
                   <>
-                    <Post
-                      text={item5}
-                    />
-                    {/* {twetted.map((userlist, index) => (
-                                 <Post
-                                  text={item}
-                                 />))}  */}
+                    <article>
+                      {photos?.map((userlist, index) => (
+                        <Post
+                          key={index}
+                          //props={userlist}
+                          displayName={localStorage.getItem(`nametweet ${index}`)}
+                          username={localStorage.getItem(`usernametweet ${index}`)}
+                          text={userlist.text}
+                          date={userlist.created_at}
+                          user_id={localStorage.getItem("userId")}
+                          image={userlist.imageUrl}
+                        //displayName={userlist.user}
 
-                    {twetted.map((userlist, index) => (
-                      <Post
-                        username={item2}
-                      />))}
+                        />))}
+                    </article>
                   </>
             }
 

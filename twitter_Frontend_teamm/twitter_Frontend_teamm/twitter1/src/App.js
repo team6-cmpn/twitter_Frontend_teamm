@@ -12,7 +12,7 @@ import LogIn from "./Components/SignIn/LogIn";
 import LogOut from "./Components/SignOut/LogOut";
 import ForgetPassword from "./Components/SignIn/forgetPassword";
 import GoogleSignUp from "./Components/SignUp/GoogleSignUp";
-import Explore from "./Components/Explore";
+import Explore from "./Components/Explore/Explore";
 import Home from "./Components/Home";
 import Post from "./Components/onePost";
 import Notifications from "./Components/Notifications";
@@ -39,6 +39,7 @@ import BlockedAccounts from "./Components/Settings/BlockedAccounts";
 import Changephone from "./Components/Settings/ChangePhone";
 import ChangeEmail from "./Components/Settings/ChangeEmail";
 import MutedAccounts from "./Components/Settings/MutedAccounts";
+import Explor from "./Components/Explore/Explor"
 import "./Components/darkmode.css";
 import { ThemeContext } from "./ThemeContext";
 
@@ -59,7 +60,6 @@ function App() {
     <Router>
       <div className={theme.state.darkMode ? "App dark" : "App"}>
         <Routes>
-        <Route path="/:username" element={<User />}exact />
 
           {!privateUser && (
             <>
@@ -81,7 +81,7 @@ function App() {
               <Route path="/home" element={<Home />} />
               <Route path="/post" element={<Post />} />
               <Route path="/explore" element={<Explore />} />
-              
+              <Route path="/explor" element={<Explor />} />
               <Route path="/Notifications" element={<Notifications />} />
               <Route path="/Settings" element={<Settings />}>
                 <Route path="change-username" element={<ChangeUsername />} />
@@ -102,7 +102,7 @@ function App() {
                 <Route path="change-phone-number" element={<Changephone />} />
                 <Route path="change-email" element={<ChangeEmail />} />
               </Route>
-              {localStorage.getItem("userId") === "6288354147920b8837e95dc0" ? (
+              {localStorage.getItem("userId") === "628a2840f29d637f2fc205b9" ? (
                 <>
                   <Route path="/adminPage" element={<AdminHome />} />
                   <Route path="/Users" element={<FinalUser />} />
@@ -110,7 +110,11 @@ function App() {
                   <Route path="/BlockForm" element={<BlockForm />} />
                 </>
               ) : null}
-
+              {localStorage.getItem("userId") !== null ? (
+                <>
+                <Route path="/:username" element={<User />}exact />
+                </>
+              ) : null}
               <Route path="/profile" element={<Profile />}>
                 {" "}
               </Route>

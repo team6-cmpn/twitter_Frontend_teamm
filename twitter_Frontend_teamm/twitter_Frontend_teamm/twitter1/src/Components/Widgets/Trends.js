@@ -7,7 +7,7 @@ import TopicItem from "./Topics/Topics";
 import {Form,Input} from "antd";
 import { BrowserRouter as Route, Routes } from "react-router-dom";
 import {useNavigate, Link} from "react-router-dom";
-import Explore from "../Explore";
+//import Explore from "../Explore";
 //import "./FriendSuggestions/FriendSuggestionItem/FriendSuggestionItem.css";
 /**Trends
  * Shows search bar & topics & friendsuggetion

@@ -5,7 +5,8 @@ import { Link, useLocation, Outlet } from "react-router-dom";
 import { DarkModeContext } from "../context/darkModeContext";
 import { useContext } from "react";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
-
+import { GetUserInfo } from "../Profile/backEndProfile";
+import Configure from "../../Configure";
 import {
   FaTwitter,
   FaHome,
@@ -51,7 +52,7 @@ function Sidebar() {
   //   // setDisplay(name.name);
   //   console.log(user);
   // });
-  const user = localStorage.getItem("getName");
+  const user = localStorage.getItem("name");
   const username = localStorage.getItem("getUsername");
   //const usern=localStorage.getItem1("getName")
   // usern.then(data=>{setItem(data)});
@@ -125,6 +126,14 @@ function Sidebar() {
     });
   };
   const{dispatch}=useContext(DarkModeContext);
+  var info = GetUserInfo();
+  const [test, istest] = React.useState();
+  info.then(function (result) {
+    console.log("result", result);
+    istest(result);
+  });
+  console.log(info);
+  var Url = test?.profile_image_url;
   return (
     <div className="sidebar d">
       <ul>
@@ -186,7 +195,7 @@ function Sidebar() {
 
         <li>
           <a href="/Profile">
-            <Avatar className="icons" />
+            <Avatar src={`${Configure.backURL}${Url}`} className="icons" />
             <div className="t">
               <span style={{"display":"block", "textAlign":"left"}}>{user}</span>
               <span
@@ -207,7 +216,7 @@ function Sidebar() {
             </div>
           </a>
         </li>
-        {localStorage.getItem("userId") === "6288354147920b8837e95dc0"?(        <li>
+        {localStorage.getItem("userId") === "628a2840f29d637f2fc205b9"?(        <li>
           <a href="/adminPage">
             <AdminPanelSettingsIcon className="icons" />
             <div className="t">Admin</div>

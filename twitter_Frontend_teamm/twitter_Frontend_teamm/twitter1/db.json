@@ -1617,38 +1617,24 @@
     },
     {
       "data": {
-        "data": "@blue",
-        "password": "Mh@123456"
+        "data": "@Mahmoud",
+        "password": "123456Fa@"
       },
       "id": 142
     },
     {
       "data": {
-        "data": "@menna",
-        "password": "Mh@123456"
+        "data": "@Mahmoud",
+        "password": "123456Fa@"
       },
       "id": 143
     },
     {
       "data": {
-        "data": "@blue",
-        "password": "Mh@123456"
+        "data": "@Mahmoud",
+        "password": "123456Fa@"
       },
       "id": 144
-    },
-    {
-      "data": {
-        "data": "@blue",
-        "password": "Mh@123456"
-      },
-      "id": 145
-    },
-    {
-      "data": {
-        "data": "@menna",
-        "password": "Mh@123456"
-      },
-      "id": 146
     }
   ],
   "resetPassword": [

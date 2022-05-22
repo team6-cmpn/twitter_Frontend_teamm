@@ -1,5 +1,5 @@
 import axios from 'axios';
-import Configure from '../Configure'
+import Configure from '../../Configure'
 import React, {useEffect} from "react";
 /**
  *Search top BE Integration
@@ -76,8 +76,7 @@ export async function backEndTop(){
           localStorage.setItem(`userridd ${i}`,search.data.tweets[i].name)
         }
         userridd=userridd.slice(0,-1);
-        console.log("ggggggggggg",search.data.tweets)
-        console.log("rrrrrrrrr",search)
+        
       };
       fetchProduct();
     }, []);
@@ -256,7 +255,7 @@ export async function backEndP(){
             });
       return message;
     };
-
+//var u=[];
 export function GetSearchedName() {
       const [searched, setSearched] = React.useState([]);
     
@@ -271,12 +270,43 @@ export function GetSearchedName() {
             },
           })
           setSearched(search);
+          localStorage.setItem('us',search.data.user[1][0]._id)
+         
         };
         fetchProduct();
       }, []);
       if (!searched) return null;
       return searched;
     }  
+
+
+    export function GetSearchedUserName() {
+      const [searched, setSearched] = React.useState([]);
+    
+      useEffect(() => {
+        const fetchProduct = async () => {
+          const search = await axios.get(`${Configure.backURL}search/people?text=${localStorage.getItem("searchData")}`, 
+          {
+            
+            headers: {
+              "Content-Type": "application/json; charset=ut-8",
+              "x-access-token": `${localStorage.getItem("token")}`,
+            },
+          })
+          setSearched(search);
+          localStorage.setItem('us',search.data.usernames[1][0]._id)
+        };
+        fetchProduct();
+      }, []);
+      if (!searched) return null;
+      return searched;
+    } 
+
+
+
+
+
+
 
 export function GetSearched() {
       const [searched, setSearched] = React.useState([]);
@@ -410,10 +440,37 @@ export async function backEndPhotos(){
      return message;
      };
 
+     
+
+export function GetSearchedPhotos() {
+      const [searched, setSearched] = React.useState([]);
+    
+      useEffect(() => {
+        const fetchProduct = async () => {
+          const search = await axios.get(`${Configure.backURL}search/photos?text=${localStorage.getItem("searchData")}`, 
+          {
+            
+            headers: {
+              "Content-Type": "application/json; charset=ut-8",
+              "x-access-token": `${localStorage.getItem("token")}`,
+            },
+          })
+          setSearched(search);
+        };
+        fetchProduct();
+      }, []);
+      if (!searched) return null;
+      return searched;
+}  
+
+
+
+
+
 
 export async function Put_SaveUser(){
     var message;
-    var id = localStorage.getItem("user");
+    var id = localStorage.getItem("us");
     //var id = localStorage.getItem("ID");
     const body={};
       //console.log(id)
@@ -502,7 +559,7 @@ export async function backEndSavedSearch(){
        .then((response) => {
         // console.log(response);
          if (response.status === 200) {
-           message = response.data;
+           message = response.data.savedText[0];
          //  console.log(message);
        } 
        else if (response.status=== 404){
@@ -515,3 +572,25 @@ export async function backEndSavedSearch(){
          });
    return message;
    };
+
+
+export function SavedSearch() {
+    const [searched, setSearched] = React.useState([]);
+  
+    useEffect(() => {
+      const fetchProduct = async () => {
+        const search = await axios.get(`${Configure.backURL}search/getsaved`, 
+        {
+          
+          headers: {
+            "Content-Type": "application/json; charset=ut-8",
+            "x-access-token": `${localStorage.getItem("token")}`,
+          },
+        })
+        setSearched(search);
+      };
+      fetchProduct();
+    }, []);
+    if (!searched) return null;
+    return searched;
+}

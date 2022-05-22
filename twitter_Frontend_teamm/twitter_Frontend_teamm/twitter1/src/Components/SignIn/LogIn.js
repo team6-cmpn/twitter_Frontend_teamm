@@ -94,6 +94,7 @@ function LogIn() {
           
           navigate("/home");
           localStorage.setItem('word', "");
+          localStorage.setItem('word1', "");
           window.location.reload();
         
       }

@@ -31,20 +31,20 @@ function Notifications() {
   const [notifi, setNotificationsFavs] = React.useState([]);
   const [isAll, setIsAll] = React.useState(true);
   document.title = "Notifications / Twitter";
-  React.useEffect(() => {
-    (async () => {
-      const resp = await getfollowedUsers();
-      setfollowedyou(resp);
-    })();
-    (async () => {
-      const resp = await getFollowingUsers();
-      setBlockeddays(resp);
-    })();
-    (async () => {
-      const resp = await getLikedUsers();
-      setLikedUser(resp);
-    })();
-  }, []);
+  // React.useEffect(() => {
+  //   (async () => {
+  //     const resp = await getfollowedUsers();
+  //     setfollowedyou(resp);
+  //   })();
+  //   (async () => {
+  //     const resp = await getFollowingUsers();
+  //     setBlockeddays(resp);
+  //   })();
+  //   (async () => {
+  //     const resp = await getLikedUsers();
+  //     setLikedUser(resp);
+  //   })();
+  // }, []);
   React.useEffect(() => {
     (async () => {
       const resp = await GetNotifications();

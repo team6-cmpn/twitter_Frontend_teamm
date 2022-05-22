@@ -2,7 +2,7 @@ import React from "react";
 import "./settingsSubmenus.css";
 import {Avatar} from "@material-ui/core";
 import { Link } from "react-router-dom";
-
+/**blocked account component */
 const Blocked = ({ BlockedAccount }) => {
     return (
       <div className={`SubsettingsCont `}>

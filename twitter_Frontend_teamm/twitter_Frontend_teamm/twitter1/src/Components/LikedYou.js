@@ -2,7 +2,9 @@ import React from "react";
 import "./LikedYou.css";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import { Avatar } from "@material-ui/core";
-
+/**it show you how liked your tweet
+ * 
+ */
 const LikedYou = ({ likePost }) => {
   return (
     <div className="likedYou" id="likedyou">

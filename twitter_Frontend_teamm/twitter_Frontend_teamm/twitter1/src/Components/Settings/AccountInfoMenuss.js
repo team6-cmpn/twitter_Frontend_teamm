@@ -1,6 +1,6 @@
 import React from "react";
 import "./settingsSubmenus.css";
-
+/**component to veiew the settings menu */
 function AccountInfoMenuss({ Icon ,text, data,active }) {
   return (
     <div className={`SettingsContentInMenus ${active && "SettingsContentActive"}`}>

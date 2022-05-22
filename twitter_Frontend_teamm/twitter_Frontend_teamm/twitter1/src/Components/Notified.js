@@ -3,6 +3,7 @@ import "./LikedYou.css";
 import {useNavigate} from "react-router";
 import { Avatar } from "@material-ui/core";
 import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
+/**get notifications from backend and the Onpost functions helps go to the tweet which is liked or added  */
 const Notified = ({ notify, nType }) => {
   const navigate = useNavigate();
   function OnePost(){ navigate("/post");

@@ -2,9 +2,7 @@ import React, {useState, useEffect} from "react";
 import {Modal,Popover} from "antd";
 import "./Sidebar.css";
 import { Link, useLocation, Outlet } from "react-router-dom";
-import { DarkModeContext } from "../context/darkModeContext";
 import { useContext } from "react";
-import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import { GetUserInfo } from "../Profile/backEndProfile";
 import Configure from "../../Configure";
 import {
@@ -125,7 +123,6 @@ function Sidebar() {
       position: toast.POSITION.BOTTOM_RIGHT,
     });
   };
-  const{dispatch}=useContext(DarkModeContext);
   var info = GetUserInfo();
   const [test, istest] = React.useState();
   info.then(function (result) {

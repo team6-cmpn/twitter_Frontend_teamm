@@ -1,5 +1,7 @@
 import axios from 'axios'
 import Configure from '../Configure'
+
+/**the connection between notoficiations functions between backend and front end */
 export async function GetNotificationsFavourites() {
    
   let response=''

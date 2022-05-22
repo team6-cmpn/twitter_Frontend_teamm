@@ -1,7 +1,6 @@
 import React from "react";
 import "./settingsSubmenus.css"
 import {Avatar} from "@material-ui/core";
-import AccDec from "./AccDec";
 import { Link, useLocation } from "react-router-dom";
 import {Button} from "@mui/material";
 import * as BE from "./SettingsBackendIntegration"

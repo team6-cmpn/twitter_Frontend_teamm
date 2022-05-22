@@ -1,6 +1,6 @@
 import React from "react";
 import "./settingsSubmenus.css";
-
+/**component makes you able to view the settings */
 function SecurityContent({ Icon ,text, active }) {
   return (
     <div className={`SecurityContent` }>

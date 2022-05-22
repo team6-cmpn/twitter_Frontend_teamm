@@ -21,11 +21,11 @@ import Post from "../homepage/Post";
 import { RecoilRoot } from "recoil";
 import { backEndTop } from "./backEndSearch";
 import { backEndP } from "./backEndSearch";
-
+import * as backend from "../homepage/backendFeed";
 import FriendSuggestionItem from "../Widgets/FriendSuggestions/FriendSuggestionItem/FriendSuggestionItem";
 import { type } from "@testing-library/user-event/dist/type";
 import { Tab } from "@material-ui/core";
-
+import Configure from "../../Configure";
 import { useNavigate, Link } from "react-router-dom";
 import Sidebar from "../Sidebar/Sidebar";
 //import TrendAccounts from "./Trendaccounts";
@@ -55,7 +55,7 @@ function Explore() {
   //const handleChange=(e) =>{ setState({value: e.target.value});}
 
 
-
+  
 
 
   //localStorage.setItem('word', 0);
@@ -437,9 +437,10 @@ function Explore() {
   }
 
 
-
+  var farah;
   if (top.status === 200 && word[0] !== "@") {
     var searchedtop = top.data?.tweets;
+    farah = localStorage.getItem("userridd")
     console.log(searchedtop)
   }
 
@@ -449,14 +450,24 @@ function Explore() {
     console.log("hiiiiiiiihhh", top.data)
   }
 
+  
 
   if (ph.status === 200 && word[0] !== "@") {
     var photos = ph.data?.tweets;
+    console.log("goooo yala",ph.data?.tweets[0].imageUrl.length)
     console.log("hiiiiiiiihhh", top.data)
   }
-
-
-
+  
+  //console.log(info);
+ 
+  const [test, istest] = useState();
+  const user1 = backend.GetUserInfo(localStorage.getItem("idd"));
+  user1.then(function (result) {
+    // console.log("result", result);
+    istest(result);
+  });
+  var Url_avatar = test?.profile_image_url;
+  console.log("gooo tooo helll", `${Configure.backURL}${Url_avatar}`)
 
   var userr = usernametweet.data?.user;
 
@@ -551,15 +562,16 @@ function Explore() {
            
            
            } */}
-                  {(item5) ?
-                    <>
-                      <Post
+                  
+                    
+                      {/* <Post
                         text={item5}
-                      />
-                    </>
+                      /> */}
+                    
 
 
-                    : <>
+                     <>
+                     {/* { 
                       <article>
                         {searchedtop?.map((userlist, index) => (
                           <Post
@@ -569,13 +581,19 @@ function Explore() {
                             username={localStorage.getItem(`usernametweet ${index}`)}
                             text={userlist.text}
                             date={userlist.created_at}
-                            user_id={localStorage.getItem("userId")}
+                            user_tweeted_id={userlist._id}
+                            avatar = {`${Configure.backURL}${Url_avatar}`}
+                            logedin_user_id={localStorage.getItem("userId")}
                           //displayName={userlist.user}
 
                           />))}
                       </article>
+                     } */}
+                      { (ph.data?.tweets[0].imageUrl.length === 1 || ph.data?.tweets[0].imageUrl.length === 2) ?
+                      <>
                       <article>
                         {photos?.map((userlist, index) => (
+                          
                           <Post
                             key={index}
                             //props={userlist}
@@ -585,10 +603,31 @@ function Explore() {
                             date={userlist.created_at}
                             user_id={localStorage.getItem("userId")}
                             image={userlist.imageUrl}
+                            logedin_user_id={localStorage.getItem("userId")}
                           //displayName={userlist.user}
 
                           />))}
                       </article>
+                      </>:<>
+                      <article>
+                        {searchedtop?.map((userlist, index) => (
+                          <Post
+                            key={index}
+                            //props={userlist}
+                            displayName={localStorage.getItem(`nametweet ${index}`)}
+                            username={localStorage.getItem(`usernametweet ${index}`)}
+                            text={userlist.text}
+                            date={userlist.created_at}
+                            user_tweeted_id={userlist._id}
+                            //avatar= {`${Configure.backURL}${Url}`}
+                            avatar = {`${Configure.backURL}${Url_avatar}`}
+                            logedin_user_id={localStorage.getItem("userId")}
+                          //displayName={userlist.user}
+
+                          />))}
+                      </article>
+                      </>
+                      }
                       <article>
                         {m?.map((userlist, index) => (
                           <Post
@@ -600,6 +639,7 @@ function Explore() {
                             date={userlist.created_at}
                             user_id={localStorage.getItem("userId")}
                             mention={userlist.mention}
+                            avatar = {`${Configure.backURL}${Url_avatar}`}
                             image={userlist.imageUrl}
                           //displayName={userlist.user}
 
@@ -624,7 +664,7 @@ function Explore() {
                           />))}
                       </article>
                     </>
-                  }
+                  
 
                 </>
               </>

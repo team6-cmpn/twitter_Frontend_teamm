@@ -56,6 +56,7 @@ export async function backEndTop(){
   };
 
   var userridd=[];
+  
   export function GetSearchTop() {
     const [searched, setSearched] = React.useState([]);
     
@@ -74,9 +75,10 @@ export async function backEndTop(){
           console.log("farahhhhhhhhhhhhh",search.data.tweets[i].user)
           userridd += search.data.tweets[i].user + ",";
           localStorage.setItem(`userridd ${i}`,search.data.tweets[i].name)
+          localStorage.setItem('idd',search.data.tweets[i].user)
         }
         userridd=userridd.slice(0,-1);
-        
+       
       };
       fetchProduct();
     }, []);

@@ -539,8 +539,8 @@ function Explore() {
         <div>
           <RecoilRoot>
             {(section === 1 && (data || word1 || word1 === "@")) ?
-              //Tabs()
-              <>
+                //Tabs()
+                <>
                 <>
                   {/* {p.map((userlist, index) => ( 
            <FriendSuggestionItem 
@@ -567,15 +567,16 @@ function Explore() {
            
            
            } */}
-                  {(item5) ?
-                    <>
+                  
+                    
                       {/* <Post
                         text={item5}
                       /> */}
-                    </>
+                    
 
 
-                    : <>
+                     <>
+                     {/* { 
                       <article>
                         {searchedtop?.map((userlist, index) => (
                           <Post
@@ -585,13 +586,19 @@ function Explore() {
                             username={localStorage.getItem(`usernametweet ${index}`)}
                             text={userlist.text}
                             date={userlist.created_at}
-                            user_id={localStorage.getItem("userId")}
+                            user_tweeted_id={userlist._id}
+                            avatar = {`${Configure.backURL}${Url_avatar}`}
+                            logedin_user_id={localStorage.getItem("userId")}
                           //displayName={userlist.user}
 
                           />))}
                       </article>
+                     } */}
+                      { (ph.data?.tweets[0].imageUrl.length === 1 || ph.data?.tweets[0].imageUrl.length === 2) ?
+                      <>
                       <article>
                         {photos?.map((userlist, index) => (
+                          
                           <Post
                             key={index}
                             //props={userlist}
@@ -601,10 +608,30 @@ function Explore() {
                             date={userlist.created_at}
                             user_id={localStorage.getItem("userId")}
                             image={userlist.imageUrl}
+                            logedin_user_id={localStorage.getItem("userId")}
                           //displayName={userlist.user}
 
                           />))}
                       </article>
+                      </>:<>
+                      <article>
+                        {searchedtop?.map((userlist, index) => (
+                          <Post
+                            key={index}
+                            //props={userlist}
+                            displayName={localStorage.getItem(`nametweet ${index}`)}
+                            username={localStorage.getItem(`usernametweet ${index}`)}
+                            text={userlist.text}
+                            date={userlist.created_at}
+                            user_tweeted_id={userlist._id}
+                            //avatar = {`${Configure.backURL}${Url_avatar}`}
+                            logedin_user_id={localStorage.getItem("userId")}
+                          //displayName={userlist.user}
+
+                          />))}
+                      </article>
+                      </>
+                      }
                       <article>
                         {m?.map((userlist, index) => (
                           <Post
@@ -640,7 +667,7 @@ function Explore() {
                           />))}
                       </article>
                     </>
-                  }
+                  
 
                 </>
               </>
@@ -740,7 +767,7 @@ function Explore() {
                         //displayName={userlist.user}
 
                         />))}
-                    </article>
+                    </article> 
                   </>
             }
 
@@ -751,11 +778,6 @@ function Explore() {
             //console.log("offf")
             
             )//:(console.log("yaa")) */}
-
-
-
-
-
 
 
           </RecoilRoot>

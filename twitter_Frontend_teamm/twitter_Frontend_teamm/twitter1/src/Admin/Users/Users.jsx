@@ -75,6 +75,7 @@ const columns = [
     field: "Number Block",
     headerName: "Blocked Times",
     width: 110,
+    sortable:true,
     renderCell: (params) => {
       return (
         <div className="blockedtimes">

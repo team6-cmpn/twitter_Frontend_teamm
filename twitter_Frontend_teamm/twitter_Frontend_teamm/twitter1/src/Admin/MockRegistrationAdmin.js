@@ -160,6 +160,7 @@ export function GetDashBoardstat() {
     };
     fetchProduct();
   }, []);
+  
   if (!dashBoard) return null;
   console.log("dashboard", dashBoard);
   return dashBoard;

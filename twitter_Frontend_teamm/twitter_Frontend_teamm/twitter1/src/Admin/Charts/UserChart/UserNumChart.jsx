@@ -31,7 +31,6 @@ import { useState,useEffect } from "react";
 export default function UserNumChart() {
   const usersperyear = GetDashBoardstat()[4]?.users_Per_Year;
 const usersPerMonth=GetDashBoardstat()[3]?.users_Per_Month
-const sortedData = usersperyear?.sort((a,b) => a.x - b.x)
   return (
     <div className="charts">
       <div className="chart">
@@ -63,7 +62,7 @@ const sortedData = usersperyear?.sort((a,b) => a.x - b.x)
           <LineChart
             width={500}
             height={300}
-            data={sortedData}
+            data={usersperyear}
             margin={{
               top: 5,
               right: 30,

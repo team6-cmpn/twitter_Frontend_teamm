@@ -5,7 +5,8 @@ import { Link, useLocation, Outlet } from "react-router-dom";
 import { DarkModeContext } from "../context/darkModeContext";
 import { useContext } from "react";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
-
+import { GetUserInfo } from "../Profile/backEndProfile";
+import Configure from "../../Configure";
 import {
   FaTwitter,
   FaHome,
@@ -125,6 +126,14 @@ function Sidebar() {
     });
   };
   const{dispatch}=useContext(DarkModeContext);
+  var info = GetUserInfo();
+  const [test, istest] = React.useState();
+  info.then(function (result) {
+    console.log("result", result);
+    istest(result);
+  });
+  console.log(info);
+  var Url = test?.profile_image_url;
   return (
     <div className="sidebar d">
       <ul>
@@ -186,7 +195,7 @@ function Sidebar() {
 
         <li>
           <a href="/Profile">
-            <Avatar className="icons" />
+            <Avatar src={`${Configure.backURL}${Url}`} className="icons" />
             <div className="t">
               <span style={{"display":"block", "textAlign":"left"}}>{user}</span>
               <span

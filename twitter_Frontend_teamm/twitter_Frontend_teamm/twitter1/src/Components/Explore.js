@@ -50,12 +50,14 @@ function Explore() {
   const [mention, setmention] = useState();
   const [user_id, setid_user] = useState([]);
 
-
+  //localStorage.setItem('word', 0);
   // const handleSubmit=(e) =>{
   //   if (e.key === 'Enter') {
 
   //     e.preventDefault();
   //     setData(e.target.value);
+
+      
   //     //console.log(data)
 
   //     //const promise2=BE.backEndPeople(body1);
@@ -103,7 +105,7 @@ function Explore() {
 
 
 
-  
+
   // useEffect(() => {
   //   (async () => {
   //     const resp = await backEndP();
@@ -111,7 +113,7 @@ function Explore() {
   //     console.log(resp)
   //   })();  
   // }, []);
-   //console.log(pe) 
+  //console.log(pe) 
 
   const p2 = BE.GetSearchedName();
   console.log(p2.data);
@@ -119,6 +121,8 @@ function Explore() {
   const top = BE.GetSearchTop();
   console.log(p2.data);
 
+  const usernametweet = BE.GetTweetsName();
+  console.log(p2.data);
 
 
   useEffect(() => {
@@ -184,7 +188,7 @@ function Explore() {
   // function fun() {
   //   //const promise2=BE.backEndLatest(body1);
   //   //promise2.then((text)=>{setItem5(text)});
- 
+
 
   //   //const promise3 = BE.backEndPeople(body1);
   //   //promise3.then((text) => { setItem2(text) });
@@ -192,48 +196,61 @@ function Explore() {
   //   //onst promise4=BE.backEndUsername(body1);
   //   //promise4.then((text)=>{setItem2(text)});
   // }
-  const p3 = BE.GetSearched();
+  const p3 = BE.GetSearched(body1);
+  console.log("triallllllll", p3)
 
-  function fun(){
-    //const promise2=BE.backEndLatest(body1);
-    //promise2.then((text)=>{setItem5(text)});
+  var resp;
 
-    //const promise3 = BE.backEndPeople(body1);
-    //promise3.then((text) => {setItem2(text) });
 
-    (async () => {
-      const resp = await backEndTop();
-      posted(resp);
-    })();   
+  function fun() {
 
-      // var searcheduse = p3.data?.user[1];
-      
-      // console.log(p3.data);
-      // console.log("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh")
-      // return(
-      //   <article>
-      //  {searcheduse?.map((userlist, index) => (
+    console.log("helloooooooooo", body1);
+    //const p2 = BE.GetSearchedName(body1);
+    //console.log(p2.data);
 
-      // <FriendSuggestionItem
-      //   key={index}
-      //   props={userlist}
-      // //displayName={localStorage.getItem(`people ${index}`)}
-      // />))} 
-      // </article>
-      // )
- 
-      
-   // ghehehddhjd
-    console.log("ffffff")
+    const promise2 = BE.backEndLatest(body1);
+    promise2.then((text) => { setItem5(text) });
+
     
-    
+
+    //resp = backEndTop(body1);
+    //console.log("offfffff",resp)
+    // (async () => {
+    //   const resp = await backEndTop(body1);
+    //   posted(resp);
+    //   console.log(resp)
+    // })();   
+
+    // var searcheduse = p3.data?.user[1]; 
+
+    // console.log(p3.data);
+    // console.log("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh")
+    // return(
+    //   <article>
+    //  {searcheduse?.map((userlist, index) => (
+
+    // <FriendSuggestionItem
+    //   key={index}
+    //   props={userlist}
+    // //displayName={localStorage.getItem(`people ${index}`)}
+    // />))} 
+    // </article>
+    // )
+
+
+    // ghehehddhjd
+    // console.log("ffffff")
+
+
   }
 
 
 
   function funn() {
-    const promise4 = BE.backEndUsername(body1);
-    promise4.then((text) => { setItem2(text) });
+    console.log(data)
+    const promise6 = BE.backEndPeople(body1);
+    promise6.then((text) => { setItem2(text) });
+    console.log(item2)
   }
 
   // var d = data.toString();
@@ -351,12 +368,14 @@ function Explore() {
 
   console.log(localStorage.getItem("people"))
   var searcheduser = p2.data?.user[1];
-  console.log("farah",searcheduser)
+  console.log("farah", searcheduser)
 
   var searchedtop = top.data?.tweets;
   console.log(searchedtop)
   console.log(top.data?.tweets.user)
-  
+
+  var userr = usernametweet.data?.user;
+
   return (
 
     <div>
@@ -365,18 +384,19 @@ function Explore() {
 
       {/* <SearchInput  placeholder="Search Twitter" /> */}
       <div className="Expmenu">
-
+      {/* onKeyPress={handleSubmit} */}
         <Form >
           <Form.Item name='n'>
-            <Input onChange={getData} id="search" className="trend__contr " type="text"
+            <Input  onChange={getData}  id="search" className="trend__contr " type="text"
               placeholder="Search Twitter" ></Input>
           </Form.Item>
         </Form>
         {/* <button onClick={searchpeople}>search people</button> */}
-        <button onClick={fun} >save User</button>  <button onClick={savedSearch}>saved Search</button>   <button onClick={() => go}>names</button>
+        <button onClick={fun} >search</button>  
+        {/* <button onClick={savedSearch}>saved Search</button>   <button onClick={() => go}>names</button> */}
         {/* <FaSistrix className="trend s" /> */}
         <div><button style={{ "cursor": "pointer" }} id="searchbutton" onClick={funn}
-          type="button">Search</button></div>
+          type="button">Search name</button></div>
 
         <div className="notificationsCategory">
           <div
@@ -409,7 +429,7 @@ function Explore() {
 
         <div>
           <RecoilRoot>
-            {(section === 1 && (data || word || word === "@" )) ?
+            {(section === 1 && (data || word || word === "@" || item5)) ?
               //Tabs()
               <>
                 <>
@@ -438,53 +458,67 @@ function Explore() {
            
            
            } */}
-                  {(item2) ?
+                  {(item5) ?
                     <>
-                      {/* <FriendSuggestionItem
-                        username={item2[1]}
-                        displayName={item2[0]}
-                      /> */}
+                      <Post
+                        text={item5}
+                      />
                     </>
 
 
-                    : <></>
+                    : <>
+                      <article>
+                        {searchedtop?.map((userlist, index) => (
+                          <Post
+                            key={index}
+                            //props={userlist}
+                            displayName={localStorage.getItem(`nametweet ${index}`)}
+                            username={localStorage.getItem(`usernametweet ${index}`)}
+                            text={userlist.text}
+                            date={userlist.created_at}
+                            user_id={localStorage.getItem("userId")}
+                          //displayName={userlist.user}
+
+                          />))}
+                      </article> 
+                      <article>
+                        {searcheduser?.map((userlist, index) => (
+
+                          <FriendSuggestionItem
+                            key={index}
+                            props={userlist}
+                          //displayName={localStorage.getItem(`people ${index}`)}
+                          />))}
+                      </article>
+                    </>
                   }
-                  {searchedtop?.map((userlist, index) => (
-                    <Post
-                      key={index}
-                      //props={userlist}
-                      //displayName={userlist.username}
-                      username={localStorage.getItem(`ite ${index}`)}
-                      text={userlist.text}
-                      displayName={userlist.user}
 
-                    />))}
-
-                  <article>
-                  {searcheduser?.map((userlist, index) => (
-
-                    <FriendSuggestionItem
-                      key={index}
-                      props={userlist}
-                    //displayName={localStorage.getItem(`people ${index}`)}
-                    />))}
-                  </article>
                 </>
               </>
               :
-              (section === 2) ?
+              (section === 2 || item5) ?
                 //console.log("hello")
                 <>
-                  {twettes.map((userlist, index) => (
-                    <Post
-                      key={index}
-                      //displayName={localStorage.getItem(`ite ${index}`)}
-                      username={localStorage.getItem(`ite ${index}`)}
-                      text={localStorage.getItem(`it ${index}`)}
+                  {(item5) ?
+                    <>
+                      <Post
+                        text={item5}
+                      />
+                    </>
+                    :
+                    <>
+                      {twettes.map((userlist, index) => (
+                        <Post
+                          key={index}
+                          //displayName={localStorage.getItem(`ite ${index}`)}
+                          username={localStorage.getItem(`ite ${index}`)}
+                          text={localStorage.getItem(`it ${index}`)}
 
-                    />))}
-                    
-                      {/* <TrendAccounts 
+                        />))}
+                    </>
+                  }
+
+                  {/* <TrendAccounts 
                         username={item2[1]}
                         name={item2[0]}
                       /> 
@@ -506,20 +540,31 @@ function Explore() {
                                  date={userlist.date}
                                  />))} */}
                 </>
-                : (section === 3) ?
+                : (section === 3 || item2) ?
                   <>
-                  <article>
-                  {searcheduser?.map((userlist, index) => (
+                  { (item2) ? 
+                    <TrendAccounts
+                      name={item2[0]}
+                      username={item2[1]}
+                    />
+                    :
+                    <article>
+                      {searcheduser?.map((userlist, index) => (
 
-                    <FriendSuggestionItem
-                      key={index}
-                      props={userlist}
-                    //displayName={localStorage.getItem(`people ${index}`)}
-                    />))}
-                  </article>
+                        <FriendSuggestionItem
+                          key={index}
+                          props={userlist}
+                        //displayName={localStorage.getItem(`people ${index}`)}
+                        />))}
+                    </article>
+                  }
                   </>
                   :
+
                   <>
+                    <Post
+                      text={item5}
+                    />
                     {/* {twetted.map((userlist, index) => (
                                  <Post
                                   text={item}

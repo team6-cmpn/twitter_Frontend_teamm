@@ -79,7 +79,7 @@ import { useEffect } from "react";
             <CartesianGrid />
             <XAxis dataKey="_id" />
             <YAxis domain={[0, (dataMax) => Number(dataMax) + 10]} />
-            <Tooltip />
+            <Tooltip contentStyle={{backgroundColor:'#1DA1F2'}} />
             <Legend />
             <Bar dataKey="count" fill="#0A1C73" />
           </BarChart>
@@ -97,9 +97,9 @@ import { useEffect } from "react";
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="year" />
             <YAxis  domain={[0, (dataMax) => Number(dataMax) + 10]} />
-            <Tooltip />
+            <Tooltip contentStyle={{backgroundColor:'#1DA1F2'}} />
             <Legend />
-            <Bar dataKey="totaltweets" fill="#0F86CB" />
+            <Bar dataKey="totaltweets" fill="#0A1C73" />
           </BarChart>
         </ResponsiveContainer>
 

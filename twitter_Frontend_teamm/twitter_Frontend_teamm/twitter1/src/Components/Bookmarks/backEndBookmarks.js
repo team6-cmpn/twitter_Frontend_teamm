@@ -71,6 +71,7 @@ export async function addBookmarks(){
         }).catch(error => {
             console.log(error);
             });
+       window.location.reload();
       return message;
   };
 

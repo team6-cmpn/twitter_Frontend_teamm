@@ -32,8 +32,8 @@ const MutedAccounts =() =>{
             
             <hr/>
             <br></br>
-            {MutedUsers.map((MutedUsers,index)=>(
-                <Muted key={index} MutedAccount={MutedUsers}/>))}
+            {/* {MutedUsers.map((MutedUsers,index)=>(
+                <Muted key={index} MutedAccount={MutedUsers}/>))} */}
             {BE.map((MutedUsers,index)=>(
                 <Muted key={index} MutedAccount={MutedUsers}/>))}
 

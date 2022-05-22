@@ -40,7 +40,7 @@ export async function backEndTop(){
             // }
             tex=tex.slice(0,-1);
             userid=userid.slice(0,-1);
-            console.log(tex);
+            console.log(message);
             //message[1] = response.data.tweets[0].user;
             //localStorage.setItem("userI",response.data.tweets[0].user);
             //console.log(message);
@@ -55,10 +55,10 @@ export async function backEndTop(){
     return message;
   };
 
-
+  var userridd=[];
   export function GetSearchTop() {
     const [searched, setSearched] = React.useState([]);
-  
+    
     useEffect(() => {
       const fetchProduct = async () => {
         const search = await axios.get(`${Configure.backURL}search/top?text=${localStorage.getItem("searchData")}`, 
@@ -70,7 +70,12 @@ export async function backEndTop(){
           },
         })
         setSearched(search);
-        localStorage.setItem('it', search.data.tweets.user)
+        for (let i = 0; i < search.data.tweets.length; i++) {
+          console.log("farahhhhhhhhhhhhh",search.data.tweets[i].user)
+          userridd += search.data.tweets[i].user + ",";
+          localStorage.setItem(`userridd ${i}`,search.data.tweets[i].name)
+        }
+        userridd=userridd.slice(0,-1);
         console.log("ggggggggggg",search.data.tweets)
         console.log("rrrrrrrrr",search)
       };
@@ -82,26 +87,10 @@ export async function backEndTop(){
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 export async function getUserLook(){
   var userInfo=[];
   await axios     
-      .get(`${Configure.backURL}user/lookup/${userid}`, {
+      .get(`${Configure.backURL}user/lookup/${userridd}`, {
         headers: {
           "Content-Type": "application/json; charset=ut-8",
           "x-access-token": `${sessionStorage.getItem("token")}`,
@@ -112,8 +101,8 @@ export async function getUserLook(){
         if (response.status === 200) {
           for (let i=0; i<response.data.user.length; i++){
             userInfo += response.data.user[i].name + ",";
-            //localStorage.setItem(`i ${i}`, response.data.user[i].username);
-            localStorage.setItem(`ite ${i}`, response.data.user[i].name)
+            localStorage.setItem(`usernametweet ${i}`, response.data.user[i].username);
+            localStorage.setItem(`nametweet ${i}`, response.data.user[i].name)
           }
           userInfo=userInfo.slice(0,-1);
           console.log(userInfo);
@@ -127,7 +116,26 @@ export async function getUserLook(){
     return userInfo;
   }  
 
-
+  export function GetTweetsName() {
+    const [searched, setSearched] = React.useState([]);
+  
+    useEffect(() => {
+      const fetchProduct = async () => {
+        const search = await axios.get(`${Configure.backURL}user/lookup/${userridd}`, 
+        {
+          
+          headers: {
+            "Content-Type": "application/json; charset=ut-8",
+            "x-access-token": `${localStorage.getItem("token")}`,
+          },
+        })
+        setSearched(search);
+      };
+      fetchProduct();
+    }, []);
+    if (!searched) return null;
+    return searched;
+  }  
 
 
 // export async function getUser() {
@@ -171,11 +179,9 @@ export async function backEndPeople(){
   
   //var message1;
       await axios
-        .get(`${Configure.backURL}search/people`,
+        .get(`${Configure.backURL}search/people?text=${localStorage.getItem("searchData")}`,
          {
-          params:{
-            "text": `${localStorage.getItem('searchData')}`
-          },
+          
           headers: {
             "Content-Type": "application/json; charset=ut-8",
             "x-access-token": `${localStorage.getItem("token")}`,
@@ -199,7 +205,7 @@ export async function backEndPeople(){
         }
       }).catch(error => {
         message = error.response.data.message;
-      //  console.log(message);
+       console.log(message);
          
           });
     return message;

@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import "./Home.css";
 import Sidebar from "./Sidebar/Sidebar";
 import Trends from "./Widgets/Trends";
@@ -7,74 +7,45 @@ import Post from "./homepage/Post";
 import {RecoilRoot} from "recoil";
 import * as backend from "./homepage/backendFeed";
 import "./onepost.css";
+import {Sync} from "@material-ui/icons";
 
 function Home() {
-  //   const [tweet_id, setid_tweet] = useState([]);
-  const [user_id, setid_user] = useState([]);
-  const [mention, setmention] = useState();
-  const [username, setusername] = useState();
-  const [displayName, setDisplayname] = useState();
-  const [date, setdate] = useState();
-  const [text_tweet, setItem] = useState();
-  // const [disp_img, getimg] = useState([]);
+  const [change, setchange] = useState();
+  const [opened_tweet, setopened_tweet] = useState([]);
+
   const loginuser_id = localStorage.getItem("userId");
-  const [likesno, setlikesno] = useState();
-  const [likes_no, setlikes_no] = useState();
-  const [retweets_no, setretweets_no] = useState();
-  const [retweetno, setretweetno] = useState();
-  const [id_tweet, setid_tweet] = useState();
-  const [if_liked, setif_liked] = useState(false);
-  const [likes_namelist, setlikes_namelist] = useState(false);
-  const [retween_namelist, setretween_namelist] = useState([]);
-
   var clicked_tweet_id = localStorage.getItem("clicked.ID");
-  const tweeted_user = backend.getTweet(clicked_tweet_id);
 
-  tweeted_user.then((text) => {
-    setItem(text.tweet.text);
-    setmention(text.tweet.mention);
-    setdate(text.tweet.created_at);
-    setusername(text.user.username);
-    setDisplayname(text.user.name);
-    setlikesno(text.tweet.favorites.length);
-    setretweetno(text.tweet.retweetUsers.length);
-    setid_tweet(text.tweet._id);
-    setid_user(text.user.id);
-    setlikes_no(text.tweet?.favorites.length);
-    setretweets_no(text.tweet?.retweetUsers.length);
-    console.log(text.tweet.favorites.length);
-    console.log(text.tweet.retweetUsers.length);
-    setlikes_namelist(text.tweet?.favorites);
-    for (var i = 0; i < 3; i++) {
-      // console.log(likes_ids_tweet);
-      if ({likes_namelist}?.likes_namelist[i] === loginuser_id) {
-        setif_liked(true);
-      }
-    }
-    //console.log(text.mention);
-  });
+  useEffect(() => {
+    (async () => {
+      const resp = await backend.getTweet(clicked_tweet_id);
+      console.log(resp);
+      setopened_tweet(resp);
+      setchange("ss");
+    })();
+  }, []);
+  console.log(opened_tweet.tweet?.favorites.length);
   return (
-    <div className="twitter ">
+    <div className="twitter  ">
       <Sidebar />
       <RecoilRoot>
         <div className=" posted">
           <Post
-            username={displayName}
-            displayName={username}
-            //avatar={userlist}
-            mention={mention}
-            text={text_tweet}
-            date={date}
-            user_tweeted_id={user_id}
+            displayName={opened_tweet.user?.name}
+            username={opened_tweet.user?.username}
+            text={opened_tweet.tweet?.text}
+            image={opened_tweet.tweet?.imageUrl}
+            tweet_id={opened_tweet.tweet?._id}
+            mention={opened_tweet.tweet?.mention}
+            date={opened_tweet.tweet?.created_at}
+            user_tweeted_id={opened_tweet.tweet?.user}
             logedin_user_id={loginuser_id}
-            retweets={retweetno}
-            likes={likesno}
-            // user_liked_tweet={if_liked}
-            tweet_id={id_tweet}
-            //avatar={disp_img}
-            //id_post={id_post}
+            likes={opened_tweet.tweet?.favorites.length}
+            retweets={opened_tweet.tweet?.retweetUsers.length}
+            user_liked_tweet={opened_tweet?.isLiked}
+            user_retweted_tweet={opened_tweet?.isRetweeted}
+            mentioned_user={opened_tweet.tweet?.mentionedUser}
             open={true}
-            // show={true}
           />
         </div>
       </RecoilRoot>

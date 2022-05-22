@@ -27,31 +27,31 @@ function BlockForm() {
   // click on submit button .
   const [test, istest] = React.useState();
   const handleSubmit = (e) => {
-    // if (duration < 0) {
-    //   alert("please enter valid value for block days");
-    //   // setErrorMessage("Please enter whole integr greater than 0")
-    //   // {errorMessage && <div className="error"> {errorMessage} </div>}
-    // } else {
-      const resp = BLockUser(body);
-      localStorage.setItem("selectedIDs", null);
-      console.log("..", resp);
-      var promiseB = resp.then(function (result) {
-        console.log("result", result);
-        istest(result);
-      });
-      console.log("finn", promiseB);
-      if (test === 200) {
-        navigate("/Users");
-        console.log("test", test);
-      }
+    const resp = BLockUser(body);
+    if (duration < 0) {
+      alert("please enter valid value for block days");
+      // setErrorMessage("Please enter whole integr greater than 0")
+      // {errorMessage && <div className="error"> {errorMessage} </div>}
+    } else {
+    localStorage.setItem("selectedIDs", null);
+    console.log("..", resp);
+    var promiseB = resp.then(function (result) {
+      console.log("result", result);
+      istest(result);
+    });
+    console.log("finn", promiseB);
+    if (test === 200) {
+      navigate("/Users");
+    }
 
-      e.preventDefault(); //prevent refresh of page
-    
+    console.log("test", test);
+    e.preventDefault(); //prevent refresh of page
   };
+}
   var body = { duration: duration };
   sessionStorage.setItem("duration", duration);
   return (
-    <div >
+    <div>
       <div id="FinalUsersPage">
         <TopBar />
         <div className="admincontainer">
@@ -81,7 +81,7 @@ function BlockForm() {
                     <br />
                     <br />
                     <a>
-                      <input type="submit" value="Submit"  />
+                      <input type="submit" value="Submit" id="SubmitBlocking" />
                     </a>
                   </form>
                 </header>

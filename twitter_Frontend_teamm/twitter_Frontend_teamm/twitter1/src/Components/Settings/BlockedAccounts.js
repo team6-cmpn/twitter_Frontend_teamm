@@ -29,8 +29,8 @@ const BlockedAccounts =() =>{
             </div>
             
             <hr/>
-             {BlockedUsers.map((BlockedUsers,index)=>(
-                <Blocked key={index} BlockedAccount={BlockedUsers}/>))}
+             {/* {BlockedUsers.map((BlockedUsers,index)=>(
+                <Blocked key={index} BlockedAccount={BlockedUsers}/>))} */}
             {BE.map((BlockedUsers,index)=>(
                 <Blocked key={index} BlockedAccount={BlockedUsers}/>))}
 

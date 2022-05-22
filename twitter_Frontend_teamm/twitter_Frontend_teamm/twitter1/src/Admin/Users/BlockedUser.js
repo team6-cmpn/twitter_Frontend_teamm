@@ -2,17 +2,19 @@ import React from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { GetDashBoardstat } from "../MockRegistrationAdmin";
 import "./blockform.css";
+import Configure from "../../Configure";
+const getUserImg = (params) => params.getValue(params.id, "profile_image_url");
 
 const columns = [
   {
     title: "Avatar",
-    field: "profile_image_url",
+    field: "User_img",
     headerName: "Image",
     sortable: false,
     renderCell: (params) => (
       <img
         style={{ width: 36, height: 36, borderRadius: "50%" }}
-        src={params.value}
+        src={`${Configure.backURL}${getUserImg(params)}`}
         alt="userimg"
       />
     ),

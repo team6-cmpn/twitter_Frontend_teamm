@@ -112,7 +112,8 @@ function Bookmarks(){
               avatar={userlist.avatar}
               date={userlist.created_at}
               tweet_id={userlist._id}
-              flag2={count=count+1}
+              user_tweeted_id={userlist.user}
+            
          
             />
           

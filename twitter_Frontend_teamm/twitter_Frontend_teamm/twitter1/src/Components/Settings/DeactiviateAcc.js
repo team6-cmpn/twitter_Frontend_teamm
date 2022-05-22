@@ -18,6 +18,7 @@ function DeactivateAcc(){
     function redirect()
     {
        var url = "/login";
+       localStorage.clear()
       window.location.assign(url);
     }
     return(

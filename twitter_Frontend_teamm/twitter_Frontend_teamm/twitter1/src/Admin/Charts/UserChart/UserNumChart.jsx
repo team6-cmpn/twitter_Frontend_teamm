@@ -51,7 +51,7 @@ const sortedData = usersperyear?.sort((a,b) => a.x - b.x)
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="_id" />
             <YAxis />
-            <Tooltip />
+            <Tooltip contentStyle={{backgroundColor:'#1DA1F2'}} />
             <Legend />
             <Bar dataKey="count" fill="#82ca9d" />
           </BarChart>
@@ -74,7 +74,7 @@ const sortedData = usersperyear?.sort((a,b) => a.x - b.x)
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="_id"  domain={[0, 10000]} />
             <YAxis />
-            <Tooltip />
+            <Tooltip contentStyle={{backgroundColor:'#1DA1F2'}} />
             <Legend />
             <Line type="monotone" dataKey="totalUsers" stroke="#06562B" />
           </LineChart>

@@ -70,7 +70,7 @@ function Sidebar() {
   };
   const content = (
     <div>
-      <Link to='/logout'>Logout username</Link>
+      <Link to='/logout'>Logout {username} </Link>
     </div>
   )
   var pusher;
@@ -201,13 +201,13 @@ function Sidebar() {
                 }}
               >
                 {username}{" "}
-                <Popover content={content} trigger="hover" title='Username'><BiDotsHorizontal className="more" /></Popover>
+                <Popover content={content} trigger="hover" title= {user}><BiDotsHorizontal className="more" /></Popover>
               </span>
               {/* <BiDotsHorizontal style={{"display":"row"}} className="more" /> */}
             </div>
           </a>
         </li>
-        {localStorage.getItem("userId") === "62841b870bd3ff9a040987c5"?(        <li>
+        {localStorage.getItem("userId") === "6288354147920b8837e95dc0"?(        <li>
           <a href="/adminPage">
             <AdminPanelSettingsIcon className="icons" />
             <div className="t">Admin</div>

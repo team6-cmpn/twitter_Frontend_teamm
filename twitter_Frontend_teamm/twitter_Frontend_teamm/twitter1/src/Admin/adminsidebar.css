@@ -31,10 +31,11 @@
     display: flex;
     align-items: center;
     border-radius: 10px;
+    
 
   }
   .adminsidebar ul li a{
-    color:#555 !important;
+    color: #1da1f2 !important;
 
   }
   

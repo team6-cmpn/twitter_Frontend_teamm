@@ -5,16 +5,15 @@ import HomeTweet from "./Header_Tweet";
 import Feed from "./Feed";
 import {RecoilRoot} from "recoil";
 
-function Home_feed() {
-  const [page, setpage] = useState(1);
+function Home_feed(event) {
+  const [page, setpage] = useState();
   const [postData, setpostData] = useState([]);
   const [isEnded, setisEnded] = useState(false);
 
   var postState = [];
   useEffect(() => {
     (async () => {
-      postState = await backend.Tweets_lookup(1, 10);
-
+      postState = await backend.Tweets_lookup(1, 5);
       if (postState.status === 200) {
         setpostData(postState.data);
       } else {
@@ -22,26 +21,12 @@ function Home_feed() {
       }
     })();
   }, []);
-  var resp = [];
-  const updateData = () => {
-    (async () => {
-      postState = await backend.Tweets_lookup(page + 1, 4);
-      setpage(page + 1);
-      if (postState.status === 200) {
-        setpostData(postState.data);
-      } else {
-        setisEnded(true);
-      }
-    })();
-  };
-  //   console.log({isEnded});
-  //   console.log(backend.Tweets_lookup(page + 1, 2));
-  //   console.log({postData});
+
+  // console.log({isEnded});
+  // console.log(backend.Tweets_lookup(1, page + 2));
   return (
-    <div className="feed">
-      <div className=" feed feed__header">
-        <h1>Home</h1>
-      </div>
+    <div className=" feed respons">
+      <div className="  feed__header for_home"><span>Home</span></div>
       <HomeTweet />
       <RecoilRoot>
         {postData && <Feed data={postData} isEnded={isEnded} />}

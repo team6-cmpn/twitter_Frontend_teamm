@@ -2,14 +2,25 @@ import React from "react";
 import "./topbar.css";
 import { NotificationsNone } from "@material-ui/icons";
 import { DarkModeContext } from "../Components/context/darkModeContext";
-import { useContext } from 'react';
+import { useContext } from "react";
+import { Link } from "react-router-dom";
+import { GetUserInfo } from "../Components/Profile/backEndProfile";
+import Configure from "../Configure";
 
 /**
- * 
+ *
  * topbar of the admin pages
- * @returns 
+ * @returns
  */
 export default function Topbar() {
+  var info = GetUserInfo();
+  const [test, istest] = React.useState();
+  info.then(function (result) {
+    console.log("result", result);
+    istest(result);
+  });
+  console.log(info);
+  var Url = test?.profile_image_url;
   return (
     <div className="topbar" id="AdminTopBar">
       <div className="topbarWrapper">
@@ -17,7 +28,14 @@ export default function Topbar() {
           <span className="logo">Admin</span>
         </div>
         <div className="topRight">
-          <img src={localStorage.getItem("UserImg")} alt="" className="topAvatar" />
+          <Link to={`/profile`}>
+            {" "}
+            <img
+              src={`${Configure.backURL}${Url}`}
+              alt=""
+              className="topAvatar"
+            ></img>{" "}
+          </Link>
         </div>
       </div>
     </div>

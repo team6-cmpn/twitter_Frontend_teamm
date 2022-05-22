@@ -13,7 +13,7 @@ const LikedYouBe = ({ liked }) => {
           
         </div>
         <span>
-          <b>{liked.notificationHeader.text}</b> and{" "}
+          <b>{liked.notificationHeader.text}</b>
         </span>
         <span>{liked.notificationContent.text}</span>
       </div>

@@ -38,30 +38,30 @@ import { useEffect } from "react";
 //     })();
 //   }, []);
 
-  const [tweetsPeryear, setTweetsPeryear] = useState(undefined);
-  useEffect(() => {
-    (async () => {
-      const resp = await GetDashBoard();
-      let temptweetsPeryear = [...resp.data[10].tweets_Per_Year];
-      temptweetsPeryear.forEach((element, index) => {
-        temptweetsPeryear[index].year = element._id;
-        temptweetsPeryear[index].totaltweets = element.totalTweets;
-      });
-      setTweetsPeryear(temptweetsPeryear);
-    })();
-  }, []);
+  // const [tweetsPeryear, setTweetsPeryear] = useState(undefined);
+  // useEffect(() => {
+  //   (async () => {
+  //     const resp = await GetDashBoard();
+  //     let temptweetsPeryear = [...resp.data[10].tweets_Per_Year];
+  //     temptweetsPeryear.forEach((element, index) => {
+  //       temptweetsPeryear[index].year = element._id;
+  //       temptweetsPeryear[index].totaltweets = element.totalTweets;
+  //     });
+  //     setTweetsPeryear(temptweetsPeryear);
+  //   })();
+  // }, []);
 
-  const [tweetsPerday, setTweetsPerday] = useState(undefined);
-  useEffect(() => {
-    (async () => {
-      const resp = await GetDashBoard();
-      let temptweetsPerday = [...resp.data[12].new_Users_Per_Day];
-      temptweetsPerday.forEach((element, index) => {
-        temptweetsPerday[index].day = element._id.day;
-      });
-      setTweetsPerday(temptweetsPerday);
-    })();
-  }, []);
+  // const [tweetsPerday, setTweetsPerday] = useState(undefined);
+  // useEffect(() => {
+  //   (async () => {
+  //     const resp = await GetDashBoard();
+  //     let temptweetsPerday = [...resp.data[12].new_Users_Per_Day];
+  //     temptweetsPerday.forEach((element, index) => {
+  //       temptweetsPerday[index].day = element._id.day;
+  //     });
+  //     setTweetsPerday(temptweetsPerday);
+  //   })();
+  // }, []);
 
   return (
     <div className="chartone">
@@ -79,14 +79,14 @@ import { useEffect } from "react";
             <CartesianGrid />
             <XAxis dataKey="_id" />
             <YAxis domain={[0, (dataMax) => Number(dataMax) + 10]} />
-            <Tooltip />
+            <Tooltip contentStyle={{backgroundColor:'#1DA1F2'}} />
             <Legend />
             <Bar dataKey="count" fill="#0A1C73" />
           </BarChart>
         </ResponsiveContainer>
         <ResponsiveContainer width="100%" aspect={4 / 2}>
           <BarChart
-            data={tweetsPeryear}
+            data={GetDashBoardstat()[10]?.tweets_Per_Year}
             margin={{
               top: 5,
               right: 30,
@@ -95,11 +95,11 @@ import { useEffect } from "react";
             }}
           >
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="year" />
+            <XAxis dataKey="_id" />
             <YAxis  domain={[0, (dataMax) => Number(dataMax) + 10]} />
-            <Tooltip />
+            <Tooltip contentStyle={{backgroundColor:'#1DA1F2'}} />
             <Legend />
-            <Bar dataKey="totaltweets" fill="#0F86CB" />
+            <Bar dataKey="totalTweets" fill="#0A1C73" />
           </BarChart>
         </ResponsiveContainer>
 

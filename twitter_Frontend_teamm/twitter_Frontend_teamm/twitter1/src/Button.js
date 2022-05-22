@@ -5,7 +5,7 @@ export default function SwitchButton() {
     useEffect(() => {
         if (localStorage.getItem('dark') === 'false') {
             theme.dispatch({ type: "LIGHTMODE" });
-          } else {
+          } else if((localStorage.getItem('dark') === 'true')) {
             theme.dispatch({ type: "DARKMODE" });
           }
     },[])

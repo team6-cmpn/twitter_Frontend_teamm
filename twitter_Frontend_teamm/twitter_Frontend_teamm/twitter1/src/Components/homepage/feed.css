@@ -1,6 +1,14 @@
 * {
     outline: none !important;
 }
+.respons {
+    flex: 0.6;
+    border-right: 1px solid #e6ecf0;
+    height: max-content;
+    width: 570px; 
+    margin-left: 24%;
+  }
+
 .loading{
     color:var(--twitter-blue)
 }
@@ -14,12 +22,12 @@
     background-color: transparent;
     outline: none;
     border: transparent;
+    width: auto;
 }
 .book_position{
-    flex-direction: row-reverse;
-    display: flex;
-    align-items: center;  
-    direction: rtl;  
+    flex: content;
+    padding-bottom: 2%;
+    text-align: right;
 }
 
 .bookmarked:hover{
@@ -28,6 +36,8 @@
 /*******************************************************/
 .dateflex{
     padding-left: 10px;
+    padding-top: 0.5%;
+    padding-bottom: 1%;
 }
 .dateflex:hover{
     cursor: default;
@@ -48,10 +58,10 @@
 
 /* Hide scrollbar for Chrome, Safari and Opera */
 
-.feed::-webkit-scrollbar {
+/* .feed::-webkit-scrollbar {
     display: none;
     
-}
+} */
 
 /* Hide scrollbar for IE, Edge and Firefox */
 
@@ -60,35 +70,28 @@
     /* IE and Edge */
     scrollbar-width: none;
     /* Firefox */
-   
     border-right: 1px solid #e6ecf0 ;
-    margin-left: 25.5%;
-    margin-right: 29%;
-    height:100%
 }
-
 
 
 .feed__header {
     top: 0;
-    padding-right: 38.6%;
     position: fixed;
-    margin-left: -0.5%;
     height: 7%;
     border-bottom: 2px solid rgba(82, 82, 82, 0.137);
-    
+    background-color: white;
+    width: inherit;
 }
 .paddedin{
     margin-right: 30px;
 }
 
-.feed__header>h1 {
+.for_home {
     font-family: Helvetica;
-    font-size: 200%;
-    font-weight: 700;
-    margin-left: -5%;
-    margin-left: 5%;
-  
+    font-size: xx-large;
+    text-align: left;
+    width: inherit;
+    height: inherit;
 }
 
 /***************************************************************************/
@@ -100,16 +103,18 @@
     border-bottom-style: solid;
     border-bottom-width: thin;
     border-bottom-color:  var(--twitter-border);
-    padding-right: -20%;
-    margin-right: 50%;
     padding-top: 7%;
-    width:100%;
-    
 }
 
 .mention{
     display: flex;
-    padding-left: 20px;
+    padding-left: 10%;
+    padding-top: 2%;
+}
+.head_line{
+    display: flex;
+    align-items: center;   
+    width: 100%;
 }
 
 .mention>input{
@@ -121,10 +126,10 @@
     overflow-y: hidden;
     width: 50%;
 }
-
-.tweetBox>form {
-    padding-left: 10%;
+.colorAwait{
+    background: "#e6ecf0";
 }
+
 
 .tweetBox__input {
     align-items: center;
@@ -132,8 +137,8 @@
     width: 100%;
     flex-wrap: nowrap;
     flex-shrink: 0;
+    padding-right: 5%;
     padding-left: 5%;
-    
 }
 
 .tweetBox__input>textarea {
@@ -149,8 +154,9 @@
 
 .border {
     padding-top: 2%;
-    padding-bottom: 2%;
-    
+    padding-left: 2%;
+    padding-right: 2%;
+    align-items: center;
 }
 
 /************************************************************************/
@@ -164,7 +170,6 @@
     padding-top: -2%;
     border-bottom-width: thin;
     height: max-content;
-    
     
 }
 
@@ -194,16 +199,12 @@
 }
 .post__tweet>span{
     border: none;
-    margin-left: 20px 0;
-    margin-right: 20px 0;
-    width: 400px;
+    width: 450px;
 	height: auto;
     flex-wrap: nowrap;
     resize: none;
     overflow-y: hidden;
-    
     text-align: left;
-    align-items: center;
     display: block ;
     padding-left: 20px;
     
@@ -232,13 +233,15 @@
     display: flex;
     justify-content: space-evenly;
     padding-top: 0.5%;
-    
+    padding-left: 5%;
+    padding-right: 5%;
 }
 
 
 .bolding{
-    font-weight: bolder;   
-    color: black;
+    font-weight: bolder;  
+    font-size: larger; 
+    padding-bottom: 2%;
 }
 .bolding:hover{
     text-decoration: underline;
@@ -247,7 +250,7 @@
 .post__headerText{
     padding-left: 2%;
     flex-direction: row;
-    
+    align-items: center;
 }
 .post__headerText>h3 {
     font-size: 15px;
@@ -260,8 +263,8 @@
     font-weight: 600;
     font-size: 12px;
     color: rgba(133, 132, 132, 0.827);
-    padding-left: 5px;
-    margin-bottom: 5px;
+    padding-left: 2%;
+    padding-top: 0.5%;
 }
 .post__headerSpecial:hover{
 cursor: default;
@@ -339,11 +342,16 @@ cursor: default;
     align-items: in;
     margin-right: 100px;
 }
+.emo{
+    display: flex;
+    align-items: center;   
+    width: 100%;
+    padding-left:  20%;
+}
 .app {
     display: flex;
-    align-items: center;    
+    align-items: center;   
     width: 100%;
-    padding-right: 10%;
     
 }
 
@@ -371,9 +379,7 @@ cursor: default;
     border-radius: 100%;
 }
 .iconbar {
-    padding-left: 150px;
     color: transparent;
-    display: flex;
     align-items: stretch;
 }
 
@@ -401,6 +407,7 @@ cursor: default;
     justify-content: space-around;
     flex-direction: column;
   }
+  .flex{display: flex;}
   
   .image {
     border-radius: 15px;

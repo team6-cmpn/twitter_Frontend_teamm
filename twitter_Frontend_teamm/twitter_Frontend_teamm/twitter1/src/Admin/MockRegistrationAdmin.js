@@ -5,10 +5,10 @@ import React from "react";
 import { Dashboard } from "@material-ui/icons";
 import { message } from "antd";
 /**
- * 
+ *
  * this file contains all api calls from backend and from mock
- * which be used before calling api 
- * @returns 
+ * which be used before calling api
+ * @returns
  */
 
 export async function getTopUsers() {
@@ -40,6 +40,102 @@ export async function GetDashBoard() {
   });
   return dashBoard;
 }
+// export async function Blocking() {
+//   var messgae;
+//   await axios.post(
+//     `${Configure.backURL}adminBlock/destroy?userid=${localStorage.getItem(
+//       "selectedIDs"
+//     )}`,
+//     {
+//       headers: {
+//         "Content-Type": "application/json",
+//         "x-access-token": `${localStorage.getItem("token")}`,
+//       },
+//     }
+//   )
+//   .then((response) => {
+//     console.log(response);
+//     if (response.status === 200) {
+//       messgae = response.status;
+//     }
+//   })
+//   .catch((error) => {
+//     messgae = error.response.data.message;
+//   });
+//   // console.log(dashBoard)
+//   return messgae;
+// }
+// export async function Blocking() {
+//   const params = {
+//   };
+//   const dashBoard = await axios.post(
+//     `${Configure.backURL}adminBlock/destroy?userid=${localStorage.getItem(
+//       "selectedIDs"
+//     )}`,
+//     params,
+//     {
+//       headers: {
+//         "Content-Type": "application/json",
+//         "x-access-token": `${localStorage.getItem("token")}`,
+//       },
+//     }
+//   )
+//   return dashBoard;
+// }
+
+// export function Blocking() {
+//   const [ans, setAns] = React.useState();
+//   const params = {};
+
+//   async () => {
+//     const res = await axios.post(
+//       `${Configure.backURL}adminBlock/destroy?userid=${localStorage.getItem(
+//         "selectedIDs"
+//       )}`,
+//       params,
+//       {
+//         headers: {
+//           "Content-Type": "application/json",
+//           "x-access-token": `${localStorage.getItem("token")}`,
+//         },
+//       }
+//     );
+//     const data = await res.json();
+//     setAns(data);
+//   };
+
+//   React.useEffect(() => {
+//     getAnswer();
+//   }, []);
+
+//   return <>{JSON.stringify(ans)}</>;
+// }
+// export function BLocking() {
+//   const [dashBoard, setDashBoard] = React.useState([]);
+//   const params = {};
+//   useEffect(() => {
+//     const fetchProduct = async () => {
+//       const dashBoard = await axios.get(
+//         `${Configure.backURL}adminBlock/destroy?userid=${localStorage.getItem(
+//           "selectedIDs"
+//         )}`,
+//         params,
+//         {
+//           headers: {
+//             "Content-Type": "application/json",
+//             "x-access-token": `${localStorage.getItem("token")}`,
+//           },
+//         }
+//       );
+//       setDashBoard(dashBoard.data);
+//     };
+//     fetchProduct();
+//   }, []);
+//   if (!dashBoard) return null;
+//   console.log("resp2",dashBoard)
+//   return dashBoard;
+// }
+
 export async function GetAdminUserList() {
   const dashBoard = await axios.get(`${Configure.backURL}admin/showUsers`, {
     headers: {
@@ -64,8 +160,9 @@ export function GetDashBoardstat() {
     };
     fetchProduct();
   }, []);
+  
   if (!dashBoard) return null;
-  console.log("dashboard",dashBoard)
+  console.log("dashboard", dashBoard);
   return dashBoard;
 }
 
@@ -225,8 +322,7 @@ export async function BLockUser(params) {
 }
 export async function UnBLockUser() {
   var messgae;
-  const params = {
-  };
+  const params = {};
   //   localStorage.getItem("id");
   await axios
     .post(
@@ -245,12 +341,12 @@ export async function UnBLockUser() {
       console.log(response);
       if (response.status === 200) {
         messgae = response;
-        console.log("work")
+        console.log("work");
       }
     })
     .catch((error) => {
       messgae = error.response.data.message;
-      console.log("error")
+      console.log("error");
     });
 
   return messgae;

@@ -31,7 +31,6 @@ import { useState,useEffect } from "react";
 export default function UserNumChart() {
   const usersperyear = GetDashBoardstat()[4]?.users_Per_Year;
 const usersPerMonth=GetDashBoardstat()[3]?.users_Per_Month
-const sortedData = usersperyear?.sort((a,b) => a.x - b.x)
   return (
     <div className="charts">
       <div className="chart">
@@ -51,7 +50,7 @@ const sortedData = usersperyear?.sort((a,b) => a.x - b.x)
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="_id" />
             <YAxis />
-            <Tooltip />
+            <Tooltip contentStyle={{backgroundColor:'#1DA1F2'}} />
             <Legend />
             <Bar dataKey="count" fill="#82ca9d" />
           </BarChart>
@@ -63,7 +62,7 @@ const sortedData = usersperyear?.sort((a,b) => a.x - b.x)
           <LineChart
             width={500}
             height={300}
-            data={sortedData}
+            data={usersperyear}
             margin={{
               top: 5,
               right: 30,
@@ -74,7 +73,7 @@ const sortedData = usersperyear?.sort((a,b) => a.x - b.x)
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="_id"  domain={[0, 10000]} />
             <YAxis />
-            <Tooltip />
+            <Tooltip contentStyle={{backgroundColor:'#1DA1F2'}} />
             <Legend />
             <Line type="monotone" dataKey="totalUsers" stroke="#06562B" />
           </LineChart>

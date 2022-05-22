@@ -9,6 +9,7 @@
   color: #e8f5fe;
 }
 
+
 .App.dark .like_list:hover {
   cursor: pointer;
   color: rgba(226, 51, 28, 0.696);
@@ -187,7 +188,7 @@
   height: max-content;
   background-color: #15202B;
   width: 580px;
-  margin-left: 25%;
+  margin-left: 20%;
 }
 
 .App.dark .name {
@@ -269,5 +270,9 @@
   -webkit-transition: color 100ms ease-out;
   transition: color 100ms ease-out;
   background-color: #1DA1F2;
+}
+.App.dark.bolding{
+  font-weight: bolder;   
+  color: #e8f5fe!important;
 }
 /*# sourceMappingURL=darkmode.css.map */

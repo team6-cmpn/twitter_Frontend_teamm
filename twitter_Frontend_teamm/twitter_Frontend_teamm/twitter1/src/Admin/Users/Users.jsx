@@ -3,6 +3,7 @@ import "./users.css";
 import BlockIcon from "@material-ui/icons/Block";
 import { DataGrid } from "@mui/x-data-grid";
 import {
+  BLocking,
   GetDashBoardstat,
   GetUserList,
   UnBLockUser,
@@ -10,7 +11,9 @@ import {
 import BlockForm from "./BlockForm";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import Configure from "../../Configure";
+
 /**
  *
  * this function returns a sortable datagrid that shows all the users in twitter
@@ -29,18 +32,18 @@ import { Link } from "react-router-dom";
 //       setTweetsPerMonth(temptweetsPerMonth);
 //     })();
 //   }, []);
-
-
+const getBlock = (params) => params.getValue(params.id, "admin_block");
+const getUserImg = (params) => params.getValue(params.id, "profile_image_url");
 const columns = [
   {
     title: "Avatar",
-    field: "profile_image_url",
+    field: "User_img",
     headerName: "Image",
     sortable: false,
     renderCell: (params) => (
       <img
         style={{ width: 36, height: 36, borderRadius: "50%" }}
-        src={params.value}
+        src={`${Configure.backURL}${getUserImg(params)}`}
         alt="userimg"
       />
     ),
@@ -54,7 +57,6 @@ const columns = [
     headerName: "Is Blocked",
     sortable: false,
     valueFormatter: ({ value }) => value.blocked_by_admin,
-    cellClassName: "isblocked",
     type: "string",
     seed: "12",
     width: 120,
@@ -69,7 +71,19 @@ const columns = [
   //   seed:'11',
   //   width: 120,
   // },
-  { field: "dateOfBirth", headerName: "Date Of Birth", width: 110 },
+  {
+    field: "Number Block",
+    headerName: "Blocked Times",
+    width: 110,
+    sortable:true,
+    renderCell: (params) => {
+      return (
+        <div className="blockedtimes">
+            {getBlock(params).blockNumTimes}
+        </div>
+      );
+    },
+  },
   { field: "_id", headerName: "User ID", width: 110 },
   {
     field: "block",
@@ -80,9 +94,11 @@ const columns = [
       return (
         <div>
           <div className="cellAction">
-            <Link to="/BlockForm" style={{ textDecoration: "none" }}>
-              <div className="viewButton">Block</div>
-            </Link>
+            {getBlock(params).blocked_by_admin === false ? (
+              <Link to="/BlockForm" style={{ textDecoration: "none" }}>
+                <div className="viewButton">Block</div>
+              </Link>
+            ) : null}
           </div>
         </div>
       );
@@ -93,20 +109,33 @@ const columns = [
     headerName: "Uncblock",
     sortable: false,
     renderCell: (params) => {
-      const unblock = (e) => {
-        var resp = UnBLockUser();
+      function Unblock() {
+        const resp = UnBLockUser([]);
         console.log("unblocked res", resp);
-        if(resp.status===200){
-          window.location.href="/Users"
-        }
+        // const navigate = useNavigate();
+        resp.then(function (result) {
+          console.log("result", result);
+          // istest(result);
+          if (result.status === 200) {
+            console.log("final test", result.status);
+            window.location.href = "/Users";
+          }
+        });
         localStorage.setItem("selectedIDs", null);
-      };
+      }
 
       return (
         <div>
-          <div className="deleteButton" onClick={() => unblock([])}>
-            Unblock
-          </div>
+          {getBlock(params).blocked_by_admin === true ? (
+            <div
+              className="deleteButton"
+              onClick={() => {
+                Unblock();
+              }}
+            >
+              Unblock
+            </div>
+          ) : null}
         </div>
       );
     },
@@ -115,22 +144,10 @@ const columns = [
 
 export default function AdminUsers() {
   const userlist = GetUserList();
+
   const [selectedRows, setSelectedRows] = React.useState([]);
 
   console.log("users", userlist);
-  const [isblocked, setIsBlock] = React.useState([]);
-  
-
-  useEffect(() => {
-    (async () => {
-      const resp = await GetUserList();
-      let tempisblocked = [...resp.data[3].users_Per_Month];
-      tempisblocked.forEach((element, index) => {
-        tempisblocked[index].isblocked = element.admin_block.blocked_by_admin;
-      });
-      setIsBlock(tempisblocked);
-    })();
-  }, []);
   return (
     <div className="Users">
       <span className="Userstitle">Users List</span>
@@ -138,9 +155,9 @@ export default function AdminUsers() {
         <DataGrid
           getRowId={(userlist) => userlist._id}
           rows={userlist}
-          getRowClassName={(params) => `super-app-theme--${params.row.status}`}
           checkboxSelection
           columns={columns}
+          onCellFocusOut={(e) => console.log(e.admin_block)}
           onSelectionModelChange={(ids) => {
             const selectedIDs = new Set(ids);
             setSelectedRows(selectedIDs);

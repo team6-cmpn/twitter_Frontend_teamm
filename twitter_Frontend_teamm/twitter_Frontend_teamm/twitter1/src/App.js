@@ -1,9 +1,10 @@
 import "./App.css";
-import { 
-  BrowserRouter as Router, 
-  Navigate, 
-  Route, 
-  Routes } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Navigate,
+  Route,
+  Routes,
+} from "react-router-dom";
 import StartPage from "./Components/StartPage/StartPage";
 import SignUp from "./Components/SignUp/SignUp";
 import React, { useContext } from "react";
@@ -38,79 +39,93 @@ import BlockedAccounts from "./Components/Settings/BlockedAccounts";
 import Changephone from "./Components/Settings/ChangePhone";
 import ChangeEmail from "./Components/Settings/ChangeEmail";
 import MutedAccounts from "./Components/Settings/MutedAccounts";
-import Explor from "./Components/Explore/Explor";
-import './Components/darkmode.css'
+import Explor from "./Components/Explore/Explor"
+import "./Components/darkmode.css";
 import { ThemeContext } from "./ThemeContext";
 
 function App() {
   const theme = useContext(ThemeContext);
   //const {darkMode}=useContext(DarkModeContext)
-  const privateUser = localStorage.getItem('userId');
+  const privateUser = localStorage.getItem("userId");
   //console.log(privateUser)
   const authenticate = () => {
-    console.log()
+    console.log();
     if (privateUser) {
-      return "/home"
+      return "/home";
     } else {
-      return "/"
+      return "/";
     }
-  }
+  };
   return (
     <Router>
       <div className={theme.state.darkMode ? "App dark" : "App"}>
         <Routes>
-          {!privateUser && <>
-            <Route path="/" element={<StartPage />}>
-              <Route path="/signup" element={<SignUp />} />
-              <Route path="/googlesignup" element={<GoogleSignUp />} />
-            </Route>
-            <Route path="/login" element={<LogIn />}></Route>
-            <Route path="/forgetpassword" element={<ForgetPassword />}></Route>
-          </>}
+        <Route path="/:username" element={<User />}exact />
 
-          {privateUser && <>
-            <Route path="/logout" element={<LogOut />}></Route>
-            <Route path="/home" element={<Home />} />
-            <Route path="/post" element={<Post />} />
-            <Route path="/explor" element={<Explor />} />
-            <Route path="/explore" element={<Explore />} />
-            <Route path="/Notifications" element={<Notifications />} />
-            <Route path="/Settings" element={<Settings />}>
-              <Route path="change-username" element={<ChangeUsername />} />
-              <Route path="change-password" element={<Changepassword />} />
-              <Route path="your-account" element={<YourAccount />} />
-              <Route path="privacy-and-saftey" element={<PrivacyAndSafety />} />
-              <Route path="MuteandBlock" element={<MuteandBlock />} />
-              <Route path="Your-twitter-data" element={<AccountInformation />} />
-              <Route path="Deactivate-your-Acc" element={<DeactivateAcc />} />
-              <Route path="Blocked-accounts" element={<BlockedAccounts />} />
-              <Route path="Muted-accounts" element={<MutedAccounts />} />
-              <Route path="change-phone-number" element={<Changephone />} />
-              <Route path="change-email" element={<ChangeEmail />} />
-            </Route>
-            {localStorage.getItem("userId") === "62841b870bd3ff9a040987c5" ? (
-              <>
-                <Route path="/adminPage" element={<AdminHome />} />
-                <Route path="/Users" element={<FinalUser />} />
-                <Route path="/Statistics" element={<Statistics />} />
-                <Route path="/BlockForm" element={<BlockForm />} />
-              </>
-            ) : null}
+          {!privateUser && (
+            <>
+              <Route path="/" element={<StartPage />}>
+                <Route path="/signup" element={<SignUp />} />
+                <Route path="/googlesignup" element={<GoogleSignUp />} />
+              </Route>
+              <Route path="/login" element={<LogIn />}></Route>
+              <Route
+                path="/forgetpassword"
+                element={<ForgetPassword />}
+              ></Route>
+            </>
+          )}
 
-            <Route path="/profile" element={<Profile />}>
-              {" "}
-            </Route>
-            <Route path="/Followers" element={<Followers />}></Route>
-            <Route path="/Following" element={<Following />}></Route>
-            <Route path="/UserFollowers" element={<UserFollowers />}></Route>
-            <Route path="/UserFollowing" element={<UserFollowing />}></Route>
-            {/* <Route path="/:username" element={<User />} /> */}
-            {/* <Route path="/profile/:username" element={<User />} /> */}
-            <Route path="/bookmarks" element={<Bookmarks />} />
-          </>}
+          {privateUser && (
+            <>
+              <Route path="/logout" element={<LogOut />}></Route>
+              <Route path="/home" element={<Home />} />
+              <Route path="/post" element={<Post />} />
+              <Route path="/explore" element={<Explore />} />
+              <Route path="/explor" element={<Explor />} />
+              <Route path="/Notifications" element={<Notifications />} />
+              <Route path="/Settings" element={<Settings />}>
+                <Route path="change-username" element={<ChangeUsername />} />
+                <Route path="change-password" element={<Changepassword />} />
+                <Route path="your-account" element={<YourAccount />} />
+                <Route
+                  path="privacy-and-saftey"
+                  element={<PrivacyAndSafety />}
+                />
+                <Route path="MuteandBlock" element={<MuteandBlock />} />
+                <Route
+                  path="Your-twitter-data"
+                  element={<AccountInformation />}
+                />
+                <Route path="Deactivate-your-Acc" element={<DeactivateAcc />} />
+                <Route path="Blocked-accounts" element={<BlockedAccounts />} />
+                <Route path="Muted-accounts" element={<MutedAccounts />} />
+                <Route path="change-phone-number" element={<Changephone />} />
+                <Route path="change-email" element={<ChangeEmail />} />
+              </Route>
+              {localStorage.getItem("userId") === "6288354147920b8837e95dc0" ? (
+                <>
+                  <Route path="/adminPage" element={<AdminHome />} />
+                  <Route path="/Users" element={<FinalUser />} />
+                  <Route path="/Statistics" element={<Statistics />} />
+                  <Route path="/BlockForm" element={<BlockForm />} />
+                </>
+              ) : null}
+
+              <Route path="/profile" element={<Profile />}>
+                {" "}
+              </Route>
+              <Route path="/Followers" element={<Followers />}></Route>
+              <Route path="/Following" element={<Following />}></Route>
+              <Route path="/UserFollowers" element={<UserFollowers />}></Route>
+              <Route path="/UserFollowing" element={<UserFollowing />}></Route>
+              {/* <Route path="/profile/:username" element={<User />} /> */}
+              <Route path="/bookmarks" element={<Bookmarks />} />
+            </>
+          )}
           {/* <Route path="/:username" element={<User />} exact />  */}
           <Route path="/" element={<Navigate to={authenticate()} />} />
-          <Route path="*" element={<Navigate to={'/'} />} />
+          <Route path="*" element={<Navigate to={"/"} />} />
         </Routes>
       </div>
     </Router>

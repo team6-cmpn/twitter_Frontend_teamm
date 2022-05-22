@@ -23,21 +23,28 @@ const FollowersList = ({ FollowerAccount }) => {
     const onExist = () => {
       setModalVisible(false);
     };
-    // const follow=getFollowingList();
-    // follow.then(data=>{setfollowing(data)});
-    // console.log(following);
+
     console.log(FollowerAccount._id)
+    var logged_in_id=localStorage.getItem("userId");
     return (
       <div className="Accountinfo_dec">
           <Avatar src='' />
-          <h5 onClick={localStorage.setItem("clicked_userID",FollowerAccount?._id)}><Link to={`/${FollowerAccount?.username}`}>{FollowerAccount?.name}</Link></h5>
+          <h5 onClick={localStorage.setItem("clicked_userID",FollowerAccount?._id)}>
+            {logged_in_id!==FollowerAccount?._id?(
+            <Link to={`/${FollowerAccount?.username}`}>
+              {FollowerAccount?.name}
+              </Link>
+              ):(
+              <Link to={`/profile`}></Link>)}
+              </h5>
           <h6>{FollowerAccount?.username}</h6>
-          <button id="FollowButton" class="ButtonFollow" onClick={() =>{if (textState==="Follow")
+          {logged_in_id!==FollowerAccount?._id?(<button id="FollowButton" class="ButtonFollow" onClick={() =>{if (textState==="Follow")
             toggleText();
             else
             onSubModel();} }>
                 {textState}   
-            </button> 
+            </button>):(null)}
+
                     <Modal
                     style={{textAlign: "center"}}
                 

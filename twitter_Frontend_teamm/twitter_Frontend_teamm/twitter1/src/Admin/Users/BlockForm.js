@@ -6,6 +6,8 @@ import TopBar from "../TopBar";
 import "./blockform.css";
 import { Navigate } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+
 /**
  *
  * this function returns a block form which you input number of days that the admin
@@ -25,24 +27,38 @@ function BlockForm() {
   };
   // below function will be called when user
   // click on submit button .
-  const [test, istest] = React.useState();
-  const handleSubmit = (e) => {
-    // if (duration < 0) {
-    //   alert("please enter valid value for block days");
-    //   // setErrorMessage("Please enter whole integr greater than 0")
-    //   // {errorMessage && <div className="error"> {errorMessage} </div>}
-    // } else {
-    const resp = BLockUser(body);
-    localStorage.setItem("selectedIDs", null);
-    console.log("..", resp);
-    var promiseB = resp.then(function (result) {
-      console.log("result", result);
-      istest(result);
+  // const notify = () => {
+  //   toast.info("Please Enter Valid Number Of Days To Be Blocked", {
+  //     position: toast.POSITION.BOTTOM_CENTER,
+  //   });
+  // };
+  const notify = () => {
+    toast.info("Password succesfully changed", {
+      position: toast.POSITION.BOTTOM_CENTER,
     });
-    console.log("finn", promiseB);
-    navigate("/Users");
-    console.log("test", test);
-    e.preventDefault(); //prevent refresh of page
+  };
+
+  const [test, istest] = React.useState();
+  const handleSubmit = async (e) => {
+    const resp = BLockUser(body);
+    if (duration < 0) {
+      {
+        notify();
+
+      }
+    } else {
+      localStorage.setItem("selectedIDs", null);
+      console.log("..", resp);
+      var promiseB = resp.then(function (result) {
+        console.log("result", result);
+        if (result === 200) {
+          window.location.href = "/Users";
+        }
+      });
+
+      console.log("test", test);
+      e.preventDefault(); //prevent refresh of page
+    }
   };
   var body = { duration: duration };
   sessionStorage.setItem("duration", duration);
@@ -58,7 +74,7 @@ function BlockForm() {
                 <header className="BlockForm-header">
                   <form
                     className="Block_Form"
-                    onSubmit={(e) => {
+                    onSubmit={async (e) => {
                       handleSubmit(e);
                     }}
                   >
@@ -70,14 +86,14 @@ function BlockForm() {
                       type="number"
                       value={duration}
                       required
-                      onChange={(e) => {
+                      onChange={async (e) => {
                         handleChange(e);
                       }}
                     />
                     <br />
                     <br />
                     <a>
-                      <input type="submit" value="Submit" />
+                      <input type="submit" value="Submit" id="SubmitBlocking" />
                     </a>
                   </form>
                 </header>
@@ -86,8 +102,9 @@ function BlockForm() {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
- };
+}
 
 export default BlockForm;

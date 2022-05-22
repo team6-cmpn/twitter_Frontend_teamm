@@ -64,34 +64,30 @@ const Post = ({
   const [mentioned, setmentioned] = useState(false);
   const [lie, setlikeslist] = useState([]);
   const [ret, setretweeters] = useState([]);
+  const [clicked_, setclicked_] = useState(false);
+  const [mentionModel, setmentionModel] = useState(false);
 
   const [book_mark_color, setbook_mark_color] = useState("black");
   const [add, setAdd] = useState("");
 
   const user = backend.GetUserInfo(user_tweeted_id);
+  const blocked = backend.GetUserInfo(logedin_user_id);
 
   const [test, istest] = React.useState();
   const [if_blocked, setif_blocked] = React.useState();
   user.then(function (result) {
-    console.log("result", result);
+    // console.log("result", result);
     istest(result);
-    setif_blocked(result.admin_block?.blocked_by_admin);
+  });
+  blocked.then(function (res) {
+    setif_blocked(res.admin_block?.blocked_by_admin);
   });
   var Url_avatar = test?.profile_image_url;
 
-  console.log(if_blocked);
+  // console.log(if_blocked);
 
-  // var if_blocked = test.admin_block?.blocked_by_admin;
-
-  // if_blocked_resp.then((text) => {
-  //   setif_blocked(text.admin_block?.blocked_by_admin);
-  //   console.log(if_blocked_resp)
-  // });
-  // const if_blocked = localStorage.getItem("isblocked");
-
-  // localStorage.setItem('bookmarkFlag',false);
   const [BookmarkState, setBookmarkState] = useState("add");
-  console.log(if_blocked);
+  // console.log(if_blocked);
   const toggleBookmarkState = () => {
     setBookmarkState((state) => (state === "Unadd" ? "add" : "Unadd"));
   };
@@ -131,7 +127,7 @@ const Post = ({
   const [isOpen, setIsOpen] = useRecoilState(modalState);
 
   const in_tweet = backend.getTweet(tweet_id);
-  console.log("in post likes number" + likes);
+  // console.log("in post likes number" + likes);
 
   if (user_liked_tweet !== "false" && user_liked_tweet !== "true") {
     in_tweet.then((text) => {
@@ -143,7 +139,7 @@ const Post = ({
   if (user_retweted_tweet !== "true" && user_retweted_tweet !== "false") {
     in_tweet.then((text) => {
       setif_retweeted(text?.isRetweeted);
-      console.log("retweeeet number " + retweet_no);
+      // console.log("retweeeet number " + retweet_no);
     });
   } else {
     setif_retweeted(user_retweted_tweet);
@@ -154,16 +150,16 @@ const Post = ({
    */
 
   function likePost() {
-    console.log("liked" + if_liked);
+    // console.log("liked" + if_liked);
     if (if_liked === false) {
       //post is liked
       (async () => {
         const like_post = backend.likePost(tweet_id);
-        console.log(tweet_id);
+        // console.log(tweet_id);
         setlike_color("#e21f05");
-        console.log(like_post);
+        // console.log(like_post);
         like_post.then((text) => {
-          console.log(text);
+          // console.log(text);
           setlike_no(text.favorite_count);
         });
         setif_liked(true);
@@ -185,29 +181,29 @@ const Post = ({
    */
 
   function retweet() {
-    console.log("retweeted==" + if_retweeted);
+    // console.log("retweeted==" + if_retweeted);
     if (if_retweeted === false) {
       //retweet
       (async () => {
-        console.log("ini false");
+        // console.log("ini false");
         const retweet = backend.Retweet_tweet(tweet_id);
-        console.log(retweet);
+        // console.log(retweet);
         retweet.then(function (tempresult) {
           setretweet_no(tempresult?.retweet_count);
-          console.log(tempresult?.retweetUsers.length);
+          // console.log(tempresult?.retweetUsers.length);
         });
         setretweet_color("#14fe10");
         setif_retweeted(true);
-        console.log("after seytting " + if_retweeted);
+        // console.log("after seytting " + if_retweeted);
       })();
     } else if (if_retweeted === true) {
       (async () => {
-        console.log("ini true");
+        // console.log("ini true");
         //unretwett
         const unretweet = backend.UNRetweet_tweet(tweet_id);
-        console.log(unretweet);
+        // console.log(unretweet);
         unretweet.then(function (tempresult) {
-          console.log(tempresult?.retweet_count);
+          // console.log(tempresult?.retweet_count);
           setretweet_no(tempresult?.retweetUsers.length);
         });
         setretweet_color("black");
@@ -221,8 +217,8 @@ const Post = ({
   var clicked = "";
 
   const openPost = async () => {
-    if (tweet_id === "undefined") {
-    } else {
+    console.log(clicked_);
+    if (clicked_ === false) {
       navigate("/post");
       clicked = localStorage.setItem("clicked.ID", tweet_id);
     }
@@ -279,15 +275,25 @@ const Post = ({
   const get_mention = async () => {
     open = false;
     setmentioned(true);
+    logedin_user_id !== mentioned_user
+      ? mentioned_user
+        ? (window.location.href = `/${mention}`)
+        : setmentionModel(true)
+      : (window.location.href = `/profile`);
+
     localStorage.setItem("clicked_userID", mentioned_user);
-    navigate(`/${mention}`);
   };
+  console.log("mention use " + mentioned_user);
+
   /**
    * store the clicked name's user id in storage
    */
   const store_userID = () => {
     localStorage.setItem("clicked_userID", user_tweeted_id);
-    navigate(`/${username}`);
+
+    logedin_user_id !== user_tweeted_id
+      ? (window.location.href = `/${username}`)
+      : (window.location.href = `/profile`);
   };
 
   return (
@@ -315,7 +321,7 @@ const Post = ({
         </div>
       )}
       <div
-        onClick={() => {
+        onDoubleClick={() => {
           openPost();
         }}
         className="border"
@@ -365,13 +371,7 @@ const Post = ({
                   </div>
                 </span>
               </div>
-              <div
-                onClickCapture={() => {
-                  openPost();
-                }}
-              >
-                {image && <ImageBox images={image} deleteEnabled />}
-              </div>
+              <div>{image && <ImageBox images={image} deleteEnabled />}</div>
               {open === true && (
                 <div className="app lists">
                   <div className="like_list" onClick={() => openlikes()}>
@@ -536,6 +536,28 @@ const Post = ({
             <div>no retweets yet!</div>
           )}
         </Modal>
+        <Modal
+          title={
+            <h1
+              style={{fontSize: "180%", marginTop: "10px", color: "Dodgerblue"}}
+            >
+              No user FOUND !!{" "}
+            </h1>
+          }
+          style={{textAlign: "center"}}
+          cancelButtonProps={{style: {display: "none"}}}
+          visible={mentionModel}
+          bodyStyle={{
+            height: "inherit",
+            width: "inherit",
+            font: "Helvetica",
+            textAlign: "left",
+          }}
+          alignItems={{top: Window}}
+          onCancel={() => setmentionModel(false)}
+          footer={null}
+          maskClosable={false}
+        ></Modal>
       </div>
     </div>
   );

@@ -59,6 +59,8 @@ function App() {
     <Router>
       <div className={theme.state.darkMode ? "App dark" : "App"}>
         <Routes>
+        <Route path="/:username" element={<User />}exact />
+
           {!privateUser && (
             <>
               <Route path="/" element={<StartPage />}>
@@ -79,6 +81,7 @@ function App() {
               <Route path="/home" element={<Home />} />
               <Route path="/post" element={<Post />} />
               <Route path="/explore" element={<Explore />} />
+              
               <Route path="/Notifications" element={<Notifications />} />
               <Route path="/Settings" element={<Settings />}>
                 <Route path="change-username" element={<ChangeUsername />} />
@@ -115,7 +118,6 @@ function App() {
               <Route path="/Following" element={<Following />}></Route>
               <Route path="/UserFollowers" element={<UserFollowers />}></Route>
               <Route path="/UserFollowing" element={<UserFollowing />}></Route>
-              {/* <Route path="/:username" element={<User />} /> */}
               {/* <Route path="/profile/:username" element={<User />} /> */}
               <Route path="/bookmarks" element={<Bookmarks />} />
             </>

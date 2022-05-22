@@ -26,7 +26,7 @@ function Home_feed(event) {
   // console.log(backend.Tweets_lookup(1, page + 2));
   return (
     <div className=" feed respons">
-      <div className="  feed__header for_home">Home</div>
+      <div className="  feed__header for_home"><span>Home</span></div>
       <HomeTweet />
       <RecoilRoot>
         {postData && <Feed data={postData} isEnded={isEnded} />}

@@ -216,7 +216,7 @@ function Sidebar() {
             </div>
           </a>
         </li>
-        {localStorage.getItem("userId") === "6288354147920b8837e95dc0"?(        <li>
+        {localStorage.getItem("userId") === "628a2840f29d637f2fc205b9"?(        <li>
           <a href="/adminPage">
             <AdminPanelSettingsIcon className="icons" />
             <div className="t">Admin</div>

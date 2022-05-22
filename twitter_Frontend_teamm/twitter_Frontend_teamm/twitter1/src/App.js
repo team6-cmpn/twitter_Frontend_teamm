@@ -60,7 +60,6 @@ function App() {
     <Router>
       <div className={theme.state.darkMode ? "App dark" : "App"}>
         <Routes>
-        <Route path="/:username" element={<User />}exact />
 
           {!privateUser && (
             <>
@@ -103,7 +102,7 @@ function App() {
                 <Route path="change-phone-number" element={<Changephone />} />
                 <Route path="change-email" element={<ChangeEmail />} />
               </Route>
-              {localStorage.getItem("userId") === "6288354147920b8837e95dc0" ? (
+              {localStorage.getItem("userId") === "628a2840f29d637f2fc205b9" ? (
                 <>
                   <Route path="/adminPage" element={<AdminHome />} />
                   <Route path="/Users" element={<FinalUser />} />
@@ -111,7 +110,11 @@ function App() {
                   <Route path="/BlockForm" element={<BlockForm />} />
                 </>
               ) : null}
-
+              {localStorage.getItem("userId") !== null ? (
+                <>
+                <Route path="/:username" element={<User />}exact />
+                </>
+              ) : null}
               <Route path="/profile" element={<Profile />}>
                 {" "}
               </Route>

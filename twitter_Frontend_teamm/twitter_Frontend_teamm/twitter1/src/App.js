@@ -1,5 +1,9 @@
 import "./App.css";
-import { BrowserRouter as Router, Navigate, Route, Routes } from "react-router-dom";
+import { 
+  BrowserRouter as Router, 
+  Navigate, 
+  Route, 
+  Routes } from "react-router-dom";
 import StartPage from "./Components/StartPage/StartPage";
 import SignUp from "./Components/SignUp/SignUp";
 import React, { useContext } from "react";
@@ -7,7 +11,7 @@ import LogIn from "./Components/SignIn/LogIn";
 import LogOut from "./Components/SignOut/LogOut";
 import ForgetPassword from "./Components/SignIn/forgetPassword";
 import GoogleSignUp from "./Components/SignUp/GoogleSignUp";
-import Explore from "./Components/Explore";
+import Explore from "./Components/Explore/Explore";
 import Home from "./Components/Home";
 import Post from "./Components/onePost";
 import Notifications from "./Components/Notifications";
@@ -34,41 +38,41 @@ import BlockedAccounts from "./Components/Settings/BlockedAccounts";
 import Changephone from "./Components/Settings/ChangePhone";
 import ChangeEmail from "./Components/Settings/ChangeEmail";
 import MutedAccounts from "./Components/Settings/MutedAccounts";
+import Explor from "./Components/Explore/Explor";
 import './Components/darkmode.css'
 import { ThemeContext } from "./ThemeContext";
 
 function App() {
   const theme = useContext(ThemeContext);
   //const {darkMode}=useContext(DarkModeContext)
-  const privateUser=localStorage.getItem('userId');
+  const privateUser = localStorage.getItem('userId');
   //console.log(privateUser)
-  const authenticate=()=>{
+  const authenticate = () => {
     console.log()
-    if (privateUser){
-
+    if (privateUser) {
       return "/home"
-    }else{
-
+    } else {
       return "/"
     }
   }
   return (
     <Router>
-      <div className={theme.state.darkMode ?"App dark":"App"}>
+      <div className={theme.state.darkMode ? "App dark" : "App"}>
         <Routes>
           {!privateUser && <>
-          <Route path="/" element={<StartPage />}>
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/googlesignup" element={<GoogleSignUp />} />
-          </Route>
-          <Route path="/login" element={<LogIn />}></Route>
-          <Route path="/forgetpassword" element={<ForgetPassword />}></Route>
+            <Route path="/" element={<StartPage />}>
+              <Route path="/signup" element={<SignUp />} />
+              <Route path="/googlesignup" element={<GoogleSignUp />} />
+            </Route>
+            <Route path="/login" element={<LogIn />}></Route>
+            <Route path="/forgetpassword" element={<ForgetPassword />}></Route>
           </>}
 
           {privateUser && <>
             <Route path="/logout" element={<LogOut />}></Route>
             <Route path="/home" element={<Home />} />
             <Route path="/post" element={<Post />} />
+            <Route path="/explor" element={<Explor />} />
             <Route path="/explore" element={<Explore />} />
             <Route path="/Notifications" element={<Notifications />} />
             <Route path="/Settings" element={<Settings />}>
@@ -103,10 +107,10 @@ function App() {
             {/* <Route path="/:username" element={<User />} /> */}
             {/* <Route path="/profile/:username" element={<User />} /> */}
             <Route path="/bookmarks" element={<Bookmarks />} />
-            </>}
-            {/* <Route path="/:username" element={<User />} exact />  */}
-          <Route path="/" element={<Navigate to={authenticate()}/>}/>
-          <Route path="*" element={<Navigate to={'/'}/>} />
+          </>}
+          {/* <Route path="/:username" element={<User />} exact />  */}
+          <Route path="/" element={<Navigate to={authenticate()} />} />
+          <Route path="*" element={<Navigate to={'/'} />} />
         </Routes>
       </div>
     </Router>

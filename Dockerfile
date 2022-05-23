@@ -11,20 +11,6 @@ WORKDIR /client
 COPY package.json ./
 COPY package-lock.json ./
 RUN npm install
-RUN npm i react-router-dom
-RUN npm install antd
-RUN npm install antd-css-utilities
-RUN npm install validator
-RUN npm i json-server
-RUN npm install axios
-RUN npm i @emotion/react @emotion/styled
-RUN npm install @emotion/react --save
-RUN npm install @emotion/core@10.1.1
-RUN npm install @mui/icons-material
-RUN npm i @babel/core
-RUN npm i @babel/code-frame
-RUN npm i @mui/x-data-grid
-RUN npm i @babel/eslint-parser
 # add app
 COPY . .
 

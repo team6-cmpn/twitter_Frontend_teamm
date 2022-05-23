@@ -32,11 +32,9 @@ function Feed(data) {
       console.log(resp.data.length);
       if (resp.status === 200) {
         setpostData([...postData, ...resp.data]);
-        if (resp.data.length !== 0) {
-          setended(false);
+        if (resp.data.length === 0) {
+          setended(true);
         }
-      } else {
-        setended(true);
       }
     })();
   };
@@ -47,7 +45,7 @@ function Feed(data) {
         <InfiniteScrool
           dataLength={postData.length}
           next={fetchData}
-          hasMore
+          hasMore={ended === false}
           loader={<h4 className="loading ">Loading..</h4>}
           endMessage={
             <p style={{textAlign: "center"}}>

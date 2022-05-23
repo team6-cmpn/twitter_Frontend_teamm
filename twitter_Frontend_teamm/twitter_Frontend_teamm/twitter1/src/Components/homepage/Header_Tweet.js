@@ -112,7 +112,8 @@ function Tweetbox(props, flaged_color) {
         };
         setCOLRO("transparent");
         backend.Post_Tweet(body);
-        ref();
+        // ref();
+        // window.location.reload();
       }
     })();
 

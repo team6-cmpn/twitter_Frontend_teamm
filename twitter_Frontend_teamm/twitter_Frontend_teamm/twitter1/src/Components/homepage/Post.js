@@ -140,6 +140,7 @@ const Post = ({
   if (user_liked_tweet !== "false" && user_liked_tweet !== "true") {
     in_tweet.then((text) => {
       setif_liked(text?.isLiked);
+      setlike_no(text.tweet?.favorites.length);
     });
   } else {
     setif_liked(user_liked_tweet);
@@ -147,6 +148,7 @@ const Post = ({
   if (user_retweted_tweet !== "true" && user_retweted_tweet !== "false") {
     in_tweet.then((text) => {
       setif_retweeted(text?.isRetweeted);
+      setretweet_no(text.tweet?.retweetUsers.length);
     });
   } else {
     setif_retweeted(user_retweted_tweet);
@@ -238,7 +240,6 @@ const Post = ({
     if (likes_list.length !== 0) {
       likes_list.then(function (tempresult) {
         setlikeslist(tempresult?.favoriteusers);
-        setlike_no(tempresult?.favoriteusers.length);
       });
     }
     setlikeModalVisible(true);
@@ -250,7 +251,6 @@ const Post = ({
     retweeters_list = backend.Retweeters_list(tweet_id);
     retweeters_list.then(function (tempresult) {
       setretweeters(tempresult?.retweetersList);
-      setretweet_no(tempresult?.retweetersList.length);
     });
 
     setretweetModalVisible(true);
@@ -280,7 +280,6 @@ const Post = ({
    *
    */
   const get_mention = async () => {
-    open = false;
     setmentioned(true);
     logedin_user_id !== mentioned_user
       ? mentioned_user
@@ -334,7 +333,7 @@ const Post = ({
         className="border"
       >
         <div className="post">
-          <div className="img_circle">
+          <div className="img_circle" onClickCapture={store_userID}>
             <span>
               <img
                 id="user imag "

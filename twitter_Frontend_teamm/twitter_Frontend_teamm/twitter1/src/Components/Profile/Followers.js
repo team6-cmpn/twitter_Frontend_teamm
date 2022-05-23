@@ -3,8 +3,8 @@ import React from 'react';
 import { useState } from 'react';
 import Trends from "../Widgets/Trends";
 import Sidebar from "../Sidebar/Sidebar";
-import { getFollowerUsers } from "./FollowersMock";
-import { getFollowingUsers } from "./FollowersMock";
+// import { getFollowerUsers } from "./FollowersMock";
+// import { getFollowingUsers } from "./FollowersMock";
 import FollowersList from './FollowersList';
 import FollowingList from './FollowingList';
 import axios from 'axios';
@@ -68,22 +68,22 @@ function Followers() {
             
                 },[])
         
-    const [FollowerUsers,setFollowerUsers]=React.useState([])
-    React.useEffect(()=>{
-        (async () => {
-            const resp = await getFollowerUsers();
-            setFollowerUsers(resp);
-          })();
+    // const [FollowerUsers,setFollowerUsers]=React.useState([])
+    // React.useEffect(()=>{
+    //     (async () => {
+    //         const resp = await getFollowerUsers();
+    //         setFollowerUsers(resp);
+    //       })();
     
-        },[])
-    const [FollowingUsers,setFollowingUsers]=React.useState([])
-    React.useEffect(()=>{
-        (async () => {
-            const resp = await getFollowingUsers();
-            setFollowingUsers(resp);
-          })();
+    //     },[])
+    // const [FollowingUsers,setFollowingUsers]=React.useState([])
+    // React.useEffect(()=>{
+    //     (async () => {
+    //         const resp = await getFollowingUsers();
+    //         setFollowingUsers(resp);
+    //       })();
     
-        },[])
+    //     },[])
     const [isFollowers, setIsFollowers] = useState(true);
     return (
         <div>
@@ -107,9 +107,9 @@ function Followers() {
                 <article>
           {isFollowers ? (
             <>
-             <div> {FollowerUsers.map((FollowerUsers,index)=>(
+             {/* <div> {FollowerUsers.map((FollowerUsers,index)=>(
                 <FollowersList key={index} FollowerAccount={FollowerUsers}/>))}
-              </div>
+              </div> */}
                 <div>
                     {FollowersLists.map((FollowerUsers,index)=>(
                     <FollowersList key={index} FollowerAccount={FollowerUsers}/>))}
@@ -117,9 +117,9 @@ function Followers() {
             </>
           ) : (
             <>
-                <div>{FollowingUsers.map((FollowingUsers,index)=>(
+                {/* <div>{FollowingUsers.map((FollowingUsers,index)=>(
                 <FollowingList key={index} FollowingAccount={FollowingUsers}/>))}
-                </div>
+                </div> */}
                 <div>{FollowingLists.map((FollowingUsers,index)=>(
                 <FollowingList key={index} FollowingAccount={FollowingUsers}/>))}
                 </div>

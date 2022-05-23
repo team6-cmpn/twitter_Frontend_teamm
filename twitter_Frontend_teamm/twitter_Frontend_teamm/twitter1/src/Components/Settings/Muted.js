@@ -2,7 +2,7 @@ import React from "react";
 import "./settingsSubmenus.css";
 import {Avatar} from "@material-ui/core";
 import { Link } from "react-router-dom";
-
+/**muted account component to view the muted account */
 const Muted = ({ MutedAccount }) => {
   return (
     <div className={`SubsettingsCont `}>

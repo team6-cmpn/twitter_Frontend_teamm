@@ -1,5 +1,6 @@
 import React from "react";
 import "./settingsSubmenus.css";
+/**show you type of menu you have chosen */
 
 function SubsettingsContent({ discrip,Icon ,text, active,Icon2 }) {
   return (

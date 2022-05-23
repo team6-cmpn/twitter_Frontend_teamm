@@ -2,7 +2,11 @@ import React from "react";
 import "./FollowedYou.css";
 import UserIcon from "./UserIcon";
 import { Avatar } from "@material-ui/core";
-
+/**
+ * is shows you who followed you 
+ * @param {followingUser} param0 
+ * @returns 
+ */
 const FollowedYou = ({ followingUser }) => {
   return (
     <div className="followedYou">

@@ -3,6 +3,8 @@ import React, {useState}  from "react";
 import {Modal} from "antd";
 import "./FriendSuggestionItem.css";
 import { Link } from 'react-router-dom';
+import { GetSearchedName } from "../../../Explore/backEndSearch"
+import Configure from "../../../../Configure";
 import{
   MdVerified,
 } from "react-icons/md";
@@ -20,14 +22,48 @@ const FriendSuggestionItem = ({props}) => {
   const toggleText = () => {
     setTextState((state) => (state === "Following" ? "Follow" : "Following"));
   };
+
+  var Url;
+  var searcheduserid;
+  var info = GetSearchedName();
+  console.log("farahhhhhhhhhhhhhhhhhhhhhh",info.data?.user)
+  if(info.data?.usernames)
+  {
+     searcheduserid = info.data?.usernames[1][0]?._id;
+     Url = info.data?.usernames[1][0]?.profile_image_url;
+     console.log("rana");
+  }
+  else
+  {
+     Url = info.data?.user[1][0]?.profile_image_url;
+     console.log("khadija");
+  }
+  
+  const store_userID = () => {
+    localStorage.setItem("clicked_userID",searcheduserid);
+   
+     window.location.href = `/${props.username}`
+   
+  }
+
+  
+  console.log("fawzyyyyyyyyyyyy",info)
+  console.log("fawzyyyyyyy",Url)
   return (
     // <div className="key">
     <div className="friendSuggestionsItem">
      
-        <Avatar src={props.image} /><div className="n">
-        <Link to={`/${props.username}`}>{props.name}</Link> </div>
+        <Avatar src= {`${Configure.backURL}${Url}`} /><div className="n">
+        {/* {console.log("fawzyyyyyyyyyyyyyy",`${Configure.backURL}${Url}`)} */}
+        {/* <Link to={`/${props.username}`} onClickCapture={store_userID} >{props.name}</Link>  */}
+        </div>
+        <h5 onClickCapture={store_userID}>
+            {props.name}
+        </h5>
         <MdVerified className="verify"/>
-    
+        
+        
+
         <span className="user_name">{props.username}</span>
         <div className="friendFollowButton">
         <button className="butto" onClick={() => {

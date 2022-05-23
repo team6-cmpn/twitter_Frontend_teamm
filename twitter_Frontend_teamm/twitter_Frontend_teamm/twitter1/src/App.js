@@ -122,7 +122,7 @@ function App() {
               <Route path="/Following" element={<Following />}></Route>
               <Route path="/UserFollowers" element={<UserFollowers />}></Route>
               <Route path="/UserFollowing" element={<UserFollowing />}></Route>
-              {/* <Route path="/profile/:username" element={<User />} /> */}
+              <Route path="/:username" element={<User />} /> 
               <Route path="/bookmarks" element={<Bookmarks />} />
             </>
           )}

@@ -26,16 +26,17 @@ const FollowingList = ({ FollowingAccount }) => {
     console.log(FollowingAccount._id)
     const store_userID = () => {
       localStorage.setItem("clicked_userID",FollowingAccount?._id);
-  
-      logged_in_id !== FollowingAccount?._id
-        ? (window.location.href = `/${FollowingAccount?.username}`)
-        : (window.location.href = `/profile`);
-    };
+    }
     return (
         <div className="Accountinfo_dec">
             <Avatar src='' />
             <h5 onClickCapture={store_userID}>
+            {logged_in_id!==FollowingAccount?._id?(
+            <Link to={`/${FollowingAccount?.username}`}>
               {FollowingAccount?.name}
+              </Link>
+              ):(
+              <Link to={`/profile`}></Link>)}
               </h5>
           <h6>{FollowingAccount?.username}</h6>
           {logged_in_id!==FollowingAccount?._id?(<button id="FollowButton" class="ButtonFollow" onClick={() =>{if (textState==="Follow")

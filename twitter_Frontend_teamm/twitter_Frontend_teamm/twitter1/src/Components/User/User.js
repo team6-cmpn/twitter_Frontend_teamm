@@ -330,7 +330,7 @@ function User(){
                             <>
                            {LikedTweetsLists.map((userlist, index) => (
                                 <Post
-                                key={index}
+                                // key={index}
                                 displayName={localStorage.getItem(`namelikedtweet ${index}`)}
                                 username={localStorage.getItem(`usernamelikedtweet ${index}`)}
                                 text={userlist?.text}

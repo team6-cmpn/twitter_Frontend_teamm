@@ -173,8 +173,8 @@ export async function GetUserInfo() {
   export async function UpdateProfile(body){
     var message;
     body =  {
-        name: sessionStorage.getItem("name"),
-        description: sessionStorage.getItem("description"),
+        name: localStorage.getItem("name"),
+        description: localStorage.getItem("description"),
       }
      
       await axios

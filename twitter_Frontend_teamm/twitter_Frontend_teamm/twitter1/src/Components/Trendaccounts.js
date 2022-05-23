@@ -1,13 +1,11 @@
 import { Avatar } from "@material-ui/core";
-import React, {useState}  from "react";
-import {Modal} from "antd";
+import React, { useState } from "react";
+import { Modal } from "antd";
 //import "./FriendSuggestionItem.css";
-import { Link } from 'react-router-dom';
-import{
-  MdVerified,
-} from "react-icons/md";
+import { Link } from "react-router-dom";
+import { MdVerified } from "react-icons/md";
 
-function TrendAccounts (props) {
+function TrendAccounts(props) {
   const [isModalVisible, setModalVisible] = useState(false);
   const onSubModel = (stateMain = true) => {
     setModalVisible(stateMain);
@@ -23,26 +21,31 @@ function TrendAccounts (props) {
   return (
     // <div className="key">
     <div className="friendSuggestionsItem">
-     
-        <Avatar src={props.image} /><div className="n">
-        <Link to={`/${props.username}`}>{props.name}</Link> </div>
-        <MdVerified className="verify"/>
-    
-        <span className="user_name">@{props.username}</span>
-        <div className="friendFollowButton">
-        <button className="butto" onClick={() => {
-         if (textState==="Follow")
-         toggleText();
-         else
-         onSubModel();}}>
-         {textState}   
-        </button> 
+      <Avatar src={props.image} />
+      <div className="n">
+        <div style={{ flexDirection: "column", textAlign:"left",marginLeft:"10px"}}>
+          {" "}
+          <Link to={`/${props.username}`}>{props.name}</Link>{" "}
+        </div>
+        <div style={{color:"silver",marginLeft:"10px"}}>@{props.username}</div>
+        <MdVerified className="verify" />
+      </div>
+
+      <div className="friendFollowButton">
+        <button
+          className="butto"
+          onClick={() => {
+            if (textState === "Follow") toggleText();
+            else onSubModel();
+          }}
+        >
+          {textState}
+        </button>
         {/* <button className="butto" onClick={() => ToggleBuuton()}>
             { stat === false ? "Follow":"Following"}
         </button> */}
       </div>
-     
-     
+
       {/* <ul >
        <li>
        <a href="">
@@ -59,7 +62,7 @@ function TrendAccounts (props) {
       <div className="friendFollowButton">
         Follow
       </div> */}
-    
+
       <Modal
         // text={
         //   <h1
@@ -68,23 +71,41 @@ function TrendAccounts (props) {
         //     Unfollow this user{" "}
         //   </h1>
         // }
-        style={{textAlign: "center"}}
-       
+        style={{ textAlign: "center" }}
         visible={isModalVisible}
-        bodyStyle={{height: 300, font: "Helvetica", textAlign: "left"}}
+        bodyStyle={{ height: 300, font: "Helvetica", textAlign: "left" }}
         width={500}
-        alignItems={{top: Window}}
+        alignItems={{ top: Window }}
         onCancel={() => setModalVisible(false)}
         footer={null}
-        
       >
         <div className="for_model">
-          <div style={{fontSize: "200%", marginTop: "10px", color: "black", textAlign: "center" }}>Unfollow this user</div>
-          <div style={{padding: "30px 30px"}}>Their Tweets will no longer show up in your home timeline. You can still view their profile</div>
-          <button onClick={()=>{toggleText(); onExist();}} className="followButton">Unfollow</button>
+          <div
+            style={{
+              fontSize: "200%",
+              marginTop: "10px",
+              color: "black",
+              textAlign: "center",
+            }}
+          >
+            Unfollow this user
+          </div>
+          <div style={{ padding: "30px 30px" }}>
+            Their Tweets will no longer show up in your home timeline. You can
+            still view their profile
+          </div>
+          <button
+            onClick={() => {
+              toggleText();
+              onExist();
+            }}
+            className="followButton"
+          >
+            Unfollow
+          </button>
         </div>
       </Modal>
-     </div>
+    </div>
   );
 }
 

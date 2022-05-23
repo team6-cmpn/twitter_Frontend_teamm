@@ -1,25 +1,23 @@
-import React, {useState, useEffect} from "react";
+import React, {useContext, useRef, useState} from "react";
+import {useNavigate} from "react-router";
+
 import "./feed.css";
-import {modalState, postIdState} from "../atoms/modalAtom";
-import {useRecoilState} from "recoil";
-import {HeartIcon as HeartIconFilled} from "@heroicons/react/solid";
-import {HeartIcon, ShareIcon, TrashIcon} from "@heroicons/react/outline";
 import FollowersList from "../Profile/FollowersList";
 import * as BE from "../Bookmarks/backEndBookmarks";
-import * as mocked from "./feedmock";
 import * as backend from "./backendFeed";
-import {Modal, Result, Popover} from "antd";
-import timeDifference from "./date";
-import {style} from "@mui/system";
 import ImageBox from "./ImageBox";
 import Configure from "../../Configure";
 
-import {useNavigate} from "react-router";
-import {Button} from "@material-ui/core";
+import {modalState} from "../atoms/modalAtom";
 import {Link} from "react-router-dom";
-import {hover} from "@testing-library/user-event/dist/hover";
 import {FaRegBookmark} from "react-icons/fa";
-import {click} from "@testing-library/user-event/dist/click";
+import {useRecoilState} from "recoil";
+import {Modal, Popover} from "antd";
+import timeDifference from "./date";
+
+import {HeartIcon as HeartIconFilled} from "@heroicons/react/solid";
+import {HeartIcon, ShareIcon, TrashIcon} from "@heroicons/react/outline";
+import {Button} from "@material-ui/core";
 
 /**
  * post componnt
@@ -49,46 +47,59 @@ const Post = ({
   user_liked_tweet,
   user_retweted_tweet,
   mentioned_user,
+  bookmark,
 }) => {
   const navigate = useNavigate();
   var timeStamp = timeDifference(new Date(), new Date(date));
 
-  const [if_liked, setif_liked] = useState();
-  const [if_retweeted, setif_retweeted] = useState();
-  const [like_no, setlike_no] = useState(likes);
-  const [retweet_no, setretweet_no] = useState(retweets);
-  const [like_color, setlike_color] = useState("");
-  const [retweet_color, setretweet_color] = useState("");
+  const [test, istest] = React.useState();
+  const [if_blocked, setif_blocked] = React.useState();
+
   const [islikeModalVisible, setlikeModalVisible] = useState(false);
   const [isretweetModalVisible, setretweetModalVisible] = useState(false);
   const [mentioned, setmentioned] = useState(false);
+  const [mentionModel, setmentionModel] = useState(false);
+  const [like_no, setlike_no] = useState(likes);
+  const [retweet_no, setretweet_no] = useState(retweets);
+  const [book_mark_color, setbook_mark_color] = useState("black");
+  const [like_color, setlike_color] = useState("");
+  const [retweet_color, setretweet_color] = useState("");
+
+  const [if_liked, setif_liked] = React.useState(user_liked_tweet);
+  const [if_retweeted, setif_retweeted] = React.useState(user_retweted_tweet);
+
   const [lie, setlikeslist] = useState([]);
   const [ret, setretweeters] = useState([]);
-  const [clicked_, setclicked_] = useState(false);
-  const [mentionModel, setmentionModel] = useState(false);
 
-  const [book_mark_color, setbook_mark_color] = useState("black");
-  const [add, setAdd] = useState("");
+  const [isOpen, setIsOpen] = useRecoilState(modalState);
+  const in_tweet = backend.getTweet(tweet_id);
 
   const user = backend.GetUserInfo(user_tweeted_id);
-  const blocked = backend.GetUserInfo(logedin_user_id);
 
-  const [test, istest] = React.useState();
-  const [if_blocked, setif_blocked] = React.useState();
   user.then(function (result) {
     // console.log("result", result);
     istest(result);
   });
-  blocked.then(function (res) {
-    setif_blocked(res.admin_block?.blocked_by_admin);
-  });
-  var Url_avatar = test?.profile_image_url;
+  const res = backend.GetUserInfo(logedin_user_id);
 
-  // console.log(if_blocked);
+  res.then(function (result) {
+    setif_blocked(result.admin_block?.blocked_by_admin);
+  });
+
+  var Url_avatar = test?.profile_image_url;
 
   const [BookmarkState, setBookmarkState] = useState("add");
   // console.log(if_blocked);
+
   const toggleBookmarkState = () => {
+    // console.log("bookmark" + bookmark);
+    // if (bookmark === true) {
+    //   setBookmarkState("add");
+    //   setbook_mark_color("#1d9cf0");
+    // } else {
+    //   setBookmarkState("Unadd");
+    //   setbook_mark_color("black");
+    // }
     setBookmarkState((state) => (state === "Unadd" ? "add" : "Unadd"));
   };
 
@@ -99,6 +110,7 @@ const Post = ({
       setbook_mark_color("#1d9cf0");
       BE.addBookmarks();
       console.log("added");
+      // setBookmarkState("Unadd");
       localStorage.setItem("dummy", true);
       // setAdd('add')
     } else if (BookmarkState === "Unadd") {
@@ -106,6 +118,7 @@ const Post = ({
       setbook_mark_color("black");
       BE.deleteBookmark();
       console.log("unadded");
+      // setBookmarkState("add");
       localStorage.setItem("dummy", false);
     }
   }
@@ -124,14 +137,10 @@ const Post = ({
     </div>
   );
 
-  const [isOpen, setIsOpen] = useRecoilState(modalState);
-
-  const in_tweet = backend.getTweet(tweet_id);
-  // console.log("in post likes number" + likes);
-
   if (user_liked_tweet !== "false" && user_liked_tweet !== "true") {
     in_tweet.then((text) => {
       setif_liked(text?.isLiked);
+      setlike_no(text.tweet?.favorites.length);
     });
   } else {
     setif_liked(user_liked_tweet);
@@ -139,7 +148,7 @@ const Post = ({
   if (user_retweted_tweet !== "true" && user_retweted_tweet !== "false") {
     in_tweet.then((text) => {
       setif_retweeted(text?.isRetweeted);
-      // console.log("retweeeet number " + retweet_no);
+      setretweet_no(text.tweet?.retweetUsers.length);
     });
   } else {
     setif_retweeted(user_retweted_tweet);
@@ -150,16 +159,12 @@ const Post = ({
    */
 
   function likePost() {
-    // console.log("liked" + if_liked);
     if (if_liked === false) {
       //post is liked
       (async () => {
         const like_post = backend.likePost(tweet_id);
-        // console.log(tweet_id);
         setlike_color("#e21f05");
-        // console.log(like_post);
         like_post.then((text) => {
-          // console.log(text);
           setlike_no(text.favorite_count);
         });
         setif_liked(true);
@@ -181,29 +186,21 @@ const Post = ({
    */
 
   function retweet() {
-    // console.log("retweeted==" + if_retweeted);
     if (if_retweeted === false) {
       //retweet
       (async () => {
-        // console.log("ini false");
         const retweet = backend.Retweet_tweet(tweet_id);
-        // console.log(retweet);
         retweet.then(function (tempresult) {
           setretweet_no(tempresult?.retweet_count);
-          // console.log(tempresult?.retweetUsers.length);
         });
         setretweet_color("#14fe10");
         setif_retweeted(true);
-        // console.log("after seytting " + if_retweeted);
       })();
     } else if (if_retweeted === true) {
       (async () => {
-        // console.log("ini true");
         //unretwett
         const unretweet = backend.UNRetweet_tweet(tweet_id);
-        // console.log(unretweet);
         unretweet.then(function (tempresult) {
-          // console.log(tempresult?.retweet_count);
           setretweet_no(tempresult?.retweetUsers.length);
         });
         setretweet_color("black");
@@ -214,14 +211,22 @@ const Post = ({
   /**
    * function open post in seperat page navigate
    */
-  var clicked = "";
 
   const openPost = async () => {
-    console.log(clicked_);
-    if (clicked_ === false) {
-      navigate("/post");
-      clicked = localStorage.setItem("clicked.ID", tweet_id);
-    }
+    navigate("/post");
+    likes_list = backend.likes_list(tweet_id);
+    likes_list.then(function (tempresult) {
+      setlikeslist(tempresult?.favoriteusers);
+      setlike_no(tempresult?.favoriteusers.length);
+    });
+
+    retweeters_list = backend.Retweeters_list(tweet_id);
+    retweeters_list.then(function (tempresult) {
+      setretweeters(tempresult?.retweetersList);
+      setretweet_no(tempresult?.retweetersList.length);
+    });
+
+    localStorage.setItem("clicked.ID", tweet_id);
   };
 
   /**
@@ -235,7 +240,6 @@ const Post = ({
     if (likes_list.length !== 0) {
       likes_list.then(function (tempresult) {
         setlikeslist(tempresult?.favoriteusers);
-        setlike_no(tempresult?.favoriteusers.length);
       });
     }
     setlikeModalVisible(true);
@@ -247,7 +251,6 @@ const Post = ({
     retweeters_list = backend.Retweeters_list(tweet_id);
     retweeters_list.then(function (tempresult) {
       setretweeters(tempresult?.retweetersList);
-      setretweet_no(tempresult?.retweetersList.length);
     });
 
     setretweetModalVisible(true);
@@ -264,7 +267,11 @@ const Post = ({
    * return to home if clicked
    */
   const deleteTweet = async () => {
-    const deleteTweet = backend.DeleteTweet(tweet_id);
+    const resp = await backend.DeleteTweet(tweet_id);
+    console.log(resp);
+    if (resp.message === "success! tweet deleted") {
+      window.location.reload();
+    }
     if (open === true) {
       navigate("/home");
     }
@@ -273,7 +280,6 @@ const Post = ({
    *
    */
   const get_mention = async () => {
-    open = false;
     setmentioned(true);
     logedin_user_id !== mentioned_user
       ? mentioned_user
@@ -283,7 +289,7 @@ const Post = ({
 
     localStorage.setItem("clicked_userID", mentioned_user);
   };
-  console.log("mention use " + mentioned_user);
+  // console.log("mention use " + mentioned_user);
 
   /**
    * store the clicked name's user id in storage
@@ -327,10 +333,10 @@ const Post = ({
         className="border"
       >
         <div className="post">
-          <div className="img_circle">
+          <div className="img_circle" onClickCapture={store_userID}>
             <span>
               <img
-                key="user imag "
+                id="user imag "
                 src={`${Configure.backURL}${Url_avatar}`}
                 onerror="this.style.display='none'"
                 alt=""
@@ -389,7 +395,6 @@ const Post = ({
                 {user_tweeted_id === logedin_user_id ? (
                   <div
                     onClick={(e) => {
-                      // e.stopPropagation();
                       setIsOpen(true);
                     }}
                   >
@@ -399,7 +404,9 @@ const Post = ({
                         className=" icon delete "
                         onClick={(e) => {
                           e.stopPropagation();
-                          deleteTweet();
+                          deleteTweet().then(() => {
+                            console.log("indelet then");
+                          });
                         }}
                       >
                         <TrashIcon strokeWidth={1} />
@@ -547,12 +554,6 @@ const Post = ({
           style={{textAlign: "center"}}
           cancelButtonProps={{style: {display: "none"}}}
           visible={mentionModel}
-          bodyStyle={{
-            height: "inherit",
-            width: "inherit",
-            font: "Helvetica",
-            textAlign: "left",
-          }}
           alignItems={{top: Window}}
           onCancel={() => setmentionModel(false)}
           footer={null}

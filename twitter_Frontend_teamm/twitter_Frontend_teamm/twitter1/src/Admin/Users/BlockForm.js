@@ -33,7 +33,7 @@ function BlockForm() {
   //   });
   // };
   const notify = () => {
-    toast.info("Password succesfully changed", {
+    toast.info("Error Please Enter Valid Number Of Days", {
       position: toast.POSITION.BOTTOM_CENTER,
     });
   };
@@ -46,6 +46,8 @@ function BlockForm() {
         notify();
 
       }
+      e.preventDefault(); //prevent refresh of page
+
     } else {
       localStorage.setItem("selectedIDs", null);
       console.log("..", resp);

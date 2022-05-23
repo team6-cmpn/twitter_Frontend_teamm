@@ -10,22 +10,22 @@
 .n{
   white-space: nowrap;
   flex-direction: column;
-  line-height: 19px;
+  height: 20px;
 }
 .user_name {
-  margin-top: 30px;
-  margin-left: 0px;
-  position: fixed;
- 
   flex-direction: column;
   line-height: 19px;
   text-align: left;
   color: silver;
   font-size: 14px;
   font-weight: 300;
-  margin: 2px 40px ;
+  margin-top: 2px;
   padding-top: 15px;
   
+}
+.searchedname{
+  height: 20px;
+  margin-left: -50px;
 }
 .butto{
   background-color: #000;
@@ -110,4 +110,7 @@
   
   
   padding: 5px 16px;
+}
+.userimgg{
+  margin-left: 10px;
 }

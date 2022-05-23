@@ -1,14 +1,11 @@
 import React, {useState, useEffect} from "react";
-import HomeTweet from "./Header_Tweet";
-import Post from "./Post";
-import * as mocked from "./feedmock";
-import * as backend from "./backendFeed";
-import * as userbackend from "../Profile/backEndProfile";
+import {RecoilRoot} from "recoil";
 import InfiniteScrool from "react-infinite-scroll-component";
 
-import {RecoilRoot} from "recoil";
-
 import "./feed.css";
+import Post from "./Post";
+import * as backend from "./backendFeed";
+import Configure from "../../Configure";
 
 /**
  * feed component
@@ -16,30 +13,28 @@ import "./feed.css";
  * @returns layout of home page
  */
 
-function Feed(data, isEnded) {
+function Feed(data) {
   const loginuser_id = localStorage.getItem("userId");
 
-  const [pages, setpage] = useState(5);
+  const [pages, setpage] = useState(2);
   const [postData, setpostData] = useState([]);
-  const [ended, setended] = useState(isEnded);
+  const [ended, setended] = useState(false);
 
   useEffect(() => {
     setpostData(data.data);
-  }, [data]);
+  }, [data.data]);
   var resp = [];
 
   const fetchData = () => {
     (async () => {
-      // console.log(backend.Tweets_lookup(page + 1, 2));
       resp = await backend.Tweets_lookup(pages + 1, 5);
-      console.log("page=", pages);
-      console.log("responst status " + resp.status);
       setpage(pages + 1);
+      console.log(resp.data.length);
       if (resp.status === 200) {
         setpostData([...postData, ...resp.data]);
-        //console.log(postData);
-      } else {
-        setended(true);
+        if (resp.data.length === 0) {
+          setended(true);
+        }
       }
     })();
   };
@@ -50,7 +45,7 @@ function Feed(data, isEnded) {
         <InfiniteScrool
           dataLength={postData.length}
           next={fetchData}
-          hasMore
+          hasMore={ended === false}
           loader={<h4 className="loading ">Loading..</h4>}
           endMessage={
             <p style={{textAlign: "center"}}>
@@ -65,7 +60,6 @@ function Feed(data, isEnded) {
                 username={userlist.user?.username}
                 text={userlist.tweet?.text}
                 image={userlist.tweet?.imageUrl}
-                //avatar={userlist.avatar}
                 mentioned_user={userlist.tweet?.mentionedUser}
                 tweet_id={userlist.tweet?._id}
                 mention={userlist.tweet?.mention}
@@ -76,6 +70,8 @@ function Feed(data, isEnded) {
                 retweets={userlist.tweet?.retweetUsers.length}
                 user_liked_tweet={userlist?.isLiked}
                 user_retweted_tweet={userlist?.isRetweeted}
+                // blocked={userlist.user.admin_block?.blocked_by_admin}
+                //bookmarked={false}
               />
             ))}
         </InfiniteScrool>

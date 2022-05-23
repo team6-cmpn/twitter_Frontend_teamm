@@ -11,10 +11,10 @@ import { Form, Input, Popover, Button, Space } from "antd";
 // import { Avatar, Button } from "@material-ui/core";
 // import LikedYou from "./LikedYou";
 // import FollowedYou from "./FollowedYou";
-// import  * as mockAPI   from './mockSearch'; 
+// import  * as mockAPI   from './mockSearch';
 //import SettingsBox from "./SettingsBox/SettingsBox";
 import "../Profile/Profile.css";
-import * as BE from './backEndSearch';
+import * as BE from "./backEndSearch";
 // import Post from "./homepage/Post";
 
 import Post from "../homepage/Post";
@@ -29,16 +29,14 @@ import { Tab } from "@material-ui/core";
 import { useNavigate, Link } from "react-router-dom";
 import Sidebar from "../Sidebar/Sidebar";
 
-
-import { PoweroffOutlined } from '@ant-design/icons';
+import { PoweroffOutlined } from "@ant-design/icons";
 /**Explore
- * Shows explore page for the user 
- *  
+ * Shows explore page for the user
+ *
  * @returns (Layout of explore page)
  */
 
 function Explore() {
-
   const [section, setSection] = useState(1);
   const history = useNavigate();
   const [data, setData] = useState(null);
@@ -59,7 +57,6 @@ function Explore() {
   //     e.preventDefault();
   //     setData(e.target.value);
 
-
   //     //console.log(data)
 
   //     //const promise2=BE.backEndPeople(body1);
@@ -71,36 +68,30 @@ function Explore() {
   // }
 
   const handleSubmit = (e) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       return (
-
         //console.log("holyyyyy shitttttt")
         history("/Explore")
 
         // TODO redirect user to '/explore'
-      )
+      );
       // <Link to="/Explore"></Link>
     }
-  }
-
+  };
 
   function getData(val) {
-    setData(val.target.value)
-    localStorage.setItem('word', val.target.value);
+    setData(val.target.value);
+    localStorage.setItem("word", val.target.value);
   }
-
-
-
 
   let word = localStorage.getItem("word");
   if (word[0] == "@") {
-    word = word.substring(1)
+    word = word.substring(1);
   }
-
 
   let word1 = localStorage.getItem("word1");
   if (word1[0] == "@") {
-    word1 = word1.substring(1)
+    word1 = word1.substring(1);
   }
 
   const [user, setusername] = useState([]);
@@ -112,8 +103,6 @@ function Explore() {
   const [pe, people] = useState([]);
   //const [content, getcontent] = useState([]);
 
-
-
   const [displayN, setDisplay] = useState([]);
   const [tweet_id, setid_tweet] = useState([]);
   const [date, setdate] = useState();
@@ -124,23 +113,19 @@ function Explore() {
 
   //const forceUpdate = useForceUpdate();
 
-
-
-
   // useEffect(() => {
   //   (async () => {
   //     const resp = await backEndP();
   //     people(resp);
   //     console.log(resp)
-  //   })();  
+  //   })();
   // }, []);
-  //console.log(pe) 
+  //console.log(pe)
 
   const p2 = BE.GetSearchedName();
   console.log("console", p2);
 
   const p3 = BE.GetSearchedUserName();
-
 
   const ph = BE.GetSearchedPhotos();
 
@@ -150,7 +135,6 @@ function Explore() {
   const usernametweet = BE.GetTweetsName();
   console.log(p2.data);
 
-
   useEffect(() => {
     (async () => {
       const resp = await backEndTop();
@@ -158,14 +142,13 @@ function Explore() {
       console.log(posted(resp));
     })();
   }, []);
-  console.log(tweets)
+  console.log(tweets);
   // useEffect(() => {
   //   (async () => {
   //     const resp = await backEndP();
   //     people(resp);
   //   })();
   // }, []);
-
 
   //backEndP();
   // console.log(people(resp));
@@ -179,30 +162,22 @@ function Explore() {
   //   },[])
   BE.getUserLook();
 
-
-
   // setTimeout(() => {
   //   setLoading(false);
   //   }, 2000);
   // const [filteredResults, setFilteredResults] = useState([]);
 
   const buttonState = (changedValues, allValues) => {
-    if (allValues.n !== undefined && allValues.n !== '') {
-
+    if (allValues.n !== undefined && allValues.n !== "") {
       setbtndisabled(false);
-
-    }
-    else {
-
+    } else {
       setbtndisabled(true);
-
     }
   };
 
   // function fun() {
   //   //const promise2=BE.backEndLatest(body1);
   //   //promise2.then((text)=>{setItem5(text)});
-
 
   //   //const promise3 = BE.backEndPeople(body1);
   //   //promise3.then((text) => { setItem2(text) });
@@ -215,53 +190,38 @@ function Explore() {
 
   var resp;
 
-
   function fun() {
-
     //console.log("helloooooooooo", body1);
     //const p2 = BE.GetSearchedName(body1);
     //console.log(p2.data);
-
     //const promise2 = BE.backEndLatest(body1);
     //promise2.then((text) => { setItem5(text) });
-
-
-
     //resp = backEndTop(body1);
     //console.log("offfffff",resp)
     // (async () => {
     //   const resp = await backEndTop(body1);
     //   posted(resp);
     //   console.log(resp)
-    // })();   
-
-    // var searcheduse = p3.data?.user[1]; 
-
+    // })();
+    // var searcheduse = p3.data?.user[1];
     // console.log(p3.data);
     // console.log("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh")
     // return(
     //   <article>
     //  {searcheduse?.map((userlist, index) => (
-
     // <FriendSuggestionItem
     //   key={index}
     //   props={userlist}
     // //displayName={localStorage.getItem(`people ${index}`)}
-    // />))} 
+    // />))}
     // </article>
     // )
-
-
     // ghehehddhjd
     // console.log("ffffff")
-
-
   }
 
-
-
   function funn() {
-    console.log(data)
+    console.log(data);
     //const promise6 = BE.backEndPeople(body1);
     //promise6.then((text) => { setItem2(text) });
     //console.log(item2)
@@ -285,11 +245,10 @@ function Explore() {
   //   }
   if (word1) {
     //console.log(word)
-    localStorage.setItem("searchData", word1)
+    localStorage.setItem("searchData", word1);
     var body = {
-      data: word1
-
-    }
+      data: word1,
+    };
   }
 
   // if(dataa)
@@ -301,8 +260,6 @@ function Explore() {
 
   //   }
   // }
-
-
 
   // if (data) {
   //   //console.log(data[0])
@@ -317,7 +274,9 @@ function Explore() {
 
   if (word[0] === "@") {
     const promise2 = BE.backEndUsername(body);
-    promise2.then((text) => { setItem2(text) });
+    promise2.then((text) => {
+      setItem2(text);
+    });
     //console.log(item2);
   }
 
@@ -332,38 +291,28 @@ function Explore() {
 
   // }, [])
 
-
   if (data && data[0] === "@") {
     const promise2 = BE.backEndUsername(body);
-    promise2.then((text) => { setItem2(text) });
+    promise2.then((text) => {
+      setItem2(text);
+    });
     //console.log(item2);
   }
 
-
-
-
-
-
-
-
-
-  localStorage.setItem("ID", id)
+  localStorage.setItem("ID", id);
   var body2 = {
-    id: id
-
-  }
-
+    id: id,
+  };
 
   function saveUser() {
     const promise = BE.Put_SaveUser();
     //BE.backEndTop(body);
     //if(promise.status === 200 )
     //{
-    console.log("shitttttttt on meee", promise)
+    console.log("shitttttttt on meee", promise);
     //promise.then((text)=>{setItem(text)});
     //}
     //console.log(localStorage.getItem("ite"))
-
   }
   function go() {
     // BE.getUserLook();
@@ -380,10 +329,10 @@ function Explore() {
         userInfo += promise3.data.savedText[i] + ",";
       }
     }
-    console.log("savedddd", userInfo)
+    console.log("savedddd", userInfo);
     userInfo = userInfo.slice(0, -1);
     console.log("savedseachhhhhhhh", userInfo);
-    return (userInfo);
+    return userInfo;
     //alert(
     //userInfo
     // <article>
@@ -426,66 +375,57 @@ function Explore() {
   //   console.log(item2);
   //   }
 
-
-
-
-  console.log(localStorage.getItem("people"))
+  console.log(localStorage.getItem("people"));
   if (p2.status === 200 && word[0] !== "@") {
     var searcheduser = p2.data?.user[1];
-    console.log("user", searcheduser)
+    console.log("user", searcheduser);
   }
-
 
   if (p3.status === 200 && word[0] === "@") {
     var searchedusername = p3.data?.usernames[1];
-    console.log("user", searchedusername)
+    console.log("user", searchedusername);
   }
-
-
 
   if (top.status === 200 && word[0] !== "@") {
     var searchedtop = top.data?.tweets;
-    console.log(searchedtop)
+    console.log(searchedtop);
   }
-
 
   if (top.status === 200 && word[0] === "@") {
     var m = top.data?.mentions;
-    console.log("hiiiiiiiihhh", top.data)
+    console.log("hiiiiiiiihhh", top.data);
   }
-
 
   if (ph.status === 200 && word[0] !== "@") {
     var photos = ph.data?.tweets;
-    console.log("hiiiiiiiihhh", top.data)
+    console.log("hiiiiiiiihhh", top.data);
   }
-
-
-
-
-
-
-
 
   var userr = usernametweet.data?.user;
 
   return (
-
     <div>
-
       <Sidebar />
 
       {/* <SearchInput  placeholder="Search Twitter" /> */}
       <div className="Expmenu">
         <Form>
-          <Form.Item >
-
-            <Popover content={savedSearch} trigger="hover" title="Search History">
-              <Input onChange={getData} onKeyPress={handleSubmit.bind(this)} id="search" className="trend__contr " type="text"
-                placeholder="Search Twitter" />
+          <Form.Item>
+            <Popover
+              content={savedSearch}
+              trigger="hover"
+              title="Search History"
+            >
+              <Input
+                onChange={getData}
+                onKeyPress={handleSubmit.bind(this)}
+                id="search"
+                className="trend__contr "
+                type="text"
+                placeholder="Search Twitter"
+              />
             </Popover>
           </Form.Item>
-
         </Form>
         {/* onKeyPress={handleSubmit} */}
         {/* <Form >
@@ -495,12 +435,16 @@ function Explore() {
 
           </Form.Item>
         </Form> */}
-        {(p2.status === 200 || p3.status === 200) ?
-
-          <Button type="primary" onClick={saveUser} >SAVE USER</Button>
-          :
-          <Button type="primary" loading> Loading </Button>
-        }
+        {p2.status === 200 || p3.status === 200 ? (
+          <Button type="primary" onClick={saveUser}>
+            SAVE USER
+          </Button>
+        ) : (
+          <Button type="primary" loading>
+            {" "}
+            Loading{" "}
+          </Button>
+        )}
         {/* <button onClick={fun} >search</button>   */}
         {/* <button onClick={savedSearch}>saved Search</button>   <button onClick={() => go}>names</button> */}
         {/* <FaSistrix className="trend s" /> */}
@@ -523,7 +467,6 @@ function Explore() {
           <div
             className={section === 3 && "notificationActive"}
             onClick={() => setSection(3)}
-
           >
             <span>People</span>
           </div>
@@ -535,12 +478,11 @@ function Explore() {
           </div>
         </div>
 
-
         <div>
           <RecoilRoot>
-            {(section === 1 && (data || word1 || word1 === "@")) ?
-                //Tabs()
-                <>
+            {section === 1 && (data || word1 || word1 === "@") ? (
+              //Tabs()
+              <>
                 <>
                   {/* {p.map((userlist, index) => ( 
            <FriendSuggestionItem 
@@ -567,16 +509,13 @@ function Explore() {
            
            
            } */}
-                  
-                    
-                      {/* <Post
+
+                  {/* <Post
                         text={item5}
                       /> */}
-                    
 
-
-                     <>
-                     {/* { 
+                  <>
+                    {/* { 
                       <article>
                         {searchedtop?.map((userlist, index) => (
                           <Post
@@ -594,105 +533,123 @@ function Explore() {
                           />))}
                       </article>
                      } */}
-                      { (ph.data?.tweets[0].imageUrl.length === 1 || ph.data?.tweets[0].imageUrl.length === 2) ?
+                    {ph.data?.tweets[0].imageUrl.length === 1 ||
+                    ph.data?.tweets[0].imageUrl.length === 2 ? (
                       <>
-                      <article>
-                        {photos?.map((userlist, index) => (
-                          
-                          <Post
-                            key={index}
-                            //props={userlist}
-                            displayName={localStorage.getItem(`nametweet ${index}`)}
-                            username={localStorage.getItem(`usernametweet ${index}`)}
-                            text={userlist.text}
-                            date={userlist.created_at}
-                            user_id={localStorage.getItem("userId")}
-                            image={userlist.imageUrl}
-                            logedin_user_id={localStorage.getItem("userId")}
-                          //displayName={userlist.user}
-
-                          />))}
-                      </article>
-                      </>:<>
-                      <article>
-                        {searchedtop?.map((userlist, index) => (
-                          <Post
-                            key={index}
-                            //props={userlist}
-                            displayName={localStorage.getItem(`nametweet ${index}`)}
-                            username={localStorage.getItem(`usernametweet ${index}`)}
-                            text={userlist.text}
-                            date={userlist.created_at}
-                            user_tweeted_id={userlist._id}
-                            //avatar = {`${Configure.backURL}${Url_avatar}`}
-                            logedin_user_id={localStorage.getItem("userId")}
-                          //displayName={userlist.user}
-
-                          />))}
-                      </article>
+                        <article>
+                          {photos?.map((userlist, index) => (
+                            <Post
+                              key={index}
+                              //props={userlist}
+                              displayName={localStorage.getItem(
+                                `nametweet ${index}`
+                              )}
+                              username={localStorage.getItem(
+                                `usernametweet ${index}`
+                              )}
+                              text={userlist.text}
+                              date={userlist.created_at}
+                              user_id={localStorage.getItem("userId")}
+                              image={userlist.imageUrl}
+                              tweet_id={userlist._id}
+                              user_tweeted_id={userlist.user}
+                              logedin_user_id={localStorage.getItem("userId")}
+                              //displayName={userlist.user}
+                            />
+                          ))}
+                        </article>
                       </>
-                      }
-                      <article>
-                        {m?.map((userlist, index) => (
-                          <Post
-                            key={index}
-                            //props={userlist}
-                            displayName={localStorage.getItem(`nametweet ${index}`)}
-                            username={localStorage.getItem(`usernametweet ${index}`)}
-                            text={userlist.text}
-                            date={userlist.created_at}
-                            user_id={localStorage.getItem("userId")}
-                            mention={userlist.mention}
-                            image={userlist.imageUrl}
+                    ) : (
+                      <>
+                        <article>
+                          {searchedtop?.map((userlist, index) => (
+                            <Post
+                              key={index}
+                              //props={userlist}
+                              displayName={localStorage.getItem(
+                                `nametweet ${index}`
+                              )}
+                              username={localStorage.getItem(
+                                `usernametweet ${index}`
+                              )}
+                              text={userlist.text}
+                              date={userlist.created_at}
+                              tweet_id={userlist._id}
+                              user_tweeted_id={userlist.user}
+                              logedin_user_id={localStorage.getItem("userId")}
+                              //avatar = {`${Configure.backURL}${Url_avatar}`}
+                              //displayName={userlist.user}
+                            />
+                          ))}
+                        </article>
+                      </>
+                    )}
+                    <article>
+                      {m?.map((userlist, index) => (
+                        <Post
+                          key={index}
+                          //props={userlist}
+                          displayName={localStorage.getItem(
+                            `nametweet ${index}`
+                          )}
+                          username={localStorage.getItem(
+                            `usernametweet ${index}`
+                          )}
+                          text={userlist.text}
+                          date={userlist.created_at}
+                          tweet_id={userlist._id}
+                          user_tweeted_id={userlist.user}
+                          logedin_user_id={localStorage.getItem("userId")}
+                          user_id={localStorage.getItem("userId")}
+                          mention={userlist.mention}
+                          image={userlist.imageUrl}
                           //displayName={userlist.user}
-
-                          />))}
-                      </article>
-                      <article>
-                        {searcheduser?.map((userlist, index) => (
-
-                          <FriendSuggestionItem
-                            key={index}
-                            props={userlist}
+                        />
+                      ))}
+                    </article>
+                    <article>
+                      {searcheduser?.map((userlist, index) => (
+                        <FriendSuggestionItem
+                          key={index}
+                          props={userlist}
                           //displayName={localStorage.getItem(`people ${index}`)}
-                          />))}
-                      </article>
-                      <article>
-                        {searchedusername?.map((userlist, index) => (
-
-                          <FriendSuggestionItem
-                            key={index}
-                            props={userlist}
+                        />
+                      ))}
+                    </article>
+                    <article>
+                      {searchedusername?.map((userlist, index) => (
+                        <FriendSuggestionItem
+                          key={index}
+                          props={userlist}
                           //displayName={localStorage.getItem(`people ${index}`)}
-                          />))}
-                      </article>
-                    </>
-                  
-
+                        />
+                      ))}
+                    </article>
+                  </>
                 </>
               </>
-              :
-              (section === 2) ?
-                //console.log("hello")
-                <>
-                  <article>
-                    {searchedtop?.map((userlist, index) => (
-                      <Post
-                        key={index}
-                        //props={userlist}
-                        displayName={localStorage.getItem(`nametweet ${index}`)}
-                        username={localStorage.getItem(`usernametweet ${index}`)}
-                        text={userlist.text}
-                        date={userlist.created_at}
-                        user_id={localStorage.getItem("userId")}
+            ) : section === 2 ? (
+              //console.log("hello")
+              <>
+                <article>
+                  {searchedtop?.map((userlist, index) => (
+                    <Post
+                      key={index}
+                      //props={userlist}
+                      displayName={localStorage.getItem(`nametweet ${index}`)}
+                      username={localStorage.getItem(`usernametweet ${index}`)}
+                      text={userlist.text}
+                      tweet_id={userlist._id}
+                      user_tweeted_id={userlist.user}
+                      logedin_user_id={localStorage.getItem("userId")}
+                      date={userlist.created_at}
+                      user_id={localStorage.getItem("userId")}
                       //displayName={userlist.user}
+                    />
+                  ))}
+                </article>
 
-                      />))}
-                  </article>
-
-
-
-                  {/* <TrendAccounts 
+                {/* <TrendAccounts 
                         username={item2[1]}
                         name={item2[0]}
                       /> 
@@ -703,7 +660,7 @@ function Explore() {
                       text={item5}
 
                     /> */}
-                  {/* {twetted.map((userlist, index) => (
+                {/* {twetted.map((userlist, index) => (
                                  <Post
                                  key={index}
                                  displayName={userlist.displayName}
@@ -713,34 +670,33 @@ function Explore() {
                                  avatar={userlist.avatar}
                                  date={userlist.date}
                                  />))} */}
-                </>
-                : (section === 3) ?
-                  <>
-
-                    <article>
-                      {searcheduser?.map((userlist, index) => (
-
-                        <FriendSuggestionItem
-                          key={index}
-                          props={userlist}
-                        //displayName={localStorage.getItem(`people ${index}`)}
-                        />))}
-                    </article>
-                    <article>
-                      {searchedusername?.map((userlist, index) => (
-
-                        <FriendSuggestionItem
-                          key={index}
-                          props={userlist}
-                        //displayName={localStorage.getItem(`people ${index}`)}
-                        />))}
-                    </article>
-                    {/* <TrendAccounts
+              </>
+            ) : section === 3 ? (
+              <>
+                <article>
+                  {searcheduser?.map((userlist, index) => (
+                    <FriendSuggestionItem
+                      key={index}
+                      props={userlist}
+                      //displayName={localStorage.getItem(`people ${index}`)}
+                    />
+                  ))}
+                </article>
+                <article>
+                  {searchedusername?.map((userlist, index) => (
+                    <FriendSuggestionItem
+                      key={index}
+                      props={userlist}
+                      //displayName={localStorage.getItem(`people ${index}`)}
+                    />
+                  ))}
+                </article>
+                {/* <TrendAccounts
                     name={item2[0]}
                     username={item2[1]}
                   /> */}
 
-                    {/* <article>
+                {/* <article>
                         {searchedusername?.map((userlist, index) => (
                           <FriendSuggestionItem 
                             key={index}
@@ -748,28 +704,29 @@ function Explore() {
                             props={userlist}
                           />))}
                       </article> */}
-
-                  </>
-                  :
-
-                  <>
-                    <article>
-                      {photos?.map((userlist, index) => (
-                        <Post
-                          key={index}
-                          //props={userlist}
-                          displayName={localStorage.getItem(`nametweet ${index}`)}
-                          username={localStorage.getItem(`usernametweet ${index}`)}
-                          text={userlist.text}
-                          date={userlist.created_at}
-                          user_id={localStorage.getItem("userId")}
-                          image={userlist.imageUrl}
-                        //displayName={userlist.user}
-
-                        />))}
-                    </article> 
-                  </>
-            }
+              </>
+            ) : (
+              <>
+                <article>
+                  {photos?.map((userlist, index) => (
+                    <Post
+                      key={index}
+                      //props={userlist}
+                      displayName={localStorage.getItem(`nametweet ${index}`)}
+                      username={localStorage.getItem(`usernametweet ${index}`)}
+                      text={userlist.text}
+                      date={userlist.created_at}
+                      tweet_id={userlist._id}
+                      user_tweeted_id={userlist.user}
+                      logedin_user_id={localStorage.getItem("userId")}
+                      user_id={localStorage.getItem("userId")}
+                      image={userlist.imageUrl}
+                      //displayName={userlist.user}
+                    />
+                  ))}
+                </article>
+              </>
+            )}
 
             {/* (
              // Tabs()
@@ -778,20 +735,12 @@ function Explore() {
             //console.log("offf")
             
             )//:(console.log("yaa")) */}
-
-
           </RecoilRoot>
         </div>
-
-
       </div>
-
-
-
 
       <Trends />
     </div>
   );
 }
 export default Explore;
-

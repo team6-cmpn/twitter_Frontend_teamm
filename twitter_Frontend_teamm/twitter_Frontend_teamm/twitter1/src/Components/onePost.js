@@ -1,18 +1,20 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useRef} from "react";
+import {RecoilRoot} from "recoil";
+
 import "./Home.css";
+import "./onepost.css";
+
 import Sidebar from "./Sidebar/Sidebar";
 import Trends from "./Widgets/Trends";
 import "antd/dist/antd.css";
 import Post from "./homepage/Post";
-import {RecoilRoot} from "recoil";
 import * as backend from "./homepage/backendFeed";
-import "./onepost.css";
-import {Sync} from "@material-ui/icons";
 
 function Home() {
   const [change, setchange] = useState();
   const [opened_tweet, setopened_tweet] = useState([]);
-
+  const [Favoritelength, setFavoritelength] = useState([]);
+  const [blocked, setblocked] = React.useState();
   const loginuser_id = localStorage.getItem("userId");
   var clicked_tweet_id = localStorage.getItem("clicked.ID");
 
@@ -21,9 +23,15 @@ function Home() {
       const resp = await backend.getTweet(clicked_tweet_id);
       console.log(resp);
       setopened_tweet(resp);
-      setchange("ss");
+      const ress = backend.getTweet(clicked_tweet_id);
+      ress.then(function (test) {
+        setblocked(test.user.admin_block?.blocked_by_admin);
+        setFavoritelength(test?.tweet?.favorites.length);
+      });
     })();
   }, []);
+  // console.log(Favoritelength);
+
   console.log(opened_tweet.tweet?.favorites.length);
   return (
     <div className="twitter  ">
@@ -40,8 +48,8 @@ function Home() {
             date={opened_tweet.tweet?.created_at}
             user_tweeted_id={opened_tweet.tweet?.user}
             logedin_user_id={loginuser_id}
-            likes={opened_tweet.tweet?.favorites.length}
-            retweets={opened_tweet.tweet?.retweetUsers.length}
+            likes={Favoritelength}
+            // retweets={[Retweeters].length}
             user_liked_tweet={opened_tweet?.isLiked}
             user_retweted_tweet={opened_tweet?.isRetweeted}
             mentioned_user={opened_tweet.tweet?.mentionedUser}

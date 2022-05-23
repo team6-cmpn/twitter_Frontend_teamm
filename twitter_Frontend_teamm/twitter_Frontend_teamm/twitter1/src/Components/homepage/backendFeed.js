@@ -1,6 +1,6 @@
 import axios from "axios";
 import Configure from "../../Configure";
-import React, {useState, useEffect} from "react";
+import {useState, useEffect} from "react";
 
 export async function Post_Tweet(body) {
   var messgae;
@@ -334,8 +334,7 @@ export async function GetUserInfo(id) {
       setDashBoard(dashBoard.data.user);
     };
     fetchProduct();
-  }, []);
+  }, [id]);
   if (!dashBoard) return null;
-  console.log(dashBoard);
   return dashBoard;
 }

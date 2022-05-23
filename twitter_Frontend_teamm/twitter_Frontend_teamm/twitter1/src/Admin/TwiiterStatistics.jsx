@@ -13,6 +13,13 @@ import { Tweets_lookup } from "../Components/homepage/backendFeed";
 export default function Twiiterstatistics() {
   let staatic=[]
   staatic=GetDashBoardstat()
+  var tweetsperdayfinal;
+  let tweetsperday=staatic[11]?.tweets_Per_Day;
+  if(tweetsperday?.length===0){
+    tweetsperdayfinal=0
+  }else{
+    tweetsperdayfinal=staatic[11]?.tweets_Per_Day[0].count
+  }
   console.log("dashboard",staatic)
   return (
     <div className="adminstatistics" id="TwitterStatisticsBlocks">
@@ -31,7 +38,7 @@ export default function Twiiterstatistics() {
       <div className="adminstatisticsItem">
         <span className="adminstatisticsTitle">Number Of Tweets Per Day</span>
         <div className="staticsItemContainer">
-          <span className="itemNum"> {staatic[11]?.tweets_Per_Day[0].count} Tweets</span>
+          <span className="itemNum"> {tweetsperdayfinal} Tweets</span>
         </div>
       </div>
       <div className="adminstatisticsItem">

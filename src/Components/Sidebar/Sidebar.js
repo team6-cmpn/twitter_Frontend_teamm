@@ -1,5 +1,10 @@
 import React, {useState, useEffect} from "react";
+import {Modal,Popover} from "antd";
 import "./Sidebar.css";
+import { Link, useLocation, Outlet } from "react-router-dom";
+import { useContext } from "react";
+import { GetUserInfo } from "../Profile/backEndProfile";
+import Configure from "../../Configure";
 import {
   FaTwitter,
   FaHome,
@@ -14,17 +19,18 @@ import {
 } from "react-icons/fa";
 import {BiDotsHorizontal} from "react-icons/bi";
 import {FiSettings} from "react-icons/fi";
-import {Modal} from "antd";
+
 import {Avatar, Button} from "@material-ui/core";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import HeaderTweet from "../homepage/Header_Tweet";
 import * as userbackend from "../Profile/backEndProfile";
 // import {getUserInfo} from "../Profile/backEndProfile";
-import getUsernames from "../Profile/ProfileMock";
+// import getUsernames from "../Profile/ProfileMock";
 import {style} from "@mui/system";
 import Pusher from "pusher-js";
 
 import {toast, ToastContainer} from "react-toastify";
+import SwitchButton from "../../Button";
 //import FriendSuggestionItem from "../Widgets/FriendSuggestions/FriendSuggestionItem/FriendSuggestionItem";
 // import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 // import Explore from "../Explore";
@@ -44,23 +50,28 @@ function Sidebar() {
   //   // setDisplay(name.name);
   //   console.log(user);
   // });
-  const user = localStorage.getItem("getName");
+  const user = localStorage.getItem("name");
   const username = localStorage.getItem("getUsername");
   //const usern=localStorage.getItem1("getName")
   // usern.then(data=>{setItem(data)});
   // console.log(Item);
 
-  const [Username, setUsernames] = React.useState([]);
-  React.useEffect(() => {
-    (async () => {
-      const resp = await getUsernames();
-      setUsernames(resp);
-    })();
-  }, []);
+  // const [Username, setUsernames] = React.useState([]);
+  // React.useEffect(() => {
+  //   (async () => {
+  //     const resp = await getUsernames();
+  //     setUsernames(resp);
+  //   })();
+  // }, []);
 
   const onSubModel = (stateMain = true) => {
     setModalVisible(stateMain);
   };
+  const content = (
+    <div>
+      <Link to='/logout'>Logout {username} </Link>
+    </div>
+  )
   var pusher;
   var userid = localStorage.getItem("userId");
   var dataTemp;
@@ -98,13 +109,28 @@ function Sidebar() {
         notify();
       }
     });
+    channel.bind(["unblock-event"], function (data) {
+      dataTemp = data;
+      //console.log(dataTemp)
+      //alert(".."+data+"..")
+      {
+        notify();
+      }
+    });
   },[]);
   const notify = () => {
     toast.info("Notifications: " + dataTemp.notificationHeader.text + ".", {
-      position: toast.POSITION.BOTTOM_CENTER,
+      position: toast.POSITION.BOTTOM_RIGHT,
     });
   };
-
+  var info = GetUserInfo();
+  const [test, istest] = React.useState();
+  info.then(function (result) {
+    console.log("result", result);
+    istest(result);
+  });
+  console.log(info);
+  var Url = test?.profile_image_url;
   return (
     <div className="sidebar d">
       <ul>
@@ -137,7 +163,7 @@ function Sidebar() {
         </li>
 
         <li>
-          <a href="">
+          <a href="/Bookmarks">
             <FaRegBookmark className="icons" />
             <div className="t">Bookmarks</div>
           </a>
@@ -166,9 +192,9 @@ function Sidebar() {
 
         <li>
           <a href="/Profile">
-            <Avatar className="icons" />
+            <Avatar src={`${Configure.backURL}${Url}`} className="icons" />
             <div className="t">
-              <span style={{float: "left"}}>{user}</span>
+              <span style={{"display":"block", "textAlign":"left"}}>{user}</span>
               <span
                 style={{
                   color: "silver",
@@ -181,13 +207,13 @@ function Sidebar() {
                 }}
               >
                 {username}{" "}
-                <BiDotsHorizontal style={{display: "row"}} className="more" />{" "}
+                <Popover content={content} trigger="hover" title= {user}><BiDotsHorizontal className="more" /></Popover>
               </span>
               {/* <BiDotsHorizontal style={{"display":"row"}} className="more" /> */}
             </div>
           </a>
         </li>
-        {localStorage.getItem("adminFlag")==='true'?(        <li>
+        {localStorage.getItem("userId") === "628a2840f29d637f2fc205b9"?(        <li>
           <a href="/adminPage">
             <AdminPanelSettingsIcon className="icons" />
             <div className="t">Admin</div>
@@ -197,7 +223,12 @@ function Sidebar() {
 
         {/* </div> */}
       </ul>
-
+       {/* <div className="icons">
+         <DarkModeOutlinedIcon style={{fontSize: 50 ,marginRight:"150px"}}
+            onClick={() => dispatch({ type: "TOGGLE" })}
+          />
+           </div> */}
+           <SwitchButton/>
       <Modal
         title={
           <h1

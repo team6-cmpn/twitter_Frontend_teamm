@@ -3,9 +3,9 @@
     border-right: 1px solid #e6ecf0;
     min-height: 100vh;
     height: max-content;
+    background-color: inherit;
     width:100%;
-    background-color:inherit ;
-    margin-left: 20.5% !important;
+    margin-left: 23.5% !important;
   }
   
   .notificationsTitle {
@@ -68,11 +68,11 @@
       margin-left: 6.3% !important;
     }
   }
-  @media (min-width:1200px) {
+  @media (min-width:1300px) {
     .Notimenu {
       width:100%;
       flex: 0.63;
-      margin-left: 150px !important;
+      margin-left: 11% !important;
       }
   }
   /* @media (min-width: 0) and (max-width: 450px) {

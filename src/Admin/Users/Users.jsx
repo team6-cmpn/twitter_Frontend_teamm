@@ -2,48 +2,141 @@ import React from "react";
 import "./users.css";
 import BlockIcon from "@material-ui/icons/Block";
 import { DataGrid } from "@mui/x-data-grid";
-import { GetUserList } from "../MockRegistrationAdmin";
+import {
+  BLocking,
+  GetDashBoardstat,
+  GetUserList,
+  UnBLockUser,
+} from "../MockRegistrationAdmin";
 import BlockForm from "./BlockForm";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import Configure from "../../Configure";
 
+/**
+ *
+ * this function returns a sortable datagrid that shows all the users in twitter
+ * each coloumn can be sorted ascending or descending order according to
+ * alphapitical orders of numbers as following count and followers count
+ * in this grid you can also block user and unblock users
+ * @returns
+ */
+//   useEffect(() => {
+//     (async () => {
+//       const resp = await GetDashBoard();
+//       let temptweetsPerMonth = [...resp.data[9].tweets_Per_Month];
+//       temptweetsPerMonth.forEach((element, index) => {
+//         temptweetsPerMonth[index].month = element._id.month;
+//       });
+//       setTweetsPerMonth(temptweetsPerMonth);
+//     })();
+//   }, []);
+const getBlock = (params) => params.getValue(params.id, "admin_block");
+const getUserImg = (params) => params.getValue(params.id, "profile_image_url");
 const columns = [
   {
     title: "Avatar",
-    field: "avatar",
+    field: "User_img",
     headerName: "Image",
     sortable: false,
     renderCell: (params) => (
       <img
         style={{ width: 36, height: 36, borderRadius: "50%" }}
-        src={params.value}
+        src={`${Configure.backURL}${getUserImg(params)}`}
         alt="userimg"
       />
     ),
   },
   { field: "name", headerName: "Name", width: 130 },
   { field: "username", headerName: "UserName", width: 130 },
-  { field: "followers_count", headerName: "Followers", width: 130 },
-  { field: "followings_count", headerName: "Folllowing", width: 130 },
-  { field: "dateOfBirth", headerName: "Date Of Birth", width: 130 },
-  { field: "isDeactivated", headerName: "Deactivation Status", width: 150 },
-  { field: "_id", headerName: "User ID", width: 150 },
+  { field: "followers_count", headerName: "Followers", width: 100 },
+  { field: "followings_count", headerName: "Folllowing", width: 100 },
   {
-    field: "action",
-    headerName: "Action",
+    field: "admin_block",
+    headerName: "Is Blocked",
+    sortable: false,
+    valueFormatter: ({ value }) => value.blocked_by_admin,
+    type: "string",
+    seed: "12",
+    width: 120,
+  },
+  // {
+  //   field: "admin_block",
+  //   headerName: "Block Times",
+  //   sortable:false,
+  //   valueFormatter: ({ value }) => value?.blockNumTimes,
+  //   cellClassName: 'blocktimes',
+  //   type: "string",
+  //   seed:'11',
+  //   width: 120,
+  // },
+  {
+    field: "Number Block",
+    headerName: "Blocked Times",
+    width: 110,
+    sortable:true,
+    renderCell: (params) => {
+      return (
+        <div className="blockedtimes">
+            {getBlock(params).blockNumTimes}
+        </div>
+      );
+    },
+  },
+  { field: "_id", headerName: "User ID", width: 110 },
+  {
+    field: "block",
+    headerName: "Block",
+    width: 70,
     sortable: false,
     renderCell: (params) => {
-      const onClick = (e) => {
-        return (
-          <div>
-            <BlockForm />
+      return (
+        <div>
+          <div className="cellAction">
+            {getBlock(params).blocked_by_admin === false ? (
+              <Link to="/BlockForm" style={{ textDecoration: "none" }}>
+                <div className="viewButton">Block</div>
+              </Link>
+            ) : null}
           </div>
-        );
-      };
+        </div>
+      );
+    },
+  },
+  {
+    field: "action",
+    headerName: "Uncblock",
+    sortable: false,
+    renderCell: (params) => {
+      function Unblock() {
+        const resp = UnBLockUser([]);
+        console.log("unblocked res", resp);
+        // const navigate = useNavigate();
+        resp.then(function (result) {
+          console.log("result", result);
+          // istest(result);
+          if (result.status === 200) {
+            console.log("final test", result.status);
+            window.location.href = "/Users";
+          }
+        });
+        localStorage.setItem("selectedIDs", null);
+      }
 
       return (
-        <a href="BlockForm" onClick={onClick}>
-          <BlockIcon />
-        </a>
+        <div>
+          {getBlock(params).blocked_by_admin === true ? (
+            <div
+              className="deleteButton"
+              onClick={() => {
+                Unblock();
+              }}
+            >
+              Unblock
+            </div>
+          ) : null}
+        </div>
       );
     },
   },
@@ -51,21 +144,10 @@ const columns = [
 
 export default function AdminUsers() {
   const userlist = GetUserList();
+
   const [selectedRows, setSelectedRows] = React.useState([]);
 
   console.log("users", userlist);
-  const [isblocked, setIsBlock] = React.useState([]);
-
-  useEffect(() => {
-    (async () => {
-      const resp = await GetUserList();
-      let tempisblocked = [...resp.data[3].users_Per_Month];
-      tempisblocked.forEach((element, index) => {
-        tempisblocked[index].isblocked = element.admin_block.blocked_by_admin;
-      });
-      setIsBlock(tempisblocked);
-    })();
-  }, []);
   return (
     <div className="Users">
       <span className="Userstitle">Users List</span>
@@ -75,6 +157,7 @@ export default function AdminUsers() {
           rows={userlist}
           checkboxSelection
           columns={columns}
+          onCellFocusOut={(e) => console.log(e.admin_block)}
           onSelectionModelChange={(ids) => {
             const selectedIDs = new Set(ids);
             setSelectedRows(selectedIDs);
@@ -82,7 +165,7 @@ export default function AdminUsers() {
               return [...this.values()].pop();
             };
             var lastValue = selectedIDs.lastValue();
-            console.log(selectedIDs);
+            console.log("selected id", selectedIDs);
             // var val = [...selectedIDs].filter(x => x.hasOwnProperty('first'))[0]['first'];
             localStorage.setItem("selectedIDs", lastValue);
           }}

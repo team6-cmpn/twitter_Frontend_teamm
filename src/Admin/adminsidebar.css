@@ -1,11 +1,11 @@
 .adminsidebar {
     flex: 1;
     height: calc(100vh - 50px);
-    background-color: rgb(251, 251, 255);
+    background-color:white;
     position: sticky;
     top: 50px;
   }
-  
+ 
   .adminsidebarWrapper {
     padding: 20px;
     color: #555;
@@ -17,7 +17,7 @@
   
   .adminsidebarTitle {
     font-size: 20px;
-    color: rgb(187, 186, 186);
+    color: rgb(187, 186, 186) ;
   }
   
   .adminsidebarList {
@@ -31,6 +31,12 @@
     display: flex;
     align-items: center;
     border-radius: 10px;
+    
+
+  }
+  .adminsidebar ul li a{
+    color: #1da1f2 !important;
+
   }
   
   .adminsidebarListItem.active,

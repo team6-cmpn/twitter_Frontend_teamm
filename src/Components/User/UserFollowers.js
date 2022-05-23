@@ -3,35 +3,71 @@ import React from 'react';
 import { useState } from 'react';
 import Trends from "../Widgets/Trends";
 import Sidebar from "../Sidebar/Sidebar";
-import { getFollowerUsers } from "./FollowersMock";
-import { getFollowingUsers } from "./FollowersMock";
-import FollowersList from './FollowersList';
-import FollowingList from './FollowingList';
-import {getFollowersList,getFollowingList} from './backEndProfile';
+import { getFollowerUsers } from "../Profile/FollowersMock";
+import { getFollowingUsers } from "../Profile/FollowersMock";
+import FollowersList from '../Profile/FollowersList';
+import FollowingList from '../Profile/FollowingList';
+import axios from 'axios';
+import Configure from '../../Configure'
+// import {getFollowersList} from './backEndProfile';
+
 /**Followers page
  * Shows followers page
  *  
  * @returns (Layout of followers page)
  */
+
+
 function Followers() {
+    async function getFollowersList() {
+        var id = localStorage.getItem("clicked_userID"); 
+        await axios
+          .get(`${Configure.backURL}user/followersList/${id}`, {
+            headers: {
+              "Content-Type": "application/json",
+              "x-access-token": `${localStorage.getItem("token")}`,
+            },
+          })
+          .then((response) => {
+            setFollowersList(response.data.follower);
+            return response;
+          })
+          .catch((error) => {
+          });}
+
     const [FollowersLists,setFollowersList]=React.useState([])
     React.useEffect(()=>{
-        (async () => {
-            const resp = await getFollowersList();
-            setFollowersList(resp);
+        ( () => {
+            getFollowersList();
           })();
     
         },[])
 
-        const [FollowingLists,setFollowingList]=React.useState([])
-        React.useEffect(()=>{
-            (async () => {
-                const resp = await getFollowingList();
-                setFollowingList(resp);
-              })();
-        
-            },[])
-
+        async function getFollowingList() {
+            var id = localStorage.getItem("clicked_userID"); 
+            await axios
+              .get(`${Configure.backURL}user/followingList/${id}`, {
+                headers: {
+                  "Content-Type": "application/json",
+                  "x-access-token": `${localStorage.getItem("token")}`,
+                },
+              })
+              .then((response) => {
+                setFollowingList(response.data.following);
+                
+                return response;
+              })
+              .catch((error) => {
+              });
+          }
+    
+            const [FollowingLists,setFollowingList]=React.useState([])
+            React.useEffect(()=>{
+                ( () => {
+                    getFollowingList();
+                  })();
+            
+                },[])
         
     const [FollowerUsers,setFollowerUsers]=React.useState([])
     React.useEffect(()=>{
@@ -75,15 +111,19 @@ function Followers() {
              <div> {FollowerUsers.map((FollowerUsers,index)=>(
                 <FollowersList key={index} FollowerAccount={FollowerUsers}/>))}
               </div>
-              <div> <FollowersList FollowerAccount={FollowersLists}/> </div>
-            
+                <div>
+                    {FollowersLists.map((FollowerUsers,index)=>(
+                    <FollowersList key={index} FollowerAccount={FollowerUsers}/>))}
+                </div>
             </>
           ) : (
             <>
                 <div>{FollowingUsers.map((FollowingUsers,index)=>(
                 <FollowingList key={index} FollowingAccount={FollowingUsers}/>))}
                 </div>
-                <div> <FollowersList FollowerAccount={FollowingLists}/></div>
+                <div>{FollowingLists.map((FollowingUsers,index)=>(
+                <FollowingList key={index} FollowingAccount={FollowingUsers}/>))}
+                </div>
             </>
           )}
         </article>
@@ -94,5 +134,7 @@ function Followers() {
         </div>
     )
 }
+
+
 
 export default Followers;

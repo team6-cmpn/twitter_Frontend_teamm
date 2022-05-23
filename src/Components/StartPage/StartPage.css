@@ -1,11 +1,9 @@
 .flex-container {
   display: flex;
   flex-wrap: wrap-reverse;
-  background-color: white;
 }
 
 .flex-container>div {
-  background-color: white;
   width: 300px;
   line-height: 75px;
   font-size: 100px;
@@ -28,7 +26,7 @@
 }
 
 img {
-  width: 800px;
+  width: 750px;
   height: 720px;
 }
 

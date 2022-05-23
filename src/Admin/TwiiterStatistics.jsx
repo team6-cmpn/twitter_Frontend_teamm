@@ -2,11 +2,24 @@ import React from "react";
 import "./twitterstatistics.css";
 import {GetDashBoardstat} from "./MockRegistrationAdmin";
 import { Tweets_lookup } from "../Components/homepage/backendFeed";
-
+/**
+ * 
+ * this function returns statistics blocks that shows
+ * total number of users, total number of tweets, number of tweets per day and number of uers
+ * signed up during last week
+ * @returns 
+ */
 
 export default function Twiiterstatistics() {
   let staatic=[]
   staatic=GetDashBoardstat()
+  var tweetsperdayfinal;
+  let tweetsperday=staatic[11]?.tweets_Per_Day;
+  if(tweetsperday?.length===0){
+    tweetsperdayfinal=0
+  }else{
+    tweetsperdayfinal=staatic[11]?.tweets_Per_Day[0].count
+  }
   console.log("dashboard",staatic)
   return (
     <div className="adminstatistics" id="TwitterStatisticsBlocks">
@@ -25,7 +38,7 @@ export default function Twiiterstatistics() {
       <div className="adminstatisticsItem">
         <span className="adminstatisticsTitle">Number Of Tweets Per Day</span>
         <div className="staticsItemContainer">
-          <span className="itemNum"> {staatic[11]?.tweets_Per_Day.length} Tweets</span>
+          <span className="itemNum"> {tweetsperdayfinal} Tweets</span>
         </div>
       </div>
       <div className="adminstatisticsItem">

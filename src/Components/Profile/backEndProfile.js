@@ -1,160 +1,182 @@
 import axios from 'axios';
 import Configure from '../../Configure'
+import React from 'react';
+import  {  useEffect} from 'react';
 
 export async function GetUserInfo() {
-    var userinfo;
-    var id = localStorage.getItem("userId");
-   
-    await axios
-      .get(`${Configure.backURL}user/show/${id}`, {
+  const [info, setInfo] = React.useState([]);
+  var id = localStorage.getItem("userId");
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      const info = await axios.get(`${Configure.backURL}user/show/${id}`, {
         headers: {
           "Content-Type": "application/json",
           "x-access-token": `${localStorage.getItem("token")}`,
         },
-      })
-      .then((response) => {
-        console.log(response);
-        if (response.status === 200) {
-          userinfo = response.data.user;
-          console.log(response.data.user);
-          localStorage.setItem("description",response.data.user.description);
-          localStorage.setItem("numberOfFollowers",response.data.user.followings_count);
-        }
-      })
-      .catch((error) => {
-        userinfo = error.response.data.message;
       });
-  
-    return userinfo;
-  
+      setInfo(info.data.user);
+    };
+    fetchProduct();
+  }, [id]);
+  if (!info) return null;
+  console.log(info);
+  return info;
 }
+
+
+  export function GetFollowingList() {
+    const [followingList, setfollowingList] = React.useState([]);
+    var id = localStorage.getItem("userId");
+  
+    useEffect(() => {
+      const fetchProduct = async () => {
+        const followingList = await axios.get(`${Configure.backURL}user/followingList/${id}`, {
+          headers: {
+            "Content-Type": "application/json",
+            "x-access-token": `${localStorage.getItem("token")}`,
+          },
+        });
+        setfollowingList(followingList.data);
+      };
+      fetchProduct();
+    }, [id]);
+    if (!followingList) return null;
+    console.log(followingList);
+    return followingList;
+  }
+
+
+  export function GetFollowersList() {
+    const [followerList, setfollowerList] = React.useState([]);
+    var id = localStorage.getItem("userId");
+  
+    useEffect(() => {
+      const fetchProduct = async () => {
+        const followerList = await axios.get(`${Configure.backURL}user/followersList/${id}`, {
+          headers: {
+            "Content-Type": "application/json",
+            "x-access-token": `${localStorage.getItem("token")}`,
+          },
+        });
+        setfollowerList(followerList.data);
+      };
+      fetchProduct();
+    }, [id]);
+    if (!followerList) return null;
+    console.log(followerList);
+    return followerList;
+  }
+
+  export function GetTweetList() {
+    const [tweetList, setTweetList] = React.useState([]);
+    var id = localStorage.getItem("userId");
+  
+    useEffect(() => {
+      const fetchProduct = async () => {
+        const tweetList = await axios.get(`${Configure.backURL}user/tweetsList/${id}`, {
+          headers: {
+            "Content-Type": "application/json",
+            "x-access-token": `${localStorage.getItem("token")}`,
+          },
+        });
+        setTweetList(tweetList.data);
+      };
+      fetchProduct();
+    }, [id]);
+    if (!tweetList) return null;
+    console.log(tweetList);
+    return tweetList;
+  }
+
+  var idss=[];
+
+  export function GetLikedTweetList() {
+    const [tweetList, setTweetList] = React.useState([]);
+    var id = localStorage.getItem("userId");
+  
+    useEffect(() => {
+      const fetchProduct = async () => {
+        const tweetList = await axios.get(`${Configure.backURL}user/likedTweetsList/${id}`, {
+          headers: {
+            "Content-Type": "application/json",
+            "x-access-token": `${localStorage.getItem("token")}`,
+          },
+        });
+        setTweetList(tweetList.data);
+        for (let i = 0; i < tweetList.data.tweets.length; i++) {
+          
+          idss += tweetList.data.tweets[i].user + ",";
+          localStorage.setItem(`idss ${i}`,idss)
+        }
+        idss=idss.slice(0,-1);
+      };
+      fetchProduct();
+    }, [id]);
+    if (!tweetList) return null;
+    console.log(tweetList);
+    return tweetList;
+  }
+
+  export async function getUserLook(){
+    var userInfo=[];
+    await axios     
+        .get(`${Configure.backURL}user/lookup/${idss}`, {
+          headers: {
+            "Content-Type": "application/json; charset=ut-8",
+            "x-access-token": `${sessionStorage.getItem("token")}`,
+          },
+        }) 
+        .then((response) => {
+          if (response.status === 200) {
+            for (let i=0; i<response.data.user.length; i++){
+              userInfo += response.data.user[i].name + ",";
+              localStorage.setItem(`usernamelikedtweet ${i}`, response.data.user[i].username);
+              localStorage.setItem(`namelikedtweet ${i}`, response.data.user[i].name)
+              localStorage.setItem(`imagesss ${i}`, response.data.user[i].profile_image_url)
+            }
+            userInfo=userInfo.slice(0,-1);
+          
+          }
+        })
+       
+        .catch((error) => {
+          userInfo = error.response.data.message;
+        });
+    
+      return userInfo;
+    }
  
 
-  // export async function getFollowingList() {
-    
-    
-  //   var id = localStorage.getItem("userId");
-   
-  //  const followingList = await axios
-  //     .get(`${Configure.backURL}user/followingList/${id}`, {
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         "x-access-token": `${localStorage.getItem("token")}`,
-  //       },
-  //     })
-  //     .then((response) => {
-  //       console.log(response);
-  //       // console.log(response.data[0].name);
-  //       console.log("zeft");
-  //       // if (response.status === 200) {
-  //         // user = response.data;
-        
-  //         // const followingname = response;
-  //         console.log("mmmmmmm",response) 
-  //       return response;
-  //         // for (let i=0;i<response.data.length;i++){
-            
-  //         //   localStorage.setItem(`followingUser ${i}`,response.data[i].name);
-  //         //   localStorage.setItem(`followingUsername ${i}`,response.data[i].username);
-  //         // }
-  //       // }
-  //     })
-  //     .catch((error) => {
-  //       // following = error.response.data.message;
-  //     });
-  
-  //   // return followingname;
-  // }
-  export async function getFollowersList() {
-    var user;
+  export function GetMediaList() {
+    const [tweetList, setTweetList] = React.useState([]);
     var id = localStorage.getItem("userId");
-   
-    await axios
-      .get(`${Configure.backURL}user/followersList/${id}`, {
-        headers: {
-          "Content-Type": "application/json",
-          "x-access-token": `${localStorage.getItem("token")}`,
-        },
-      })
-      .then((response) => {
-        console.log(response);
-        console.log("araf");
-        if (response.status === 200) {
-          user = response.data;
-          console.log(response.data[0].name)
-          for (let i=0;i<response.data.length;i++){
-            localStorage.setItem(`followerUser ${i}`,response.data[i].name);
-            localStorage.setItem(`followerUsername ${i}`,response.data[i].username);
-          }
-        }
-      })
-      .catch((error) => {
-        user = error.response.data.message;
-      });
   
-    return user;
+    useEffect(() => {
+      const fetchProduct = async () => {
+        const tweetList = await axios.get(`${Configure.backURL}user/mediaList/${id}`, {
+          headers: {
+            "Content-Type": "application/json",
+            "x-access-token": `${localStorage.getItem("token")}`,
+          },
+        });
+        setTweetList(tweetList.data);
+      };
+      fetchProduct();
+    }, [id]);
+    if (!tweetList) return null;
+    console.log(tweetList);
+    return tweetList;
   }
 
-  export async function gettweetlist() {
-    var response='';
-    var id = localStorage.getItem("userId");
-    await axios
-      .get(`${Configure.backURL}user/tweetsList/${id}`, {
-        headers: {
-          "Content-Type": "application/json",
-          "x-access-token": `${localStorage.getItem("token")}`,
-        },
-      })
-      .then((response) => {
-        console.log(response);
-        if (response.status === 200) {
-          // tweet = response.data;
-          for (let i=0;i<response.data.tweet.length;i++){
-            
-            localStorage.setItem(`text ${i}`,response.data.tweet[i].text);
-            localStorage.setItem(`imageUrl ${i}`,response.data[i].imageUrl);
-            localStorage.setItem(`tweetdateat ${i}`,response.data[i].created_at);
-          }
-          console.log(response.data);
-        }
-      })
-      .catch((error) => {
-       console.log(error);
-      });
-  
-    return response.data;
-  }
-  
-  export async function getlikedtweetlist() {
-    var tweet;
-    await axios
-      .get(`${Configure.backURL}user/likedTweetsList/`, {
-        headers: {
-          "Content-Type": "application/json",
-          "x-access-token": `${sessionStorage.getItem("token")}`,
-        },
-      })
-      .then((response) => {
-        console.log(response);
-        if (response.status === 200) {
-          tweet = response.data;
-          console.log(response.data);
-        }
-      })
-      .catch((error) => {
-       console.log(error);
-      });
-  
-    return tweet;
-  }
 
   export async function UpdateProfile(body){
     var message;
     body =  {
-        name: sessionStorage.getItem("name"),
-        description: sessionStorage.getItem("description"),
+        name: localStorage.getItem("name"),
+        description: localStorage.getItem("description"),
       }
-      // console.log(`${localStorage.getItem('token')}`)
+     
       await axios
         .post(`${Configure.backURL}user/update/`,body, {
           
@@ -186,31 +208,30 @@ export async function GetUserInfo() {
       return message;
   };
 
-  // export const UploadImageProfile=async payload=>{
-  //   var Image;
-  //     const {
-  //       src,
-  //       alt,
-  //     } = payload;
-  //     await axios
-  //       .post(`${Configure.backURL}image/profile/upload`, {
+  export async function UploadImageProfile(imageFile){
+    var Image;
+    var bodyFormData = new FormData();
+    bodyFormData.append('image', imageFile); 
+    console.log(bodyFormData);
+      await axios
+        .post(`${Configure.backURL}image/profile/upload`, bodyFormData,{
   
-  //         headers: {
-  //           'Content-Type': 'application/json',
-  //           "x-access-token": `${localStorage.getItem("token")}`,
-  //         },
-  //        src,
-  //        alt,
-  //       })
-  //       .then((response) => {
-  //         console.log(response);
-  //         if (response.status === 200) {
-  //           Image='';
-  //           // localStorage.setItem('logInAccessToken', response.data.accessToken);
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            "x-access-token": `${localStorage.getItem("token")}`,
+          },
+
+        })
+        .then((response) => {
+          console.log(response);
+          if (response.status === 200) {
+            Image=response.data;
+            console.log(Image)
             
-  //         }
-  //       }).catch(error => {
-  //           console.log()
-  //           });
-  //     return Image;
-  // };
+            
+          }
+        }).catch(error => {
+            console.log()
+            });
+      return Image;
+  };

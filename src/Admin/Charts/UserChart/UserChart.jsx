@@ -2,11 +2,17 @@ import React, { PureComponent, useState, useEffect } from "react";
 import { PieChart, Pie, Tooltip, ResponsiveContainer } from "recharts";
 import { GetDashBoard, GetAgesRange } from "../../MockRegistrationAdmin";
 import "./userchart.css";
+/**
+ * 
+ * this function returns a chart that shows
+ * pie chart that shows percentages for ages ranges for users in twitter clone
+ * @returns 
+ */
 
 export default function UserChart() {
   // var agesrange = GetAgesRange();
   const [agesrange, setAgesRange] = useState(undefined);
-
+  
   useEffect(() => {
     (async () => {
       const resp = await GetDashBoard();
@@ -18,6 +24,8 @@ export default function UserChart() {
       setAgesRange(tempagesrange);
     })();
   }, []);
+  
+
 
   return (
     <div className="userchart">
@@ -34,7 +42,7 @@ export default function UserChart() {
             label
           />
 
-          <Tooltip />
+        <Tooltip contentStyle={{backgroundColor:'#1DA1F2'}} />
         </PieChart>
       </ResponsiveContainer>
     </div>

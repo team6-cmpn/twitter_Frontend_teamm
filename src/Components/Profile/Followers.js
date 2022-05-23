@@ -3,52 +3,87 @@ import React from 'react';
 import { useState } from 'react';
 import Trends from "../Widgets/Trends";
 import Sidebar from "../Sidebar/Sidebar";
-import { getFollowerUsers } from "./FollowersMock";
-import { getFollowingUsers } from "./FollowersMock";
+// import { getFollowerUsers } from "./FollowersMock";
+// import { getFollowingUsers } from "./FollowersMock";
 import FollowersList from './FollowersList';
 import FollowingList from './FollowingList';
-import {getFollowersList} from './backEndProfile';
+import axios from 'axios';
+import Configure from '../../Configure'
+// import {getFollowersList} from './backEndProfile';
 /**Followers page
  * Shows followers page
  *  
  * @returns (Layout of followers page)
  */
+
+
 function Followers() {
+    async function getFollowersList() {
+        var id = localStorage.getItem("userId");
+        await axios
+          .get(`${Configure.backURL}user/followersList/${id}`, {
+            headers: {
+              "Content-Type": "application/json",
+              "x-access-token": `${localStorage.getItem("token")}`,
+            },
+          })
+          .then((response) => {
+            setFollowersList(response.data.follower);
+            return response;
+          })
+          .catch((error) => {
+          });}
+
     const [FollowersLists,setFollowersList]=React.useState([])
     React.useEffect(()=>{
-        (async () => {
-            const resp = await getFollowersList();
-            setFollowersList(resp);
+        ( () => {
+            getFollowersList();
           })();
     
         },[])
 
-        const [FollowingLists,setFollowingList]=React.useState([])
-        // React.useEffect(()=>{
-        //     (async () => {
-        //         const resp = await getFollowingList();
-        //         setFollowingList(resp);
-        //       })();
-        
-        //     },[])
-
-        
-    const [FollowerUsers,setFollowerUsers]=React.useState([])
-    React.useEffect(()=>{
-        (async () => {
-            const resp = await getFollowerUsers();
-            setFollowerUsers(resp);
-          })();
+        async function getFollowingList() {
+            var id = localStorage.getItem("userId");
+            await axios
+              .get(`${Configure.backURL}user/followingList/${id}`, {
+                headers: {
+                  "Content-Type": "application/json",
+                  "x-access-token": `${localStorage.getItem("token")}`,
+                },
+              })
+              .then((response) => {
+                setFollowingList(response.data.following);
+                
+                return response;
+              })
+              .catch((error) => {
+              });
+          }
     
-        },[])
-    const [FollowingUsers,setFollowingUsers]=React.useState([])
-    React.useEffect(()=>{
-        (async () => {
-            const resp = await getFollowingUsers();
-            setFollowingUsers(resp);
-          })();
+            const [FollowingLists,setFollowingList]=React.useState([])
+            React.useEffect(()=>{
+                ( () => {
+                    getFollowingList();
+                  })();
+            
+                },[])
+        
+    // const [FollowerUsers,setFollowerUsers]=React.useState([])
+    // React.useEffect(()=>{
+    //     (async () => {
+    //         const resp = await getFollowerUsers();
+    //         setFollowerUsers(resp);
+    //       })();
     
-        },[])
+    //     },[])
+    // const [FollowingUsers,setFollowingUsers]=React.useState([])
+    // React.useEffect(()=>{
+    //     (async () => {
+    //         const resp = await getFollowingUsers();
+    //         setFollowingUsers(resp);
+    //       })();
+    
+    //     },[])
     const [isFollowers, setIsFollowers] = useState(true);
     return (
         <div>
@@ -75,16 +110,16 @@ function Followers() {
              {/* <div> {FollowerUsers.map((FollowerUsers,index)=>(
                 <FollowersList key={index} FollowerAccount={FollowerUsers}/>))}
               </div> */}
-              <div> 
-              {FollowersLists.map((FollowerUsers,index)=>(
-                <FollowersList key={index} FollowerAccount={localStorage.getItem(`followerUsername ${index}`)} FollowerName={localStorage.getItem(`followerUser ${index}`)}/>))}
-              </div>
+                <div>
+                    {FollowersLists.map((FollowerUsers,index)=>(
+                    <FollowersList key={index} FollowerAccount={FollowerUsers}/>))}
+                </div>
             </>
           ) : (
             <>
-                <div>{FollowingUsers.map((FollowingUsers,index)=>(
+                {/* <div>{FollowingUsers.map((FollowingUsers,index)=>(
                 <FollowingList key={index} FollowingAccount={FollowingUsers}/>))}
-                </div>
+                </div> */}
                 <div>{FollowingLists.map((FollowingUsers,index)=>(
                 <FollowingList key={index} FollowingAccount={FollowingUsers}/>))}
                 </div>

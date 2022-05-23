@@ -1,4 +1,4 @@
-.newUsersTitle {
+/* .newUsersTitle {
   font-size: 22px;
   font-weight: 600;
 }
@@ -11,14 +11,18 @@
 }
 .newUsersListItem {
   display: flex;
+  flex-direction: row;
   align-items: center;
   margin-right: 20rem;
 }
 
 .newUsersUser {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   margin-left: 20px;
+}
+.newUsersUser>span{
+  color:#000000 !important;
 }
 
 .newUsersUsername {
@@ -28,7 +32,7 @@
 
 .newUsersUserTitle {
   font-weight: 300;
-  color: grey;
+  text-align: right;
 }
 
 .newUsersButton {
@@ -45,4 +49,4 @@
 .newUsersIcon {
   font-size: 16px !important;
   margin-right: 5px;
-}
+} */

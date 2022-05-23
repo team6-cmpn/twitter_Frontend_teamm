@@ -1,19 +1,30 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./topusercomponent.css";
 import { Avatar } from "@material-ui/core";
 import { Visibility } from "@material-ui/icons";
 import { Link, BrowserRouter } from "react-router-dom";
+import { GetAdminUserList, GetUserList } from "./MockRegistrationAdmin";
+import Configure from "../Configure";
 
-const TopUserItem = ({ user }) => {
+/**
+ *
+ * this function returns component for each top five users with most followers
+ * @returns
+ */
+
+export default function TopUserItem({ user }) {
   return (
     <div className="newUsersListItem" id="TopUsersItem">
-      <img src={user.imgurl} alt="" className="newUsersImg" />
+      <img
+        src={`${Configure.backURL}${user.profile_image_url}`}
+        alt=""
+        className="topAvatar"
+      ></img>
       <div className="newUsersUser">
-        <span className="newUsersUserTitle">{user.username}</span>
-        <span >{user.followers_count}</span>
+        <Link to={`/${user?.username}`}>
+          <span style={{color:"black",marginRight: "111px"}} className="newUsersUserTitle">{user.username}</span>
+        </Link>
       </div>
     </div>
   );
-};
-
-export default TopUserItem;
+}

@@ -13,10 +13,11 @@ import Trends from "../Widgets/Trends";
 import Sidebar from "../Sidebar/Sidebar";
 import {GrLocation} from "react-icons/gr"
 import {BiLink} from "react-icons/bi"
-import { gettweetlist ,UpdateProfile} from './backEndProfile'
-import { GetPostTweet } from "../homepage/feedmock";
+import { UpdateProfile, UploadImageProfile, GetUserInfo, GetTweetList,GetLikedTweetList,getUserLook} from './backEndProfile'
+// import { GetPostTweet } from "../homepage/feedmock";
 import Post from "../homepage/Post";
 import { RecoilRoot } from "recoil";
+import Configure from '../../Configure';
 
 
 /**Profile
@@ -28,43 +29,50 @@ function Profile(){
     const [date, setDate] = useState(null);
     const [isMainModalVisible, setMainModalVisible] = useState(false);
     const [isTab, setIsTab] = useState(1);
-    const [twetted, postedtweet] = React.useState([]);
+    // const [twetted, postedtweet] = React.useState([]);
     
-    
-    React.useEffect(() => {
-      (async () => {
-        const resp = await GetPostTweet();
-        postedtweet(resp);
-      })();
-    }, []);
+    getUserLook();
+    // React.useEffect(() => {
+    //   (async () => {
+    //     const resp = await GetPostTweet();
+    //     postedtweet(resp);
+    //   })();
+    // }, []);
+    var TweetsLists= GetTweetList();
+    console.log("MApping",TweetsLists)
 
-    const [tweetsList, setTweetList] = React.useState([]);
-    React.useEffect(() => {
-        (async () => {
-          const resp = await gettweetlist();
-          setTweetList(resp);
-        })();
-      }, []);
-    
-    const [{alt2, src2}, setImg2] = useState({
+    var LikedTweetsLists= GetLikedTweetList().tweets;
+   
+    console.log("listsss",LikedTweetsLists)
+    // var MediaLists=GetMediaList();
+
+    var [{alt2, src2}, setImg2] = useState({
         src2: placeholder,
     });
 
-    const [{alt, src}, setImg] = useState({
+    var [{alt, src}, setImg] = useState({
         src: placeholder,
     });
 
+    const [imag, setupload] = useState();
     const handleImg = (e) => {
         if(e.target.files[0]) {
+            
             setImg({
                 src: URL.createObjectURL(e.target.files[0]),
                 alt: e.target.files[0].name
             }); 
-              
-             
+            console.log(src)
+            console.log(e.target.files[0])
+            var im=UploadImageProfile(e.target.files[0]); 
+            im.then(data=>{setupload(data)});
+            console.log(im)
+            // const PImage=localStorage.getItem("Image")
+            // setImg2(PImage)
         }   
     }
-    
+    console.log(imag?.url)
+    localStorage.setItem("image",imag?.url)
     // const [Username, setUsernames] = React.useState([]);
     // React.useEffect(() => {
     // (async () => {
@@ -78,34 +86,71 @@ function Profile(){
     const [bio, setBio] = useState(null)
     const [location, setLocation] = useState(null)
     const [website, setWebsite] = useState(null)
-    const [editname, setEditName] = useState('');
-    const [editbio, setEditBio] = useState(null)
+    var [editname, setEditName] = useState('');
+    var [editbio, setEditBio] = useState(null)
     const [editlocation, setEditLocation] = useState(null)
     const [editwebsite, setEditWebsite] = useState(null)
     // const [Item, setItem] = useState();
     const [upd, setupdate] = useState();
+    const loginuser_id = localStorage.getItem("userId");
+    var info= GetUserInfo()
+    const [test, istest] = React.useState();
+    info.then(function (result) {
+        console.log("result", result);
+        istest(result);
+      });
+    console.log(info)
+    var Url=test?.profile_image_url
+    // GetUserInfo().user.profile_image_url;
+    console.log(Url)
+    var image =`${Configure.backURL}${Url}`
+    console.log(image)
 
     function SaveButtonActions(){
     mockAPI.Profile(body); 
     var up = UpdateProfile(update);
     up.then(data=>{setupdate(data)});
     console.log(upd);
-    
+    console.log(info)
     setMainModalVisible(false);
     setName(editname);
     setBio(editbio);
-    localStorage.setItem("description", editbio);
+    if (editname===''){
+        editname=localStorage.getItem("name");
+    }else {
+        localStorage.setItem("name", editname);
+    }
+    if (editbio===''){
+        editbio=localStorage.getItem("description");
+    }else{
+        localStorage.setItem("description", editbio);
+    }
     setLocation(editlocation);
     setWebsite(editwebsite);
-    localStorage.setItem("name", editname);
-    setImg2({
-        src2: src,
-        alt2: alt
-    }); 
+    
+    // if (src==='' || src2===''){
+    //     setImg({
+    //         src:localStorage.getItem("src"),
+    //         alt:alt
+    //     })
+        // src=localStorage.getItem("src")
+        // src2=src
+        var Url=test?.profile_image_url
+
+        // console.log(Url)
+        var image =`${Configure.backURL}${Url}`
+        // console.log(image)
+        setImg2({
+            src2: image,
+            alt2: alt
+        });
+   
+    
     }
+    
     sessionStorage.setItem("name",editname);
     sessionStorage.setItem("description",editbio);
-    
+    // localStorage.getItem("Image")
     var body={
         name: editname,
         bio: editbio,
@@ -118,15 +163,6 @@ function Profile(){
         name: editname,
         description: editbio,
     }
-
-    // const tweet=gettweetlist();
-    // tweet.then(data=>{settweet(data)});
-    // console.log(tweeted);
-    // for (let i=0;i<gettweetlist();i++){
-    // var tweetText=[];
-    // tweetText[i]= localStorage.getItem(`tweettext${i} `)
-    // var tweetimage=localStorage.getItem(`imageUrl${i} `)
-    // var tweetdate=localStorage.getItem(`tweetdateat${i}`)}
 
     const username=localStorage.getItem("getUsername")
     console.log(name);
@@ -145,7 +181,7 @@ function Profile(){
                     </div> 
                     <div>
                         <div>
-                            <img id="img" src={src2} alt={alt2} className="form-img__img-preview"/>
+                            <img id="img" src={`${Configure.backURL}${Url}`} alt={alt2} className="form-img__img-preview"/>
                         </div>
                         <div id="bioName" className='name'> {name}</div>
                         <br></br>
@@ -178,7 +214,7 @@ function Profile(){
                         <br></br>
                         
                         <div id="followers"className="FollowLink">
-                            <Link to ="/Followers">{localStorage.getItem("numberOfFollowers")}Followers </Link>
+                            <Link to ="/Followers">{test?.followings_count}Followers </Link>
                         </div>
                         
                         <div id="following" className='FollowLink'>
@@ -216,71 +252,83 @@ function Profile(){
                     <article>
                         {
                          (isTab===1)?
-                        
                             <>
-
-                            {/* {twetted.map((userlist, index) => (
-                                 <Post
-                                 key={index}
-                                 displayName={userlist.displayName}
-                                 username={userlist.username}
-                                 text={userlist.text}
-                                 image={userlist.image}
-                                 avatar={userlist.avatar}
-                                 date={userlist.date}
-                                 />))} */}
-                                 {/* {tweetsList.map((userlist, index) => (
-                                 <Post
-                                 key={index}
-                                 displayName={name}
-                                 username={username}
-                                 text={localStorage.getItem(`tweettext${index} `)}
-                                 image={localStorage.getItem(`imageUrl${index} `)}
-                                 avatar={userlist.avatar}
-                                 date={localStorage.getItem(`tweetdateat${index}`)}
-                                 />))} */}
+                            {TweetsLists.map((userlist, index) => (
+                                <Post
+                                key={index}
+                                displayName={name}
+                                username={username}
+                                text={userlist?.text}
+                                image={userlist?.imageUrl}
+                                avatar={`${Configure.backURL}${Url}`}
+                                tweet_id={userlist?._id}
+                                mention={userlist?.mention}
+                                date={userlist?.created_at}
+                                user_tweeted_id={userlist?.user}
+                                logedin_user_id={loginuser_id}
+                                likes={userlist?.favorites.length}
+                                retweets={userlist?.retweetUsers.length}
+                                 />))}
                             </>
                          :
                          (isTab===2)?
                             <>
 
-                            {twetted.map((userlist, index) => (
-                                 <Post
-                                 key={index}
-                                 displayName={name}
-                                 username={username}
-                                 text={userlist.text}
-                                 image={userlist.image}
-                                 avatar={userlist.avatar}
-                                 date={userlist.date}
-                                 />))}
+                            {TweetsLists.map((userlist, index) => (
+                                <Post
+                                key={index}
+                                displayName={name}
+                                username={username}
+                                text={userlist?.text}
+                                image={userlist?.imageUrl}
+                                avatar={`${Configure.backURL}${Url}`}
+                                tweet_id={userlist?._id}
+                                mention={userlist?.mention}
+                                date={userlist?.created_at}
+                                user_tweeted_id={userlist?.user}
+                                logedin_user_id={loginuser_id}
+                                likes={userlist?.favorites.length}
+                                retweets={userlist?.retweetUsers.length}
+                                />))
+                            }
                             </>
                         : (isTab===3)?
                             <>
 
-                            {twetted.map((userlist, index) => (
-                                 <Post
-                                 key={index}
-                                 displayName={userlist.displayName}
-                                 username={userlist.username}
-                                 text={userlist.text}
-                                 image={userlist.image}
-                                 avatar={userlist.avatar}
-                                 date={userlist.date}
-                                 />))}
+                            {/* {MediaLists.map((userlist, index) => (
+                                <Post
+                                key={index}
+                                displayName={name}
+                                username={username}
+                                text={userlist?.text}
+                                // image={userlist?.imageUrl}
+                                avatar={`${Configure.backURL}${Url}`}
+                                tweet_id={userlist?._id}
+                                mention={userlist?.mention}
+                                date={userlist?.created_at}
+                                user_tweeted_id={userlist?.user}
+                                logedin_user_id={loginuser_id}
+                                likes={userlist?.favorites.length}
+                                retweets={userlist?.retweetUsers.length}
+                                 />))} */}
                             
                             </>
                         : 
                             <>
-                            {twetted.map((userlist, index) => (
-                                 <Post
-                                 key={index}
-                                 displayName={userlist.displayName}
-                                 username={userlist.username}
-                                 text={userlist.text}
-                                 image={userlist.image}
-                                 avatar={userlist.avatar}
-                                 date={userlist.date}
+                            {LikedTweetsLists.map((userlist, index) => (
+                                <Post
+                                displayName={localStorage.getItem(`namelikedtweet ${index}`)}
+                                username={localStorage.getItem(`usernamelikedtweet ${index}`)}
+                                text={userlist?.text}
+                                image={userlist?.imageUrl}
+                                avatar={`${Configure.backURL}${Url}`}
+                                tweet_id={userlist?._id}
+                                mention={userlist?.mention}
+                                date={userlist?.created_at}
+                                user_tweeted_id={userlist?.user}
+                                logedin_user_id={loginuser_id}
+                                likes={userlist?.favorites.length}
+                                retweets={userlist?.retweetUsers.length}
                                  />))}
                             </> 
                         

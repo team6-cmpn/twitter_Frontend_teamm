@@ -1,60 +1,58 @@
-import React, {useState} from "react";
+import React, {useState, useEffect, useRef} from "react";
+import {RecoilRoot} from "recoil";
+
 import "./Home.css";
+import "./onepost.css";
+
 import Sidebar from "./Sidebar/Sidebar";
 import Trends from "./Widgets/Trends";
 import "antd/dist/antd.css";
 import Post from "./homepage/Post";
-import {RecoilRoot} from "recoil";
 import * as backend from "./homepage/backendFeed";
-import "./onepost.css";
 
 function Home() {
-  //   const [tweet_id, setid_tweet] = useState([]);
-  const [user_id, setid_user] = useState([]);
-  const [mention, setmention] = useState();
-  const [username, setusername] = useState();
-  const [displayName, setDisplayname] = useState();
-  const [date, setdate] = useState();
-  const [text_tweet, setItem] = useState();
-  // const [disp_img, getimg] = useState([]);
+  const [change, setchange] = useState();
+  const [opened_tweet, setopened_tweet] = useState([]);
+  const [Favoritelength, setFavoritelength] = useState([]);
+  const [blocked, setblocked] = React.useState();
   const loginuser_id = localStorage.getItem("userId");
-  const [likesno, setlikesno] = useState();
-  const [retweetno, setretweetno] = useState();
-
   var clicked_tweet_id = localStorage.getItem("clicked.ID");
-  const tweeted_user = backend.getTweet(clicked_tweet_id);
 
-  tweeted_user.then((text) => {
-    setItem(text.tweet.text);
-    setmention(text.tweet.mention);
-    setdate(text.tweet.created_at);
-    setusername(text.user.username);
-    setDisplayname(text.user.name);
-    setlikesno(text.tweet.favorites.length);
-    setretweetno(text.tweet.retweetUsers.length);
-    //setid_tweet(text._id);
-    setid_user(text.user.id);
-    console.log(text.tweet.retweetUsers.length);
-    //console.log(text.mention);
-  });
+  useEffect(() => {
+    (async () => {
+      const resp = await backend.getTweet(clicked_tweet_id);
+      console.log(resp);
+      setopened_tweet(resp);
+      const ress = backend.getTweet(clicked_tweet_id);
+      ress.then(function (test) {
+        setblocked(test.user.admin_block?.blocked_by_admin);
+        setFavoritelength(test?.tweet?.favorites.length);
+      });
+    })();
+  }, []);
+  // console.log(Favoritelength);
+
+  console.log(opened_tweet.tweet?.favorites.length);
   return (
-    <div className="twitter ">
+    <div className="twitter  ">
       <Sidebar />
       <RecoilRoot>
         <div className=" posted">
           <Post
-            username={displayName}
-            displayName={username}
-            //avatar={userlist}
-            mention={mention}
-            text={text_tweet}
-            date={date}
-            user_tweeted_id={user_id}
+            displayName={opened_tweet.user?.name}
+            username={opened_tweet.user?.username}
+            text={opened_tweet.tweet?.text}
+            image={opened_tweet.tweet?.imageUrl}
+            tweet_id={opened_tweet.tweet?._id}
+            mention={opened_tweet.tweet?.mention}
+            date={opened_tweet.tweet?.created_at}
+            user_tweeted_id={opened_tweet.tweet?.user}
             logedin_user_id={loginuser_id}
-            retweets={retweetno}
-            likes={likesno}
-            //avatar={disp_img}
-            //id_post={id_post}
+            likes={Favoritelength}
+            // retweets={[Retweeters].length}
+            user_liked_tweet={opened_tweet?.isLiked}
+            user_retweted_tweet={opened_tweet?.isRetweeted}
+            mentioned_user={opened_tweet.tweet?.mentionedUser}
             open={true}
           />
         </div>

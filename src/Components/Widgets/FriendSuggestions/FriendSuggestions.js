@@ -1,4 +1,5 @@
 import React from "react";
+import TrendAccounts from "../../Trendaccounts";
 //import "./FriendSuggestions.css";
 import FriendSuggestionItem from "./FriendSuggestionItem/FriendSuggestionItem";
 /**FriendSuggestions
@@ -17,27 +18,27 @@ function FriendSuggestions() {
         <br/>
       </div>
       
-      <FriendSuggestionItem
+      <TrendAccounts
         username="Dr Magdi"  
-        displayName="Magdi Yaakob"
+        name="Magdi Yaakob"
         image="https://myhero.com/images/guest/g277272/hero103155/Magdi-Yacoub.jpg"
       />
        <div>
         <br/>
       </div>
       
-      <FriendSuggestionItem
+      <TrendAccounts
         username="William Henry Gates"
-        displayName="Bill Gates"
+        name="Bill Gates"
         image="https://static.techspot.com/images2/news/bigimage/2020/03/2020-03-14-image-4-j.webp"
       />
        <div>
         <br/>
       </div>
       
-       <FriendSuggestionItem
+       <TrendAccounts
         username="Steven Paul Jobs"
-        displayName="Steve Jobs"
+        name="Steve Jobs"
         image="https://cdn.vox-cdn.com/thumbor/o7bA0tOZDGi-Y7reXlBHcOXC180=/0x137:575x520/920x613/filters:focal(0x137:575x520):format(webp)/cdn.vox-cdn.com/assets/695120/jobs_hero20110329.png"
       />
       {/* <div className="side">

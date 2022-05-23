@@ -1,4 +1,4 @@
-.Users{
+.Users {
   flex: 1;
   box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
   -webkit-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
@@ -6,11 +6,41 @@
   padding: 20px;
   margin-right: 20px;
 }
+.Users>span{
 
-.Userstitle{
+  color:#000000 !important;
+}
+
+.Userstitle {
   font-size: 25px;
   font-weight: 600;
   color: brown;
+}
+.deleteButton {
+  padding: 2px 5px;
+  border-radius: 5px;
+  color: darkblue;
+  border: 1px dotted rgba(0, 0, 139, 0.596);
+  cursor: pointer;
+}
+.blockedtimes{
+  text-align: center;
+}
+.viewButton {
+  padding: 2px 5px;
+  border-radius: 5px;
+  color: crimson;
+  border: 1px dotted rgba(220, 20, 60, 0.6);
+  cursor: pointer;
+
+}
+.actionsblock {
+  flex-direction: row;
+}
+.cellAction {
+  display: flex;
+  align-items: center;
+  gap: 15px;
 }
 /* 
 .UsersImg{

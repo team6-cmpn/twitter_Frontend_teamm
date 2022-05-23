@@ -20,35 +20,17 @@ import {
   GetDashBoardstat
 } from "../../MockRegistrationAdmin";
 import { useState,useEffect } from "react";
+/**
+ * 
+ * this function returns 2 item 
+ * first item for users per month in 2022
+ * second item for showing users per years from starting our twitter clone
+ * @returns 
+ */
 
 export default function UserNumChart() {
   const usersperyear = GetDashBoardstat()[4]?.users_Per_Year;
-  // const [usersPerMonth, setUsersPerMonth] = useState(undefined);
-  // const usersPerMonth= UserNumberMonthBack[3]?.users_Per_Month;
-//   useEffect(() => {
-//   (async () => {
-//     const resp = await GetDashBoard();
-//     let tempUsersPerMonth = [...resp.data[3].users_Per_Month];
-//     tempUsersPerMonth.forEach((element, index) => {
-//       tempUsersPerMonth[index].month = element._id.month;
-//     });
-//     setUsersPerMonth(tempUsersPerMonth);
-//   })();
-// }, []);
-
-// useEffect(() => {
-//   (async () => {
-//     const resp = await GetDashBoard();
-//     let tempUsersPerMonth = [...resp.data[4].users_Per_Month];
-//     tempUsersPerMonth.forEach((element, index) => {
-//       tempUsersPerMonth[index].month = element._id.month;
-//     });
-//     setUsersPerMonth(tempUsersPerMonth);
-//   })();
-// }, []);
-
 const usersPerMonth=GetDashBoardstat()[3]?.users_Per_Month
-
   return (
     <div className="charts">
       <div className="chart">
@@ -68,7 +50,7 @@ const usersPerMonth=GetDashBoardstat()[3]?.users_Per_Month
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="_id" />
             <YAxis />
-            <Tooltip />
+            <Tooltip contentStyle={{backgroundColor:'#1DA1F2'}} />
             <Legend />
             <Bar dataKey="count" fill="#82ca9d" />
           </BarChart>
@@ -89,9 +71,9 @@ const usersPerMonth=GetDashBoardstat()[3]?.users_Per_Month
             }}
           >
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="_id" />
+            <XAxis dataKey="_id"  domain={[0, 10000]} />
             <YAxis />
-            <Tooltip />
+            <Tooltip contentStyle={{backgroundColor:'#1DA1F2'}} />
             <Legend />
             <Line type="monotone" dataKey="totalUsers" stroke="#06562B" />
           </LineChart>

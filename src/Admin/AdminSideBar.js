@@ -6,6 +6,12 @@ import GroupIcon from "@material-ui/icons/Group";
 import HomeIcon from "@material-ui/icons/Home";
 import { Link, useLocation, Outlet } from "react-router-dom";
 import Statistics from "./statistics";
+/**
+ * 
+ * side bar that have the items that the users can 
+ * trigger between pages of admin 
+ * @returns 
+ */
 
 export default function AdminSideBar() {
   return (
@@ -30,6 +36,12 @@ export default function AdminSideBar() {
               <a href="Users">
                 <GroupIcon className="adminsidebarIcon" />
                 Users
+              </a>
+            </li>
+            <li className="adminsidebarListItem" id="AdminUsers">
+              <a href="home">
+                <HomeIcon className="adminsidebarIcon" />
+                Twitter Home
               </a>
             </li>
           </ul>

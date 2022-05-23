@@ -24,7 +24,6 @@ function LogIn() {
     const [password, setPassword] = useState(null);
     const [apiResponseMessage, setApiResponseMessage] = useState();
     const [googleApiResponseMessage, setGoogleApiResponseMessage] = useState();
-    localStorage.setItem('isLogged',false)
    
 
     function getData(val){
@@ -91,8 +90,14 @@ function LogIn() {
       const promise =  BE.backEndLogIn(body);
       promise.then((message)=> {
         setApiResponseMessage(message+'. You can re-enter your info by pressing on close (x) sign')
-        if(message===''){navigate('/home');}
-        localStorage.setItem('isLogged',true)
+        if(message===''){
+          
+          navigate("/home");
+          localStorage.setItem('word', "");
+          localStorage.setItem('word1', "");
+          window.location.reload();
+        
+      }
      })
 
       // console.log(home);

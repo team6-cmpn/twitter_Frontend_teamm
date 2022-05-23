@@ -22,7 +22,7 @@ const MainSettings = () => {
             <br/>
             <br/>
             
-            <SettingsIcon sx={{fontSize: 90}}/>
+            <SettingsIcon sx={{fontSize: 90 ,  color:'lightblue'}}/>
             <h1>choose the menu you want to </h1>
       </div>
       

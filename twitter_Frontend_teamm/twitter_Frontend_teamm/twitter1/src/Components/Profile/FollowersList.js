@@ -7,7 +7,7 @@ import { useState } from "react";
 import { Modal } from "antd";
 import { Link } from "react-router-dom";
 import {Follow,destroyFollow}from '../User/BackendUser';
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 /**Followers List
  * Shows followers list

@@ -12,6 +12,7 @@ import EmojiEmotionsOutlinedIcon from "@mui/icons-material/EmojiEmotionsOutlined
 import Tooltip from "@mui/material/Tooltip";
 import "emoji-mart/css/emoji-mart.css";
 import {WindowRounded} from "@mui/icons-material";
+import {Modal} from "antd";
 
 /**
  *function of header tweet
@@ -27,6 +28,7 @@ function Tweetbox(props, flaged_color) {
   const filePickerRef = useRef(null);
   const [images, setImages] = useState([]);
   const [COLOR, setCOLRO] = useState("transparent");
+  const [model_tweeted, setmodel_tweeted] = useState(false);
 
   const logedin_user_id = localStorage.getItem("userId");
 
@@ -66,6 +68,10 @@ function Tweetbox(props, flaged_color) {
       setimage_array([...image_array, ...arr_obj]);
     }
   };
+  /**
+   * handle removing image in header twet
+   * @param {array string} imageUrl
+   */
   const handleRemoveImage = (imageUrl) => {
     let tempImages = [...images];
     let tempImagesObj = [...image_array];
@@ -111,8 +117,16 @@ function Tweetbox(props, flaged_color) {
           imageUrl: path_try,
         };
         setCOLRO("transparent");
-        backend.Post_Tweet(body);
-        // ref();
+        const tweeted = await backend.Post_Tweet(body);
+        if (tweeted.status === 201) {
+          setTimeout(() => {
+            ref();
+          }, 2000);
+        }
+        if (tweeted === "tweet duplication") {
+          setmodel_tweeted(true);
+        }
+
         // window.location.reload();
       }
     })();
@@ -188,8 +202,7 @@ function Tweetbox(props, flaged_color) {
                 </Tooltip>
               </Button>{" "}
               <input
-                //value={selectedFile}
-                id
+                id="image f post "
                 type="file"
                 multiple
                 ref={filePickerRef}
@@ -233,8 +246,33 @@ function Tweetbox(props, flaged_color) {
             theme="light"
           />
         )}
+        <span className="border"></span>
+        <div>
+          <Modal
+            title={
+              <h1
+                style={{
+                  fontSize: "180%",
+                  marginTop: "10px",
+                  color: "red",
+                  textAlign: "center",
+                }}
+              >
+                This tweet is duplicated !!{" "}
+              </h1>
+            }
+            style={{textAlign: "left"}}
+            cancelButtonProps={{style: {display: "none"}}}
+            visible={model_tweeted}
+            alignItems={{top: Window}}
+            onCancel={() => setmodel_tweeted(false)}
+            footer={null}
+            maskClosable={false}
+          >
+            <div>You have already tweeted this tweet before</div>
+          </Modal>
+        </div>
       </div>
-      <span className="border"></span>
     </div>
   );
 }

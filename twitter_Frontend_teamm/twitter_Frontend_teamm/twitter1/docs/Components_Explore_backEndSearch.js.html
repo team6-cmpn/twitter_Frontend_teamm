@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Components/Explore/backEndSearch.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Components/Explore/backEndSearch.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import axios from "axios";
+import Configure from "../../Configure";
+import React, { useEffect } from "react";
+/**
+ *Search top BE Integration
+ *
+ *get search top data from BE server
+ *
+ * @returns {string} -message from BE
+ */
+
+
+var userridd = [];
+
+export function GetSearchTop() {
+  const [searched, setSearched] = React.useState([]);
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      const search = await axios.get(
+        `${Configure.backURL}search/top?text=${localStorage.getItem(
+          "searchData"
+        )}`,
+        {
+          headers: {
+            "Content-Type": "application/json; charset=ut-8",
+            "x-access-token": `${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      setSearched(search);
+      
+      for (let i = 0; i &lt; search.data.tweets.length; i++) {
+        console.log("farahhhhhhhhhhhhh", search.data.tweets[i].user);
+        userridd += search.data.tweets[i].user + ",";
+        localStorage.setItem(`userridd ${i}`, search.data.tweets[i].user);
+        // localStorage.setItem('idd',search.data.tweets[i].user)
+      }
+      userridd = userridd.slice(0, -1);
+    };
+    fetchProduct();
+  }, []);
+  if (!searched) return null;
+  return searched;
+}
+
+
+/**
+ *Search lookup BE Integration
+ *
+ *get search name and username top data from BE server
+ *
+ * @returns {string} -message from BE
+ */
+export async function getUserLook() {
+  var userInfo = [];
+  await axios
+    .get(`${Configure.backURL}user/lookup/${userridd}`, {
+      headers: {
+        "Content-Type": "application/json; charset=ut-8",
+        "x-access-token": `${sessionStorage.getItem("token")}`,
+      },
+    })
+    .then((response) => {
+      //console.log(response);
+      if (response.status === 200) {
+        for (let i = 0; i &lt; response.data.user.length; i++) {
+          userInfo += response.data?.user[i]?.name + ",";
+          localStorage.setItem(
+            `usernametweet ${i}`,
+            response.data.user[i].username
+          );
+          localStorage.setItem(`nametweet ${i}`, response.data.user[i].name);
+          localStorage.setItem(`imageusertweet ${i}`, response.data.user[i].profile_image_url);
+        }
+        userInfo = userInfo.slice(0, -1);
+        console.log(userInfo);
+      }
+    })
+
+    .catch((error) => {
+      userInfo = error.response.data.message;
+    });
+
+  return userInfo;
+}
+
+
+export function GetLookUp() {
+  const [dashBoard, setDashBoard] = React.useState([]);
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      const dashBoard = await axios.get(`${Configure.backURL}user/lookup/${userridd}`, {
+        headers: {
+          "Content-Type": "application/json; charset=ut-8",
+          "x-access-token": `${sessionStorage.getItem("token")}`,
+        },
+      });
+      setDashBoard(dashBoard.data);
+    };
+    fetchProduct();
+  }, []);
+  
+  if (!dashBoard) return null;
+  console.log("dashboard", dashBoard);
+  return dashBoard;
+}
+
+
+
+export function GetTweetsName() {
+  const [searched, setSearched] = React.useState([]);
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      const search = await axios.get(
+        `${Configure.backURL}user/lookup/${userridd}`,
+        {
+          headers: {
+            "Content-Type": "application/json; charset=ut-8",
+            "x-access-token": `${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      setSearched(search);
+    };
+    fetchProduct();
+  }, []);
+  if (!searched) return null;
+  return searched;
+}
+
+
+
+/**
+ *Search people BE Integration
+ *
+ *get search people data from BE server
+ *
+ * @returns {string} -message from BE
+ */
+
+
+
+export async function backEndP() {
+  const body = {};
+  var message;
+
+  var people = [];
+  var message1;
+  //console.log(localStorage.getItem("searchData"))
+  await axios
+    .get(
+      `${Configure.backURL}search/people?text=${localStorage.getItem(
+        "searchData"
+      )}`,
+      {
+        headers: {
+          "Content-Type": "application/json; charset=ut-8",
+          "x-access-token": `${localStorage.getItem("token")}`,
+        },
+      }
+    )
+    .then((response) => {
+     
+      if (response.status === 200) {
+        message = response.data.user;
+        people = people.slice(0, -1);
+        console.log(message);
+      
+      }
+
+      
+    })
+    .catch((error) => {
+     
+    });
+  return message;
+}
+
+
+export function GetSearchedName() {
+  const [searched, setSearched] = React.useState([]);
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      const search = await axios.get(
+        `${Configure.backURL}search/people?text=${localStorage.getItem(
+          "searchData"
+        )}`,
+        {
+          headers: {
+            "Content-Type": "application/json; charset=ut-8",
+            "x-access-token": `${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      setSearched(search);
+      localStorage.setItem("us", search.data.user[1][0]._id);
+    };
+    fetchProduct();
+  }, []);
+  if (!searched) return null;
+  return searched;
+}
+
+export function GetSearchedUserName() {
+  const [searched, setSearched] = React.useState([]);
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      const search = await axios.get(
+        `${Configure.backURL}search/people?text=${localStorage.getItem(
+          "searchData"
+        )}`,
+        {
+          headers: {
+            "Content-Type": "application/json; charset=ut-8",
+            "x-access-token": `${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      setSearched(search);
+      localStorage.setItem("us", search.data.usernames[1][0]._id);
+    };
+    fetchProduct();
+  }, []);
+  if (!searched) return null;
+  return searched;
+}
+
+export function GetSearched() {
+  const [searched, setSearched] = React.useState([]);
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      const search = await axios.get(
+        `${Configure.backURL}search/people?text=${localStorage.getItem(
+          "searchData"
+        )}`,
+        {
+          headers: {
+            "Content-Type": "application/json; charset=ut-8",
+            "x-access-token": `${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      setSearched(search);
+    };
+    fetchProduct();
+  }, []);
+  if (!searched) return null;
+  return searched;
+}
+
+export async function backEndUsername() {
+  var message = [];
+
+  
+  await axios
+    .get(
+      `${Configure.backURL}search/people?text=${localStorage.getItem(
+        "searchData"
+      )}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "x-access-token": `${localStorage.getItem("token")}`,
+        },
+      }
+    )
+
+    .then((response) => {
+      //console.log(response);
+      if (response.status === 200) {
+        message[0] = response.data.usernames[1][0].name;
+        message[1] = response.data.usernames[1][0].username;
+        console.log(message);
+      } else if (response.status === 404) {
+        console.log(message);
+      }
+    })
+    .catch((error) => {
+      message = error.response.data.message;
+      console.log(message);
+    });
+  return message;
+}
+
+/**
+ *search latest BE Integration
+ *
+ * get search latest data from BE server
+ *
+ * @returns {string} -message from BE
+ */
+
+export async function backEndLatest() {
+  const body = {};
+  var message;
+
+  await axios
+    .get(
+      `${Configure.backURL}search/latest/?text=${localStorage.getItem(
+        "searchData"
+      )}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "x-access-token": `${localStorage.getItem("token")}`,
+        },
+      }
+    )
+
+    .then((response) => {
+      //console.log(response);
+      if (response.status === 200) {
+        message = response.data.tweets[0].text;
+        //console.log(message);
+      } else if (response.status === 404) {
+        //console.log(message);
+      }
+    })
+    .catch((error) => {
+      message = error.response.data.message;
+      // console.log(message);
+    });
+  return message;
+}
+
+/**
+ *Search photos BE Integration
+ *
+ *get search photos data from BE server
+ *
+ * @returns {string} -message from BE
+ */
+
+export function GetSearchedPhotos() {
+  const [searched, setSearched] = React.useState([]);
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      const search = await axios.get(
+        `${Configure.backURL}search/photos?text=${localStorage.getItem(
+          "searchData"
+        )}`,
+        {
+          headers: {
+            "Content-Type": "application/json; charset=ut-8",
+            "x-access-token": `${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      setSearched(search);
+    };
+    fetchProduct();
+  }, []);
+  if (!searched) return null;
+  return searched;
+}
+
+
+/**
+ *save seached user BE Integration
+ *
+ *put searched user in BE server
+ *
+ * @returns {string} -message from BE
+ */
+export async function Put_SaveUser() {
+  var message;
+  var id = localStorage.getItem("us");
+  
+  const body = {};
+
+  await axios
+    .put(`${Configure.backURL}search/saveUser/${id}`, body, {
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+        "x-access-token": `${localStorage.getItem("token")}`,
+      },
+    })
+    .then((response) => {
+      //console.log(response);
+      if (response.status === 200) {
+        message = "";
+      } else if (response.status === 403) {
+        message = "  ";
+        //  console.log(response.data.message);
+      } else if (response.status === 401) {
+        message = response.data.message;
+      }
+    })
+    .catch((error) => {
+      // console.log(error);
+    });
+  return message;
+}
+
+/**
+ *remove user BE Integration
+ *
+ *delete user data from BE server
+ *
+ * @returns {string} -message from BE
+ */
+export async function Delete_SaveUser() {
+  var message;
+  var id = localStorage.getItem("ID");
+  const body = {};
+  // console.log(`${localStorage.getItem('token')}`)
+  await axios
+    .put(`${Configure.backURL}search/deleteSaved/${id}`, body, {
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+        "x-access-token": `${localStorage.getItem("token")}`,
+      },
+    })
+    .then((response) => {
+      //  console.log(response);
+      if (response.status === 200) {
+        message = "";
+      } else if (response.status === 403) {
+        message = "  ";
+        // console.log(response.data.message);
+      } else if (response.status === 401) {
+        message = response.data.message;
+      }
+    })
+    .catch((error) => {
+      // console.log(error);
+    });
+  return message;
+}
+
+
+
+
+/**
+ *Saved search BE Integration
+ *
+ *get saved data from BE server
+ *
+ * @returns {string} -message from BE
+ */
+export function SavedSearch() {
+  const [searched, setSearched] = React.useState([]);
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      const search = await axios.get(`${Configure.backURL}search/getsaved`, {
+        headers: {
+          "Content-Type": "application/json; charset=ut-8",
+          "x-access-token": `${localStorage.getItem("token")}`,
+        },
+      });
+      setSearched(search);
+    };
+    fetchProduct();
+  }, []);
+  if (!searched) return null;
+  return searched;
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#AccountInfoMenuss">AccountInfoMenuss</a></li><li><a href="global.html#AccountInformation">AccountInformation</a></li><li><a href="global.html#backEndGoogleLogIn">backEndGoogleLogIn</a></li><li><a href="global.html#backEndGooglePost">backEndGooglePost</a></li><li><a href="global.html#backEndLatest">backEndLatest</a></li><li><a href="global.html#backEndLogIn">backEndLogIn</a></li><li><a href="global.html#backEndP">backEndP</a></li><li><a href="global.html#backEndPost">backEndPost</a></li><li><a href="global.html#Blocked">Blocked</a></li><li><a href="global.html#Blocked_days">Blocked_days</a></li><li><a href="global.html#BlockedAccounts">BlockedAccounts</a></li><li><a href="global.html#BlockForm">BlockForm</a></li><li><a href="global.html#Bookmarks">Bookmarks</a></li><li><a href="global.html#ChangeEmail">ChangeEmail</a></li><li><a href="global.html#Changepassword">Changepassword</a></li><li><a href="global.html#Changephone">Changephone</a></li><li><a href="global.html#ChangeUsername">ChangeUsername</a></li><li><a href="global.html#DeactivateAcc">DeactivateAcc</a></li><li><a href="global.html#Delete_SaveUser">Delete_SaveUser</a></li><li><a href="global.html#Explore">Explore</a></li><li><a href="global.html#Feed">Feed</a></li><li><a href="global.html#FollowedYou">FollowedYou</a></li><li><a href="global.html#Followers">Followers</a></li><li><a href="global.html#FollowersList">FollowersList</a></li><li><a href="global.html#Following">Following</a></li><li><a href="global.html#FollowingList">FollowingList</a></li><li><a href="global.html#ForgetPassword">ForgetPassword</a></li><li><a href="global.html#forgetPassword">forgetPassword</a></li><li><a href="global.html#FriendSuggestions">FriendSuggestions</a></li><li><a href="global.html#GetNotificationsFavourites">GetNotificationsFavourites</a></li><li><a href="global.html#GetSearchedPhotos">GetSearchedPhotos</a></li><li><a href="global.html#getTopUsers">getTopUsers</a></li><li><a href="global.html#getUserLook">getUserLook</a></li><li><a href="global.html#GoogleSignUp">GoogleSignUp</a></li><li><a href="global.html#ImageBox">ImageBox</a></li><li><a href="global.html#LikedYou">LikedYou</a></li><li><a href="global.html#LikedYouBe">LikedYouBe</a></li><li><a href="global.html#LogIn">LogIn</a></li><li><a href="global.html#LogOut">LogOut</a></li><li><a href="global.html#MainSettings">MainSettings</a></li><li><a href="global.html#mock">mock</a></li><li><a href="global.html#MuteandBlock">MuteandBlock</a></li><li><a href="global.html#Muted">Muted</a></li><li><a href="global.html#MutedAccounts">MutedAccounts</a></li><li><a href="global.html#Notifications">Notifications</a></li><li><a href="global.html#Notified">Notified</a></li><li><a href="global.html#Post">Post</a></li><li><a href="global.html#Post_ChangePassword">Post_ChangePassword</a></li><li><a href="global.html#PrivacyAndSafety">PrivacyAndSafety</a></li><li><a href="global.html#Profile">Profile</a></li><li><a href="global.html#Put_SaveUser">Put_SaveUser</a></li><li><a href="global.html#reactivateAccount">reactivateAccount</a></li><li><a href="global.html#resendEmail">resendEmail</a></li><li><a href="global.html#resendSMS">resendSMS</a></li><li><a href="global.html#resetPassword">resetPassword</a></li><li><a href="global.html#SavedSearch">SavedSearch</a></li><li><a href="global.html#SecurityContent">SecurityContent</a></li><li><a href="global.html#Settings">Settings</a></li><li><a href="global.html#SettingsContent">SettingsContent</a></li><li><a href="global.html#SettingsContentInMenus">SettingsContentInMenus</a></li><li><a href="global.html#Sidebar">Sidebar</a></li><li><a href="global.html#SignUp">SignUp</a></li><li><a href="global.html#StartPage">StartPage</a></li><li><a href="global.html#SubsettingsContent">SubsettingsContent</a></li><li><a href="global.html#TopHashtagComponent">TopHashtagComponent</a></li><li><a href="global.html#Topics">Topics</a></li><li><a href="global.html#TopUsers">TopUsers</a></li><li><a href="global.html#Trends">Trends</a></li><li><a href="global.html#Tweetbox">Tweetbox</a></li><li><a href="global.html#User">User</a></li><li><a href="global.html#userridd">userridd</a></li><li><a href="global.html#validateEmail">validateEmail</a></li><li><a href="global.html#validatePassword">validatePassword</a></li><li><a href="global.html#validateUserName">validateUserName</a></li><li><a href="global.html#verifyEmail">verifyEmail</a></li><li><a href="global.html#verifyEmailForgetPassword">verifyEmailForgetPassword</a></li><li><a href="global.html#YourAccount">YourAccount</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Tue May 24 2022 21:14:58 GMT+0200 (Eastern European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

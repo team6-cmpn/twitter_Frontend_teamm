@@ -21,7 +21,6 @@ function Home() {
   useEffect(() => {
     (async () => {
       const resp = await backend.getTweet(clicked_tweet_id);
-      console.log(resp);
       setopened_tweet(resp);
       const ress = backend.getTweet(clicked_tweet_id);
       ress.then(function (test) {
@@ -30,9 +29,7 @@ function Home() {
       });
     })();
   }, []);
-  // console.log(Favoritelength);
 
-  console.log(opened_tweet.tweet?.favorites.length);
   return (
     <div className="twitter  ">
       <Sidebar />
@@ -48,7 +45,7 @@ function Home() {
             date={opened_tweet.tweet?.created_at}
             user_tweeted_id={opened_tweet.tweet?.user}
             logedin_user_id={loginuser_id}
-            likes={Favoritelength}
+            // likes={Favoritelength}
             // retweets={[Retweeters].length}
             user_liked_tweet={opened_tweet?.isLiked}
             user_retweted_tweet={opened_tweet?.isRetweeted}

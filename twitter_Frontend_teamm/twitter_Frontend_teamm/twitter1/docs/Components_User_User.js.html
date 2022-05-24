@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Components/User/User.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Components/User/User.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import '../Profile/Profile.css'
+import '../Notifications.css'
+import './User.css'
+import React from 'react';
+import  { useState} from 'react';
+import { Link } from 'react-router-dom';
+// import   * as mockAPI   from './UserMock';
+// import  getUserInformation    from './UserMock';
+import Trends from "../Widgets/Trends";
+import Sidebar from "../Sidebar/Sidebar";
+import {Follow,destroyFollow, Block,unBlock,GetUserInfo,Unmute,Mute,GetTweetList,GetLikedTweetList,getUserLook} from './BackendUser';
+import {Modal} from "antd";
+import "../Widgets/FriendSuggestions/FriendSuggestionItem/FriendSuggestionItem.css";
+// import { GetPostTweet } from "../homepage/feedmock";
+import Post from "../homepage/Post";
+import { RecoilRoot } from "recoil";
+import { Popover } from 'antd';
+import Configure from '../../Configure';
+
+/**User
+ * Shows User layout 
+ *  
+ * @returns (Layout of user and follow, block and mute functionality)
+ */
+
+function User(){
+    const [isTab, setIsTab] = useState(1);
+    // const [twetted, postedtweet] = React.useState([]);
+    
+    
+    // React.useEffect(() => {
+    //   (async () => {
+    //     const resp = await GetPostTweet();
+    //     postedtweet(resp);
+    //   })();
+    // }, []);
+
+    // const [UserInfo, setUserInfo] = React.useState([]);
+    // React.useEffect(() => {
+    // (async () => {
+    //     const resp = await getUserInformation();
+    //     setUserInfo(resp);
+    //   })();
+    // }, []);
+   
+    var info= GetUserInfo(localStorage.getItem("clicked_userID"))
+    const [test, istest] = React.useState();
+    info.then(function (result) {
+        console.log("result", result);
+        istest(result);
+      });
+    console.log(test)
+    var Url=test?.profile_image_url
+    
+    var TweetsLists= GetTweetList();
+    var LikedTweetsLists= GetLikedTweetList().tweets;
+    getUserLook();
+    // var MediaLists=GetMediaList();
+  
+    const [MuteState, setMuteState] = useState("Mute");
+    const toggleMute = () => {
+        setMuteState((state) => (state === "Unmute" ? "Mute" : "Unmute"));
+    };
+    const [BlockState, setBlockState] = useState("Block");
+    const toggleBlock = () => {
+        setBlockState((state) => (state === "Block" ? "unBlock" : "Block"));
+    };
+    const [isBModalVisible, setBModalVisible] = useState(false);
+    const onBModal = (stateMain = true) => {
+      setBModalVisible(stateMain);
+    };
+    const [textState, setTextState] = useState("Follow");
+    const toggleText = () => {
+      setTextState((state) => (state === "Following" ? "Follow" : "Following"));
+    };
+    const [isModalVisible, setModalVisible] = useState(false);
+    const onSubModel = (stateMain = true) => {
+      setModalVisible(stateMain);
+    };
+    const onExist = () => {
+      setModalVisible(false);
+      setBModalVisible(false)
+    };
+    function BlockButton(){
+
+        if (BlockState==="Block")
+        onBModal()
+        else
+        {toggleBlock()
+        unBlock()}
+    }
+    function MuteButton(){
+
+        if (MuteState==="Mute")
+        {toggleMute(); 
+        Mute();}
+        else
+        {toggleMute()
+        Unmute()}
+    }
+
+    function FollowButtonActions(){
+        Follow();
+        if (textState==="Follow")
+        toggleText();
+        else
+        onSubModel();
+    } 
+
+    const content = (
+            &lt;div>
+                &lt;div className="MoreList" onClick={() => MuteButton()}>&lt;div>{MuteState}&lt;/div>&lt;/div>
+                &lt;div className="MoreList" onClick={() => BlockButton()}>&lt;div>{BlockState}&lt;/div>&lt;/div>
+            &lt;/div>
+      );
+    return(
+    &lt;div>
+    &lt;Sidebar />
+    &lt;div className='Expmenu'>
+        &lt;div> 
+            &lt;div className="notificationsTitle" id="ProfileTitle">
+                {/* &lt;span>{Object.keys(UserInfo).map((user, index) => {
+                    return (
+                        &lt;div>
+                            {UserInfo[user].name} 
+                        
+                        &lt;/div> )
+                    })}&lt;/span> */}
+                    &lt;span>{test?.name}&lt;/span>
+            &lt;/div> 
+            &lt;div>
+                
+                &lt;div>
+                    &lt;div className='Avatar' >
+                        &lt;img  className="form-img__img-preview" src={`${Configure.backURL}${Url}`} alt=''/>
+                    &lt;/div>
+                &lt;/div>
+                &lt;br>&lt;/br>
+                &lt;br>&lt;/br>
+                {/* &lt;div id="bioName" className='name'>
+                {Object.keys(UserInfo).map((user, index) => {
+                    return (
+                        &lt;div>
+                            {UserInfo[user].name} 
+                        
+                        &lt;/div> )
+                    })}
+                     &lt;/div>
+                {/* &lt;br>&lt;/br> */}
+               {/* &lt;div className='Username'> 
+                   {Object.keys(UserInfo).map((user, index) => {
+                    return (
+                        &lt;div>
+                            {UserInfo[user].username} 
+                        
+                        &lt;/div> )
+                    })}
+                &lt;/div>   */}
+                &lt;div className='name'>{test?.name}&lt;/div>
+                &lt;br>&lt;/br>
+                &lt;div className='Username'>{test?.username} &lt;/div>
+                &lt;br>&lt;/br>
+                &lt;div className='Username'>{test?.description} &lt;/div>
+                &lt;br>&lt;/br>
+                {/* &lt;div id="bioBio" className='Bio'>&lt;/div>
+                &lt;br>&lt;/br>
+                &lt;GrLocation className='Bio'>&lt;/GrLocation>
+                &lt;div id="bioLocation" className='Bio'>&lt;/div>
+                
+                &lt;br>&lt;/br>
+                &lt;BiLink className='Bio'>&lt;/BiLink>
+                &lt;div id="bioWebsite" className='Bio'>&lt;/div> */}
+                
+                &lt;div>
+                    
+                    &lt;Popover
+                    content={content}
+                    title="Title"
+                    trigger="click"
+                    >
+                        &lt;button id="More" className="More" >&lt;span>...&lt;/span>&lt;/button>
+                    &lt;/Popover>
+                    
+                    &lt;button id="FollowButton" class="ButtonFollow" onClick={() => FollowButtonActions() }>
+                        {textState}   
+                    &lt;/button> 
+                    &lt;Modal
+                    style={{textAlign: "center"}}
+                    visible={isBModalVisible}
+                    bodyStyle={{height: 300, font: "Helvetica", textAlign: "left"}}
+                    width={500}
+                    alignItems={{top: Window}}
+                    onCancel={() => setBModalVisible(false)}
+                    footer={null}
+                    
+                >
+                    &lt;div className="for_model">
+                    &lt;div style={{fontSize: "200%", marginTop: "10px", color: "black", textAlign: "center" }}>Block this user?&lt;/div>
+                    &lt;div style={{padding: "30px 30px"}}>They will not be able to follow you or view your Tweets, and you will not see Tweets or notifications from this user. &lt;/div>
+                    &lt;button id="Block" onClick={()=>{toggleBlock(); onExist(); Block();}} className="ButtonBlock">Block&lt;/button>
+                    &lt;/div>
+                &lt;/Modal>
+                
+                &lt;Modal
+                    style={{textAlign: "center"}}
+                
+                    visible={isModalVisible}
+                    bodyStyle={{height: 300, font: "Helvetica", textAlign: "left"}}
+                    width={500}
+                    alignItems={{top: Window}}
+                    onCancel={() => setModalVisible(false)}
+                    footer={null}
+                    
+                >
+                    &lt;div className="for_model">
+                    &lt;div style={{fontSize: "200%", marginTop: "10px", color: "black", textAlign: "center" }}>Unfollow this user?&lt;/div>
+                    &lt;div style={{padding: "30px 30px"}}>Their Tweets will no longer show up in your home timeline. You can still view their profile. &lt;/div>
+                    &lt;button id="Unfollow" onClick={()=>{toggleText(); onExist();destroyFollow(localStorage.getItem("userId"))}} className='ButtonBlock'>Unfollow&lt;/button>
+                    &lt;/div>
+                &lt;/Modal>
+                
+                &lt;/div>
+                &lt;br>&lt;/br>
+                &lt;div id="followers"className="FollowLink">
+                    &lt;Link to ="/UserFollowers">Followers &lt;/Link>
+                &lt;/div>
+                
+                &lt;div id="following" className='FollowLink'>{test?.followings_count}
+                    &lt;Link to ="/UserFollowing">  Following  &lt;/Link>
+                &lt;/div>
+                &lt;br>&lt;/br>
+                &lt;br>&lt;/br>
+            &lt;div>
+             &lt;RecoilRoot>
+                &lt;div className="notificationsCategory">
+                    &lt;div id="tweets"
+                    className={isTab === 1 &amp;&amp; "notificationActive"}
+                    onClick={() => setIsTab(1) }
+                    >
+                    &lt;span>Tweets&lt;/span>
+                    &lt;/div>
+                    &lt;div id="tweets&amp;replies"
+                    className={isTab === 2 &amp;&amp; "notificationActive"}
+                    onClick={() => setIsTab(2)}
+                    >
+                    &lt;span>Tweets &amp; Replies&lt;/span>
+                    &lt;/div>
+                    &lt;div id="Media"
+                    className={isTab === 3 &amp;&amp; "notificationActive"}
+                    onClick={() => setIsTab(3)}
+                    >
+                    &lt;span>Media&lt;/span>
+                    &lt;/div>
+                    &lt;div id="likes"
+                    className={isTab === 4 &amp;&amp; "notificationActive" }
+                    onClick={() => setIsTab(4) }
+                    >
+                    &lt;span>Likes&lt;/span>
+                    &lt;/div>
+                    &lt;/div>
+                    &lt;article>
+                        {
+                         (isTab===1)?
+                        
+                            &lt;>
+
+                            {TweetsLists.map((userlist, index) => (
+                                &lt;Post
+                                key={index}
+                                displayName={test?.name}
+                                username={test?.username}
+                                text={userlist?.text}
+                                image={userlist?.imageUrl}
+                                avatar={`${Configure.backURL}${Url}`}
+                                tweet_id={userlist?._id}
+                                mention={userlist?.mention}
+                                date={userlist?.created_at}
+                                user_tweeted_id={userlist?.user}
+                                // logedin_user_id={loginuser_id}
+                                likes={userlist?.favorites.length}
+                                retweets={userlist?.retweetUsers.length}
+                                 
+                            />))}  
+                            &lt;/>
+                         :
+                         (isTab===2)?
+                            &lt;>
+
+                            {TweetsLists.map((userlist, index) => (
+                                &lt;Post
+                                key={index}
+                                displayName={test?.name}
+                                username={test?.username}
+                                text={userlist?.text}
+                                image={userlist?.imageUrl}
+                                avatar={`${Configure.backURL}${Url}`}
+                                tweet_id={userlist?._id}
+                                mention={userlist?.mention}
+                                date={userlist?.created_at}
+                                user_tweeted_id={userlist?.user}
+                                // logedin_user_id={loginuser_id}
+                                likes={userlist?.favorites.length}
+                                retweets={userlist?.retweetUsers.length}
+                                />))
+                            }
+                            &lt;/>
+                        : (isTab===3)?
+                            &lt;>
+
+                            {/* {MediaLists.map((userlist, index) => (
+                                &lt;Post
+                                key={index}
+                                displayName={test?.name}
+                                username={test?.username}
+                                text={userlist?.text}
+                                image={userlist?.imageUrl}
+                                avatar={`${Configure.backURL}${Url}`}
+                                tweet_id={userlist?._id}
+                                mention={userlist?.mention}
+                                date={userlist?.created_at}
+                                user_tweeted_id={userlist?.user}
+                                // logedin_user_id={loginuser_id}
+                                likes={userlist?.favorites.length}
+                                retweets={userlist?.retweetUsers.length}
+                                 />))} */}
+                            
+                            
+                            &lt;/>
+                        : 
+                            &lt;>
+                           {LikedTweetsLists.map((userlist, index) => (
+                                &lt;Post
+                                // key={index}
+                                displayName={localStorage.getItem(`namelikedtweet ${index}`)}
+                                username={localStorage.getItem(`usernamelikedtweet ${index}`)}
+                                text={userlist?.text}
+                                image={userlist?.imageUrl}
+                                avatar={`${Configure.backURL}${Url}`}
+                                tweet_id={userlist?._id}
+                                mention={userlist?.mention}
+                                date={userlist?.created_at}
+                                user_tweeted_id={userlist?.user}
+                                // logedin_user_id={loginuser_id}
+                                likes={userlist?.favorites.length}
+                                retweets={userlist?.retweetUsers.length}
+                                />))}
+                            &lt;/> 
+                        
+                        
+                        }
+          
+           
+                     &lt;/article>
+                
+                &lt;/RecoilRoot>
+                
+            &lt;/div>
+                
+        
+
+
+    &lt;/div>
+    &lt;/div>
+    &lt;div > 
+
+    
+    &lt;Trends />  
+    &lt;/div>
+    &lt;/div>
+&lt;/div>
+)
+}
+export default User;</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#AccountInfoMenuss">AccountInfoMenuss</a></li><li><a href="global.html#AccountInformation">AccountInformation</a></li><li><a href="global.html#backEndGoogleLogIn">backEndGoogleLogIn</a></li><li><a href="global.html#backEndGooglePost">backEndGooglePost</a></li><li><a href="global.html#backEndLatest">backEndLatest</a></li><li><a href="global.html#backEndLogIn">backEndLogIn</a></li><li><a href="global.html#backEndP">backEndP</a></li><li><a href="global.html#backEndPost">backEndPost</a></li><li><a href="global.html#Blocked">Blocked</a></li><li><a href="global.html#Blocked_days">Blocked_days</a></li><li><a href="global.html#BlockedAccounts">BlockedAccounts</a></li><li><a href="global.html#BlockForm">BlockForm</a></li><li><a href="global.html#Bookmarks">Bookmarks</a></li><li><a href="global.html#ChangeEmail">ChangeEmail</a></li><li><a href="global.html#Changepassword">Changepassword</a></li><li><a href="global.html#Changephone">Changephone</a></li><li><a href="global.html#ChangeUsername">ChangeUsername</a></li><li><a href="global.html#DeactivateAcc">DeactivateAcc</a></li><li><a href="global.html#Delete_SaveUser">Delete_SaveUser</a></li><li><a href="global.html#Explore">Explore</a></li><li><a href="global.html#Feed">Feed</a></li><li><a href="global.html#FollowedYou">FollowedYou</a></li><li><a href="global.html#Followers">Followers</a></li><li><a href="global.html#FollowersList">FollowersList</a></li><li><a href="global.html#Following">Following</a></li><li><a href="global.html#FollowingList">FollowingList</a></li><li><a href="global.html#ForgetPassword">ForgetPassword</a></li><li><a href="global.html#forgetPassword">forgetPassword</a></li><li><a href="global.html#FriendSuggestions">FriendSuggestions</a></li><li><a href="global.html#GetNotificationsFavourites">GetNotificationsFavourites</a></li><li><a href="global.html#GetSearchedPhotos">GetSearchedPhotos</a></li><li><a href="global.html#getTopUsers">getTopUsers</a></li><li><a href="global.html#getUserLook">getUserLook</a></li><li><a href="global.html#GoogleSignUp">GoogleSignUp</a></li><li><a href="global.html#ImageBox">ImageBox</a></li><li><a href="global.html#LikedYou">LikedYou</a></li><li><a href="global.html#LikedYouBe">LikedYouBe</a></li><li><a href="global.html#LogIn">LogIn</a></li><li><a href="global.html#LogOut">LogOut</a></li><li><a href="global.html#MainSettings">MainSettings</a></li><li><a href="global.html#mock">mock</a></li><li><a href="global.html#MuteandBlock">MuteandBlock</a></li><li><a href="global.html#Muted">Muted</a></li><li><a href="global.html#MutedAccounts">MutedAccounts</a></li><li><a href="global.html#Notifications">Notifications</a></li><li><a href="global.html#Notified">Notified</a></li><li><a href="global.html#Post">Post</a></li><li><a href="global.html#Post_ChangePassword">Post_ChangePassword</a></li><li><a href="global.html#PrivacyAndSafety">PrivacyAndSafety</a></li><li><a href="global.html#Profile">Profile</a></li><li><a href="global.html#Put_SaveUser">Put_SaveUser</a></li><li><a href="global.html#reactivateAccount">reactivateAccount</a></li><li><a href="global.html#resendEmail">resendEmail</a></li><li><a href="global.html#resendSMS">resendSMS</a></li><li><a href="global.html#resetPassword">resetPassword</a></li><li><a href="global.html#SavedSearch">SavedSearch</a></li><li><a href="global.html#SecurityContent">SecurityContent</a></li><li><a href="global.html#Settings">Settings</a></li><li><a href="global.html#SettingsContent">SettingsContent</a></li><li><a href="global.html#SettingsContentInMenus">SettingsContentInMenus</a></li><li><a href="global.html#Sidebar">Sidebar</a></li><li><a href="global.html#SignUp">SignUp</a></li><li><a href="global.html#StartPage">StartPage</a></li><li><a href="global.html#SubsettingsContent">SubsettingsContent</a></li><li><a href="global.html#TopHashtagComponent">TopHashtagComponent</a></li><li><a href="global.html#Topics">Topics</a></li><li><a href="global.html#TopUsers">TopUsers</a></li><li><a href="global.html#Trends">Trends</a></li><li><a href="global.html#Tweetbox">Tweetbox</a></li><li><a href="global.html#User">User</a></li><li><a href="global.html#userridd">userridd</a></li><li><a href="global.html#validateEmail">validateEmail</a></li><li><a href="global.html#validatePassword">validatePassword</a></li><li><a href="global.html#validateUserName">validateUserName</a></li><li><a href="global.html#verifyEmail">verifyEmail</a></li><li><a href="global.html#verifyEmailForgetPassword">verifyEmailForgetPassword</a></li><li><a href="global.html#YourAccount">YourAccount</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Tue May 24 2022 21:14:58 GMT+0200 (Eastern European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

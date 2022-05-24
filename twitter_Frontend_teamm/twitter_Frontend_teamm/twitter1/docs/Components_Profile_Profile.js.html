@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Components/Profile/Profile.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Components/Profile/Profile.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import './Profile.css'
+import '../Notifications.css'
+import React from 'react';
+import  { useState} from 'react';
+import placeholder from 'react-image-placeholder';
+import { Modal } from 'antd';
+import "antd/dist/antd.css";
+import { Link } from 'react-router-dom';
+import { DatePicker } from 'antd';
+import   * as mockAPI   from './ProfileMock';
+// import  getUsernames    from './ProfileMock';
+import Trends from "../Widgets/Trends";
+import Sidebar from "../Sidebar/Sidebar";
+import {GrLocation} from "react-icons/gr"
+import {BiLink} from "react-icons/bi"
+import { UpdateProfile, UploadImageProfile, GetUserInfo, GetTweetList,GetLikedTweetList,getUserLook} from './backEndProfile'
+// import { GetPostTweet } from "../homepage/feedmock";
+import Post from "../homepage/Post";
+import { RecoilRoot } from "recoil";
+import Configure from '../../Configure';
+
+
+/**Profile
+ * Shows User profile layout and enables user to edit profile info
+ *  
+ * @returns (Layout of profile and edit profile modal)
+ */
+function Profile(){
+    const [date, setDate] = useState(null);
+    const [isMainModalVisible, setMainModalVisible] = useState(false);
+    const [isTab, setIsTab] = useState(1);
+    // const [twetted, postedtweet] = React.useState([]);
+    
+    getUserLook();
+    // React.useEffect(() => {
+    //   (async () => {
+    //     const resp = await GetPostTweet();
+    //     postedtweet(resp);
+    //   })();
+    // }, []);
+    var TweetsLists= GetTweetList();
+    console.log("MApping",TweetsLists)
+
+    var LikedTweetsLists= GetLikedTweetList().tweets;
+   
+    console.log("listsss",LikedTweetsLists)
+    // var MediaLists=GetMediaList();
+
+    var [{alt2, src2}, setImg2] = useState({
+        src2: placeholder,
+    });
+
+    var [{alt, src}, setImg] = useState({
+        src: placeholder,
+    });
+
+    const [imag, setupload] = useState();
+    const handleImg = (e) => {
+        if(e.target.files[0]) {
+            
+            setImg({
+                src: URL.createObjectURL(e.target.files[0]),
+                alt: e.target.files[0].name
+            }); 
+            console.log(src)
+            console.log(e.target.files[0])
+            var im=UploadImageProfile(e.target.files[0]); 
+            im.then(data=>{setupload(data)});
+            console.log(im)
+            // const PImage=localStorage.getItem("Image")
+            // setImg2(PImage)
+        }   
+    }
+    console.log(imag?.url)
+    localStorage.setItem("image",imag?.url)
+    // const [Username, setUsernames] = React.useState([]);
+    // React.useEffect(() => {
+    // (async () => {
+    //     const resp = await getUsernames();
+    //     setUsernames(resp);
+    //   })();
+    // }, []);
+
+   
+    var [name, setName] = useState('');
+    const [bio, setBio] = useState(null)
+    const [location, setLocation] = useState(null)
+    const [website, setWebsite] = useState(null)
+    var [editname, setEditName] = useState('');
+    var [editbio, setEditBio] = useState(null)
+    const [editlocation, setEditLocation] = useState(null)
+    const [editwebsite, setEditWebsite] = useState(null)
+    // const [Item, setItem] = useState();
+    const [upd, setupdate] = useState();
+    const loginuser_id = localStorage.getItem("userId");
+    var info= GetUserInfo()
+    const [test, istest] = React.useState();
+    info.then(function (result) {
+        console.log("result", result);
+        istest(result);
+      });
+    console.log(info)
+    var Url=test?.profile_image_url
+    // GetUserInfo().user.profile_image_url;
+    console.log(Url)
+    var image =`${Configure.backURL}${Url}`
+    console.log(image)
+
+    function SaveButtonActions(){
+    mockAPI.Profile(body); 
+    var up = UpdateProfile(update);
+    up.then(data=>{setupdate(data)});
+    console.log(upd);
+    console.log(info)
+    setMainModalVisible(false);
+    setName(editname);
+    setBio(editbio);
+    if (editname===''){
+        editname=localStorage.getItem("name");
+    }else {
+        localStorage.setItem("name", editname);
+    }
+    if (editbio===''){
+        editbio=localStorage.getItem("description");
+    }else{
+        localStorage.setItem("description", editbio);
+    }
+    setLocation(editlocation);
+    setWebsite(editwebsite);
+    
+    // if (src==='' || src2===''){
+    //     setImg({
+    //         src:localStorage.getItem("src"),
+    //         alt:alt
+    //     })
+        // src=localStorage.getItem("src")
+        // src2=src
+        var Url=test?.profile_image_url
+
+        // console.log(Url)
+        var image =`${Configure.backURL}${Url}`
+        // console.log(image)
+        setImg2({
+            src2: image,
+            alt2: alt
+        });
+   
+    
+    }
+    
+    sessionStorage.setItem("name",editname);
+    sessionStorage.setItem("description",editbio);
+    // localStorage.getItem("Image")
+    var body={
+        name: editname,
+        bio: editbio,
+        location: editlocation,
+        website: editwebsite,
+        date:date,
+        img: {alt,src},
+    }
+    var update={
+        name: editname,
+        description: editbio,
+    }
+
+    const username=localStorage.getItem("getUsername")
+    console.log(name);
+  
+    name = localStorage.getItem("name")
+    // const joined=localStorage.getItem("joinedAt")
+     
+
+    return(
+        &lt;div>
+            &lt;Sidebar />
+            &lt;div className='Expmenu'>
+                &lt;div> 
+                    &lt;div className="notificationsTitle" id="ProfileTitle">
+                        &lt;span>{name}&lt;/span>
+                    &lt;/div> 
+                    &lt;div>
+                        &lt;div>
+                            &lt;img id="img" src={`${Configure.backURL}${Url}`} alt={alt2} className="form-img__img-preview"/>
+                        &lt;/div>
+                        &lt;div id="bioName" className='name'> {name}&lt;/div>
+                        &lt;br>&lt;/br>
+                       &lt;div className='Username'> {username} &lt;/div> 
+                        {/* &lt;div className='Username'> 
+                           {Object.keys(Username).map((user, index) => {
+                            return (
+                                &lt;div>
+                                    {Username[user].User} 
+                                
+                                &lt;/div> )
+                            })}
+                        &lt;/div>  */}
+                        
+                        &lt;br>&lt;/br>
+                        &lt;div id="bioBio" className='Bio'>{localStorage.getItem("description")}&lt;/div>
+                        &lt;br>&lt;/br>
+                        &lt;GrLocation className='Bio'>&lt;/GrLocation>
+                        &lt;div id="bioLocation" className='Bio'>{location}&lt;/div>
+                        
+                        &lt;br>&lt;/br>
+                        &lt;BiLink className='Bio'>&lt;/BiLink>
+                        &lt;div id="bioWebsite" className='Bio'>{website}&lt;/div>
+                        &lt;br>&lt;/br>
+                        {/* &lt;div id="bioWebsite" className='Bio'>{joined}&lt;/div> */}
+                        {/* &lt;br>&lt;/br> */}
+                        &lt;div>
+                        &lt;button id="editButton" class="ButtonEditProfile" onClick={()=>setMainModalVisible(true)}>&lt;span>Edit Profile&lt;/span>&lt;/button>
+                        &lt;/div>
+                        &lt;br>&lt;/br>
+                        
+                        &lt;div id="followers"className="FollowLink">
+                            &lt;Link to ="/Followers">{test?.followings_count}Followers &lt;/Link>
+                        &lt;/div>
+                        
+                        &lt;div id="following" className='FollowLink'>
+                            &lt;Link to ="/Following">  Following  &lt;/Link>
+                        &lt;/div>
+                        &lt;br>&lt;/br>
+                        &lt;br>&lt;/br>
+                        &lt;RecoilRoot>
+                &lt;div className="notificationsCategory">
+                    &lt;div id="tweets"
+                    className={isTab === 1 &amp;&amp; "notificationActive"}
+                    onClick={() => setIsTab(1) }
+                    >
+                    &lt;span>Tweets&lt;/span>
+                    &lt;/div>
+                    &lt;div id="tweets&amp;replies"
+                    className={isTab === 2 &amp;&amp; "notificationActive"}
+                    onClick={() => setIsTab(2)}
+                    >
+                    &lt;span>Tweets &amp; Replies&lt;/span>
+                    &lt;/div>
+                    &lt;div id="Media"
+                    className={isTab === 3 &amp;&amp; "notificationActive"}
+                    onClick={() => setIsTab(3)}
+                    >
+                    &lt;span>Media&lt;/span>
+                    &lt;/div>
+                    &lt;div id="likes"
+                    className={isTab === 4 &amp;&amp; "notificationActive" }
+                    onClick={() => setIsTab(4) }
+                    >
+                    &lt;span>Likes&lt;/span>
+                    &lt;/div>
+                    &lt;/div>
+                    &lt;article>
+                        {
+                         (isTab===1)?
+                            &lt;>
+                            {TweetsLists.map((userlist, index) => (
+                                &lt;Post
+                                key={index}
+                                displayName={name}
+                                username={username}
+                                text={userlist?.text}
+                                image={userlist?.imageUrl}
+                                avatar={`${Configure.backURL}${Url}`}
+                                tweet_id={userlist?._id}
+                                mention={userlist?.mention}
+                                date={userlist?.created_at}
+                                user_tweeted_id={userlist?.user}
+                                logedin_user_id={loginuser_id}
+                                likes={userlist?.favorites.length}
+                                retweets={userlist?.retweetUsers.length}
+                                 />))}
+                            &lt;/>
+                         :
+                         (isTab===2)?
+                            &lt;>
+
+                            {TweetsLists.map((userlist, index) => (
+                                &lt;Post
+                                key={index}
+                                displayName={name}
+                                username={username}
+                                text={userlist?.text}
+                                image={userlist?.imageUrl}
+                                avatar={`${Configure.backURL}${Url}`}
+                                tweet_id={userlist?._id}
+                                mention={userlist?.mention}
+                                date={userlist?.created_at}
+                                user_tweeted_id={userlist?.user}
+                                logedin_user_id={loginuser_id}
+                                likes={userlist?.favorites.length}
+                                retweets={userlist?.retweetUsers.length}
+                                />))
+                            }
+                            &lt;/>
+                        : (isTab===3)?
+                            &lt;>
+
+                            {/* {MediaLists.map((userlist, index) => (
+                                &lt;Post
+                                key={index}
+                                displayName={name}
+                                username={username}
+                                text={userlist?.text}
+                                // image={userlist?.imageUrl}
+                                avatar={`${Configure.backURL}${Url}`}
+                                tweet_id={userlist?._id}
+                                mention={userlist?.mention}
+                                date={userlist?.created_at}
+                                user_tweeted_id={userlist?.user}
+                                logedin_user_id={loginuser_id}
+                                likes={userlist?.favorites.length}
+                                retweets={userlist?.retweetUsers.length}
+                                 />))} */}
+                            
+                            &lt;/>
+                        : 
+                            &lt;>
+                            {LikedTweetsLists.map((userlist, index) => (
+                                &lt;Post
+                                displayName={localStorage.getItem(`namelikedtweet ${index}`)}
+                                username={localStorage.getItem(`usernamelikedtweet ${index}`)}
+                                text={userlist?.text}
+                                image={userlist?.imageUrl}
+                                avatar={`${Configure.backURL}${Url}`}
+                                tweet_id={userlist?._id}
+                                mention={userlist?.mention}
+                                date={userlist?.created_at}
+                                user_tweeted_id={userlist?.user}
+                                logedin_user_id={loginuser_id}
+                                likes={userlist?.favorites.length}
+                                retweets={userlist?.retweetUsers.length}
+                                 />))}
+                            &lt;/> 
+                        
+                        
+                        }
+          
+           
+                    &lt;/article>
+                
+                &lt;/RecoilRoot>
+                        &lt;div>
+                            &lt;Modal className="ant-modal-content"  title={&lt;div>&lt;h3>Edit profile&lt;/h3>&lt;button onClick={()=> SaveButtonActions()} class="ButtonSave">Save&lt;/button>&lt;/div>} bodyStyle={{overflowY:'scroll'}} visible={isMainModalVisible} onCancel={()=>setMainModalVisible(false)}  footer={null}> 
+
+                            &lt;div className="form__img-input-container">
+                                &lt;input 
+                                    type="file" 
+                                    accept=".png, .jpg, .jpeg" 
+                                    id="photo" 
+                                    className="visually-hidden"
+                                    onChange={handleImg}
+                                />
+                                &lt;label htmlFor="photo" className="form-img__file-label">
+                                    &lt;svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="#56ceef" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
+                                        &lt;path d="M5.52 19c.64-2.2 1.84-3 3.22-3h6.52c1.38 0 2.58.8 3.22 3" />
+                                        &lt;circle cx="12" cy="10" r="3" />
+                                        &lt;circle cx="12" cy="12" r="10" />
+                                    &lt;/svg>
+                                &lt;/label>
+                                &lt;img src={src} alt={alt} className="form-img__img-preview"/>
+                            &lt;/div> 
+                            &lt;label for="name">
+                                
+                                    &lt;div>
+                                        &lt;input value={editname} className="TextBox" type="text" id="name" name="name"  onChange={e => setEditName(e.target.value) } required minlength="0" showCount maxlength="50" size="50" placeholder="Name">&lt;/input>
+                                        
+                                    &lt;/div>
+                                    
+                                
+                            &lt;/label>
+                            &lt;br>&lt;/br>
+                            &lt;label for="Bio">
+                                
+                                    &lt;div>
+                                        &lt;input value={editbio} className="BioTextBox" type="text" id="Bio" name="Bio" onChange={e => setEditBio(e.target.value)} required minlength="0" showCount maxcount="160" size="160" placeholder="Bio">&lt;/input>
+                                    &lt;/div>
+                                
+                            &lt;/label>
+                            &lt;br>&lt;/br>
+                            &lt;label for="Location">
+                                
+                                    &lt;div>
+                                        &lt;input value={editlocation} className="TextBox" type="text" id="Location" name="Location" onChange={e => setEditLocation(e.target.value)} required minlength="0" maxlength="30" size="30" placeholder="Location">&lt;/input>
+                                    &lt;/div>
+                            
+                            &lt;/label>
+                            &lt;br>&lt;/br>
+                            &lt;label for="Website">
+                            
+                                    &lt;div>
+                                        &lt;input value={editwebsite} className="TextBox" type="text" id="Website" name="Website" onChange={e => setEditWebsite(e.target.value)} required minlength="0" maxlength="100" size="100" placeholder="Website">&lt;/input>
+                                    &lt;/div>
+                                
+                            &lt;/label>
+                            &lt;br>&lt;/br>
+                            &lt;label for="Birthdate">
+                            
+                                    &lt;div>
+                                        &lt;h4> Birthdate &lt;/h4>
+                                        &lt;DatePicker id= "date" style={{ width:450, borderRadius: 5, height:50, borderStyle: 'solid'}} onChange={setDate} />
+                                    &lt;/div>
+                                
+                            &lt;/label>
+                        
+                        
+                        &lt;/Modal>
+                &lt;/div>
+        
+        
+            &lt;/div>
+            &lt;/div>
+            &lt;div > 
+        
+            
+            &lt;Trends />  
+            &lt;/div>
+            &lt;/div>
+        &lt;/div>
+    )
+}
+ 
+
+
+export default Profile;</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#AccountInfoMenuss">AccountInfoMenuss</a></li><li><a href="global.html#AccountInformation">AccountInformation</a></li><li><a href="global.html#backEndGoogleLogIn">backEndGoogleLogIn</a></li><li><a href="global.html#backEndGooglePost">backEndGooglePost</a></li><li><a href="global.html#backEndLatest">backEndLatest</a></li><li><a href="global.html#backEndLogIn">backEndLogIn</a></li><li><a href="global.html#backEndP">backEndP</a></li><li><a href="global.html#backEndPost">backEndPost</a></li><li><a href="global.html#Blocked">Blocked</a></li><li><a href="global.html#Blocked_days">Blocked_days</a></li><li><a href="global.html#BlockedAccounts">BlockedAccounts</a></li><li><a href="global.html#BlockForm">BlockForm</a></li><li><a href="global.html#Bookmarks">Bookmarks</a></li><li><a href="global.html#ChangeEmail">ChangeEmail</a></li><li><a href="global.html#Changepassword">Changepassword</a></li><li><a href="global.html#Changephone">Changephone</a></li><li><a href="global.html#ChangeUsername">ChangeUsername</a></li><li><a href="global.html#DeactivateAcc">DeactivateAcc</a></li><li><a href="global.html#Delete_SaveUser">Delete_SaveUser</a></li><li><a href="global.html#Explore">Explore</a></li><li><a href="global.html#Feed">Feed</a></li><li><a href="global.html#FollowedYou">FollowedYou</a></li><li><a href="global.html#Followers">Followers</a></li><li><a href="global.html#FollowersList">FollowersList</a></li><li><a href="global.html#Following">Following</a></li><li><a href="global.html#FollowingList">FollowingList</a></li><li><a href="global.html#ForgetPassword">ForgetPassword</a></li><li><a href="global.html#forgetPassword">forgetPassword</a></li><li><a href="global.html#FriendSuggestions">FriendSuggestions</a></li><li><a href="global.html#GetNotificationsFavourites">GetNotificationsFavourites</a></li><li><a href="global.html#GetSearchedPhotos">GetSearchedPhotos</a></li><li><a href="global.html#getTopUsers">getTopUsers</a></li><li><a href="global.html#getUserLook">getUserLook</a></li><li><a href="global.html#GoogleSignUp">GoogleSignUp</a></li><li><a href="global.html#ImageBox">ImageBox</a></li><li><a href="global.html#LikedYou">LikedYou</a></li><li><a href="global.html#LikedYouBe">LikedYouBe</a></li><li><a href="global.html#LogIn">LogIn</a></li><li><a href="global.html#LogOut">LogOut</a></li><li><a href="global.html#MainSettings">MainSettings</a></li><li><a href="global.html#mock">mock</a></li><li><a href="global.html#MuteandBlock">MuteandBlock</a></li><li><a href="global.html#Muted">Muted</a></li><li><a href="global.html#MutedAccounts">MutedAccounts</a></li><li><a href="global.html#Notifications">Notifications</a></li><li><a href="global.html#Notified">Notified</a></li><li><a href="global.html#Post">Post</a></li><li><a href="global.html#Post_ChangePassword">Post_ChangePassword</a></li><li><a href="global.html#PrivacyAndSafety">PrivacyAndSafety</a></li><li><a href="global.html#Profile">Profile</a></li><li><a href="global.html#Put_SaveUser">Put_SaveUser</a></li><li><a href="global.html#reactivateAccount">reactivateAccount</a></li><li><a href="global.html#resendEmail">resendEmail</a></li><li><a href="global.html#resendSMS">resendSMS</a></li><li><a href="global.html#resetPassword">resetPassword</a></li><li><a href="global.html#SavedSearch">SavedSearch</a></li><li><a href="global.html#SecurityContent">SecurityContent</a></li><li><a href="global.html#Settings">Settings</a></li><li><a href="global.html#SettingsContent">SettingsContent</a></li><li><a href="global.html#SettingsContentInMenus">SettingsContentInMenus</a></li><li><a href="global.html#Sidebar">Sidebar</a></li><li><a href="global.html#SignUp">SignUp</a></li><li><a href="global.html#StartPage">StartPage</a></li><li><a href="global.html#SubsettingsContent">SubsettingsContent</a></li><li><a href="global.html#TopHashtagComponent">TopHashtagComponent</a></li><li><a href="global.html#Topics">Topics</a></li><li><a href="global.html#TopUsers">TopUsers</a></li><li><a href="global.html#Trends">Trends</a></li><li><a href="global.html#Tweetbox">Tweetbox</a></li><li><a href="global.html#User">User</a></li><li><a href="global.html#userridd">userridd</a></li><li><a href="global.html#validateEmail">validateEmail</a></li><li><a href="global.html#validatePassword">validatePassword</a></li><li><a href="global.html#validateUserName">validateUserName</a></li><li><a href="global.html#verifyEmail">verifyEmail</a></li><li><a href="global.html#verifyEmailForgetPassword">verifyEmailForgetPassword</a></li><li><a href="global.html#YourAccount">YourAccount</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Tue May 24 2022 21:14:58 GMT+0200 (Eastern European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

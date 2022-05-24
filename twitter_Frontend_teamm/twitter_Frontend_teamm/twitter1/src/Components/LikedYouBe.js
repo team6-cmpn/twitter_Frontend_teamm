@@ -3,7 +3,10 @@ import "./LikedYou.css";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import { Avatar } from "@material-ui/core";
 import { useNavigate } from "react-router";
-/**it shows you how liked the tweet but as we see her it is the used to connect with the backend */
+/**it shows you how liked the tweet but as we see her it is the used to connect with the backend
+ * 
+ * 
+ */
 const LikedYouBe = ({ liked }) => {
   const navigate = useNavigate();
   function OnePost() {

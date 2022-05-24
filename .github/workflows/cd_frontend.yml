@@ -36,43 +36,35 @@ jobs:
       - uses: actions/checkout@v2
       # Task[2]: create bach scripts to ease Setting the Enviroment
       - name: Creat SetEnviroment.sh scripts
-        uses: skx/github-action-tester@master
-        with:
-          run: |
-            cat >>~/SetEnviroment.sh<<END
-            #!/bin/bash
-            sudo apt install python3 
-            python3 ––version
-            sudo apt install python3-pip
-            pip --version
-            ls
-            sudo pip install -r ~/testing/requirements.txt
-            whereis chromedriver
-            END
-            chmod +x ~/SetEnviroment.sh
+        run: |
+          cat >>~/SetEnviroment.sh<<END
+          #!/bin/bash
+          sudo apt install python3 
+          python3 ––version
+          sudo apt install python3-pip
+          pip --version
+          ls
+          sudo pip install -r ./testing/requirements.txt
+          whereis chromedriver
+          END
+          chmod +x ~/SetEnviroment.sh
       
       # Task[3]: Run SetEnviroment script
       - name: Run SetEnviroment.sh scripts
-        uses: skx/github-action-tester@master
-        with:
-          run: ~/SetEnviroment.sh
+        run: ~/SetEnviroment.sh
 
       # Task[4]: create bach scripts to ease Testing
       - name: Creat Testing.sh scripts
-        uses: skx/github-action-tester@master
-        with:
-          run: |
-            cat >>~/Testing.sh<<END
-            #!/bin/bash
-            python3 ~/testing/main.py 
-            END
-            chmod +x ~/Testing.sh
+        run: |
+          cat >>~/Testing.sh<<END
+          #!/bin/bash
+          python3 ./testing/main.py 
+          END
+          chmod +x ~/Testing.sh
       
       # Task[5]: Run testing scripts Scripts
       - name: Run Testing.sh scripts
-        uses: skx/github-action-tester@master
-        with:
-          run: ~/Testing.sh
+        run: ~/Testing.sh
 
   # Deploy:
   #   needs: build

@@ -6,7 +6,7 @@ import AdminSideBar from "./AdminSideBar";
 /**
  * 
  * this component returns welcome page including sidebar and topbar
- * @returns 
+ *  
  */
 export default function AdminHome() {
   return (

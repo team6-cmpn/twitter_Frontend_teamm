@@ -7,7 +7,7 @@ import Configure from "../Configure";
 /**
  *
  * topbar of the admin pages
- * @returns
+ * 
  */
 export default function Topbar() {
   var info = GetUserInfo();

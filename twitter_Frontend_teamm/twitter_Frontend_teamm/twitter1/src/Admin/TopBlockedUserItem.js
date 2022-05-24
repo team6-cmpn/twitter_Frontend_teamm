@@ -3,7 +3,7 @@ import { GetUserList } from './MockRegistrationAdmin';
 /**
  * 
  * this function returns component for each most five blokced users
- * @returns 
+ *  
  */
 
 export default function TopBlockedUserItem(user) {

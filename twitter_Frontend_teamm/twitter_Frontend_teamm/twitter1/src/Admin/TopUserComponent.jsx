@@ -9,7 +9,7 @@ import Configure from "../Configure";
 /**
  *
  * this function returns component for each top five users with most followers
- * @returns
+ * 
  */
 
 export default function TopUserItem({ user }) {

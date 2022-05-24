@@ -7,7 +7,7 @@ import { Tweets_lookup } from "../Components/homepage/backendFeed";
  * this function returns statistics blocks that shows
  * total number of users, total number of tweets, number of tweets per day and number of uers
  * signed up during last week
- * @returns 
+ * 
  */
 
 export default function Twiiterstatistics() {

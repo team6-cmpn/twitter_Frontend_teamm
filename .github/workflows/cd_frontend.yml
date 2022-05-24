@@ -34,28 +34,33 @@ jobs:
     steps:
       # Task[1]: Get Clone Key on the Runner
       - uses: actions/checkout@v2
+      - name: install chrome driver
+        uses: nanasess/setup-chromedriver@v1
+        with:
+          # Optional: do not specify to match Chrome's version
+          chromedriver-version: '88.0.4324.96'
+      - run: |
+          export DISPLAY=:99
+          chromedriver --url-base=/wd/hub &
+          sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 & # optional
       # Task[2]: create bach scripts to ease Setting the Enviroment
       - name: Creat SetEnviroment.sh scripts
-        uses: nanasess/setup-chromedriver@v1.0.7
-        with:
-          run: |
-            cat >>~/SetEnviroment.sh<<END
-            #!/bin/bash
-            sudo apt install python3 
-            python3 ––version
-            sudo apt install python3-pip
-            pip --version
-            ls
-            sudo pip install -r ./testing/requirements.txt
-            whereis chromedriver
-            END
-            chmod +x ~/SetEnviroment.sh
+        run: |
+          cat >>~/SetEnviroment.sh<<END
+          #!/bin/bash
+          sudo apt install python3 
+          python3 ––version
+          sudo apt install python3-pip
+          pip --version
+          ls
+          sudo pip install -r ./testing/requirements.txt
+          whereis chromedriver
+          END
+          chmod +x ~/SetEnviroment.sh
       
       # Task[3]: Run SetEnviroment script
       - name: Run SetEnviroment.sh scripts
-        uses: nanasess/setup-chromedriver@v1.0.7
-        with:
-          run: ~/SetEnviroment.sh
+        run: ~/SetEnviroment.sh
 
       # Task[4]: create bach scripts to ease Testing
       - name: Creat Testing.sh scripts
@@ -68,9 +73,7 @@ jobs:
       
       # Task[5]: Run testing scripts Scripts
       - name: Run Testing.sh scripts
-        uses: nanasess/setup-chromedriver@v1.0.7
-        with:
-          run: ~/Testing.sh
+        run: ~/Testing.sh
 
   # Deploy:
   #   needs: build

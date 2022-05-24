@@ -3,6 +3,9 @@ import page
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.keys import Keys
+from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.utils import ChromeType
+from selenium.webdriver.chrome.options import Options
 import time
 
 
@@ -14,8 +17,22 @@ class TwitterHomePage(unittest.TestCase):
     """A sample test class to show how page object works"""
 
     def setUp(self):
-        s = Service('chromedriver')
-        self.driver = webdriver.Chrome(service=s)
+        chrome_service = Service(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install())
+        chrome_options = Options()
+        options = [
+            "--headless",
+            "--disable-gpu",
+            "--window-size=1920,1200",
+            "--ignore-certificate-errors",
+            "--disable-extensions",
+            "--no-sandbox",
+            "--disable-dev-shm-usage"
+        for option in options:
+            chrome_options.add_argument(option)
+
+        driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
+        # s = Service('chromedriver')
+        # self.driver = webdriver.Chrome(service=s)
         #self.driver = webdriver.Chrome("C:\Program Files (x86)\chromedriver.exe")
         
         #s = Service('C:\Program Files (x86)/msedgedriver.exe')

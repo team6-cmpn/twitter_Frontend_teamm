@@ -6,6 +6,8 @@ import { Link } from "react-router-dom";
 import { GetSearchedName } from "../../../Explore/backEndSearch";
 import Configure from "../../../../Configure";
 import { MdVerified } from "react-icons/md";
+import {Follow,destroyFollow}from '../../../User/BackendUser';
+import { ToastContainer, toast } from "react-toastify";
 
 const FriendSuggestionItem = ({ props }) => {
   const [isModalVisible, setModalVisible] = useState(false);
@@ -41,6 +43,20 @@ const FriendSuggestionItem = ({ props }) => {
     window.location.href = `/${props.username}`;
   };
 
+  function FollowButtonActions(){
+    const resp = Follow();
+    resp.then(function (tempresult) {
+      console.log(tempresult);
+      if (tempresult === "the user is already following the user" && textState==="Follow") {
+        toast.dark(`You're already following this user!`);
+      }
+    })
+    if (textState==="Follow")
+    toggleText();
+    else
+    onSubModel();
+} 
+
   console.log("fawzyyyyyyyyyyyy", info);
   console.log("fawzyyyyyyy", Url);
   return (
@@ -60,8 +76,7 @@ const FriendSuggestionItem = ({ props }) => {
         <button
           className="butto"
           onClick={() => {
-            if (textState === "Follow") toggleText();
-            else onSubModel();
+            FollowButtonActions() 
           }}
         >
           {textState}
@@ -123,6 +138,7 @@ const FriendSuggestionItem = ({ props }) => {
             onClick={() => {
               toggleText();
               onExist();
+              destroyFollow();
             }}
             className="followButton"
           >

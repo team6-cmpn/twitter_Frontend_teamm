@@ -3,8 +3,8 @@ import React from 'react';
 import  { useState } from 'react';
 import Trends from "../Widgets/Trends";
 import Sidebar from "../Sidebar/Sidebar";
-import { getFollowerUsers } from "../Profile/FollowersMock";
-import { getFollowingUsers } from "../Profile/FollowersMock";
+// import { getFollowerUsers } from "../Profile/FollowersMock";
+// import { getFollowingUsers } from "../Profile/FollowersMock";
 import FollowersList from '../Profile/FollowersList';
 import FollowingList from '../Profile/FollowingList';
 // import {getFollowersList,getFollowingList} from './backEndProfile';
@@ -17,7 +17,7 @@ import Configure from '../../Configure'
  */
 function Following(){
     async function getFollowersList() {
-        var id = localStorage.getItem("userId");
+        var id = localStorage.getItem("clicked_userID");
         await axios
           .get(`${Configure.backURL}user/followersList/${id}`, {
             headers: {
@@ -43,7 +43,7 @@ function Following(){
         },[])
 
     async function getFollowingList() {
-        var id = localStorage.getItem("userId");
+        var id = localStorage.getItem("clicked_userID");
         await axios
           .get(`${Configure.backURL}user/followingList/${id}`, {
             headers: {
@@ -68,22 +68,22 @@ function Following(){
         
             },[])
 
-    const [FollowerUsers,setFollowerUsers]=React.useState([])
-    React.useEffect(()=>{
-        (async () => {
-            const resp = await getFollowerUsers();
-            setFollowerUsers(resp);
-          })();
+    // const [FollowerUsers,setFollowerUsers]=React.useState([])
+    // React.useEffect(()=>{
+    //     (async () => {
+    //         const resp = await getFollowerUsers();
+    //         setFollowerUsers(resp);
+    //       })();
     
-        },[])
-    const [FollowingUsers,setFollowingUsers]=React.useState([])
-    React.useEffect(()=>{
-        (async () => {
-            const resp = await getFollowingUsers();
-            setFollowingUsers(resp);
-          })();
+    //     },[])
+    // const [FollowingUsers,setFollowingUsers]=React.useState([])
+    // React.useEffect(()=>{
+    //     (async () => {
+    //         const resp = await getFollowingUsers();
+    //         setFollowingUsers(resp);
+    //       })();
     
-        },[])
+    //     },[])
     const [isFollowers, setIsFollowers] = useState(true);
     return(
         <div>
@@ -108,16 +108,16 @@ function Following(){
                 <article>
                     {isFollowers ? (
                         <>
-                        <div>{FollowingUsers.map((FollowingUsers,index)=>(
-                            <FollowingList key={index} FollowingAccount={FollowingUsers}/>))}</div>
+                        {/* <div>{FollowingUsers.map((FollowingUsers,index)=>(
+                            <FollowingList key={index} FollowingAccount={FollowingUsers}/>))}</div> */}
                             <div>
                             {FollowingLists.map((FollowingUsers,index)=>(
                             <FollowingList key={index} FollowingAccount={FollowingUsers}/>))}</div>
                         </>
                     ) : (
                         <>
-                        <div>{FollowerUsers.map((FollowerUsers,index)=>(
-                            <FollowersList key={index} FollowerAccount={FollowerUsers}/>))}</div>
+                        {/* <div>{FollowerUsers.map((FollowerUsers,index)=>(
+                            <FollowersList key={index} FollowerAccount={FollowerUsers}/>))}</div> */}
                             <div> 
                             {FollowersLists.map((FollowerUsers,index)=>(
                             <FollowersList key={index} FollowerAccount={FollowerUsers}/>))}</div>

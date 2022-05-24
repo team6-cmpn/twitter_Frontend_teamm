@@ -1,9 +1,8 @@
-import   * as mockAPI  from './ProfileMock'
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router } from "react-router-dom";
 import { ThemeProvider } from "../../ThemeContext";
-import Profile from "./Profile";
+import User from "./User";
 
 window.matchMedia =
   window.matchMedia ||
@@ -20,24 +19,9 @@ it("renders without crashing settings", () => {
   ReactDOM.render(
     <Router>
       <ThemeProvider>
-        <Profile />
+        <User />
       </ThemeProvider>
     </Router>,
     div
   );
 });
-
-  var body={
-    name: "Menna",
-    bio: "Heyy",
-    location: "Cairo",
-    website: "www.me.com",
-    img: {
-        "alt": "Screenshot (1).png",
-        "src": "blob:http://localhost:3000/e26010d9-cd96-436a-8888-241fa7424824"
-      },
-}
-
-  test('Profile information', () => {
-    expect(mockAPI.Profile(body)).toBeTruthy();
-  });

@@ -1,10 +1,14 @@
 import React from "react";
-import "../Settings/settingsSubmenus.css";
+// import "../Settings/settingsSubmenus.css";
+import "../Widgets/FriendSuggestions/FriendSuggestionItem/FriendSuggestionItem.css";
 import { Avatar } from "@material-ui/core";
 import "./Profile.css";
 import { useState } from "react";
 import { Modal } from "antd";
 import { Link } from "react-router-dom";
+import {Follow,destroyFollow}from '../User/BackendUser';
+import { ToastContainer, toast } from "react-toastify";
+
 /**Followers List
  * Shows followers list
  *
@@ -23,6 +27,19 @@ const FollowersList = ({ FollowerAccount }) => {
   const onExist = () => {
     setModalVisible(false);
   };
+  function FollowButtonActions(){
+    const resp = Follow();
+    resp.then(function (tempresult) {
+      console.log(tempresult);
+      if (tempresult === "the user is already following the user" && textState==="Follow") {
+        toast.dark(`You're already following this user!`);
+      }
+    })
+    if (textState==="Follow")
+    toggleText();
+    else
+    onSubModel();
+} 
 
   console.log(FollowerAccount._id);
   var logged_in_id = localStorage.getItem("userId");
@@ -34,9 +51,10 @@ const FollowersList = ({ FollowerAccount }) => {
     //   : (window.location.href = `/profile`);
   };
   return (
-    <div className="Accountinfo_dec">
-      <Avatar src="" />
-      <h5 onClickCapture={store_userID}>
+    <div className="friendSuggestionsItem" >
+      <Avatar style={{marginRight:"10px", marginBottom:"5px", marginTop:"5px"}} src="" />
+      <div className="user_name">{FollowerAccount?.username}</div>
+      <div className="searchedname" onClickCapture={store_userID}>
         {logged_in_id !== FollowerAccount?._id ? (
           <Link to={`/${FollowerAccount?.username}`}>
             {FollowerAccount?.name}
@@ -44,19 +62,12 @@ const FollowersList = ({ FollowerAccount }) => {
         ) : (
           <Link to={`/profile`}></Link>
         )}
-      </h5>
-      <h6>{FollowerAccount?.username}</h6>
+      </div>
+      
       {logged_in_id !== FollowerAccount?._id ? (
-        <button
-          id="FollowButton"
-          class="ButtonFollow"
-          onClick={() => {
-            if (textState === "Follow") toggleText();
-            else onSubModel();
-          }}
-        >
-          {textState}
-        </button>
+        <button id="FollowButton" class="ButtonFollow" onClick={() => FollowButtonActions() }>
+        {textState}   
+    </button> 
       ) : null}
 
       <Modal
@@ -88,6 +99,7 @@ const FollowersList = ({ FollowerAccount }) => {
             onClick={() => {
               toggleText();
               onExist();
+              destroyFollow();
             }}
             className="ButtonBlock"
           >

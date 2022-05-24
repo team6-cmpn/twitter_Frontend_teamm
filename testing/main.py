@@ -30,7 +30,7 @@ class TwitterHomePage(unittest.TestCase):
         for option in options:
             chrome_options.add_argument(option)
 
-        driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
+        self.driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
         # s = Service('chromedriver')
         # self.driver = webdriver.Chrome(service=s)
         #self.driver = webdriver.Chrome("C:\Program Files (x86)\chromedriver.exe")

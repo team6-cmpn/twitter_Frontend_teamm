@@ -6,7 +6,7 @@ import TopHashtagComponent from "./TopHashtagComponent";
 /**
  * 
  * this function returns the most five retweeted tweets
- * @returns 
+ * 
  */
 export default function TopFiveHashtags() {
   const hashtag = GetHashtags();

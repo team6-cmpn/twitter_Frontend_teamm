@@ -5,7 +5,7 @@ import { Avatar } from "@material-ui/core";
 /**
  * is shows you who followed you 
  * @param {followingUser} param0 
- * @returns 
+ *  
  */
 const FollowedYou = ({ followingUser }) => {
   return (

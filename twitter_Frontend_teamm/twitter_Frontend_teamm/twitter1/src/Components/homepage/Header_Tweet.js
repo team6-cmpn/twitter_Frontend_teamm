@@ -68,10 +68,10 @@ function Tweetbox(props, flaged_color) {
       setimage_array([...image_array, ...arr_obj]);
     }
   };
-  /**
-   * handle removing image in header twet
-   * @param {array string} imageUrl
-   */
+  // /**
+  //  * handle removing image in header twet
+  //  * @param {array string} imageUrl
+  //  */
   const handleRemoveImage = (imageUrl) => {
     let tempImages = [...images];
     let tempImagesObj = [...image_array];

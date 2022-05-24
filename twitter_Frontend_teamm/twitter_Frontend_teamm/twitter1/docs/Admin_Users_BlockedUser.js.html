@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: Components/LikedYouBe.js</title>
+    <title>JSDoc: Source: Admin/Users/BlockedUser.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: Components/LikedYouBe.js</h1>
+    <h1 class="page-title">Source: Admin/Users/BlockedUser.js</h1>
 
     
 
@@ -27,49 +27,63 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>import React from "react";
-import "./LikedYou.css";
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import { Avatar } from "@material-ui/core";
-import { useNavigate } from "react-router";
-/**it shows you how liked the tweet but as we see her it is the used to connect with the backend
- * 
+import { DataGrid } from "@mui/x-data-grid";
+import { GetDashBoardstat } from "../MockRegistrationAdmin";
+import "./blockform.css";
+import Configure from "../../Configure";
+const getUserImg = (params) => params.getValue(params.id, "profile_image_url");
+
+/**
+ *
+ * this function returns a list of the most blocked users by admin
  * 
  */
-const LikedYouBe = ({ liked }) => {
-  const navigate = useNavigate();
-  function OnePost() {
-    navigate("/post");
-    localStorage.setItem("clicked.ID", liked.notificationContent._id);
-  }
+const columns = [
+  {
+    title: "Avatar",
+    field: "User_img",
+    headerName: "Image",
+    sortable: false,
+    renderCell: (params) => (
+      &lt;img
+        style={{ width: 36, height: 36, borderRadius: "50%" }}
+        src={`${Configure.backURL}${getUserImg(params)}`}
+        alt="userimg"
+      />
+    ),
+  },
+  { field: "name", headerName: "Name", width: 130 },
+  { field: "username", headerName: "UserName", width: 130 },
+  { field: "followers_count", headerName: "Followers", width: 100 },
+  { field: "followings_count", headerName: "Folllowing", width: 100 },
+  {
+    field: "admin_block",
+    headerName: "Block Times",
+    sortable: false,
+    valueFormatter: ({ value }) => value.blockNumTimes,
+    type: "string",
+    width: 120,
+  },
+  { field: "dateOfBirth", headerName: "Date Of Birth", width: 110 },
+  { field: "_id", headerName: "User ID", width: 130 },
+];
+
+export default function BlockedUser() {
+  const Blocklist = GetDashBoardstat()[13]?.top_Five_Blocked_Users;
+  console.log("users", Blocklist);
   return (
-    &lt;div className="likedYou" id="likedyou">
-      &lt;FavoriteIcon />
-      {liked.notificationContent ? (
-        &lt;>
-          &lt;div onClick={() => OnePost()}>
-            &lt;div>
-              &lt;Avatar src={liked.notificationHeader.images} />
-            &lt;/div>
-            &lt;span>
-              &lt;b>{liked.notificationHeader.text}&lt;/b>
-            &lt;/span>
-            &lt;span>{liked.notificationContent.text}&lt;/span>
-          &lt;/div>
-        &lt;/>
-      ) : (
-        &lt;>
-          &lt;div>
-            &lt;span>
-              &lt;b>{liked.notificationHeader.text}&lt;/b>
-            &lt;/span>
-          &lt;/div>
-        &lt;/>
-      )}
+    &lt;div className="Users">
+      &lt;span className="Userstitle">Top Five Blocked Users&lt;/span>
+      &lt;div style={{ height: 400, width: "100%" }}>
+        &lt;DataGrid
+          getRowId={(Blocklist) => Blocklist._id}
+          rows={Blocklist}
+          columns={columns}
+        />
+      &lt;/div>
     &lt;/div>
   );
-};
-
-export default LikedYouBe;
+}
 </code></pre>
         </article>
     </section>

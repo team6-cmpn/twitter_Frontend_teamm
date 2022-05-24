@@ -6,7 +6,7 @@ import TopHashtagComponent from "./TopHashtagComponent";
 /**
  *
  * this function returns top five most followers
- * @returns
+ * 
  */
 function TopUsers() {
   const topUsers = GetDashBoardstat()[0];

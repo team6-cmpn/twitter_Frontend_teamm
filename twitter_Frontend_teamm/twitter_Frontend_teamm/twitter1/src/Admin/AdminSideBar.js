@@ -10,7 +10,7 @@ import Statistics from "./statistics";
  * 
  * side bar that have the items that the users can 
  * trigger between pages of admin 
- * @returns 
+ * 
  */
 
 export default function AdminSideBar() {

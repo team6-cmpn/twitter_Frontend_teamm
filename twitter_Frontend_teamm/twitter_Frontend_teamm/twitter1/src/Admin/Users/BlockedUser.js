@@ -5,6 +5,11 @@ import "./blockform.css";
 import Configure from "../../Configure";
 const getUserImg = (params) => params.getValue(params.id, "profile_image_url");
 
+/**
+ *
+ * this function returns a list of the most blocked users by admin
+ * 
+ */
 const columns = [
   {
     title: "Avatar",

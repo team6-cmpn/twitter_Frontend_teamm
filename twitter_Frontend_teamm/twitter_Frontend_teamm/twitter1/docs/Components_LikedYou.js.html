@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: Components/LikedYou.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,46 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: Components/LikedYou.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from "react";
+import "./LikedYou.css";
+import FavoriteIcon from "@material-ui/icons/Favorite";
+import { Avatar } from "@material-ui/core";
+/**it show you how liked your tweet
+ * 
+ */
+const LikedYou = ({ likePost }) => {
+  return (
+    &lt;div className="likedYou" id="likedyou">
+      &lt;FavoriteIcon />
+      &lt;div>
+        &lt;div>
+          {likePost.likeUser.map((user) => (
+            &lt;Avatar src={user.userImage} />
+          ))}
+        &lt;/div>
+        &lt;span>
+          &lt;b>{likePost.likeUser[0].displayName}&lt;/b> and{" "}
+          {likePost.likeUser.length - 1} others liked your Tweet
+        &lt;/span>
+        &lt;span>{likePost.post}&lt;/span>
+      &lt;/div>
+    &lt;/div>
+  );
+};
 
-
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+export default LikedYou;
+</code></pre>
+        </article>
+    </section>
 
 
 

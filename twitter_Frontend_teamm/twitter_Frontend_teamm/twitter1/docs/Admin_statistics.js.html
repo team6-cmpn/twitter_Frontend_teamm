@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: Admin/statistics.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,54 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: Admin/statistics.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from "react";
+import "./statistics.css";
+import TwiiterStatistics from "./TwiiterStatistics";
+import BaxialComponent from "./Charts/BiaxialLineChart";
+import TopUsers from "./TopFiveUsers";
+import TopBar from "./TopBar";
+import AdminSideBar from "./AdminSideBar";
+import TopFiveHashtags from "./TopFiveHashtags";
+/**
+ * 
+ * this component returns sidebar and topbar and
+ * components that shows tweets per month and tweets per year 
+ * and top five liked tweets and top five followers account 
+ * @returns 
+ */
 
 
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+export default function Statistics() {
+  return (
+    &lt;div id="StatisticsPage">
+      &lt;TopBar />
+      &lt;div className="admincontainer">
+        &lt;AdminSideBar />
+        &lt;div className="satisticshome">
+          &lt;TwiiterStatistics />
+          &lt;div className="carousel">
+            &lt;BaxialComponent />
+          &lt;/div>
+          &lt;div className="statwidgets">
+            &lt;TopUsers />
+          &lt;/div>
+        &lt;/div>
+      &lt;/div>
+    &lt;/div>
+  );
+}
+</code></pre>
+        </article>
+    </section>
 
 
 

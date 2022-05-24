@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: Components/Settings/PrivacyAndSafety.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,60 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: Components/Settings/PrivacyAndSafety.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from "react";
+import "./settingsSubmenus.css"
+import { Outlet,NavLink } from "react-router-dom";
+import SubsettingsContent from "./SubsettingsContent";
+import { ChevronRight } from "@mui/icons-material";
+import VolumeOffOutlinedIcon from '@mui/icons-material/VolumeOffOutlined';
+/**
+ * this menu make you able to go through the blocked account menu and muted account menu
+ * @returns [selected menus]
+ */
 
 
-    <h3> </h3>
+const PrivacyAndSafety = () => {
+    document.title = "Privacy and Safety / Twitter";
+  
+    return (
+      &lt;div className="settingsSubMenu">
+            &lt;div className="SubMenuTitle">
+            &lt;span>Privacy and safety &lt;/span>
+            &lt;/div>
+            &lt;div className="submenu_discription">
+                &lt;h3>Manage what information you see and share on Twitter Your Twitter activity.&lt;/h3>
+                &lt;br/>
+                {/* &lt;Link to="MuteandBlock" style={{ textDecoration: "none", color:"inherit" }}> */}
+          
+          &lt;NavLink to={"../MuteandBlock"}>
+          
+            &lt;SubsettingsContent
+              Icon2={VolumeOffOutlinedIcon}
+              text="Mute and block"
+              discrip="Manage the accounts, words, and notifications that you've muted or blocked."
+              Icon={ChevronRight}
+            />
+            &lt;/NavLink>
+            &lt;/div>
+            &lt;Outlet/>
 
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+      &lt;/div>
+    );
+        
+  };
+  
+  export default PrivacyAndSafety;</code></pre>
+        </article>
+    </section>
 
 
 

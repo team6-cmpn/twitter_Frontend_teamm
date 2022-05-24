@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: Components/FollowedYou.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,42 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: Components/FollowedYou.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from "react";
+import "./FollowedYou.css";
+import UserIcon from "./UserIcon";
+import { Avatar } from "@material-ui/core";
+/**
+ * is shows you who followed you 
+ * @param {followingUser} param0 
+ * @returns 
+ */
+const FollowedYou = ({ followingUser }) => {
+  return (
+    &lt;div className="followedYou">
+      &lt;UserIcon className="followedYouIcon" />
+      &lt;div>
+        &lt;Avatar src={followingUser.userImage} />
+        &lt;span>
+          &lt;b>{followingUser.name}&lt;/b> followed you
+        &lt;/span>
+      &lt;/div>
+    &lt;/div>
+  );
+};
 
-
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+export default FollowedYou;
+</code></pre>
+        </article>
+    </section>
 
 
 

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: Admin/TopBlockedUserItem.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,48 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: Admin/TopBlockedUserItem.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from 'react'
+import { GetUserList } from './MockRegistrationAdmin';
+/**
+ * 
+ * this function returns component for each most five blokced users
+ * @returns 
+ */
 
-
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+export default function TopBlockedUserItem(user) {
+  const [blockedusers, setBlockedUser] = React.useState(undefined);
+  React.useEffect(() => {
+    (async () => {
+      const resp = await GetUserList();
+      let temptweetsPerMonth = [...resp.data[9].tweets_Per_Month];
+      temptweetsPerMonth.forEach((element, index) => {
+        temptweetsPerMonth[index].user = element.username;
+      });
+      setBlockedUser(temptweetsPerMonth);
+    })();
+  }, []);
+  console.log(blockedusers)
+  return (
+    &lt;div className="newUsersListItem" id="TopUsersItem">
+    &lt;div className="newUsersUser">
+      &lt;span className="newUsersUserTitle">{user.username}&lt;/span>
+      &lt;span className='blockuserName' >{user.name}&lt;/span>
+    &lt;/div>
+  &lt;/div>
+  )
+}
+</code></pre>
+        </article>
+    </section>
 
 
 

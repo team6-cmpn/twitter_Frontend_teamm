@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: Components/Settings/DeactiviateAcc.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,75 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: Components/Settings/DeactiviateAcc.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from "react";
+import "./settingsSubmenus.css"
+import {Avatar} from "@material-ui/core";
+import { Link, useLocation } from "react-router-dom";
+import {Button} from "@mui/material";
+import * as BE from "./SettingsBackendIntegration"
+/**
+ * make you able to deactive your account then make you log out from the website 
+ * 
+ */
+function DeactivateAcc(){
+    function deactivate(){
+        BE.Put_DeactivateAccount();
+        alert("Your account succesfully deactivated")
 
+    }
+    function redirect()
+    {
+       var url = "/login";
+       localStorage.clear()
+      window.location.assign(url);
+    }
+    return(
+        &lt;div className="settingsSubMenu">
+            &lt;div className="SubMenuTitle">
+                &lt;span>Deactivate account&lt;/span>
+            &lt;/div>
+            
+            &lt;br/>
+            
+           
+            &lt;div className="SubMenuTitle">
+                &lt;span>This will deactivate your account&lt;/span>
+            &lt;/div>
+                &lt;h4>You're about to start the process of deactivating your Twitter account. Your display name,
+                    @username, and public profile will no longer be viewable on Twitter.com, Twitter for iOS,
+                    or Twitter for Android.&lt;/h4>
+            &lt;div className="SubMenuTitle">
+                &lt;span>What else you should know&lt;/span>
+            &lt;/div>
+            &lt;h4>You can restore your Twitter account if it was accidentally or wrongfully deactivated for up to 30 days after deactivation.&lt;/h4>
+            &lt;h4>Some account information may still be available in search engines, such as Google or Bing.&lt;/h4>
+            &lt;h4>If you just want to change your @username, you don't need to deactivate your account — edit it in your &lt;a href="/Settings/change-username">settings&lt;/a>&lt;/h4>
+            &lt;h4>To use your current @username or email address with a different Twitter account,&lt;a href="/Settings/your-twitter-data">change them &lt;/a>before you deactivate this account.&lt;/h4>
+            &lt;Button
+                    id="deactivate_button"
+                    onClick={()=>{deactivate()
+                    redirect()}}
+                    className="deactivate_button"
+                >
+                    Deactivate
+                &lt;/Button>
+        &lt;/div>
+            
+    );
 
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+};
+export default DeactivateAcc;</code></pre>
+        </article>
+    </section>
 
 
 

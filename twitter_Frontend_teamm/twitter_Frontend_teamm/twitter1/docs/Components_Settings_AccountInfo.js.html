@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: Components/Settings/AccountInfo.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,73 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: Components/Settings/AccountInfo.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from "react";
+import "./settingsSubmenus.css"
+import { Link, useLocation } from "react-router-dom";
+import { ChevronRight } from "@mui/icons-material";
+import AccountInfoMenuss from "./AccountInfoMenuss";
+import ChangeUsername from "./changeUsername";
 
-
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
+/**
+ * make you able to change the account info
+ * @returns [account info]
+ */
+const AccountInformation = () => {
+    const [location] = React.useState(useLocation().pathname);
+    document.title = "Account information / Twitter";
     
+    return (
+      &lt;div className="settingsSubMenu">
+            &lt;div className="SubMenuTitle">
+            &lt;span>Account information  &lt;/span>
+            &lt;/div>
+            &lt;div className="submenu_discription">
+                &lt;br/>
+            &lt;Link to="../change-username" style={{ textDecoration: "none", color:"inherit" }}>
+          &lt;AccountInfoMenuss
+            text="Username"
+            Icon={ChevronRight}
+            
 
+          />
+        &lt;/Link>
+        &lt;Link to="../change-phone-number" style={{ textDecoration: "none", color:"inherit" }}>
+          &lt;AccountInfoMenuss
+            text="Phone"
+            Icon={ChevronRight}
+            
 
+          />
+        &lt;/Link> 
+        &lt;Link to="../change-email" style={{ textDecoration: "none", color:"inherit" }}>
+          &lt;AccountInfoMenuss
+            text="Email"
+            Icon={ChevronRight}
+            
 
-
-
+          />
+        &lt;/Link>
+        
+        
+        
+        &lt;/div>
+    &lt;/div>
+      
+    );
+  };
+  
+  export default AccountInformation;</code></pre>
+        </article>
+    </section>
 
 
 

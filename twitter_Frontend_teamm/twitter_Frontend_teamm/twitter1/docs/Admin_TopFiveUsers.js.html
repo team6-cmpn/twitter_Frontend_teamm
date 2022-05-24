@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: Admin/TopFiveUsers.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,71 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: Admin/TopFiveUsers.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from "react";
+import "./topfiveusers.css";
+import { GetAdminUserList, GetDashBoardstat, GetHashtags } from "./MockRegistrationAdmin";
+import TopUserItem from "./TopUserComponent";
+import TopHashtagComponent from "./TopHashtagComponent";
+/**
+ *
+ * this function returns top five most followers
+ * @returns
+ */
+function TopUsers() {
+  const topUsers = GetDashBoardstat()[0];
+  const hashtag = GetDashBoardstat()[5];
+  const [topusersi, setTopUser] = React.useState([]);
+  React.useEffect(() => {
+    (async () => {
+      const resp = await GetAdminUserList();
+      let temptweetsPerMonth = [...resp.data];
+      temptweetsPerMonth.forEach((element, index) => {
+        temptweetsPerMonth[index].user = element?.username;
+      });
+      setTopUser(temptweetsPerMonth);
+    })
+    ();
+  }, []);
+  console.log(topusersi)
+  
 
+  return (
+    // &lt;article id="TopFiveUsersWithMostFollowers">
+    &lt;div className="blocks">
+      &lt;div className="newUsers">
+        &lt;span className="TopUserTitle">Top 5 People With Most Followers&lt;/span>
+        &lt;div className="topUserList">
+          {topUsers?.users_With_Most_Followers.map((userlist, index) => (
+            &lt;TopUserItem key={index} user={userlist} />
+          ))}
+        &lt;/div>
+      &lt;/div>
+      &lt;div className="toptweets">
+        &lt;span className="TopUserTitle"> Top 5 Tweets&lt;/span>
+        &lt;ul className="newUsersList">
+          {hashtag?.top_Five_Liked_Tweets.map((userlist, index) => (
+            &lt;TopHashtagComponent key={index} hashtag={userlist} />
+          ))}
+        &lt;/ul>
+      &lt;/div>
+    &lt;/div>
+    // &lt;/article>
+  );
+}
 
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+export default TopUsers;
+</code></pre>
+        </article>
+    </section>
 
 
 

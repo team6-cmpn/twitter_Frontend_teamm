@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: Components/Widgets/Trends.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,102 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: Components/Widgets/Trends.js</h1>
 
     
 
 
 
     
-
-
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, {useState}  from "react";
+//import "../Widgets.css";
+import "antd/dist/antd.css";
+// import { FaSistrix } from "react-icons/fa";
+import FriendSuggestions from "./FriendSuggestions/FriendSuggestions";
+import TopicItem from "./Topics/Topics";
+import {Form,Input} from "antd";
+import { BrowserRouter as Route, Routes } from "react-router-dom";
+import {useNavigate, Link} from "react-router-dom";
+//import Explore from "../Explore";
+//import "./FriendSuggestions/FriendSuggestionItem/FriendSuggestionItem.css";
+/**Trends
+ * Shows search bar &amp; topics &amp; friendsuggetion
+ *  
+ * @returns (Layout of search &amp; topics &amp; friendsuggetion compnents)
+*/
+function Trends (){
+  const history = useNavigate();
+  const [data, setData] = useState(null);
+  const [btndisabled, setbtndisabled] = useState(true);
+  
+  const handleSubmit=(e) =>{
+    if (e.key === 'Enter') {
+      return (
+        history("/Explore")
+        // &lt;Routes>
+        //    &lt;Route element={&lt;Explore />}>&lt;/Route>
+        // &lt;/Routes>
+        //console.log("bye")
+        //&lt;Redirect push to="/Explore"/>
+      )
+        // TODO redirect user to '/explore'
+       
+       // &lt;Link to="/Explore">&lt;/Link>
+    }
+}
+  const buttonState = (changedValues, allValues) => {
+    //allValues[1]=&lt;h1>hiiiyasta&lt;/h1>;
+    if ( allValues.ne !== undefined &amp;&amp;  allValues.ne !== ''  ) {
+      
+      setbtndisabled(false);
+     
+      
+    } 
+    else{
+      
+      
+      setbtndisabled(true);
+      
+      console.log(allValues);
+    }
+  };
+  function getData(val){
+   setData(val.target.value)
+   localStorage.setItem('word', val.target.value);
+   };
+  var body={
+    data:data
     
+  }
+  return (
+    &lt;div className="hide_tr">
+      &lt;div className="trends__search">
+      &lt;Form  onValuesChange={buttonState}>
+       &lt;Form.Item  >  
+        &lt;Input
+          onChange={getData}
+          id="searchbar"
+          className="trend__control"
+          onKeyPress={handleSubmit.bind(this)}
+          placeholder="Search Twitter">
+        &lt;/Input>
+        &lt;/Form.Item>
+        &lt;/Form>
+        {/* &lt;FaSistrix className="trend__icon search" /> */}
+      &lt;/div> 
+      &lt;div>
+      &lt;TopicItem />
+      &lt;FriendSuggestions />
+      &lt;/div>
+    &lt;/div>
+  );
+};
 
-
-
-
-
+export default Trends;</code></pre>
+        </article>
+    </section>
 
 
 

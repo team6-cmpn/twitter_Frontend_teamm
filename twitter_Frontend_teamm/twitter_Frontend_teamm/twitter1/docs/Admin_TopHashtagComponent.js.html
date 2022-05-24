@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: Admin/TopHashtagComponent.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,38 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: Admin/TopHashtagComponent.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from "react";
+import "./tophashtagcomponent.css";
 
+/**
+ * 
+ * this function returns component for each top 5 retweeted tweets
+ * @returns 
+ */
+const TopHashtagComponent = ({ hashtag }) => {
+  return (
+    &lt;li className="newUsersListItem" id="TopUsersItem">
+      &lt;div className="newUsersUser">
+        &lt;span className="newUsersUserTitle">{hashtag.retweet_count}&lt;/span>
+        &lt;span className="newUsersUsername">{hashtag.text}&lt;/span>
+      &lt;/div>
+    &lt;/li>
+  );
+};
 
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+export default TopHashtagComponent;
+</code></pre>
+        </article>
+    </section>
 
 
 

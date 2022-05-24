@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: Components/Settings/settingscontent.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,31 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: Components/Settings/settingscontent.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from "react";
+import "./Settings.css";
+/**show you type of menu you have chosen */
+function SettingsContent({ Icon ,text, active }) {
+  return (
+    &lt;div className={`SettingsContent ${active &amp;&amp; "SettingsContent--active"}`}>
+      &lt;span>{text}&lt;/span>
+      &lt;Icon className="leftArrIcons" active={active &amp;&amp; true} />
+      
+    &lt;/div>
+  );
+}
 
-
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+export default SettingsContent;</code></pre>
+        </article>
+    </section>
 
 
 

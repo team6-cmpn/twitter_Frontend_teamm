@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: Components/Settings/SecurityContent.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,31 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: Components/Settings/SecurityContent.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from "react";
+import "./settingsSubmenus.css";
+/**component makes you able to view the settings */
+function SecurityContent({ Icon ,text, active }) {
+  return (
+    &lt;div className={`SecurityContent` }>
+      &lt;span>{text}&lt;/span>
+      &lt;Icon className="leftArrowSec" active={active &amp;&amp; true} />
+      
+    &lt;/div>
+  );
+}
 
-
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+export default SecurityContent;</code></pre>
+        </article>
+    </section>
 
 
 

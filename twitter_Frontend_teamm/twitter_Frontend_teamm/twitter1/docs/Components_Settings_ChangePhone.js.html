@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: Components/Settings/ChangePhone.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,98 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: Components/Settings/ChangePhone.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from "react";
+import "./settingsSubmenus.css"
+import { Modal,Form,Input,DatePicker,  Checkbox } from "antd";
+import { validatePhone } from "../SignUp/Validate";
+import * as mock from "../NotificationsMock"
+import * as BE from "./SettingsBackendIntegration"
+import {Button} from "@mui/material";
+import {toast, ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+/**
+ * make you able to change the phone number
+ * @returns [changed phone]
+ */
+
+function Changephone(){
+    document.title="Change phone / Twitter"
+    const [PhoneError, setPhoneError] = React.useState('')
+    const [phone_number, setPhone] = React.useState(null);
+    function GetphoneValidation(val){
+
+        setPhoneError(validatePhone(val.target.value))
+    }
+    function Getphonenumber(val){
+        setPhone(val.target.value)
+    }
+    function SaveButtonActions(){
+      //  mock.PostChangePhone(body);
+        BE.Post_ChangePhone(body);
+        setPhone(phone_number);
+        {notify()}
+    };
+    const notify = () =>{
+
+        toast.info('Phone number succesfully changed',
+        {position: toast.POSITION.BOTTOM_CENTER})
+     }
+    var body={
+
+        phone_number : phone_number
+    }
+    sessionStorage.setItem('phone_number',phone_number)
+    return(
+
+    &lt;div className="settingsSubMenu">
+        &lt;div className="SubMenuTitle">
+            &lt;span>Change phone&lt;/span>
+            
+        &lt;/div>
+        &lt;div className="submenu_discription">
+                &lt;h3>What would you like to update it to? Your Phone is not displayed in your public profile on Twitter.&lt;/h3>
+            &lt;/div>
+        &lt;Form>
+        &lt;Form.Item 
+                name="PhoneNumber"
+              >
+                &lt;span style={{color: 'red'}}>
+                  &lt;Input id="change_phone_number"   onChange={GetphoneValidation}  onKeyUp={Getphonenumber} maxLength={100}  placeholder="Phone number" />
+                  {PhoneError}&lt;br>&lt;/br>
+                &lt;/span>
+              &lt;/Form.Item>
+
+        &lt;/Form>
+        &lt;div className="savebutton">
+                &lt;Button onClick={()=> SaveButtonActions()}
+                    id="save_number"
+                    disabled={PhoneError || !phone_number}
+                    className="save_username_button"
+                >
+                    save
+                &lt;/Button>
+                &lt;ToastContainer/>
+            &lt;/div>
+    &lt;/div>
+
+)
 
 
-    <h3> </h3>
 
 
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+}
+export default Changephone;</code></pre>
+        </article>
+    </section>
 
 
 

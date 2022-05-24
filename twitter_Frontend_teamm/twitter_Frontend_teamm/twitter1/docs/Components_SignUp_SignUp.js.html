@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Components/SignUp/SignUp.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Components/SignUp/SignUp.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import './SignUp.css';
+import React, {useState} from 'react';
+import { Modal,Form,Input,DatePicker,  Checkbox } from "antd";
+import {TwitterOutlined,EyeInvisibleOutlined,EyeTwoTone} from '@ant-design/icons';
+import {useNavigate} from "react-router-dom";
+import "antd/dist/antd.css";
+import moment from 'moment'
+import validator from 'validator'
+import  mock  from './mockRegistration';
+import  * as BE  from './backEndRegistration';
+import {Link} from "react-router-dom";
+import {validatePassword,validateEmail,validateUserName,validatePhone} from './Validate'
+
+
+
+/**
+ *SignUp
+ * allows user to register through inputting their name,username,email,password, and birth date
+ * @returns Sign up modal
+ */
+function SignUp() {
+
+  const navigate = useNavigate();
+  const [isMainModalVisible, setMainModalVisible] = useState(true);
+  const [isSubModalVisible, setSubModalVisible] = useState(false);
+  const [isSubModal2Visible, setSubModal2Visible] = useState(false); 
+  const [isSubModal3Visible, setSubModal3Visible] = useState(false); 
+  const [btnDisabled, setBtnDisabled] = useState(true);
+  const [name, setName] = useState(null);
+  const [userName, setUserName] = useState(null);
+  const [email, setEmail] = useState(null);
+  const [phoneNumber, setPhoneNumber] = useState(null);
+  const [password, setPassword] = useState(null);
+  const [passwordError, setPasswordError] = useState('')
+  const [emailOrPhoneError, setEmailOrPhoneError] = useState('')
+  const [userNameError, setuserNameError] = useState('')
+  const [date, setDate] = useState(null);
+  const [apiResponseMessage, setApiResponseMessage] = useState();
+  const [mess, setMess] = useState();
+  const [code, setCode] = useState();
+  const [emailOrPhoneSwitch, setEmailOrPhoneSwitch] = useState('Use Phone Instead');
+  const [emailOrPhone, setEmailOrPhone] = useState(null);
+  const [emailOrMessage, setEmailOrMessage] = useState(null);
+  const [bothEmailPhone, setBothEmailPhone] = useState(null);  
+  
+
+
+  
+  
+
+
+
+
+
+  
+
+  // second Submodal appear over first submodal &amp; first submodal disappears
+  const onSubModal = (e, stateSub = true, stateMain = false) => {
+    setSubModalVisible(stateMain);
+    setSubModal2Visible(stateSub);
+  };
+  // third Submodal appear over second submodal &amp; second submodal disappears
+  const onSubModal2 = (e, stateSub = true, stateMain = false) => {
+    setSubModal2Visible(stateMain);
+    setSubModal3Visible(stateSub);
+  };
+
+  const returnSubModal = (e, stateSub = true, stateMain = false) => {
+    setMainModalVisible(stateSub);
+    setSubModal2Visible(stateMain);
+  };
+
+  const onMainModal = (e, stateSub = true, stateMain = false) => {
+    setMainModalVisible(stateMain);
+    
+    setSubModalVisible(stateSub);
+  };
+
+  
+
+  function getName(val){
+    setName(val.target.value)
+  };
+  function getUserName(val){
+    setUserName(val.target.value)
+  };
+  function getEmail(val){
+    if(document.getElementById("email").placeholder === "Email"){
+      setEmail(val.target.value);
+      setBothEmailPhone(val.target.value);
+      
+    }
+    else if(document.getElementById("email").placeholder === "Phone"){
+      setPhoneNumber(val.target.value)
+      setBothEmailPhone(val.target.value);
+    }
+  };
+
+  function getPassword(val){
+    setPassword(val.target.value)
+  };
+  function getPasswordValidation(val){
+    setPasswordError(validatePassword(val.target.value))
+    sessionStorage.setItem('passError',validatePassword(val.target.value))
+  };
+  function getEmailValidation(val){
+    if(document.getElementById("email").placeholder === "Email"){
+    setEmailOrPhoneError(validateEmail(val.target.value));
+    setEmailOrPhone('Email');
+    setEmailOrMessage('email');
+    // setEmailOrPhoneDisplay(email);
+  }
+    else if(document.getElementById("email").placeholder === "Phone"){
+      setEmailOrPhoneError(validatePhone(val.target.value));
+      setEmailOrPhone('Phone');
+      setEmailOrMessage('message');
+      // setEmailOrPhoneDisplay(phoneNumber);
+    }
+  };
+
+
+
+
+  function getUserNameValidation(val){
+    setuserNameError(validateUserName(val.target.value))
+  };
+
+  function getCode(val){
+    setCode(val.target.value)
+  };
+  
+  function disabledDate(current) {
+    // Can not select days after today and today in calendar of date of birth
+    return current &amp;&amp; current > moment().endOf('day');
+  };
+    
+ 
+  
+  
+  function buttonState (changedValues, allValues) {
+    var passError=sessionStorage.getItem('passError');
+    if ( allValues.name !== undefined &amp;&amp; allValues.username !== undefined &amp;&amp; allValues.email !== undefined
+       &amp;&amp; allValues.password !== undefined &amp;&amp; allValues.email !== '' &amp;&amp; allValues.name !== '' 
+       &amp;&amp; allValues.email !== '' &amp;&amp; allValues.password !== '' &amp;&amp; emailOrPhoneError==='' &amp;&amp;  passError==='' &amp;&amp; userNameError==='' ) {
+      setBtnDisabled(false);
+    } 
+    else {
+      setBtnDisabled(true);
+    }
+  };
+
+  var entry = 0;
+
+  function change() {
+
+  if (entry === 0) {
+    document.getElementById("email").placeholder = "Phone";
+    setEmailOrPhoneSwitch('Use Email Instead');
+    entry++;
+  }
+  else{
+    document.getElementById("email").placeholder = "Email";
+    setEmailOrPhoneSwitch('Use Phone Instead');
+    entry--;
+  }
+  
+}
+    
+
+  
+
+  function SignUpButtonActions(){
+    // const mockCompleteSignUp =
+    const mockPromise=mock.post(body);
+    const promise=BE.backEndPost(body);
+    console.log(promise);
+    promise.then((message)=> {
+      setApiResponseMessage(message+'. You can re-enter your info by pressing on close (x) sign')
+      if(message===''){onSubModal2();}
+   })
+   
+  }
+  
+  var body={
+    name:name,
+    username:userName,
+    email:email,
+    phoneNumber:phoneNumber,
+    dateOfBirth:date,
+    password:password
+  }
+
+  var verifyBody={
+    verificationCode:code,
+    
+  }
+  function verifyButtonActions(){
+    const promise=BE.verifyEmail(verifyBody);
+    console.log(promise);
+    promise.then((message)=> {
+      setMess(message)
+      if(message===''){navigate("/login");}
+     
+   })
+  }
+  function resendButtonActions(){
+    if (emailOrMessage==='email'){
+      BE.resendEmail();
+    }
+    else if(emailOrMessage==='message'){
+      BE.resendSMS();
+    }
+
+  }
+ 
+
+ 
+    
+    return(
+      &lt;div>
+        &lt;Modal  
+          id='modal1'
+          title={&lt;TwitterOutlined style={{ fontSize: '200%',marginTop:'1px',color:'Dodgerblue'}} />}
+          style={{borderRadius: "70px",textAlign:"center",fontSize:100,display:"inline-flex"}}
+          bodyStyle={{height: 520 ,font:'Helvetica',borderRadius:'30px',textAlign:"left",marginTop:10}}
+          visible={isMainModalVisible}
+          okText='Next'
+          okButtonProps={{ id:'button',disabled:btnDisabled,shape:'round' , size:'large', style:{width: 450,fontWeight:'bold',alignItems:'center',justifyContent:'center',
+          display:'flex'}}}
+          cancelButtonProps={{ style: { display: "none" } }}
+          width={500}
+          type='circle'
+          centered={true}
+          onOk={() => onMainModal()}
+          onCancel={() => navigate("/")}
+        
+          >
+          
+            &lt;span className="text">Create your account&lt;/span>
+            &lt;Form 
+              name='form1'
+              autoComplete="off"
+              onValuesChange={buttonState}
+            >
+              &lt;Form.Item 
+                name="name"
+                // rules={[{
+                //   required: true,
+                //   message: 'Whats your name?',
+                // },
+                // ]}
+              >
+                &lt;Input style={{ height:40,marginTop:10}}  onChange={ getName} showCount maxLength={50} id="name" placeholder="Name" />
+              &lt;/Form.Item>
+
+              &lt;Form.Item 
+                name="username"
+              >
+                &lt;span style={{color: 'red'}}>
+                  &lt;Input id="username" style={{ height:40}}   onChange={getUserNameValidation}  onKeyUp={getUserName}  maxLength={50}  placeholder="Username" />
+                  {userNameError}
+                &lt;/span>
+              &lt;/Form.Item>
+            
+              &lt;Form.Item 
+                name="email"
+              >
+                &lt;span style={{color: 'red'}}>
+                  &lt;Input id="email" style={{ height:40}}  onChange={getEmailValidation}  onKeyUp={getEmail} maxLength={100}  placeholder="Email" />
+                  {emailOrPhoneError}&lt;br>&lt;/br>
+                  &lt;button id='use' onClick={()=>{change()}} className='usePhoneButton' >{emailOrPhoneSwitch}&lt;/button>
+                &lt;/span>
+              &lt;/Form.Item>
+              &lt;Form.Item 
+                name="password"
+              >
+                &lt;span style={{color: 'red'}}>
+                  &lt;Input.Password  id='password' type='password'style={{ height:40,marginTop:0}}  onChange={getPasswordValidation}   onKeyUp={getPassword}    placeholder="password" iconRender={visible => (visible ? &lt;EyeTwoTone /> : &lt;EyeInvisibleOutlined />)} /> 
+                  {passwordError}
+                &lt;/span>
+              &lt;/Form.Item>
+          
+          
+              &lt;b>Date of birth&lt;/b>
+              &lt;p>This will not be shown publicly. Confirm your own age, even if this account is for a business, a pet, or something else.&lt;/p>
+              &lt;Form.Item>
+                &lt;DatePicker id='date2' showTime={false} onChange={(value)=>setDate(value)} disabledDate={disabledDate} style={{ width: 450,height:50}}  />
+              &lt;/Form.Item>
+           
+            &lt;/Form>
+        &lt;/Modal>
+        
+
+        &lt;Modal
+          title={&lt;TwitterOutlined style={{ fontSize: '200%',marginTop:'1px',color:'Dodgerblue'}} />}
+          style={{textAlign:"center",display:"inline-flex"}}
+          okText='Next'
+          okButtonProps={{id:'nextButton3',shape:'round' , size:'large', style:{width: 450,fontWeight:'bold',alignItems:'center',justifyContent:'center',
+          display:'flex'}}}
+          cancelButtonProps={{ style: { display: "none" } }}
+          visible={isSubModalVisible}
+          bodyStyle={{height: 530 ,font:'Helvetica',textAlign:'left'}}//490
+          width={500}
+          centered={true}
+          onOk={()=>{onSubModal()}}
+          closable={false}
+          maskClosable={false}
+        >
+          &lt;span className="text">Customize your experience&lt;/span>
+          &lt;br>&lt;/br>&lt;br>&lt;/br>&lt;br>&lt;/br>
+          &lt;b>Track where you see Twitter content across the web&lt;/b>
+          &lt;br>&lt;/br>
+          &lt;p>Twitter uses this data to personalize your experience. This web browsing
+          navigate will never be stored with your name, email, or phone number. &lt;Checkbox  defaultChecked={true}/>  &lt;/p>
+          &lt;br>&lt;/br>
+          &lt;p>By signing up, you agree to our Terms, Privacy Policy, and Cookie Use. Twitter may use your contact information, including your email address and phone number for purposes outlined in our Privacy Policy. Learn more&lt;/p>
+        &lt;/Modal>
+          
+        &lt;Modal
+          title={&lt;TwitterOutlined style={{ fontSize: '200%',marginTop:'1px',color:'Dodgerblue'}} />}
+          style={{textAlign:"center",display:"inline-flex"}}
+          okText='Sign Up'
+          okButtonProps={{id:'signUpButton',shape:'round' , size:'large', style:{width: 450,fontWeight:'bold',alignItems:'center',justifyContent:'center',
+          display:'flex'}}}
+          cancelButtonProps={{ style: { display: "none" } }}
+          visible={isSubModal2Visible}
+          bodyStyle={{height: 530 ,font:'Helvetica',textAlign:'left'}}
+          width={500}
+          centered={true}
+          closable={true}
+          maskClosable={false}
+          onOk={() => SignUpButtonActions()}
+          onCancel={()=>returnSubModal()}
+          
+        >
+          &lt;span className="text">Create your account&lt;/span>
+          &lt;br>&lt;/br>&lt;br>&lt;/br>
+
+          &lt;span className="text8">Your @username is unique&lt;/span>&lt;br />&lt;br>&lt;/br>
+          
+          &lt;Form>
+            &lt;Form.Item >
+              &lt;span>Username&lt;/span>
+              &lt;Input id='username2' disabled={true} value={userName} style={{ height:50}}  />
+            &lt;/Form.Item>
+          
+            &lt;Form.Item>
+              &lt;span>Name&lt;/span>
+              &lt;Input id='name2'  disabled={true} value={name} style={{ height:50}} />
+            &lt;/Form.Item>
+
+            &lt;Form.Item>
+              &lt;span>{emailOrPhone}&lt;/span>
+              &lt;Input id="email2"  disabled={true} value={bothEmailPhone} style={{ height:50}} />
+            &lt;/Form.Item>
+              &lt;span style={{color: 'red',fontSize:'100',fontWeight:'bold'}}> {apiResponseMessage}&lt;/span> 
+              
+          &lt;/Form>
+          
+        &lt;/Modal>
+        &lt;Modal
+          title={&lt;TwitterOutlined style={{ fontSize: '200%',marginTop:'1px',color:'Dodgerblue'}} />}
+          style={{textAlign:"center",display:"inline-flex"}}
+          okText='Next'
+          okButtonProps={{id:'verifyButton',shape:'round' , disabled:false,size:'large', style:{width: 450,fontWeight:'bold',alignItems:'center',justifyContent:'center',
+          display:'flex'}}}
+          cancelButtonProps={{ style: { display: "none" } }}
+          visible={isSubModal3Visible}
+          bodyStyle={{height: 530 ,font:'Helvetica',textAlign:'left'}}
+          width={500}
+          centered={true}
+          closable={false}
+          maskClosable={false}
+          onOk={() => verifyButtonActions()}  
+        >
+   
+          &lt;span className="text9">We sent you a verfication code  &lt;/span>
+          &lt;br>&lt;/br>
+          &lt;span>Write the code to verify {bothEmailPhone}&lt;/span>
+          &lt;Input style={{ height:40,marginTop:10}} onChange={getCode} id="code" placeholder="Code" />
+          &lt;span>{mess}&lt;/span>
+          &lt;br>&lt;/br>
+          &lt;span>&lt;button id='resendEmail' className='resendButton' onClick={()=>{resendButtonActions()}}>Didn't recieve {emailOrMessage}?&lt;/button>&lt;/span>
+        &lt;/Modal>
+
+      &lt;/div>
+      
+    );
+};
+
+
+export default SignUp;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#AccountInfoMenuss">AccountInfoMenuss</a></li><li><a href="global.html#AccountInformation">AccountInformation</a></li><li><a href="global.html#backEndGoogleLogIn">backEndGoogleLogIn</a></li><li><a href="global.html#backEndGooglePost">backEndGooglePost</a></li><li><a href="global.html#backEndLatest">backEndLatest</a></li><li><a href="global.html#backEndLogIn">backEndLogIn</a></li><li><a href="global.html#backEndP">backEndP</a></li><li><a href="global.html#backEndPost">backEndPost</a></li><li><a href="global.html#Blocked">Blocked</a></li><li><a href="global.html#Blocked_days">Blocked_days</a></li><li><a href="global.html#BlockedAccounts">BlockedAccounts</a></li><li><a href="global.html#BlockForm">BlockForm</a></li><li><a href="global.html#ChangeEmail">ChangeEmail</a></li><li><a href="global.html#Changepassword">Changepassword</a></li><li><a href="global.html#Changephone">Changephone</a></li><li><a href="global.html#ChangeUsername">ChangeUsername</a></li><li><a href="global.html#DeactivateAcc">DeactivateAcc</a></li><li><a href="global.html#Delete_SaveUser">Delete_SaveUser</a></li><li><a href="global.html#Explore">Explore</a></li><li><a href="global.html#Feed">Feed</a></li><li><a href="global.html#FollowedYou">FollowedYou</a></li><li><a href="global.html#Followers">Followers</a></li><li><a href="global.html#FollowersList">FollowersList</a></li><li><a href="global.html#Following">Following</a></li><li><a href="global.html#FollowingList">FollowingList</a></li><li><a href="global.html#ForgetPassword">ForgetPassword</a></li><li><a href="global.html#forgetPassword">forgetPassword</a></li><li><a href="global.html#FriendSuggestions">FriendSuggestions</a></li><li><a href="global.html#GetNotificationsFavourites">GetNotificationsFavourites</a></li><li><a href="global.html#GetSearchedPhotos">GetSearchedPhotos</a></li><li><a href="global.html#getTopUsers">getTopUsers</a></li><li><a href="global.html#getUserLook">getUserLook</a></li><li><a href="global.html#GoogleSignUp">GoogleSignUp</a></li><li><a href="global.html#ImageBox">ImageBox</a></li><li><a href="global.html#LikedYou">LikedYou</a></li><li><a href="global.html#LikedYouBe">LikedYouBe</a></li><li><a href="global.html#LogIn">LogIn</a></li><li><a href="global.html#LogOut">LogOut</a></li><li><a href="global.html#MainSettings">MainSettings</a></li><li><a href="global.html#mock">mock</a></li><li><a href="global.html#MuteandBlock">MuteandBlock</a></li><li><a href="global.html#Muted">Muted</a></li><li><a href="global.html#MutedAccounts">MutedAccounts</a></li><li><a href="global.html#Notifications">Notifications</a></li><li><a href="global.html#Notified">Notified</a></li><li><a href="global.html#Post">Post</a></li><li><a href="global.html#Post_ChangePassword">Post_ChangePassword</a></li><li><a href="global.html#PrivacyAndSafety">PrivacyAndSafety</a></li><li><a href="global.html#Profile">Profile</a></li><li><a href="global.html#Put_SaveUser">Put_SaveUser</a></li><li><a href="global.html#reactivateAccount">reactivateAccount</a></li><li><a href="global.html#resendEmail">resendEmail</a></li><li><a href="global.html#resendSMS">resendSMS</a></li><li><a href="global.html#resetPassword">resetPassword</a></li><li><a href="global.html#SavedSearch">SavedSearch</a></li><li><a href="global.html#SecurityContent">SecurityContent</a></li><li><a href="global.html#Settings">Settings</a></li><li><a href="global.html#SettingsContent">SettingsContent</a></li><li><a href="global.html#SettingsContentInMenus">SettingsContentInMenus</a></li><li><a href="global.html#Sidebar">Sidebar</a></li><li><a href="global.html#SignUp">SignUp</a></li><li><a href="global.html#StartPage">StartPage</a></li><li><a href="global.html#SubsettingsContent">SubsettingsContent</a></li><li><a href="global.html#TopHashtagComponent">TopHashtagComponent</a></li><li><a href="global.html#Topics">Topics</a></li><li><a href="global.html#TopUsers">TopUsers</a></li><li><a href="global.html#Trends">Trends</a></li><li><a href="global.html#Tweetbox">Tweetbox</a></li><li><a href="global.html#User">User</a></li><li><a href="global.html#userridd">userridd</a></li><li><a href="global.html#validateEmail">validateEmail</a></li><li><a href="global.html#validatePassword">validatePassword</a></li><li><a href="global.html#validateUserName">validateUserName</a></li><li><a href="global.html#verifyEmail">verifyEmail</a></li><li><a href="global.html#verifyEmailForgetPassword">verifyEmailForgetPassword</a></li><li><a href="global.html#YourAccount">YourAccount</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Tue May 24 2022 10:32:40 GMT+0200 (Eastern European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

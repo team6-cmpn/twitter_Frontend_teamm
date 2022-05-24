@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: Components/Notifications.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,144 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: Components/Notifications.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from "react";
+import "./Notifications.css";
+import "./Home.css";
+import Trends from "./Widgets/Trends";
+import Blocked_days from "./YouBlocked";
+import FollowedYou from "./FollowedYou";
+import SettingsBox from "./SettingsBox/SettingsBox";
+import LikedYou from "./LikedYou";
+import getFollowingUsers from "./NotificationsMock";
+import { getfollowedUsers } from "./NotificationsMock";
+import { getLikedUsers } from "./NotificationsMock";
+import { GetNotificationsFavourites } from "./NotificationBackend";
+import { GetNotifications } from "./NotificationBackend";
+import LikedYouBe from "./LikedYouBe";
+import Notified from "./Notified";
 
+/**
+ * [the notification component is mainly used to get the notifications from the server to the user to see it
+ *  and it contains all the mentions and liked posts and followers you got and i made a menu to scoope on the mentioned posts only
+ * no need to scroll down to see the mentioned post you need to see
+ * ]
+ * @param [it doesnt take any parameters]
+ * @returns[it doesnt return any thing ]
+ *
+ */
+function Notifications() {
+  const [Blockeddays, setBlockeddays] = React.useState([]);
+  const [LikedUser, setLikedUser] = React.useState([]);
+  const [followedyou, setfollowedyou] = React.useState([]);
+  const [BE, setNotifications] = React.useState([]);
+  const [notifi, setNotificationsFavs] = React.useState([]);
+  const [isAll, setIsAll] = React.useState(true);
+  document.title = "Notifications / Twitter";
+  // React.useEffect(() => {
+  //   (async () => {
+  //     const resp = await getfollowedUsers();
+  //     setfollowedyou(resp);
+  //   })();
+  //   (async () => {
+  //     const resp = await getFollowingUsers();
+  //     setBlockeddays(resp);
+  //   })();
+  //   (async () => {
+  //     const resp = await getLikedUsers();
+  //     setLikedUser(resp);
+  //   })();
+  // }, []);
+  React.useEffect(() => {
+    (async () => {
+      const resp = await GetNotifications();
+      setNotifications(resp);
+    })();
+  }, []);
+  React.useEffect(() => {
+    (async () => {
+      const resp = await GetNotificationsFavourites();
+      setNotificationsFavs(resp);
+    })();
+  }, []);
+ 
+  return (
+    &lt;SettingsBox>
+      &lt;div className="Notimenu" id="NotificationMenu">
+        &lt;div className="notificationsTitle" id="NotificationsTitle">
+          &lt;span>Notifications&lt;/span>
+        &lt;/div>
+        &lt;div className="notificationsCategory" id="NotificationsCAT">
+          &lt;div
+            className={isAll &amp;&amp; "notificationActive"}
+            onClick={() => setIsAll(true)}
+            id="AllButton "
+          >
+            &lt;span>All&lt;/span>
+          &lt;/div>
+          &lt;div
+            className={!isAll &amp;&amp; "notificationActive"}
+            onClick={() => setIsAll(false)}
+            id="MentionsButton"
+          >
+            &lt;span>Favourites&lt;/span>
+          &lt;/div>
+        &lt;/div>
+        &lt;article>
+          {isAll ? (
+            &lt;>
+              {BE.map((Notifications, index) => (
+                &lt;Notified
+                  key={index}
+                  notify={Notifications}
+                  nType={Notifications}
+                  
+                />
+              ))}
 
-    <h3> </h3>
+              {/* {Blockeddays.map((Blockeddays,index)=>(
+              &lt;Blocked_days
+              key={index}
+              numberOfDays={Blockeddays.numberOfDays}
+              
+              />
+              ))} */}
+              {/* {LikedUser.map((userNotification, index) => (
+              &lt;LikedYou key={index} likePost={userNotification} />
+              ))}
+              {followedyou.map((userNotification, index) => (
+              &lt;FollowedYou key={index} followingUser={userNotification} />
+              ))} */}
+            &lt;/>
+          ) : (
+            &lt;>
+              {/* {LikedUser.map((userNotification, index) => (
+              &lt;LikedYou key={index} likePost={userNotification} />
+              ))} */}
+              {notifi.map((favourites, index) => (
+                &lt;LikedYouBe key={index} liked={favourites} />
+              ))}
+            &lt;/>
+          )}
+        &lt;/article>
+      &lt;/div>
 
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+      &lt;Trends />
+    &lt;/SettingsBox>
+  );
+}
+export default Notifications;
+</code></pre>
+        </article>
+    </section>
 
 
 

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: Admin/Home.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,41 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: Admin/Home.js</h1>
 
     
 
 
 
     
-
-
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from "react";
+import "./home.css";
+import WelcomPage from "./WelcomPage/WelcomPage";
+import TopBar from "./TopBar";
+import AdminSideBar from "./AdminSideBar";
+/**
+ * 
+ * this component returns welcome page including sidebar and topbar
+ * @returns 
+ */
+export default function AdminHome() {
+  return (
+    &lt;div id="WelcomePage">
+      &lt;TopBar />
+      &lt;div className="admincontainer">
+        &lt;AdminSideBar />
+        &lt;div className="adminhome">
+          &lt;WelcomPage />
+        &lt;/div>
+      &lt;/div>
+    &lt;/div>
+  );
+}
+</code></pre>
+        </article>
+    </section>
 
 
 

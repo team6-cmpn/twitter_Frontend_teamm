@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: Components/Settings/AccountInfoMenuss.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,35 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: Components/Settings/AccountInfoMenuss.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from "react";
+import "./settingsSubmenus.css";
+/**component to veiew the settings menu */
+function AccountInfoMenuss({ Icon ,text, data,active }) {
+  return (
+    &lt;div className={`SettingsContentInMenus ${active &amp;&amp; "SettingsContentActive"}`}>
+    &lt;div className="Accountinfo_discrip">
 
+      &lt;h5>{text}&lt;/h5>
+      &lt;h6>{data}&lt;/h6>
+      &lt;/div>
+      &lt;Icon className="leftArrowIcons2" active={active &amp;&amp; true} />
+      
+    &lt;/div>
+  );
+}
 
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+export default AccountInfoMenuss;</code></pre>
+        </article>
+    </section>
 
 
 

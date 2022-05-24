@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: Admin/TopBar.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,58 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: Admin/TopBar.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from "react";
+import "./topbar.css";
+import { Link } from "react-router-dom";
+import { GetUserInfo } from "../Components/Profile/backEndProfile";
+import Configure from "../Configure";
 
-
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+/**
+ *
+ * topbar of the admin pages
+ * @returns
+ */
+export default function Topbar() {
+  var info = GetUserInfo();
+  const [test, istest] = React.useState();
+  info.then(function (result) {
+    console.log("result", result);
+    istest(result);
+  });
+  console.log(info);
+  var Url = test?.profile_image_url;
+  return (
+    &lt;div className="topbar" id="AdminTopBar">
+      &lt;div className="topbarWrapper">
+        &lt;div className="topLeft">
+          &lt;span className="logo">Admin&lt;/span>
+        &lt;/div>
+        &lt;div className="topRight">
+          &lt;Link to={`/profile`}>
+            {" "}
+            &lt;img
+              src={`${Configure.backURL}${Url}`}
+              alt=""
+              className="topAvatar"
+            >&lt;/img>{" "}
+          &lt;/Link>
+        &lt;/div>
+      &lt;/div>
+    &lt;/div>
+  );
+}
+</code></pre>
+        </article>
+    </section>
 
 
 

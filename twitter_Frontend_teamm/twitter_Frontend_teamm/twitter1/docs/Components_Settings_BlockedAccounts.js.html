@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: Components/Settings/BlockedAccounts.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,61 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: Components/Settings/BlockedAccounts.js</h1>
 
     
 
 
 
     
-
-
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from "react"
+import Blocked from "./Blocked";
+import { getBlockedUsers } from "../NotificationsMock";
+import { Get_BlockedList } from "./SettingsBackendIntegration";
+/**
+ * make you able to see the blocked account
+ * @returns [blocked account]
+ */
+const BlockedAccounts =() =>{
+    const [BlockedUsers,setBlockedUsers]=React.useState([])
+    document.title = "Blocked Accounts / Twitter";
+    React.useEffect(()=>{
+        (async () => {
+            const resp = await getBlockedUsers();
+            setBlockedUsers(resp);
+          })();
     
+        },[])
+    let BE=[]
+    BE=Get_BlockedList();
+    return(
 
+        &lt;div className="settingsSubMenu">
+                 &lt;div className="SubMenuTitle">
+                &lt;span>Blocked accounts&lt;/span>
+            &lt;/div>
+            &lt;div className="submenu_discription">
+                &lt;h3>When you block someone, that person won't be able to follow or message you, and you won't see notifications from them.&lt;/h3>
+            &lt;/div>
+            
+            &lt;hr/>
+             {/* {BlockedUsers.map((BlockedUsers,index)=>(
+                &lt;Blocked key={index} BlockedAccount={BlockedUsers}/>))} */}
+            {BE.map((BlockedUsers,index)=>(
+                &lt;Blocked key={index} BlockedAccount={BlockedUsers}/>))}
 
+        &lt;/div>
 
+    );
+};
 
+export default BlockedAccounts
 
+</code></pre>
+        </article>
+    </section>
 
 
 

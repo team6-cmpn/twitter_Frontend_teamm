@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: Components/Settings/Blocked.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,40 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: Components/Settings/Blocked.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from "react";
+import "./settingsSubmenus.css";
+import {Avatar} from "@material-ui/core";
+import { Link } from "react-router-dom";
+/**blocked account component */
+const Blocked = ({ BlockedAccount }) => {
+    return (
+      &lt;div className={`SubsettingsCont `}>
+         &lt;Avatar classname="Avatar"src={''} />
+        &lt;div className="text_discrip">
+       
 
-
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+        &lt;h5 onClick={localStorage.setItem("clicked_userID",BlockedAccount._id)}>
+        &lt;Link to={`/${BlockedAccount.username}`}>{BlockedAccount.name}
+        &lt;/Link>&lt;/h5>
+       &lt;h6>{BlockedAccount.username}&lt;/h6>
+        &lt;/div>
+            
+      &lt;/div>
+    );
+  }
+  
+  export default Blocked;</code></pre>
+        </article>
+    </section>
 
 
 

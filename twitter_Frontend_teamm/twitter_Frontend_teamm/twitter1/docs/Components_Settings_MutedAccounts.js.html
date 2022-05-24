@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: Components/Settings/MutedAccounts.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,64 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: Components/Settings/MutedAccounts.js</h1>
 
     
 
 
 
     
-
-
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from "react"
+import { Link, useLocation, Outlet } from "react-router-dom";
+import Muted from "./Muted"
+import { getMutedUsers } from "../NotificationsMock";
+import { Get_MutedList } from "./SettingsBackendIntegration";
+/**
+ * make you able yo see the muted accounts 
+ * @returns [show you the muted accounts]
+ */
+const MutedAccounts =() =>{
+    const [MutedUsers,setMutedUsers]=React.useState([])
+    document.title = "Muted Accounts / Twitter";
+    const [location] = React.useState(useLocation().pathname);
+    React.useEffect(()=>{
+        (async () => {
+            const resp = await getMutedUsers();
+            setMutedUsers(resp);
+          })();
     
+        },[])
+    let BE=[]
+    BE=Get_MutedList();
+    return(
 
+        &lt;div className="settingsSubMenu">
+                 &lt;div className="SubMenuTitle">
+                &lt;span>Muted accounts&lt;/span>
+            &lt;/div>
+            &lt;div className="submenu_discription">
+                &lt;h3>Here's everyone you muted. You can add or remove them from this list.&lt;/h3>
+            &lt;/div>
+            
+            &lt;hr/>
+            &lt;br>&lt;/br>
+            {/* {MutedUsers.map((MutedUsers,index)=>(
+                &lt;Muted key={index} MutedAccount={MutedUsers}/>))} */}
+            {BE.map((MutedUsers,index)=>(
+                &lt;Muted key={index} MutedAccount={MutedUsers}/>))}
 
+        &lt;/div>
 
+    );
+};
 
+export default MutedAccounts
 
+</code></pre>
+        </article>
+    </section>
 
 
 

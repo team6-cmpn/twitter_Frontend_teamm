@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: Components/StartPage/StartPage.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,112 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: Components/StartPage/StartPage.js</h1>
 
     
 
 
 
     
-
-
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import './StartPage.css';
+import startPageImage from "../images/start.png"
+import googleIcon from "../images/googleIcon.png"
+import twitterBirdImage from "../images/bird.png"
+import GoogleLogin from 'react-google-login';
+import {Link, Outlet,useNavigate } from "react-router-dom";
+import React from "react";
+import "antd/dist/antd.css";
+import  mock  from '../SignUp/mockRegistration';
+import useState from 'react';
 
 
 
+/**
+ *StartPage
+ * generates twitter's start page that includes the basic interface to access registration and/or log in
+ * @returns Start Page
+ */
 
+function StartPage(){
+  const navigate= useNavigate();
+
+  function logInFailure (response) {
+    console.log(response);
+    alert('Failed Login');
+  }
+
+  function logInSuccess (response) {
+    console.log('Login Success: currentUser:', response.profileObj);
+    localStorage.setItem('googleId',response.profileObj.googleId);
+    localStorage.setItem('imageUrl',response.profileObj.imageUrl);
+    localStorage.setItem('name',response.profileObj.name);
+    localStorage.setItem('email',response.profileObj.email);
+    var body={
+      googleId:response.profileObj.googleId,
+      imageUrl:response.profileObj.imageUrl,
+      name:response.profileObj.name,
+      email:response.profileObj.email
+    }
+    mock.googleProfilePost(body);
+    // alert(`Logged in successfully welcome ${response.profileObj.name}. \n See console for full profile object.`);
+    navigate ("/googlesignup");
+  }
+
+ 
+
+  return (
+     
+    &lt;div className="flex-container">
+      &lt;div className="column">&lt;img alt='' src={startPageImage}/>&lt;/div>
+        &lt;div className="column">
+          &lt;img className="bird" alt='' src={twitterBirdImage} />
+          &lt;h1 className="textHeader">Happening now&lt;/h1>
+          &lt;span className="textBody">Join Twitter today.&lt;/span>
+          &lt;div className="row">
+            &lt;GoogleLogin
+              clientId="667720928468-9sks9k7jahgsbrth080d7d4se9vo0jue.apps.googleusercontent.com"
+              render={renderProps =>(&lt;button id="googleButton" onClick={renderProps.onClick} disabled={renderProps.disabled} className="button">
+              &lt;img className="icon" alt='' src={googleIcon} />
+              &lt;span>Sign up with Google&lt;/span>
+              &lt;/button> 
+              )}
+              buttonText="Login"
+              onSuccess={logInSuccess}
+              onFailure={logInFailure}
+              cookiePolicy={'single_host_origin'}
+            />
+          &lt;/div>
+
+          &lt;div className='row'>
+            &lt;div className="flex-parent">
+              &lt;div className="flex-child-edge" />
+              &lt;div className="flex-child-text textBody_font">or&lt;/div>
+              &lt;div className="flex-child-edge" />
+            &lt;/div>
+          
+            &lt;div className='row'>
+              &lt;Link  id="signUp" className="button btn-color"  to="/signup">&lt;span>Sign up with phone or email&lt;/span>&lt;/Link>&lt;Outlet />
+            &lt;/div>
+          
+            &lt;br/>
+          
+            &lt;div className='row'>&lt;span className='textBody_margin'>Already have an account?&lt;/span>&lt;/div>
+
+            &lt;div className='row'>
+              &lt;Link id="logIn" className="button changebtncolor" to="/login">&lt;span>Sign in&lt;/span> &lt;/Link>
+            &lt;/div>
+          
+          &lt;/div>
+        &lt;/div>
+    &lt;/div>
+  );
+}
+
+export default StartPage;</code></pre>
+        </article>
+    </section>
 
 
 

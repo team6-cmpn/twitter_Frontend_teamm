@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: Admin/TopFiveHashtags.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,45 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: Admin/TopFiveHashtags.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from "react";
+import "./topfivehashtags.css";
+import { GetHashtags } from "./MockRegistrationAdmin";
+import TopHashtagComponent from "./TopHashtagComponent";
 
+/**
+ * 
+ * this function returns the most five retweeted tweets
+ * @returns 
+ */
+export default function TopFiveHashtags() {
+  const hashtag = GetHashtags();
 
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+  return (
+    &lt;article id="TopFiveUsersWithMostFollowers">
+      &lt;div className="Hashtags">
+        &lt;span className="TopUserTitle"> Top 5 Hashtags&lt;/span>
+        &lt;ul className="newUsersList">
+          {hashtag.map((userlist, index) => (
+            &lt;TopHashtagComponent key={index} hashtag={userlist} />
+          ))}
+        &lt;/ul>
+      &lt;/div>
+      
+    &lt;/article>
+  );
+}
+</code></pre>
+        </article>
+    </section>
 
 
 

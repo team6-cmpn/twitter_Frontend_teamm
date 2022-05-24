@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: Components/Settings/YourAccount.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,71 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: Components/Settings/YourAccount.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from "react";
+import "./settingsSubmenus.css"
+import { Link, useLocation } from "react-router-dom";
+import SubsettingsContent from "./SubsettingsContent";
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import PersonOutlineOutlinedIcon from '@material-ui/icons/PersonOutlineOutlined';
+import { HeartBrokenOutlined, Key } from "@mui/icons-material";
+/**
+ * it let you select the menu you want to change from this menu 
+ * @returns [account menus]
+ */
 
+const YourAccount = () => {
 
-    <h3> </h3>
+    return (
 
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+      
+      &lt;div className="settingsSubMenu">
+            &lt;div className="SubMenuTitle">
+            &lt;span>Your Account&lt;/span>
+            &lt;/div>
+            &lt;div className="submenu_discription">
+                &lt;h3> See information about your account, download an archive of your data, or learn about your account deactivation options&lt;/h3>
+            &lt;/div>
+            &lt;Link to="../Your-twitter-data" style={{ textDecoration: "none", color:"inherit" }}>
+          &lt;SubsettingsContent
+            Icon2={PersonOutlineOutlinedIcon}
+            text="Account information"
+            discrip="See your account inforamtion like your phone numer and email address.&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;"
+            Icon={ChevronRightIcon}
+          />
+        &lt;/Link>
+        &lt;Link to="../change-password" style={{ textDecoration: "none", color:"inherit" }}>
+          &lt;SubsettingsContent
+            Icon2={Key}
+            text="Change password"
+            discrip="Change your password at any time.&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;"
+            Icon={ChevronRightIcon}
+          />
+        &lt;/Link>
+        &lt;Link to="../Deactivate-your-Acc" style={{ textDecoration: "none", color:"inherit" }}>
+          &lt;SubsettingsContent
+            Icon2={HeartBrokenOutlined}
+            text="Deactivate your account "
+            discrip="Find out how you can deactivate your account.&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;"
+            Icon={ChevronRightIcon}
+          />
+        &lt;/Link>
+      &lt;/div>
+    );
+  };
+  
+  export default YourAccount;
+  </code></pre>
+        </article>
+    </section>
 
 
 

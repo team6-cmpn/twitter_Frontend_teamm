@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: Components/Settings/MainSettings.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,49 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: Components/Settings/MainSettings.js</h1>
 
     
 
 
 
     
-
-
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from "react";
+import "./settingsSubmenus.css"
+import { Link, useLocation,Outlet } from "react-router-dom";
+import SettingsIcon from '@mui/icons-material/Settings';
+/**
+ * 
+ * a main menu appear when you opne settings
+ */
+const MainSettings = () => {
+    const [location] = React.useState(useLocation().pathname);
+    document.title = "Settings / Twitter";
     
-
-
-
-
-
+    return (
+      &lt;div className="settingsSubMenu">
+            
+            &lt;br/>
+            &lt;br/>
+            &lt;br/>
+            &lt;br/>
+            &lt;br/>
+            &lt;br/>
+            &lt;br/>
+            &lt;br/>
+            
+            &lt;SettingsIcon sx={{fontSize: 90 ,  color:'lightblue'}}/>
+            &lt;h1>choose the menu you want to &lt;/h1>
+      &lt;/div>
+      
+    );
+  };
+  
+  export default MainSettings;</code></pre>
+        </article>
+    </section>
 
 
 

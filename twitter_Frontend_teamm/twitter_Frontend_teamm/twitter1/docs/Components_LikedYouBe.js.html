@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: Components/LikedYouBe.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,62 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: Components/LikedYouBe.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from "react";
+import "./LikedYou.css";
+import FavoriteIcon from "@material-ui/icons/Favorite";
+import { Avatar } from "@material-ui/core";
+import { useNavigate } from "react-router";
+/**it shows you how liked the tweet but as we see her it is the used to connect with the backend
+ * 
+ * 
+ */
+const LikedYouBe = ({ liked }) => {
+  const navigate = useNavigate();
+  function OnePost() {
+    navigate("/post");
+    localStorage.setItem("clicked.ID", liked.notificationContent._id);
+  }
+  return (
+    &lt;div className="likedYou" id="likedyou">
+      &lt;FavoriteIcon />
+      {liked.notificationContent ? (
+        &lt;>
+          &lt;div onClick={() => OnePost()}>
+            &lt;div>
+              &lt;Avatar src={liked.notificationHeader.images} />
+            &lt;/div>
+            &lt;span>
+              &lt;b>{liked.notificationHeader.text}&lt;/b>
+            &lt;/span>
+            &lt;span>{liked.notificationContent.text}&lt;/span>
+          &lt;/div>
+        &lt;/>
+      ) : (
+        &lt;>
+          &lt;div>
+            &lt;span>
+              &lt;b>{liked.notificationHeader.text}&lt;/b>
+            &lt;/span>
+          &lt;/div>
+        &lt;/>
+      )}
+    &lt;/div>
+  );
+};
 
-
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+export default LikedYouBe;
+</code></pre>
+        </article>
+    </section>
 
 
 

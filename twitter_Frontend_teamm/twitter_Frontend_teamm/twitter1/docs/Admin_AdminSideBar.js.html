@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: Admin/AdminSideBar.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,70 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: Admin/AdminSideBar.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from "react";
+import "./adminsidebar.css";
+import { LineStyle, Timeline } from "@material-ui/icons";
 
+import GroupIcon from "@material-ui/icons/Group";
+import HomeIcon from "@material-ui/icons/Home";
+import { Link, useLocation, Outlet } from "react-router-dom";
+import Statistics from "./statistics";
+/**
+ * 
+ * side bar that have the items that the users can 
+ * trigger between pages of admin 
+ * @returns 
+ */
 
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+export default function AdminSideBar() {
+  return (
+    &lt;div className="adminsidebar">
+      &lt;div className="adminsidebarWrapper">
+        &lt;div className="adminsidebarMenu">
+          &lt;h3 className="adminsidebarTitle">Dashboard&lt;/h3>
+          &lt;ul className="adminsidebarList">
+            &lt;li className="adminsidebarListItem active ">
+              &lt;a href="adminPage" id="AdminHomePage">
+                &lt;HomeIcon className="adminsidebarIcon" />
+                Admin Home
+              &lt;/a>
+            &lt;/li>
+            &lt;li className="adminsidebarListItem" id="ADminStatistics">
+              &lt;a href="Statistics">
+                &lt;Timeline className="adminsidebarIcon" />
+                Statistics
+              &lt;/a>
+            &lt;/li>
+            &lt;li className="adminsidebarListItem" id="AdminUsers">
+              &lt;a href="Users">
+                &lt;GroupIcon className="adminsidebarIcon" />
+                Users
+              &lt;/a>
+            &lt;/li>
+            &lt;li className="adminsidebarListItem" id="AdminUsers">
+              &lt;a href="home">
+                &lt;HomeIcon className="adminsidebarIcon" />
+                Twitter Home
+              &lt;/a>
+            &lt;/li>
+          &lt;/ul>
+        &lt;/div>
+      &lt;/div>
+    &lt;/div>
+  );
+}
+</code></pre>
+        </article>
+    </section>
 
 
 

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: Admin/Users/BlockForm.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,130 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: Admin/Users/BlockForm.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { useState } from "react";
+import AdminSideBar from "../AdminSideBar";
+import { BlockFormBackEnd, BLockUser } from "../MockRegistrationAdmin";
+import { ErrorMessage } from "@hookform/error-message";
+import TopBar from "../TopBar";
+import "./blockform.css";
+import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
 
+/**
+ *
+ * this function returns a block form which you input number of days that the admin
+ * make to block the user and this number must be greater than 0
+ * @returns
+ */
 
-    <h3> </h3>
+function BlockForm() {
+  const [duration, setBlockedDaysNumber] = useState("");
+  const navigate = useNavigate();
 
+  // const [errorMessage, setErrorMessage] = useState('');
+  // function to update state of Blocked daysy number with
+  // value enter by user in form
+  const handleChange = (e) => {
+    setBlockedDaysNumber(e.target.value);
+  };
+  // below function will be called when user
+  // click on submit button .
+  // const notify = () => {
+  //   toast.info("Please Enter Valid Number Of Days To Be Blocked", {
+  //     position: toast.POSITION.BOTTOM_CENTER,
+  //   });
+  // };
+  const notify = () => {
+    toast.info("Error Please Enter Valid Number Of Days", {
+      position: toast.POSITION.BOTTOM_CENTER,
+    });
+  };
 
+  const [test, istest] = React.useState();
+  const handleSubmit = async (e) => {
+    const resp = BLockUser(body);
+    if (duration &lt; 0) {
+      {
+        notify();
 
+      }
+      e.preventDefault(); //prevent refresh of page
 
+    } else {
+      localStorage.setItem("selectedIDs", null);
+      console.log("..", resp);
+      var promiseB = resp.then(function (result) {
+        console.log("result", result);
+        if (result === 200) {
+          window.location.href = "/Users";
+        }
+      });
 
+      console.log("test", test);
+      e.preventDefault(); //prevent refresh of page
+    }
+  };
+  var body = { duration: duration };
+  sessionStorage.setItem("duration", duration);
+  return (
+    &lt;div>
+      &lt;div id="FinalUsersPage">
+        &lt;TopBar />
+        &lt;div className="admincontainer">
+          &lt;AdminSideBar />
+          &lt;div className="BlockForm_Widget">
+            &lt;div className="UserWidget">
+              &lt;div className="BlockForm">
+                &lt;header className="BlockForm-header">
+                  &lt;form
+                    className="Block_Form"
+                    onSubmit={async (e) => {
+                      handleSubmit(e);
+                    }}
+                  >
+                    &lt;h2>Block Form&lt;/h2>
+                    &lt;label>Number Of Days:&lt;/label>
+                    &lt;br />
+                    &lt;br />
+                    &lt;input
+                      type="number"
+                      value={duration}
+                      required
+                      onChange={async (e) => {
+                        handleChange(e);
+                      }}
+                    />
+                    &lt;br />
+                    &lt;br />
+                    &lt;a>
+                      &lt;input type="submit" value="Submit" id="SubmitBlocking" />
+                    &lt;/a>
+                  &lt;/form>
+                &lt;/header>
+              &lt;/div>
+            &lt;/div>
+          &lt;/div>
+        &lt;/div>
+      &lt;/div>
+      &lt;ToastContainer />
+    &lt;/div>
+  );
+}
 
-
-
-
-
-    
-
-
-
-
-
+export default BlockForm;
+</code></pre>
+        </article>
+    </section>
 
 
 

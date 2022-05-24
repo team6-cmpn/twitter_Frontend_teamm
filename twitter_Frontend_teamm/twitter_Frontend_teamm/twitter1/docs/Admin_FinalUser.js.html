@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: Admin/FinalUser.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,57 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: Admin/FinalUser.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from "react";
+import "./finaluser.css";
+import AdminUsers from "./Users/Users";
+import UserChart from "./Charts/UserChart/UserChart";
+import UserNumChart from "./Charts/UserChart/UserNumChart";
+import TopBar from "./TopBar";
+import AdminSideBar from "./AdminSideBar";
+import BlockedUser from "./Users/BlockedUser";
 
+/**
+ *
+ * this component returns final page that have users grid and charts
+ * for users per month, users per year and ages chart
+ * @returns
+ */
+export default function FinalUser() {
+  return (
+    &lt;div id="FinalUsersPage">
+      &lt;TopBar />
+      &lt;div className="admincontainer">
+        &lt;AdminSideBar />
+        &lt;div className="UsersHome">
+          &lt;div className="UserWidget">
+            &lt;AdminUsers />
+          &lt;/div>
+          &lt;BlockedUser />
 
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+          &lt;UserNumChart />
+          &lt;div className="Charts">
+            &lt;div className="UserChart">
+              &lt;div className="agecharttitle">Ages Chart&lt;/div>
+              &lt;UserChart />
+            &lt;/div>
+          &lt;/div>
+        &lt;/div>
+      &lt;/div>
+    &lt;/div>
+  );
+}
+</code></pre>
+        </article>
+    </section>
 
 
 

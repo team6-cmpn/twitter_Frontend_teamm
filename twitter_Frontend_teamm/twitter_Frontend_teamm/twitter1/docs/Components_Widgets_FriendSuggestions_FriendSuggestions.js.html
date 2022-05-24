@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: Components/Widgets/FriendSuggestions/FriendSuggestions.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,98 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: Components/Widgets/FriendSuggestions/FriendSuggestions.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from "react";
+import TrendAccounts from "../../Trendaccounts";
+//import "./FriendSuggestions.css";
+import FriendSuggestionItem from "./FriendSuggestionItem/FriendSuggestionItem";
+/**FriendSuggestions
+ * Shows friends suggetions for the user
+ *  
+ * @returns (Layout of friends suggetion)
+ */
+function FriendSuggestions() {
+  return (
+    &lt;div className="keywor">
+    &lt;div  className="key">
+      &lt;div className="keyword__heading">
+        &lt;h4>Who to follow&lt;/h4>
+      &lt;/div>
+      &lt;div>
+        &lt;br/>
+      &lt;/div>
+      
+      &lt;TrendAccounts
+        username="Dr Magdi"  
+        name="Magdi Yaakob"
+        image="https://myhero.com/images/guest/g277272/hero103155/Magdi-Yacoub.jpg"
+      />
+       &lt;div>
+        &lt;br/>
+      &lt;/div>
+      
+      &lt;TrendAccounts
+        username="William Henry Gates"
+        name="Bill Gates"
+        image="https://static.techspot.com/images2/news/bigimage/2020/03/2020-03-14-image-4-j.webp"
+      />
+       &lt;div>
+        &lt;br/>
+      &lt;/div>
+      
+       &lt;TrendAccounts
+        username="Steven Paul Jobs"
+        name="Steve Jobs"
+        image="https://cdn.vox-cdn.com/thumbor/o7bA0tOZDGi-Y7reXlBHcOXC180=/0x137:575x520/920x613/filters:focal(0x137:575x520):format(webp)/cdn.vox-cdn.com/assets/695120/jobs_hero20110329.png"
+      />
+      {/* &lt;div className="side">
+      &lt;ul>
+      &lt;li>
+      &lt;a href="">
+      
+       &lt;/a>
+      &lt;/li>
+      &lt;/ul>
+      &lt;ul>
+      &lt;li>
+      &lt;a href="">
+      &lt;FriendSuggestionItem
+        username="gitH"
+        displayName="Billll Gatesss"
+        image="https://static.techspot.com/images2/news/bigimage/2020/03/2020-03-14-image-4-j.webp"
+      />
+       &lt;/a>
+       &lt;/li>
+       &lt;/ul>
+      &lt;ul>
+      &lt;li>
+      &lt;a href="">
+      &lt;FriendSuggestionItem
+        username="node"
+        displayName="Node.js"
+        image="https://pbs.twimg.com/profile_images/1262824892535373825/BiXDFDDp_200x200.jpg"
+      />
+      &lt;/a>
+      &lt;/li>
+      &lt;/ul>
+      &lt;/div> */}
+      &lt;/div>
+    &lt;/div>
+  );
+}
 
-
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+export default FriendSuggestions;
+</code></pre>
+        </article>
+    </section>
 
 
 

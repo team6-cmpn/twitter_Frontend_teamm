@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: Components/Profile/FollowersList.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,120 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: Components/Profile/FollowersList.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from "react";
+import "../Settings/settingsSubmenus.css";
+import { Avatar } from "@material-ui/core";
+import "./Profile.css";
+import { useState } from "react";
+import { Modal } from "antd";
+import { Link } from "react-router-dom";
+/**Followers List
+ * Shows followers list
+ *
+ * @returns (Layout of followers list)
+ */
 
+const FollowersList = ({ FollowerAccount }) => {
+  const [textState, setTextState] = useState("Follow");
+  const toggleText = () => {
+    setTextState((state) => (state === "Following" ? "Follow" : "Following"));
+  };
+  const [isModalVisible, setModalVisible] = useState(false);
+  const onSubModel = (stateMain = true) => {
+    setModalVisible(stateMain);
+  };
+  const onExist = () => {
+    setModalVisible(false);
+  };
 
-    <h3> </h3>
+  console.log(FollowerAccount._id);
+  var logged_in_id = localStorage.getItem("userId");
+  const store_userID = () => {
+    localStorage.setItem("clicked_userID", FollowerAccount?._id);
 
+    // logged_in_id !== FollowerAccount?._id
+    //   ? (window.location.href = `/${FollowerAccount?.username}`)
+    //   : (window.location.href = `/profile`);
+  };
+  return (
+    &lt;div className="Accountinfo_dec">
+      &lt;Avatar src="" />
+      &lt;h5 onClickCapture={store_userID}>
+        {logged_in_id !== FollowerAccount?._id ? (
+          &lt;Link to={`/${FollowerAccount?.username}`}>
+            {FollowerAccount?.name}
+          &lt;/Link>
+        ) : (
+          &lt;Link to={`/profile`}>&lt;/Link>
+        )}
+      &lt;/h5>
+      &lt;h6>{FollowerAccount?.username}&lt;/h6>
+      {logged_in_id !== FollowerAccount?._id ? (
+        &lt;button
+          id="FollowButton"
+          class="ButtonFollow"
+          onClick={() => {
+            if (textState === "Follow") toggleText();
+            else onSubModel();
+          }}
+        >
+          {textState}
+        &lt;/button>
+      ) : null}
 
+      &lt;Modal
+        style={{ textAlign: "center" }}
+        visible={isModalVisible}
+        bodyStyle={{ height: 300, font: "Helvetica", textAlign: "left" }}
+        width={500}
+        alignItems={{ top: Window }}
+        onCancel={() => setModalVisible(false)}
+        footer={null}
+      >
+        &lt;div className="for_model">
+          &lt;div
+            style={{
+              fontSize: "200%",
+              marginTop: "10px",
+              color: "black",
+              textAlign: "center",
+            }}
+          >
+            Unfollow this user?
+          &lt;/div>
+          &lt;div style={{ padding: "30px 30px" }}>
+            Their Tweets will no longer show up in your home timeline. You can
+            still view their profile.{" "}
+          &lt;/div>
+          &lt;button
+            id="Unfollow"
+            onClick={() => {
+              toggleText();
+              onExist();
+            }}
+            className="ButtonBlock"
+          >
+            Unfollow
+          &lt;/button>
+        &lt;/div>
+      &lt;/Modal>
+    &lt;/div>
+  );
+};
 
-
-
-
-
-
-
-
-    
-
-
-
-
-
+export default FollowersList;
+</code></pre>
+        </article>
+    </section>
 
 
 

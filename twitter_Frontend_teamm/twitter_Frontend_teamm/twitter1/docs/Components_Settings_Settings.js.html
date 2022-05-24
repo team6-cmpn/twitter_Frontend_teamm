@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: Components/Settings/Settings.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,74 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: Components/Settings/Settings.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from "react";
+import "./Settings.css"
+import './../Home.css';
+import SettingsBox from "../SettingsBox/SettingsBox";
+import { Link, useLocation, Outlet } from "react-router-dom";
+import SettingsContent from "./settingscontent";
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import MainSettings from "./MainSettings";
+/**
+ * it allows you to select the menu you want to change ,either to change you account information
+ * @param [dont take] 
+ * @returns [doesn't return any thing]
+ */
+function Settings(){
+  document.title = "Your Account / Twitter";
+  let path = useLocation().pathname;
 
 
-    <h3> </h3>
 
+  return (
+      &lt;SettingsBox>
+              &lt;div className="Notimenu">
+                  &lt;div className="settingsTitle">
+                  &lt;span>Settings&lt;/span>
+                  &lt;/div>
+                  &lt;br/>
+                  &lt;Link to="your-account" style={{ textDecoration: "none", color:"inherit" }}>
+                  &lt;SettingsContent
+                    text="Your account"
+                    Icon={ChevronRightIcon}
+                    
+                  />
+                &lt;/Link>
+                
+                &lt;Link to="./privacy-and-saftey" style={{ textDecoration: "none", color:"inherit" }}>
+                  &lt;SettingsContent
+                    text="Privacy and safety"
+                    Icon={ChevronRightIcon}
+                    
+                  />
+                &lt;/Link>
 
-
-
-
-
-
-
-
-
+              &lt;/div>
+            {path === "/Settings" ? (
+                &lt;MainSettings />
+              ) : (
+                &lt;Outlet />
+              )}
+      
+      &lt;/SettingsBox>
     
+  );
 
 
-
-
-
+};
+export default Settings;
+</code></pre>
+        </article>
+    </section>
 
 
 

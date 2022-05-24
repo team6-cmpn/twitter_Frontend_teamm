@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: Components/User/UserFollowers.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,157 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: Components/User/UserFollowers.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import '../Notifications.css'
+import React from 'react';
+import { useState } from 'react';
+import Trends from "../Widgets/Trends";
+import Sidebar from "../Sidebar/Sidebar";
+import { getFollowerUsers } from "../Profile/FollowersMock";
+import { getFollowingUsers } from "../Profile/FollowersMock";
+import FollowersList from '../Profile/FollowersList';
+import FollowingList from '../Profile/FollowingList';
+import axios from 'axios';
+import Configure from '../../Configure'
+// import {getFollowersList} from './backEndProfile';
+
+/**Followers page
+ * Shows followers page
+ *  
+ * @returns (Layout of followers page)
+ */
 
 
-    <h3> </h3>
+function Followers() {
+    async function getFollowersList() {
+        var id = localStorage.getItem("clicked_userID"); 
+        await axios
+          .get(`${Configure.backURL}user/followersList/${id}`, {
+            headers: {
+              "Content-Type": "application/json",
+              "x-access-token": `${localStorage.getItem("token")}`,
+            },
+          })
+          .then((response) => {
+            setFollowersList(response.data.follower);
+            return response;
+          })
+          .catch((error) => {
+          });}
 
-
-
-
-
-
-
-
-
-
+    const [FollowersLists,setFollowersList]=React.useState([])
+    React.useEffect(()=>{
+        ( () => {
+            getFollowersList();
+          })();
     
+        },[])
+
+        async function getFollowingList() {
+            var id = localStorage.getItem("clicked_userID"); 
+            await axios
+              .get(`${Configure.backURL}user/followingList/${id}`, {
+                headers: {
+                  "Content-Type": "application/json",
+                  "x-access-token": `${localStorage.getItem("token")}`,
+                },
+              })
+              .then((response) => {
+                setFollowingList(response.data.following);
+                
+                return response;
+              })
+              .catch((error) => {
+              });
+          }
+    
+            const [FollowingLists,setFollowingList]=React.useState([])
+            React.useEffect(()=>{
+                ( () => {
+                    getFollowingList();
+                  })();
+            
+                },[])
+        
+    const [FollowerUsers,setFollowerUsers]=React.useState([])
+    React.useEffect(()=>{
+        (async () => {
+            const resp = await getFollowerUsers();
+            setFollowerUsers(resp);
+          })();
+    
+        },[])
+    const [FollowingUsers,setFollowingUsers]=React.useState([])
+    React.useEffect(()=>{
+        (async () => {
+            const resp = await getFollowingUsers();
+            setFollowingUsers(resp);
+          })();
+    
+        },[])
+    const [isFollowers, setIsFollowers] = useState(true);
+    return (
+        &lt;div>
+            &lt;Sidebar />
+            &lt;div className='Expmenu'>
+                &lt;div id="FollowersTab" className="notificationsCategory">
+                    &lt;div
+                        className={isFollowers &amp;&amp; "notificationActive"}
+                        onClick={() => setIsFollowers(true)}
+                    >
+                        &lt;span>Followers&lt;/span>
+                    &lt;/div>
+                   
+                    &lt;div id="FollowingTab"
+                        className={!isFollowers &amp;&amp; "notificationActive"}
+                        onClick={() => setIsFollowers(false)}
+                    >
+                        &lt;span>Following&lt;/span>
+                    &lt;/div>
+                &lt;/div>
+                &lt;article>
+          {isFollowers ? (
+            &lt;>
+             &lt;div> {FollowerUsers.map((FollowerUsers,index)=>(
+                &lt;FollowersList key={index} FollowerAccount={FollowerUsers}/>))}
+              &lt;/div>
+                &lt;div>
+                    {FollowersLists.map((FollowerUsers,index)=>(
+                    &lt;FollowersList key={index} FollowerAccount={FollowerUsers}/>))}
+                &lt;/div>
+            &lt;/>
+          ) : (
+            &lt;>
+                &lt;div>{FollowingUsers.map((FollowingUsers,index)=>(
+                &lt;FollowingList key={index} FollowingAccount={FollowingUsers}/>))}
+                &lt;/div>
+                &lt;div>{FollowingLists.map((FollowingUsers,index)=>(
+                &lt;FollowingList key={index} FollowingAccount={FollowingUsers}/>))}
+                &lt;/div>
+            &lt;/>
+          )}
+        &lt;/article>
+                &lt;div >
+                    &lt;Trends />
+                &lt;/div>
+            &lt;/div>
+        &lt;/div>
+    )
+}
 
 
 
-
-
+export default Followers;</code></pre>
+        </article>
+    </section>
 
 
 

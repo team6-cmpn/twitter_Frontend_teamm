@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: Components/homepage/ImageBox.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,100 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: Components/homepage/ImageBox.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, {useEffect, useState} from "react";
+import PropTypes from "prop-types";
 
+import styles from "./ImageBox.module.css";
+/**
+ * component that previews images in a resizable component.
+ * it a close button for each image
+ * @param {Array} images URL of images to preview
+ * @param {Function} onDeleteImage takes an id as an input for the parent component
+ * to has remove image of repective id
+ */
 
-    <h3> </h3>
+function ImageBox({images, onDeleteImage, deleteEnabled}) {
+  let imageWidth = 65;
+  const [imagesArr, setImagesArr] = useState([]);
 
+  if (images.length > 1) {
+    imageWidth = 33;
+  }
+  useEffect(() => {
+    const tempImages = [];
+    images.forEach((image, index) => {
+      tempImages.push({
+        id: index,
+        imageUrl: image,
+      });
+    });
+    setImagesArr(tempImages);
+  }, [images]);
+  const imageContainer = (image) => (
+    &lt;div
+      data-testid="image-box-render-test"
+      id="image-box-image-canvas"
+      className={styles.image}
+      key={image.id}
+      style={{
+        backgroundImage: `url(${image.imageUrl})`,
+        paddingBottom: `${imageWidth}%`,
+        width: `${imageWidth}%`,
+      }}
+    >
+      {!deleteEnabled &amp;&amp; (
+        &lt;div
+          id="image-box-delete-button"
+          className={styles["delete-image"]}
+          role="button"
+          tabIndex={0}
+          onClick={() => onDeleteImage(image.imageUrl)}
+        >
+          X
+        &lt;/div>
+      )}
+    &lt;/div>
+  );
 
+  return (
+    &lt;div data-testid="imagebox" className={styles.imagebox} id="imagebox">
+      &lt;div className={styles["row-images"]}>
+        {imagesArr.map((image, index) =>
+          index &lt;= 1 ? imageContainer(image) : ""
+        )}
+      &lt;/div>
+      &lt;div className={styles["row-images"]}>
+        {imagesArr.map((image, index) =>
+          index > 1 ? imageContainer(image) : ""
+        )}
+      &lt;/div>
+    &lt;/div>
+  );
+}
 
+ImageBox.propTypes = {
+  images: PropTypes.arrayOf(PropTypes.string).isRequired,
+  deleteEnabled: PropTypes.bool,
+  onDeleteImage: PropTypes.func,
+};
 
-
-
-
-
-
-
-    
-
-
-
-
-
+ImageBox.defaultProps = {
+  deleteEnabled: false,
+  onDeleteImage: function temp() {},
+};
+export default ImageBox;
+</code></pre>
+        </article>
+    </section>
 
 
 

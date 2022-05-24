@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Components/Sidebar/Sidebar.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Components/Sidebar/Sidebar.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, {useState, useEffect} from "react";
+import {Modal,Popover} from "antd";
+import "./Sidebar.css";
+import { Link, useLocation, Outlet } from "react-router-dom";
+import { useContext } from "react";
+import { GetUserInfo } from "../Profile/backEndProfile";
+import Configure from "../../Configure";
+import {
+  FaTwitter,
+  FaHome,
+  FaHashtag,
+  FaRegBell,
+  // FaRegEnvelope,
+  FaRegBookmark,
+  // FaClipboardList,
+  FaUserAlt,
+  // FaMehBlank,
+  // FaRegMehBlank
+} from "react-icons/fa";
+import {BiDotsHorizontal} from "react-icons/bi";
+import {FiSettings} from "react-icons/fi";
+
+import {Avatar, Button} from "@material-ui/core";
+import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
+import HeaderTweet from "../homepage/Header_Tweet";
+import * as userbackend from "../Profile/backEndProfile";
+// import {getUserInfo} from "../Profile/backEndProfile";
+// import getUsernames from "../Profile/ProfileMock";
+import {style} from "@mui/system";
+import Pusher from "pusher-js";
+
+import {toast, ToastContainer} from "react-toastify";
+import SwitchButton from "../../Button";
+//import FriendSuggestionItem from "../Widgets/FriendSuggestions/FriendSuggestionItem/FriendSuggestionItem";
+// import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+// import Explore from "../Explore";
+// import { BrowserRouter as Router, Switch, Route, Redirect,} from "react-router-dom";
+// import {Link} from "react-router-dom";
+/**Sidebare
+ * Shows icons to navigate through different pages
+ *
+ * @returns (Layout of side bar &amp; tweet modal)
+ */
+function Sidebar() {
+  const [Item, setItem] = useState();
+  const [isModalVisible, setModalVisible] = useState(false);
+  // const user_info = userbackend.getUserInfo();
+  // user_info.then((name) => {
+  //   //setusername(name.username);
+  //   // setDisplay(name.name);
+  //   console.log(user);
+  // });
+  const user = localStorage.getItem("name");
+  const username = localStorage.getItem("getUsername");
+  //const usern=localStorage.getItem1("getName")
+  // usern.then(data=>{setItem(data)});
+  // console.log(Item);
+
+  // const [Username, setUsernames] = React.useState([]);
+  // React.useEffect(() => {
+  //   (async () => {
+  //     const resp = await getUsernames();
+  //     setUsernames(resp);
+  //   })();
+  // }, []);
+
+  const onSubModel = (stateMain = true) => {
+    setModalVisible(stateMain);
+  };
+  const content = (
+    &lt;div>
+      &lt;Link to='/logout'>Logout {username} &lt;/Link>
+    &lt;/div>
+  )
+  var pusher;
+  var userid = localStorage.getItem("userId");
+  var dataTemp;
+  useEffect(async () => {
+    Pusher.logToConsole = true;
+    pusher = new Pusher("a02c7f30c561968a632d", {
+      appId: "1406245",
+
+      secret: "5908937248eea3363b9e",
+      cluster: "eu",
+      useTLS: true,
+    });
+    var channel = pusher.subscribe(String(userid));
+    channel.bind(["block-event"], function (data) {
+      dataTemp = data;
+      //console.log('pop up message    ',dataTemp)
+      //alert(".."+data+"..")
+      {
+        notify();
+      }
+    });
+    channel.bind(["tweet-event"], function (data) {
+      dataTemp = data;
+      //console.log('pop up message    ',dataTemp)
+      //alert(".."+data+"..")
+      {
+        notify();
+      }
+    });
+    channel.bind(["favourite-event"], function (data) {
+      dataTemp = data;
+      //console.log(dataTemp)
+      //alert(".."+data+"..")
+      {
+        notify();
+      }
+    });
+    channel.bind(["unblock-event"], function (data) {
+      dataTemp = data;
+      //console.log(dataTemp)
+      //alert(".."+data+"..")
+      {
+        notify();
+      }
+    });
+  },[]);
+  const notify = () => {
+    toast.info("Notifications: " + dataTemp.notificationHeader.text + ".", {
+      position: toast.POSITION.BOTTOM_RIGHT,
+    });
+  };
+  var info = GetUserInfo();
+  const [test, istest] = React.useState();
+  info.then(function (result) {
+    console.log("result", result);
+    istest(result);
+  });
+  console.log(info);
+  var Url = test?.profile_image_url;
+  return (
+    &lt;div className="sidebar d">
+      &lt;ul>
+        &lt;li>
+          &lt;a href="">
+            &lt;FaTwitter className="icons logo" />
+          &lt;/a>
+        &lt;/li>
+        &lt;li>
+          &lt;a href="/home">
+            &lt;FaHome className="icons logo" />
+            &lt;div className="t">Home&lt;/div>
+            {/* &lt;Link to="/home">Home&lt;/Link> */}
+          &lt;/a>
+        &lt;/li>
+        &lt;li>
+          &lt;a href="/Explore">
+            &lt;FaHashtag className="icons" />
+            &lt;div className="t">Explore &lt;/div>
+            {/* &lt;Link to="/Explore">Explore&lt;/Link> */}
+
+            {/* &lt;Route exact path="/" component={Home} /> */}
+          &lt;/a>
+        &lt;/li>
+        &lt;li>
+          &lt;a href="/Notifications">
+            &lt;FaRegBell className="icons" />
+            &lt;div className="t">Notifications&lt;/div>
+          &lt;/a>
+        &lt;/li>
+
+        &lt;li>
+          &lt;a href="/Bookmarks">
+            &lt;FaRegBookmark className="icons" />
+            &lt;div className="t">Bookmarks&lt;/div>
+          &lt;/a>
+        &lt;/li>
+
+        &lt;li>
+          &lt;a href="/Profile">
+            &lt;FaUserAlt className="icons" />
+            &lt;div className="t">Profile&lt;/div>
+          &lt;/a>
+        &lt;/li>
+        &lt;li>
+          &lt;a href="/Settings">
+            &lt;FiSettings className="icons" />
+            &lt;div className="t">Settings &amp; Privacy&lt;/div>
+          &lt;/a>
+        &lt;/li>
+        &lt;div className="sidebar__Btn">
+          &lt;a>
+            {" "}
+            &lt;button id="tweet" className="tweet" onClick={() => onSubModel()}>
+              Tweet
+            &lt;/button>
+          &lt;/a>
+        &lt;/div>
+
+        &lt;li>
+          &lt;a href="/Profile">
+            &lt;Avatar src={`${Configure.backURL}${Url}`} className="icons" />
+            &lt;div className="t">
+              &lt;span style={{"display":"block", "textAlign":"left"}}>{user}&lt;/span>
+              &lt;span
+                style={{
+                  color: "silver",
+                  "font-weight": "600",
+                  "font-size": "16px",
+                  float: "Left",
+                  textAlign: "left",
+                  marginLeft: "0px",
+                  marginTop: "10px",
+                }}
+              >
+                {username}{" "}
+                &lt;Popover content={content} trigger="hover" title= {user}>&lt;BiDotsHorizontal className="more" />&lt;/Popover>
+              &lt;/span>
+              {/* &lt;BiDotsHorizontal style={{"display":"row"}} className="more" /> */}
+            &lt;/div>
+          &lt;/a>
+        &lt;/li>
+        {localStorage.getItem("userId") === "628a2840f29d637f2fc205b9"?(        &lt;li>
+          &lt;a href="/adminPage">
+            &lt;AdminPanelSettingsIcon className="icons" />
+            &lt;div className="t">Admin&lt;/div>
+          &lt;/a>
+        &lt;/li>):(null)}
+        {/* &lt;Avatar className="icons"/>hhhhhh  &lt;BiDotsHorizontal className="more"/> */}
+
+        {/* &lt;/div> */}
+      &lt;/ul>
+       {/* &lt;div className="icons">
+         &lt;DarkModeOutlinedIcon style={{fontSize: 50 ,marginRight:"150px"}}
+            onClick={() => dispatch({ type: "TOGGLE" })}
+          />
+           &lt;/div> */}
+           &lt;SwitchButton/>
+      &lt;Modal
+        title={
+          &lt;h1
+            style={{fontSize: "200%", marginTop: "10px", color: "Dodgerblue"}}
+          >
+            Tweet{" "}
+          &lt;/h1>
+        }
+        style={{textAlign: "center"}}
+        cancelButtonProps={{style: {display: "none"}}}
+        visible={isModalVisible}
+        bodyStyle={{
+          height: "inherit",
+          width: "inherit",
+          font: "Helvetica",
+          textAlign: "left",
+        }}
+        alignItems={{top: Window}}
+        onCancel={() => setModalVisible(false)}
+        footer={null}
+        maskClosable={false}
+      >
+        &lt;div>
+          &lt;HeaderTweet onSubmit={setModalVisible} model={true} />
+        &lt;/div>
+      &lt;/Modal>
+      &lt;ToastContainer />
+    &lt;/div>
+  );
+}
+
+export default Sidebar;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#AccountInfoMenuss">AccountInfoMenuss</a></li><li><a href="global.html#AccountInformation">AccountInformation</a></li><li><a href="global.html#backEndGoogleLogIn">backEndGoogleLogIn</a></li><li><a href="global.html#backEndGooglePost">backEndGooglePost</a></li><li><a href="global.html#backEndLatest">backEndLatest</a></li><li><a href="global.html#backEndLogIn">backEndLogIn</a></li><li><a href="global.html#backEndP">backEndP</a></li><li><a href="global.html#backEndPost">backEndPost</a></li><li><a href="global.html#Blocked">Blocked</a></li><li><a href="global.html#Blocked_days">Blocked_days</a></li><li><a href="global.html#BlockedAccounts">BlockedAccounts</a></li><li><a href="global.html#BlockForm">BlockForm</a></li><li><a href="global.html#ChangeEmail">ChangeEmail</a></li><li><a href="global.html#Changepassword">Changepassword</a></li><li><a href="global.html#Changephone">Changephone</a></li><li><a href="global.html#ChangeUsername">ChangeUsername</a></li><li><a href="global.html#DeactivateAcc">DeactivateAcc</a></li><li><a href="global.html#Delete_SaveUser">Delete_SaveUser</a></li><li><a href="global.html#Explore">Explore</a></li><li><a href="global.html#Feed">Feed</a></li><li><a href="global.html#FollowedYou">FollowedYou</a></li><li><a href="global.html#Followers">Followers</a></li><li><a href="global.html#FollowersList">FollowersList</a></li><li><a href="global.html#Following">Following</a></li><li><a href="global.html#FollowingList">FollowingList</a></li><li><a href="global.html#ForgetPassword">ForgetPassword</a></li><li><a href="global.html#forgetPassword">forgetPassword</a></li><li><a href="global.html#FriendSuggestions">FriendSuggestions</a></li><li><a href="global.html#GetNotificationsFavourites">GetNotificationsFavourites</a></li><li><a href="global.html#GetSearchedPhotos">GetSearchedPhotos</a></li><li><a href="global.html#getTopUsers">getTopUsers</a></li><li><a href="global.html#getUserLook">getUserLook</a></li><li><a href="global.html#GoogleSignUp">GoogleSignUp</a></li><li><a href="global.html#ImageBox">ImageBox</a></li><li><a href="global.html#LikedYou">LikedYou</a></li><li><a href="global.html#LikedYouBe">LikedYouBe</a></li><li><a href="global.html#LogIn">LogIn</a></li><li><a href="global.html#LogOut">LogOut</a></li><li><a href="global.html#MainSettings">MainSettings</a></li><li><a href="global.html#mock">mock</a></li><li><a href="global.html#MuteandBlock">MuteandBlock</a></li><li><a href="global.html#Muted">Muted</a></li><li><a href="global.html#MutedAccounts">MutedAccounts</a></li><li><a href="global.html#Notifications">Notifications</a></li><li><a href="global.html#Notified">Notified</a></li><li><a href="global.html#Post">Post</a></li><li><a href="global.html#Post_ChangePassword">Post_ChangePassword</a></li><li><a href="global.html#PrivacyAndSafety">PrivacyAndSafety</a></li><li><a href="global.html#Profile">Profile</a></li><li><a href="global.html#Put_SaveUser">Put_SaveUser</a></li><li><a href="global.html#reactivateAccount">reactivateAccount</a></li><li><a href="global.html#resendEmail">resendEmail</a></li><li><a href="global.html#resendSMS">resendSMS</a></li><li><a href="global.html#resetPassword">resetPassword</a></li><li><a href="global.html#SavedSearch">SavedSearch</a></li><li><a href="global.html#SecurityContent">SecurityContent</a></li><li><a href="global.html#Settings">Settings</a></li><li><a href="global.html#SettingsContent">SettingsContent</a></li><li><a href="global.html#SettingsContentInMenus">SettingsContentInMenus</a></li><li><a href="global.html#Sidebar">Sidebar</a></li><li><a href="global.html#SignUp">SignUp</a></li><li><a href="global.html#StartPage">StartPage</a></li><li><a href="global.html#SubsettingsContent">SubsettingsContent</a></li><li><a href="global.html#TopHashtagComponent">TopHashtagComponent</a></li><li><a href="global.html#Topics">Topics</a></li><li><a href="global.html#TopUsers">TopUsers</a></li><li><a href="global.html#Trends">Trends</a></li><li><a href="global.html#Tweetbox">Tweetbox</a></li><li><a href="global.html#User">User</a></li><li><a href="global.html#userridd">userridd</a></li><li><a href="global.html#validateEmail">validateEmail</a></li><li><a href="global.html#validatePassword">validatePassword</a></li><li><a href="global.html#validateUserName">validateUserName</a></li><li><a href="global.html#verifyEmail">verifyEmail</a></li><li><a href="global.html#verifyEmailForgetPassword">verifyEmailForgetPassword</a></li><li><a href="global.html#YourAccount">YourAccount</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Tue May 24 2022 10:32:40 GMT+0200 (Eastern European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

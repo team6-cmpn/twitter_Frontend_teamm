@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: Components/Notified.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,74 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: Components/Notified.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from "react";
+import "./LikedYou.css";
+import {useNavigate} from "react-router";
+import { Avatar } from "@material-ui/core";
+import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
+/**get notifications from backend and the Onpost functions helps go to the tweet which is liked or added  */
+const Notified = ({ notify, nType }) => {
+  const navigate = useNavigate();
+  function OnePost(){ navigate("/post");
+    localStorage.setItem("clicked.ID",notify.notificationContent._id );
+   
+      }
+  return (
+    &lt;div className="likedYou" id="likedyou">
+      &lt;NotificationsActiveIcon />
+      {notify.notificationContent ? (
+        &lt;>
+          
 
+          {nType.notificationType === "favourite" &amp;&amp; (
+            &lt;div  onClick={()=>OnePost()}>
+              &lt;div>
+                &lt;Avatar src={notify.notificationHeader.images} />
+              &lt;/div>
+              &lt;span>
+                &lt;b>{notify.notificationHeader.text}&lt;/b>
+              &lt;/span>
+              &lt;span>{notify.notificationContent.text}&lt;/span>
+            &lt;/div>
+          )}
+          {nType.notificationType === "tweet" &amp;&amp; (
+            &lt;div  onClick={()=>OnePost()}>
+              &lt;div>
+                &lt;Avatar src={notify.notificationHeader.images} />
+              &lt;/div>
+              &lt;span>
+                &lt;b>{notify.notificationHeader.text}&lt;/b>
+              &lt;/span>
+              &lt;span>{notify.notificationContent.text}&lt;/span>
+            &lt;/div>
+          )}
+        &lt;/>
+      ) : (
+        &lt;>
+          &lt;div>
+            &lt;span>
+              &lt;b>{notify.notificationHeader.text}&lt;/b>
+            &lt;/span>
+          &lt;/div>
+        &lt;/>
+      )}
+    &lt;/div>
+  );
+};
 
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+export default Notified;
+</code></pre>
+        </article>
+    </section>
 
 
 

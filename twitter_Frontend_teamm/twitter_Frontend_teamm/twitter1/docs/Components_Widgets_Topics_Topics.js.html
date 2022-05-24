@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: Components/Widgets/Topics/Topics.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,94 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: Components/Widgets/Topics/Topics.js</h1>
 
     
 
 
 
     
-
-
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from "react";
+//import "../FriendSuggestions/FriendSuggestionItem/FriendSuggestionItem.css";
+import TopicItem from "./TopicItem/TopicItem";
+import "./TopicItem/TopicItem.css";
+/**Topics
+ * Shows topics for user
+ *  
+ * @returns (Layout of topics)
+ */
+function Topics() {
+  return (
     
+    &lt;div className="keywords">
+    &lt;div className="key">
+      &lt;div className="keyword__heading">
+        &lt;h4>Trends for you&lt;/h4>
+      &lt;/div>
+      &lt;TopicItem
+        category="Trending"
+        title="Vodafone"
+        numberoftweet="131K Tweets"
+      />
+      &lt;TopicItem
+        category=""
+        title="FIFA World Cup"
+        numberoftweet="5M Tweets"
+      />
+      &lt;TopicItem
+        category=""
+        title="Egypt"
+        numberoftweet="13M Tweets"
+      />
+      {/* &lt;div className="side"> */}
+      {/* &lt;ul>
+      &lt;li> 
+      &lt;a href=""> 
+      
+       &lt;/a>
+      &lt;/li>
+      &lt;/ul>
+      &lt;ul>
+      &lt;li>
+      &lt;a href="">
+      &lt;TopicItem
+        category=""
+        title="HTML"
+        numberoftweet="13.1K Tweets"
+      />
+      &lt;/a>
+      &lt;/li>
+      &lt;/ul>
+      &lt;ul>
+      &lt;li>
+      &lt;a href="">
+      &lt;TopicItem
+        category=""
+        title="Css"
+        numberoftweet="13.1K Tweets"
+      />
+      &lt;/a>
+      &lt;/li>
+      &lt;/ul>
 
+      &lt;/div> */}
+      {/* &lt;TopicItem
+        category="Programming · Trending"
+        title="HTML"
+        numberoftweet="13.1K"
+      /> */}
+      
+    &lt;/div>
+    &lt;/div>
+  );
+}
 
-
-
-
+export default Topics;
+</code></pre>
+        </article>
+    </section>
 
 
 

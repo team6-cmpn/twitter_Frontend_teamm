@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: Components/Settings/MuteandBlock.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,64 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: Components/Settings/MuteandBlock.js</h1>
 
     
 
 
 
     
-
-
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from "react";
+import "./settingsSubmenus.css"
+import { Link, useLocation,Outlet } from "react-router-dom";
+import { ChevronRight } from "@mui/icons-material";
+import SettingsContentInMenus from "./SettingsContentInMenus";
+/**
+ * make you able to change the between muted and blocked account
+ * @returns [muted and blocked menus]
+ */
+const MuteandBlock = () => {
+    const [location] = React.useState(useLocation().pathname);
+    document.title = "Mute and block / Twitter";
     
+    return (
+      &lt;div className="settingsSubMenu">
+            &lt;div className="SubMenuTitle">
+            &lt;span>Mute and block &lt;/span>
+            &lt;/div>
+            &lt;div className="submenu_discription">
+                &lt;h3>Manage the accounts that you've muted or blocked.&lt;/h3>
+                &lt;br/>
+                &lt;Link to="../Blocked-accounts" style={{ textDecoration: "none", color:"inherit" }}>
+          &lt;SettingsContentInMenus
+            text="Blocked Accounts"
+            Icon={ChevronRight}
+            active={location === "/MuteandBlock" &amp;&amp; true}
+            
 
+          />
+        &lt;/Link>
+        &lt;Link to="../Muted-accounts" style={{ textDecoration: "none", color:"inherit" }}>
+          &lt;SettingsContentInMenus
+            text="Muted Accounts"
+            Icon={ChevronRight}
+            active={location === "/MuteandBlock" &amp;&amp; true}
+            
 
-
-
-
+          />
+        &lt;/Link>
+        
+            &lt;/div>
+      &lt;/div>
+      
+    );
+  };
+  
+  export default MuteandBlock;</code></pre>
+        </article>
+    </section>
 
 
 

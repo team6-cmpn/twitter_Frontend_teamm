@@ -87,11 +87,14 @@ const Post = ({
   const [isretweetModalVisible, setretweetModalVisible] = useState(false);
   const [mentioned, setmentioned] = useState(false);
   const [mentionModel, setmentionModel] = useState(false);
+  const [retweet_block, setretweet_block] = useState(false);
   const [like_no, setlike_no] = useState(likes);
   const [retweet_no, setretweet_no] = useState(retweets);
   const [book_mark_color, setbook_mark_color] = useState("black");
   const [like_color, setlike_color] = useState("");
   const [retweet_color, setretweet_color] = useState("");
+  const [_times, set_times] = useState();
+  const [blockdays, setdays] = useState();
 
   const [if_liked, setif_liked] = React.useState(user_liked_tweet);
   const [if_retweeted, setif_retweeted] = React.useState(user_retweted_tweet);
@@ -101,33 +104,23 @@ const Post = ({
 
   const [isOpen, setIsOpen] = useRecoilState(modalState);
   const in_tweet = backend.getTweet(tweet_id);
-
   const user = backend.GetUserInfo(user_tweeted_id);
+  const res = backend.GetUserInfo(logedin_user_id);
 
   user.then(function (result) {
-    // console.log("result", result);
     istest(result);
   });
-  const res = backend.GetUserInfo(logedin_user_id);
+  var Url_avatar = test?.profile_image_url;
 
   res.then(function (result) {
     setif_blocked(result.admin_block?.blocked_by_admin);
+    set_times(result.admin_block?.blockNumTimes);
+    setdays(result.admin_block?.block_duration);
   });
 
-  var Url_avatar = test?.profile_image_url;
-
   const [BookmarkState, setBookmarkState] = useState("add");
-  // console.log(if_blocked);
 
   const toggleBookmarkState = () => {
-    // console.log("bookmark" + bookmark);
-    // if (bookmark === true) {
-    //   setBookmarkState("add");
-    //   setbook_mark_color("#1d9cf0");
-    // } else {
-    //   setBookmarkState("Unadd");
-    //   setbook_mark_color("black");
-    // }
     setBookmarkState((state) => (state === "Unadd" ? "add" : "Unadd"));
   };
 
@@ -137,16 +130,11 @@ const Post = ({
       toggleBookmarkState();
       setbook_mark_color("#1d9cf0");
       BE.addBookmarks();
-      console.log("added");
-      // setBookmarkState("Unadd");
       localStorage.setItem("dummy", true);
-      // setAdd('add')
     } else if (BookmarkState === "Unadd") {
       toggleBookmarkState();
       setbook_mark_color("black");
       BE.deleteBookmark();
-      console.log("unadded");
-      // setBookmarkState("add");
       localStorage.setItem("dummy", false);
     }
   }
@@ -242,12 +230,13 @@ const Post = ({
 
   const openPost = async () => {
     navigate("/post");
+    //set likes number
     likes_list = backend.likes_list(tweet_id);
     likes_list.then(function (tempresult) {
       setlikeslist(tempresult?.favoriteusers);
       setlike_no(tempresult?.favoriteusers.length);
     });
-
+    //set retweet number
     retweeters_list = backend.Retweeters_list(tweet_id);
     retweeters_list.then(function (tempresult) {
       setretweeters(tempresult?.retweetersList);
@@ -285,18 +274,17 @@ const Post = ({
   };
 
   /**
-   * rtuern to home  button
+   * return to home  button
    */
   const returnhome = async () => {
     navigate("/home");
   };
-  /**
+  /*
    * delte butoon
    * return to home if clicked
    */
   const deleteTweet = async () => {
     const resp = await backend.DeleteTweet(tweet_id);
-    console.log(resp);
     if (resp.message === "success! tweet deleted") {
       window.location.reload();
     }
@@ -305,7 +293,13 @@ const Post = ({
     }
   };
   /**
-   *
+   * if user is block open model message for user
+   */
+  const retweetBlock = () => {
+    setretweet_block(true);
+  };
+  /**
+   * get mentioned user link it to thier profile
    */
   const get_mention = async () => {
     setmentioned(true);
@@ -317,7 +311,6 @@ const Post = ({
 
     localStorage.setItem("clicked_userID", mentioned_user);
   };
-  // console.log("mention use " + mentioned_user);
 
   /**
    * store the clicked name's user id in storage
@@ -432,9 +425,7 @@ const Post = ({
                         className=" icon delete "
                         onClick={(e) => {
                           e.stopPropagation();
-                          deleteTweet().then(() => {
-                            console.log("indelet then");
-                          });
+                          deleteTweet();
                         }}
                       >
                         &lt;TrashIcon strokeWidth={1} />
@@ -500,7 +491,34 @@ const Post = ({
                         &lt;/div>
                       &lt;/button>
                     &lt;/div>
-                  ) : null}
+                  ) : (
+                    &lt;div className="blocked">
+                      &lt;button
+                        id=" retweet button"
+                        className=" icon share"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          retweetBlock();
+                        }}
+                      >
+                        &lt;div>
+                          {if_retweeted ? (
+                            &lt;ShareIcon
+                              style={{color: "#14fe10"}}
+                              strokeWidth={1}
+                              fontSize="small"
+                            />
+                          ) : (
+                            &lt;ShareIcon
+                              style={{color: "black"}}
+                              strokeWidth={1}
+                              fontSize="small"
+                            />
+                          )}
+                        &lt;/div>
+                      &lt;/button>
+                    &lt;/div>
+                  )}
                 &lt;/div>
               &lt;/div>
             &lt;/div>
@@ -535,7 +553,7 @@ const Post = ({
               ))}
             &lt;/div>
           ) : (
-            &lt;div>no likes yet!&lt;/div>
+            &lt;h2>no likes yet!&lt;/h2>
           )}
         &lt;/Modal>
 
@@ -568,25 +586,75 @@ const Post = ({
               ))}
             &lt;/div>
           ) : (
-            &lt;div>no retweets yet!&lt;/div>
+            &lt;h2>no retweets yet!&lt;/h2>
           )}
         &lt;/Modal>
         &lt;Modal
           title={
             &lt;h1
-              style={{fontSize: "180%", marginTop: "10px", color: "Dodgerblue"}}
+              style={{
+                fontSize: "180%",
+                marginTop: "10px",
+                color: "Dodgerblue",
+                textAlign: "center",
+              }}
             >
               No user FOUND !!{" "}
             &lt;/h1>
           }
-          style={{textAlign: "center"}}
+          style={{textAlign: "left"}}
           cancelButtonProps={{style: {display: "none"}}}
           visible={mentionModel}
           alignItems={{top: Window}}
           onCancel={() => setmentionModel(false)}
           footer={null}
           maskClosable={false}
-        >&lt;/Modal>
+        >
+          {" "}
+          &lt;h2>
+            the user you are trying to reach has no account !! check username
+            first{" "}
+          &lt;/h2>
+          &lt;div>they might have deleted or deactivated their account&lt;/div>
+        &lt;/Modal>
+        &lt;Modal
+          title={
+            &lt;h1
+              style={{
+                fontSize: "180%",
+                marginTop: "10px",
+                color: "red",
+                textAlign: "center",
+              }}
+            >
+              UNAUTHARIZED !!{" "}
+            &lt;/h1>
+          }
+          style={{textAlign: "left"}}
+          cancelButtonProps={{style: {display: "none"}}}
+          visible={retweet_block}
+          alignItems={{top: Window}}
+          onCancel={() => setretweet_block(false)}
+          footer={null}
+          maskClosable={false}
+        >
+          &lt;h2>This action can't be done &lt;/h2>
+          &lt;h3>
+            user can't TWEET, RETWEET nor unRETWEET any tweet you have been
+            blocked {_times} times by admin
+          &lt;/h3>
+          &lt;div>
+            {" "}
+            You will be unblocked within{" "}
+            &lt;span
+              style={{
+                color: "red",
+              }}
+            >
+              {blockdays} days
+            &lt;/span>
+          &lt;/div>
+        &lt;/Modal>
       &lt;/div>
     &lt;/div>
   );
@@ -609,7 +677,7 @@ export default Post;
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Tue May 24 2022 10:32:40 GMT+0200 (Eastern European Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Tue May 24 2022 20:11:41 GMT+0200 (Eastern European Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

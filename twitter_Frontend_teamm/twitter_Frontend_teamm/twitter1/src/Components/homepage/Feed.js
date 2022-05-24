@@ -5,7 +5,6 @@ import InfiniteScrool from "react-infinite-scroll-component";
 import "./feed.css";
 import Post from "./Post";
 import * as backend from "./backendFeed";
-import Configure from "../../Configure";
 
 /**
  * feed component
@@ -19,17 +18,19 @@ function Feed(data) {
   const [pages, setpage] = useState(2);
   const [postData, setpostData] = useState([]);
   const [ended, setended] = useState(false);
+  const [length, set_length] = useState();
 
   useEffect(() => {
     setpostData(data.data);
   }, [data.data]);
   var resp = [];
-
+  /**
+   * fetchdata fromlookup API continously
+   */
   const fetchData = () => {
     (async () => {
       resp = await backend.Tweets_lookup(pages + 1, 5);
       setpage(pages + 1);
-      console.log(resp.data.length);
       if (resp.status === 200) {
         setpostData([...postData, ...resp.data]);
         if (resp.data.length === 0) {
@@ -48,8 +49,8 @@ function Feed(data) {
           hasMore={ended === false}
           loader={<h4 className="loading ">Loading..</h4>}
           endMessage={
-            <p style={{textAlign: "center"}}>
-              <b>Yay! You are up to date </b>
+            <p style={{textAlign: "center"}} className="loading ">
+              <b>Yay!! You are up to date </b>
             </p>
           }
         >
@@ -70,8 +71,6 @@ function Feed(data) {
                 retweets={userlist.tweet?.retweetUsers.length}
                 user_liked_tweet={userlist?.isLiked}
                 user_retweted_tweet={userlist?.isRetweeted}
-                // blocked={userlist.user.admin_block?.blocked_by_admin}
-                //bookmarked={false}
               />
             ))}
         </InfiniteScrool>

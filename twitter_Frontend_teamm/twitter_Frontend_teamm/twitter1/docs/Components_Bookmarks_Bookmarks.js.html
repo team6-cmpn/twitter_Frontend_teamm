@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: Components/LikedYou.js</title>
+    <title>JSDoc: Source: Components/Bookmarks/Bookmarks.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: Components/LikedYou.js</h1>
+    <h1 class="page-title">Source: Components/Bookmarks/Bookmarks.js</h1>
 
     
 
@@ -26,34 +26,125 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import React from "react";
-import "./LikedYou.css";
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import { Avatar } from "@material-ui/core";
-/**it show you how liked your tweet
- * 
- */
-const LikedYou = ({ likePost }) => {
-  return (
-    &lt;div className="likedYou" id="likedyou">
-      &lt;FavoriteIcon />
-      &lt;div>
-        &lt;div>
-          {likePost.likeUser.map((user) => (
-            &lt;Avatar src={user.userImage} />
-          ))}
-        &lt;/div>
-        &lt;span>
-          &lt;b>{likePost.likeUser[0].displayName}&lt;/b> and{" "}
-          {likePost.likeUser.length - 1} others liked your Tweet
-        &lt;/span>
-        &lt;span>{likePost.post}&lt;/span>
-      &lt;/div>
-    &lt;/div>
-  );
-};
+            <pre class="prettyprint source linenums"><code>import "../Home.css";
+import Sidebar from "../Sidebar/Sidebar";
+import "./Bookmarks.css";
+import "../StartPage/StartPage.css";
+import Trends from "../Widgets/Trends";
+import bookmarksImg from "../images/bookmarksImg.png";
+import React, { useState } from "react";
+import { GetPostTweet } from "../homepage/feedmock";
+import Post from "../homepage/Post";
+import { RecoilRoot } from "recoil";
+import { BiDotsHorizontal } from "react-icons/bi";
+import { Modal, Popover } from "antd";
+import { Link } from "react-router-dom";
 
-export default LikedYou;
+import * as BE from "./backEndBookmarks";
+import { setTwoToneColor } from "@ant-design/icons";
+
+/**
+ *Bookmarks
+ *allows user to save any tweet and delete it if wanted
+ * @returns saved tweets
+ */
+
+function Bookmarks() {
+  const [tweeted, postedtweet] = React.useState([]);
+  const [empty, setEmpty] = React.useState(true);
+
+  const content = (
+    &lt;Link
+      id="clearBookmarks"
+      to=""
+      onClick={() => {
+        BE.deleteAllBookmarks();
+        setEmpty(true);
+      }}
+    >
+      Clear all Bookmarks
+    &lt;/Link>
+  );
+
+  var userIds = [];
+  React.useEffect(() => {
+    (async () => {
+      const resp = await BE.GetBookmarks();
+
+      for (let i = 0; i &lt; resp.length; i++) {
+        userIds += resp[i].user + ",";
+      }
+
+      userIds = userIds.slice(0, -1);
+      localStorage.setItem("tag", userIds);
+      postedtweet(resp);
+      if (resp.length !== 0) {
+        setEmpty(false);
+      }
+      if (userIds.length !== 0) {
+        const userResp = BE.getUserLookup();
+      }
+    })();
+  }, []);
+
+  return (
+    &lt;RecoilRoot>
+      &lt;Sidebar />
+      &lt;Trends />
+      &lt;div>
+        &lt;div className="menu ">
+          &lt;div className="title">
+            &lt;span>Bookmarks&lt;/span>
+          &lt;/div>
+          {empty ? (
+            &lt;div className="column flex-container">
+              &lt;img className="bookCageImg" alt="" src={bookmarksImg} />
+              &lt;span className="text">Save Tweets for Later&lt;/span>
+              &lt;span className="text2">
+                Dont let the good ones fly away! Bookmark Tweets to easily find
+                them again in the future.
+              &lt;/span>
+            &lt;/div>
+          ) : (
+            &lt;article>
+              {
+                &lt;>
+                  &lt;Popover content={content} trigger="click">
+                    &lt;BiDotsHorizontal className="moreButton" id="moreButton" />
+                  &lt;/Popover>
+
+                  {/* {countRef.current++} */}
+                  {tweeted.map((userlist, index) => (
+                    &lt;Post
+                      key={index}
+                      displayName={localStorage.getItem(
+                        `nameForBookmarks ${index}`
+                      )}
+                      username={localStorage.getItem(
+                        `usernameForBookmarks ${index}`
+                      )}
+                      mention={userlist.mention}
+                      text={userlist.text}
+                      image={userlist.imageUrl}
+                      logedin_user_id={localStorage.getItem("userId")}
+                      avatar={userlist.avatar}
+                      date={userlist.created_at}
+                      tweet_id={userlist._id}
+                      user_tweeted_id={userlist.user}
+                      bookmark={true}
+                    />
+                  ))}
+                &lt;/>
+              }
+            &lt;/article>
+          )}
+        &lt;/div>
+      &lt;/div>
+    &lt;/RecoilRoot>
+  );
+}
+
+export default Bookmarks;
 </code></pre>
         </article>
     </section>

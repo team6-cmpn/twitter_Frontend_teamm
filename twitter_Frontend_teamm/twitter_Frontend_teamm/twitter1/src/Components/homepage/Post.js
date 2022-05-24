@@ -1,6 +1,6 @@
-import React, {useContext, useRef, useState} from "react";
-import {useNavigate} from "react-router";
-
+import React, { useContext, useRef, useState } from "react";
+import { useNavigate } from "react-router";
+import "../Bookmarks/Bookmarks.css";
 import "./feed.css";
 import FollowersList from "../Profile/FollowersList";
 import * as BE from "../Bookmarks/backEndBookmarks";
@@ -8,16 +8,18 @@ import * as backend from "./backendFeed";
 import ImageBox from "./ImageBox";
 import Configure from "../../Configure";
 
-import {modalState} from "../atoms/modalAtom";
-import {Link} from "react-router-dom";
-import {FaRegBookmark} from "react-icons/fa";
-import {useRecoilState} from "recoil";
-import {Modal, Popover} from "antd";
+import { modalState } from "../atoms/modalAtom";
+import { Link } from "react-router-dom";
+import { FaRegBookmark } from "react-icons/fa";
+import { useRecoilState } from "recoil";
+import { Modal, Popover } from "antd";
 import timeDifference from "./date";
 
-import {HeartIcon as HeartIconFilled} from "@heroicons/react/solid";
-import {HeartIcon, ShareIcon, TrashIcon} from "@heroicons/react/outline";
-import {Button} from "@material-ui/core";
+import { HeartIcon as HeartIconFilled } from "@heroicons/react/solid";
+import { BookmarkIcon, ExclamationCircleIcon } from "@heroicons/react/solid";
+import { toast } from "react-toastify";
+import { HeartIcon, ShareIcon, TrashIcon } from "@heroicons/react/outline";
+import { Button } from "@material-ui/core";
 
 /**
  * post componnt
@@ -95,29 +97,60 @@ const Post = ({
   const toggleBookmarkState = () => {
     setBookmarkState((state) => (state === "Unadd" ? "add" : "Unadd"));
   };
+  /**
+   * function that add or delete bookmarks according to button state
+   */
 
   function addOrDeleteBookmarks() {
     localStorage.setItem("clicked.ID", tweet_id);
     if (BookmarkState === "add") {
       toggleBookmarkState();
       setbook_mark_color("#1d9cf0");
-      BE.addBookmarks();
-      localStorage.setItem("dummy", true);
+      const resp = BE.addBookmarks();
+      resp.then(function (tempresult) {
+        console.log(tempresult);
+        if (tempresult === "done") {
+          toast.dark(`Tweet is added to your bookmarks!`, {
+            position: toast.POSITION.BOTTOM_CENTER,
+            bodyClassName: "toastBodyClass",
+            autoClose: 3000,
+            progressClassName: "toastProgress",
+            icon: <BookmarkIcon></BookmarkIcon>,
+          });
+        } else {
+          toast.error("Bookmark is already saved!", {
+            position: toast.POSITION.BOTTOM_CENTER,
+            autoClose: 3000,
+            bodyClassName: "toastBodyClass2",
+            icon: <ExclamationCircleIcon></ExclamationCircleIcon>,
+          });
+        }
+      });
     } else if (BookmarkState === "Unadd") {
       toggleBookmarkState();
       setbook_mark_color("black");
-      BE.deleteBookmark();
-      localStorage.setItem("dummy", false);
+      BE.deleteBookmark().then();
     }
   }
-
+  /**
+   *UpdateBookmarks
+   *updates after deleting a bookmark
+   * @returns deletion of tweet bookmark
+   */
+  function UpdateBookmarks() {
+    if (BookmarkState === "Unadd") {
+      addOrDeleteBookmarks().then(() => BE.GetBookmarks());
+    } else {
+      addOrDeleteBookmarks();
+    }
+  }
   const content = (
     <div>
       <Link
         to=""
         id="addOrDeleteBookmarks"
         onClick={() => {
-          addOrDeleteBookmarks();
+          UpdateBookmarks();
         }}
       >
         {BookmarkState}
@@ -349,7 +382,7 @@ const Post = ({
                   <button id=" bookmarkButton" className=" icon bookmarked">
                     <Popover content={content} trigger="hover">
                       <FaRegBookmark
-                        style={{color: book_mark_color}}
+                        style={{ color: book_mark_color }}
                         strokeWidth={1}
                         fontSize="small"
                       />
@@ -409,7 +442,7 @@ const Post = ({
                 )}
                 <div className="blocked likeall">
                   {like_no !== 0 && (
-                    <span style={{color: like_color}} className="count">
+                    <span style={{ color: like_color }} className="count">
                       {like_no}
                     </span>
                   )}
@@ -432,7 +465,7 @@ const Post = ({
                 </div>
                 <div className="numbered">
                   {retweet_no !== 0 && (
-                    <span className="count" style={{color: retweet_color}}>
+                    <span className="count" style={{ color: retweet_color }}>
                       {retweet_no}
                     </span>
                   )}
@@ -449,13 +482,13 @@ const Post = ({
                         <div>
                           {if_retweeted ? (
                             <ShareIcon
-                              style={{color: "#14fe10"}}
+                              style={{ color: "#14fe10" }}
                               strokeWidth={1}
                               fontSize="small"
                             />
                           ) : (
                             <ShareIcon
-                              style={{color: "black"}}
+                              style={{ color: "black" }}
                               strokeWidth={1}
                               fontSize="small"
                             />
@@ -476,13 +509,13 @@ const Post = ({
                         <div>
                           {if_retweeted ? (
                             <ShareIcon
-                              style={{color: "#14fe10"}}
+                              style={{ color: "#14fe10" }}
                               strokeWidth={1}
                               fontSize="small"
                             />
                           ) : (
                             <ShareIcon
-                              style={{color: "black"}}
+                              style={{ color: "black" }}
                               strokeWidth={1}
                               fontSize="small"
                             />
@@ -499,13 +532,17 @@ const Post = ({
         <Modal
           title={
             <h1
-              style={{fontSize: "180%", marginTop: "10px", color: "Dodgerblue"}}
+              style={{
+                fontSize: "180%",
+                marginTop: "10px",
+                color: "Dodgerblue",
+              }}
             >
               Liked by{" "}
             </h1>
           }
-          style={{textAlign: "left"}}
-          cancelButtonProps={{style: {display: "none"}}}
+          style={{ textAlign: "left" }}
+          cancelButtonProps={{ style: { display: "none" } }}
           visible={islikeModalVisible}
           bodyStyle={{
             height: "inherit",
@@ -513,7 +550,7 @@ const Post = ({
             font: "Helvetica",
             textAlign: "left",
           }}
-          alignItems={{top: Window}}
+          alignItems={{ top: Window }}
           onCancel={() => setlikeModalVisible(false)}
           footer={null}
           maskClosable={false}
@@ -532,13 +569,17 @@ const Post = ({
         <Modal
           title={
             <h1
-              style={{fontSize: "180%", marginTop: "10px", color: "Dodgerblue"}}
+              style={{
+                fontSize: "180%",
+                marginTop: "10px",
+                color: "Dodgerblue",
+              }}
             >
               Retweeted by{" "}
             </h1>
           }
-          style={{textAlign: "left"}}
-          cancelButtonProps={{style: {display: "none"}}}
+          style={{ textAlign: "left" }}
+          cancelButtonProps={{ style: { display: "none" } }}
           visible={isretweetModalVisible}
           bodyStyle={{
             height: "inherit",
@@ -546,7 +587,7 @@ const Post = ({
             font: "Helvetica",
             textAlign: "left",
           }}
-          alignItems={{top: Window}}
+          alignItems={{ top: Window }}
           onCancel={() => setretweetModalVisible(false)}
           footer={null}
           maskClosable={false}
@@ -574,10 +615,10 @@ const Post = ({
               No user FOUND !!{" "}
             </h1>
           }
-          style={{textAlign: "left"}}
-          cancelButtonProps={{style: {display: "none"}}}
+          style={{ textAlign: "left" }}
+          cancelButtonProps={{ style: { display: "none" } }}
           visible={mentionModel}
-          alignItems={{top: Window}}
+          alignItems={{ top: Window }}
           onCancel={() => setmentionModel(false)}
           footer={null}
           maskClosable={false}
@@ -602,10 +643,10 @@ const Post = ({
               UNAUTHARIZED !!{" "}
             </h1>
           }
-          style={{textAlign: "left"}}
-          cancelButtonProps={{style: {display: "none"}}}
+          style={{ textAlign: "left" }}
+          cancelButtonProps={{ style: { display: "none" } }}
           visible={retweet_block}
-          alignItems={{top: Window}}
+          alignItems={{ top: Window }}
           onCancel={() => setretweet_block(false)}
           footer={null}
           maskClosable={false}

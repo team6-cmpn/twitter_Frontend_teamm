@@ -26,7 +26,7 @@ class TwitterHomePage(unittest.TestCase):
             "--ignore-certificate-errors",
             "--disable-extensions",
             "--no-sandbox",
-            "--disable-dev-shm-usage"
+            "--disable-dev-shm-usage" ]
         for option in options:
             chrome_options.add_argument(option)
 

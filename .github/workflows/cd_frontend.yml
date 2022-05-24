@@ -43,6 +43,7 @@ jobs:
           python3 ––version
           sudo apt install python3-pip
           pip --version
+          ls
           sudo pip install -r ~/testing/requirements.txt
           whereis chromedriver
           END

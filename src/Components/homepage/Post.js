@@ -129,7 +129,7 @@ const Post = ({
     } else if (BookmarkState === "Unadd") {
       toggleBookmarkState();
       setbook_mark_color("black");
-      BE.deleteBookmark().then();
+      BE.deleteBookmark();
     }
   }
   /**

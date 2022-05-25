@@ -25,7 +25,7 @@ import { useState,useEffect } from "react";
  * this function returns 2 item 
  * first item for users per month in 2022
  * second item for showing users per years from starting our twitter clone
- * @returns 
+ * 
  */
 
 export default function UserNumChart() {

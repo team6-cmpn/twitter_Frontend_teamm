@@ -13,7 +13,7 @@ import Trends from "../Widgets/Trends";
 import Sidebar from "../Sidebar/Sidebar";
 import {GrLocation} from "react-icons/gr"
 import {BiLink} from "react-icons/bi"
-import { UpdateProfile, UploadImageProfile, GetUserInfo, GetTweetList,GetLikedTweetList,getUserLook} from './backEndProfile'
+import { UpdateProfile, UploadImageProfile, GetMediaList, GetUserInfo, GetTweetList,GetLikedTweetList,getUserLook} from './backEndProfile'
 // import { GetPostTweet } from "../homepage/feedmock";
 import Post from "../homepage/Post";
 import { RecoilRoot } from "recoil";
@@ -25,13 +25,20 @@ import Configure from '../../Configure';
  *  
  * @returns (Layout of profile and edit profile modal)
  */
+
 function Profile(){
     const [date, setDate] = useState(null);
     const [isMainModalVisible, setMainModalVisible] = useState(false);
     const [isTab, setIsTab] = useState(1);
-    // const [twetted, postedtweet] = React.useState([]);
     
-    getUserLook();
+    React.useEffect(() => {
+      (async () => {
+        getUserLook();
+        
+      })();
+    }, []);
+    
+    // const [twetted, postedtweet] = React.useState([]);
     // React.useEffect(() => {
     //   (async () => {
     //     const resp = await GetPostTweet();
@@ -44,7 +51,7 @@ function Profile(){
     var LikedTweetsLists= GetLikedTweetList().tweets;
    
     console.log("listsss",LikedTweetsLists)
-    // var MediaLists=GetMediaList();
+    var MediaLists=GetMediaList().tweets;
 
     var [{alt2, src2}, setImg2] = useState({
         src2: placeholder,
@@ -214,11 +221,11 @@ function Profile(){
                         <br></br>
                         
                         <div id="followers"className="FollowLink">
-                            <Link to ="/Followers">{test?.followings_count}Followers </Link>
+                            <Link to ="/Followers">Followers </Link>
                         </div>
                         
                         <div id="following" className='FollowLink'>
-                            <Link to ="/Following">  Following  </Link>
+                            <Link to ="/Following"> {test?.followings_count} Following  </Link>
                         </div>
                         <br></br>
                         <br></br>
@@ -295,13 +302,13 @@ function Profile(){
                         : (isTab===3)?
                             <>
 
-                            {/* {MediaLists.map((userlist, index) => (
+                            {MediaLists.map((userlist, index) => (
                                 <Post
                                 key={index}
                                 displayName={name}
                                 username={username}
                                 text={userlist?.text}
-                                // image={userlist?.imageUrl}
+                                image={userlist?.imageUrl}
                                 avatar={`${Configure.backURL}${Url}`}
                                 tweet_id={userlist?._id}
                                 mention={userlist?.mention}
@@ -310,7 +317,7 @@ function Profile(){
                                 logedin_user_id={loginuser_id}
                                 likes={userlist?.favorites.length}
                                 retweets={userlist?.retweetUsers.length}
-                                 />))} */}
+                                 />))}
                             
                             </>
                         : 

@@ -4,7 +4,7 @@ import "./tophashtagcomponent.css";
 /**
  * 
  * this function returns component for each top 5 retweeted tweets
- * @returns 
+ *  
  */
 const TopHashtagComponent = ({ hashtag }) => {
   return (

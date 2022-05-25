@@ -8,7 +8,7 @@ import { message } from "antd";
  *
  * this file contains all api calls from backend and from mock
  * which be used before calling api
- * @returns
+ * 
  */
 
 export async function getTopUsers() {

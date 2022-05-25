@@ -9,10 +9,13 @@ import Configure from "../Configure";
 /**
  *
  * this function returns component for each top five users with most followers
- * @returns
+ * 
  */
 
 export default function TopUserItem({ user }) {
+  function getuserid(){
+    localStorage.setItem("clicked_userID",user._id)
+  }
   return (
     <div className="newUsersListItem" id="TopUsersItem">
       <img
@@ -20,7 +23,7 @@ export default function TopUserItem({ user }) {
         alt=""
         className="topAvatar"
       ></img>
-      <div className="newUsersUser">
+      <div onClick={getuserid} className="newUsersUser">
         <Link to={`/${user?.username}`}>
           <span style={{color:"black",marginRight: "111px"}} className="newUsersUserTitle">{user.username}</span>
         </Link>

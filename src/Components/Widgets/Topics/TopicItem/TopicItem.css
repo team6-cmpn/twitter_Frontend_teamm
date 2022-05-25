@@ -1,10 +1,12 @@
 
 .keyword__name {
+  cursor: pointer;
   text-align: left;
   margin-bottom: 8px;
   font-size: 15px;
 }
 .keyword__tweets {
+  cursor: pointer;
   margin-top: 7px;
   color: silver;
   display: flex;
@@ -57,6 +59,7 @@
   
 }
 .keyword__heading {
+  cursor: pointer;
   font-size: 20px;
   text-align: left;
   border-bottom: 1px solid #e6ecf0;

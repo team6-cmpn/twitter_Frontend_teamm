@@ -1,4 +1,31 @@
 import   * as mockAPI  from './ProfileMock'
+import React from "react";
+import ReactDOM from "react-dom";
+import { BrowserRouter as Router } from "react-router-dom";
+import { ThemeProvider } from "../../ThemeContext";
+import Profile from "./Profile";
+
+window.matchMedia =
+  window.matchMedia ||
+  function () {
+    return {
+      matches: false,
+      addListener: function () {},
+      removeListener: function () {},
+    };
+  };
+  
+it("renders without crashing settings", () => {
+  const div = document.createElement("div");
+  ReactDOM.render(
+    <Router>
+      <ThemeProvider>
+        <Profile />
+      </ThemeProvider>
+    </Router>,
+    div
+  );
+});
 
   var body={
     name: "Menna",

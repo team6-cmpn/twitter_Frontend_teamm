@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 // import  getUserInformation    from './UserMock';
 import Trends from "../Widgets/Trends";
 import Sidebar from "../Sidebar/Sidebar";
-import {Follow,destroyFollow, Block,unBlock,GetUserInfo,Unmute,Mute,GetTweetList,GetLikedTweetList,getUserLook} from './BackendUser';
+import {Follow,destroyFollow, GetMediaList,Block,unBlock,GetUserInfo,Unmute,Mute,GetTweetList,GetLikedTweetList,getUserLook} from './BackendUser';
 import {Modal} from "antd";
 import "../Widgets/FriendSuggestions/FriendSuggestionItem/FriendSuggestionItem.css";
 // import { GetPostTweet } from "../homepage/feedmock";
@@ -16,6 +16,7 @@ import Post from "../homepage/Post";
 import { RecoilRoot } from "recoil";
 import { Popover } from 'antd';
 import Configure from '../../Configure';
+import { ToastContainer, toast } from "react-toastify";
 
 /**User
  * Shows User layout 
@@ -55,7 +56,7 @@ function User(){
     var TweetsLists= GetTweetList();
     var LikedTweetsLists= GetLikedTweetList().tweets;
     getUserLook();
-    // var MediaLists=GetMediaList();
+    var MediaLists=GetMediaList().tweets;
   
     const [MuteState, setMuteState] = useState("Mute");
     const toggleMute = () => {
@@ -99,8 +100,15 @@ function User(){
         Unmute()}
     }
 
+
     function FollowButtonActions(){
-        Follow();
+        const resp = Follow();
+        resp.then(function (tempresult) {
+          console.log(tempresult);
+          if (tempresult === "the user is already following the user" && textState==="Follow") {
+            toast.dark(`You're already following this user!`);
+          }
+        })
         if (textState==="Follow")
         toggleText();
         else
@@ -215,7 +223,7 @@ function User(){
                     <div className="for_model">
                     <div style={{fontSize: "200%", marginTop: "10px", color: "black", textAlign: "center" }}>Unfollow this user?</div>
                     <div style={{padding: "30px 30px"}}>Their Tweets will no longer show up in your home timeline. You can still view their profile. </div>
-                    <button id="Unfollow" onClick={()=>{toggleText(); onExist();destroyFollow(localStorage.getItem("userId"))}} className='ButtonBlock'>Unfollow</button>
+                    <button id="Unfollow" onClick={()=>{toggleText(); onExist(); destroyFollow();}} className='ButtonBlock'>Unfollow</button>
                     </div>
                 </Modal>
                 
@@ -307,7 +315,7 @@ function User(){
                         : (isTab===3)?
                             <>
 
-                            {/* {MediaLists.map((userlist, index) => (
+                            {MediaLists.map((userlist, index) => (
                                 <Post
                                 key={index}
                                 displayName={test?.name}
@@ -322,7 +330,7 @@ function User(){
                                 // logedin_user_id={loginuser_id}
                                 likes={userlist?.favorites.length}
                                 retweets={userlist?.retweetUsers.length}
-                                 />))} */}
+                                 />))}
                             
                             
                             </>

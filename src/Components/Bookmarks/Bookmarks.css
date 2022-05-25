@@ -7,6 +7,7 @@
     background-color: #ffffff;
     width: 580px;
     margin-left: 20%;
+    position:fixed;
   }
 
   .title {
@@ -52,4 +53,19 @@
   }
   .moreButton:hover {
     cursor: pointer;
+  }
+  .toastBodyClass {
+    color: white;
+  }
+
+  .toastProgress {
+    background: dodgerblue !important;
+  }
+
+  .toastBodyClass2 {
+    color: red; 
+  }
+
+  .toastProgress2 {
+    background: red !important;
   }

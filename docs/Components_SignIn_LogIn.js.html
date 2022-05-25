@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Components/SignIn/LogIn.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Components/SignIn/LogIn.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { useNavigate, Link } from "react-router-dom";
+import googleIcon from "../images/googleIcon.png";
+import React, { useState } from "react";
+import "./LogIn.css";
+import "antd/dist/antd.css";
+import GoogleLogin from "react-google-login";
+import { Modal, Form, Input } from "antd";
+import {
+  TwitterOutlined,
+  EyeInvisibleOutlined,
+  EyeTwoTone,
+} from "@ant-design/icons";
+import mock from "../SignUp/mockRegistration";
+import * as BE from "../SignUp/backEndRegistration";
+
+/**
+ *Log in
+ *allows a registered user to enter his/her username or email &amp; password
+ * @returns Login form
+ */
+function LogIn() {
+  const navigate = useNavigate();
+  const [isModalVisible, setModalVisible] = useState(true);
+  const [isModal2Visible, setModal2Visible] = useState(false);
+  const [btnDisabled, setBtnDisabled] = useState(true);
+  const [data, setData] = useState(null);
+  const [password, setPassword] = useState(null);
+  const [apiResponseMessage, setApiResponseMessage] = useState();
+
+  function getData(val) {
+    setData(val.target.value);
+  }
+
+  function getPassword(val) {
+    setPassword(val.target.value);
+  }
+
+  const onSubModel = (e, stateSub = true, stateMain = false) => {
+    setModalVisible(stateMain);
+    setModal2Visible(stateSub);
+  };
+
+  const returnSubModal = (e, stateSub = true, stateMain = false) => {
+    setModalVisible(stateSub);
+    setModal2Visible(stateMain);
+  };
+
+  const responseGoogle = (response) => {
+    console.log(response);
+    // history ("/home");
+  };
+  function logInFailure(response) {
+    console.log(response);
+  }
+
+  function logInSuccess(response) {
+    console.log("Login Success: currentUser:", response.profileObj);
+    var googlebody = {
+      googleId: response.profileObj.googleId,
+    };
+    const promise = BE.backEndGoogleLogIn(googlebody);
+    promise.then((message) => {
+      if (message === "") {
+        navigate("/home");
+      } else {
+        alert(message);
+      }
+    });
+  }
+
+  const buttonState = (changedValues, allValues) => {
+    if (allValues.next !== undefined &amp;&amp; allValues.next !== "") {
+      setBtnDisabled(false);
+    } else {
+      setBtnDisabled(true);
+    }
+  };
+
+  var body = {
+    data: data,
+    password: password,
+  };
+
+  function nextButtonAction() {
+    const mockPromise = mock.logInPost(body);
+    const promise = BE.backEndLogIn(body);
+    promise.then((message) => {
+      setApiResponseMessage(
+        message + ". You can re-enter your info by pressing on close (x) sign"
+      );
+      if (message === "") {
+        navigate("/home");
+        localStorage.setItem("word", "");
+        localStorage.setItem("word1", "");
+        window.location.reload();
+      }
+    });
+
+    // console.log(home);
+    // if (home==='false') {console.log('fe 2arf')}
+    // if (GotoHome || home) { navigate('/home'); }
+  }
+
+  return (
+    &lt;div>
+      &lt;Modal
+        title={
+          &lt;TwitterOutlined
+            style={{ fontSize: "200%", marginTop: "1px", color: "Dodgerblue" }}
+          />
+        }
+        style={{ textAlign: "center", display: "inline-flex" }}
+        okText="Next"
+        okButtonProps={{
+          id: "nextbutton1",
+          shape: "round",
+          size: "large",
+          style: {
+            width: 450,
+            fontWeight: "bold",
+            alignItems: "center",
+            justifyContent: "center",
+            display: "flex",
+          },
+        }}
+        cancelButtonProps={{ style: { display: "none" } }}
+        visible={isModalVisible}
+        bodyStyle={{ height: 490, font: "Helvetica", textAlign: "left" }}
+        width={500}
+        centered={true}
+        onCancel={() => navigate("/")}
+        footer={null}
+        maskClosable={false}
+      >
+        &lt;span className="text7">Sign in to Twitter&lt;/span>
+        &lt;div>
+          &lt;GoogleLogin
+            clientId="667720928468-9o7ou05mbdh2o6qe97kericodua0nstq.apps.googleusercontent.com"
+            render={(renderProps) => (
+              &lt;button
+                id="googleButton"
+                onClick={renderProps.onClick}
+                disabled={renderProps.disabled}
+                class="googleButton"
+              >
+                &lt;img className="imggoogle" alt="" src={googleIcon}>&lt;/img>
+                &lt;span>Sign in with Google&lt;/span>
+              &lt;/button>
+            )}
+            buttonText="Login"
+            onSuccess={logInSuccess}
+            onFailure={logInFailure}
+            cookiePolicy={"single_host_origin"}
+          />
+          &lt;div>
+            &lt;div className="flex-parent2">
+              &lt;div className="flex-child-edge2">&lt;/div>
+              &lt;div className="flex-child-text2 tt2 ">or&lt;/div>
+              &lt;div className="flex-child-edge2">&lt;/div>
+            &lt;/div>
+          &lt;/div>
+
+          &lt;div>
+            &lt;Form onValuesChange={buttonState}>
+              &lt;Form.Item name="next">
+                &lt;Input
+                  id="emailOrUserName "
+                  style={{
+                    width: 300,
+                    marginLeft: 70,
+                    marginTop: 1,
+                    height: 50,
+                  }}
+                  onChange={getData}
+                  placeholder="email or username"
+                >&lt;/Input>
+              &lt;/Form.Item>
+            &lt;/Form>
+
+            &lt;button
+              id="nexttButton"
+              className="googleButton button-color"
+              disabled={btnDisabled}
+              onClick={() => onSubModel()}
+            >
+              Next
+            &lt;/button>
+            &lt;Link id="forgetPass" to="/forgetpassword">
+              {" "}
+              &lt;button className="googleButton button2-color">
+                Forget Password?
+              &lt;/button>
+            &lt;/Link>
+          &lt;/div>
+
+          &lt;br />
+          &lt;div>
+            &lt;span className="txt3">Dont have an account? &lt;/span>
+            &lt;Link id="signUpRedirect" to="/signup">
+              Sign up
+            &lt;/Link>
+          &lt;/div>
+        &lt;/div>
+      &lt;/Modal>
+
+      &lt;Modal
+        title={
+          &lt;TwitterOutlined
+            style={{ fontSize: "200%", marginTop: "1px", color: "Dodgerblue" }}
+          />
+        }
+        style={{ textAlign: "center", display: "inline-flex" }}
+        okText="Next"
+        okButtonProps={{
+          id: "nextbutton2",
+          shape: "round",
+          size: "large",
+          style: {
+            width: 450,
+            fontWeight: "bold",
+            alignItems: "center",
+            justifyContent: "center",
+            display: "flex",
+          },
+        }}
+        cancelButtonProps={{ style: { display: "none" } }}
+        visible={isModal2Visible}
+        bodyStyle={{ height: 490, font: "Helvetica", textAlign: "left" }}
+        width={500}
+        centered={true}
+        onCancel={() => returnSubModal()}
+        footer={null}
+        maskClosable={false}
+      >
+        &lt;span className="text3">Enter your password&lt;/span>
+        &lt;Form onValuesChange={buttonState}>
+          &lt;Form.Item name="password">
+            &lt;Input.Password
+              id="password"
+              style={{ width: 450, height: 50 }}
+              placeholder="Password"
+              onChange={getPassword}
+              iconRender={(visible) =>
+                visible ? &lt;EyeTwoTone /> : &lt;EyeInvisibleOutlined />
+              }
+            >&lt;/Input.Password>
+          &lt;/Form.Item>
+        &lt;/Form>
+        &lt;Link id="forgetPassRedirect" to="/forgetpassword">
+          Forget password?
+        &lt;/Link>
+        &lt;br>&lt;/br>
+        &lt;br>&lt;/br>
+        {apiResponseMessage ===
+        "This account is deactivated!. You can re-enter your info by pressing on close (x) sign" ? (
+          &lt;span style={{ color: "red", fontSize: "100", fontWeight: "bold" }}>
+            {" "}
+            {apiResponseMessage}
+            &lt;br>&lt;/br>
+            &lt;button
+              id="reactivateButton"
+              className="reactivateButton"
+              to=""
+              onClick={() => {
+                BE.reactivateAccount();
+              }}
+            >
+              Reactivate?
+            &lt;/button>
+          &lt;/span>
+        ) : (
+          &lt;span style={{ color: "red", fontSize: "100", fontWeight: "bold" }}>
+            {" "}
+            {apiResponseMessage}
+          &lt;/span>
+        )}
+        &lt;div>
+          &lt;button
+            id="nextButton"
+            className="googleButton button3-color"
+            onClick={() => nextButtonAction()}
+          >
+            Log in
+          &lt;/button>
+        &lt;/div>
+        &lt;div>
+          &lt;span className="txt3">Dont have an account? &lt;/span>
+          &lt;Link id="signUpLink" to="/signup">
+            Sign up
+          &lt;/Link>
+        &lt;/div>
+      &lt;/Modal>
+    &lt;/div>
+  );
+}
+
+export default LogIn;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#AccountInfoMenuss">AccountInfoMenuss</a></li><li><a href="global.html#AccountInformation">AccountInformation</a></li><li><a href="global.html#backEndGoogleLogIn">backEndGoogleLogIn</a></li><li><a href="global.html#backEndGooglePost">backEndGooglePost</a></li><li><a href="global.html#backEndLatest">backEndLatest</a></li><li><a href="global.html#backEndLogIn">backEndLogIn</a></li><li><a href="global.html#backEndP">backEndP</a></li><li><a href="global.html#backEndPost">backEndPost</a></li><li><a href="global.html#Blocked">Blocked</a></li><li><a href="global.html#Blocked_days">Blocked_days</a></li><li><a href="global.html#BlockedAccounts">BlockedAccounts</a></li><li><a href="global.html#BlockForm">BlockForm</a></li><li><a href="global.html#Bookmarks">Bookmarks</a></li><li><a href="global.html#ChangeEmail">ChangeEmail</a></li><li><a href="global.html#Changepassword">Changepassword</a></li><li><a href="global.html#Changephone">Changephone</a></li><li><a href="global.html#ChangeUsername">ChangeUsername</a></li><li><a href="global.html#columns">columns</a></li><li><a href="global.html#DeactivateAcc">DeactivateAcc</a></li><li><a href="global.html#Delete_SaveUser">Delete_SaveUser</a></li><li><a href="global.html#Explore">Explore</a></li><li><a href="global.html#Feed">Feed</a></li><li><a href="global.html#FollowedYou">FollowedYou</a></li><li><a href="global.html#Followers">Followers</a></li><li><a href="global.html#FollowersList">FollowersList</a></li><li><a href="global.html#Following">Following</a></li><li><a href="global.html#FollowingList">FollowingList</a></li><li><a href="global.html#ForgetPassword">ForgetPassword</a></li><li><a href="global.html#forgetPassword">forgetPassword</a></li><li><a href="global.html#FriendSuggestions">FriendSuggestions</a></li><li><a href="global.html#GetNotificationsFavourites">GetNotificationsFavourites</a></li><li><a href="global.html#GetSearchedPhotos">GetSearchedPhotos</a></li><li><a href="global.html#getTopUsers">getTopUsers</a></li><li><a href="global.html#getUserLook">getUserLook</a></li><li><a href="global.html#GoogleSignUp">GoogleSignUp</a></li><li><a href="global.html#ImageBox">ImageBox</a></li><li><a href="global.html#LikedYou">LikedYou</a></li><li><a href="global.html#LikedYouBe">LikedYouBe</a></li><li><a href="global.html#LogIn">LogIn</a></li><li><a href="global.html#LogOut">LogOut</a></li><li><a href="global.html#MainSettings">MainSettings</a></li><li><a href="global.html#mock">mock</a></li><li><a href="global.html#MuteandBlock">MuteandBlock</a></li><li><a href="global.html#Muted">Muted</a></li><li><a href="global.html#MutedAccounts">MutedAccounts</a></li><li><a href="global.html#Notifications">Notifications</a></li><li><a href="global.html#Notified">Notified</a></li><li><a href="global.html#Post">Post</a></li><li><a href="global.html#Post_ChangePassword">Post_ChangePassword</a></li><li><a href="global.html#PrivacyAndSafety">PrivacyAndSafety</a></li><li><a href="global.html#Profile">Profile</a></li><li><a href="global.html#Put_SaveUser">Put_SaveUser</a></li><li><a href="global.html#reactivateAccount">reactivateAccount</a></li><li><a href="global.html#resendEmail">resendEmail</a></li><li><a href="global.html#resendSMS">resendSMS</a></li><li><a href="global.html#resetPassword">resetPassword</a></li><li><a href="global.html#SavedSearch">SavedSearch</a></li><li><a href="global.html#SecurityContent">SecurityContent</a></li><li><a href="global.html#Settings">Settings</a></li><li><a href="global.html#SettingsContent">SettingsContent</a></li><li><a href="global.html#SettingsContentInMenus">SettingsContentInMenus</a></li><li><a href="global.html#Sidebar">Sidebar</a></li><li><a href="global.html#SignUp">SignUp</a></li><li><a href="global.html#StartPage">StartPage</a></li><li><a href="global.html#SubsettingsContent">SubsettingsContent</a></li><li><a href="global.html#TopHashtagComponent">TopHashtagComponent</a></li><li><a href="global.html#Topics">Topics</a></li><li><a href="global.html#TopUsers">TopUsers</a></li><li><a href="global.html#Trends">Trends</a></li><li><a href="global.html#Tweetbox">Tweetbox</a></li><li><a href="global.html#User">User</a></li><li><a href="global.html#userridd">userridd</a></li><li><a href="global.html#validateEmail">validateEmail</a></li><li><a href="global.html#validatePassword">validatePassword</a></li><li><a href="global.html#validateUserName">validateUserName</a></li><li><a href="global.html#verifyEmail">verifyEmail</a></li><li><a href="global.html#verifyEmailForgetPassword">verifyEmailForgetPassword</a></li><li><a href="global.html#YourAccount">YourAccount</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Wed May 25 2022 00:42:32 GMT+0200 (Eastern European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

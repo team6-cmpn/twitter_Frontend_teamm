@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Components/Explore/Explore.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Components/Explore/Explore.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import router, { useState, useEffect, useCallback } from "react";
+//import {useEffect} from "react";
+// import {RecoilRoot} from "recoil";
+//import './Home.css';
+// import Sidebar from "./Sidebar/Sidebar";
+// import { FaSistrix } from "react-icons/fa";
+import Trends from "../Widgets/Trends";
+// import FriendSuggestions from "./Widgets/FriendSuggestions/FriendSuggestions";
+// import TopicItem from "./Widgets/Topics/Topics";
+import { Form, Input, Button, Space } from "antd";
+// import { Avatar, Button } from "@material-ui/core";
+// import LikedYou from "./LikedYou";
+// import FollowedYou from "./FollowedYou";
+// import  * as mockAPI   from './mockSearch';
+//import SettingsBox from "./SettingsBox/SettingsBox";
+import "../Profile/Profile.css";
+import * as BE from "./backEndSearch";
+// import Post from "./homepage/Post";
+//import * as mocked from "./homepage/feedmock";
+import Post from "../homepage/Post";
+import { RecoilRoot } from "recoil";
+
+import { backEndP } from "./backEndSearch";
+import * as backend from "../homepage/backendFeed";
+import FriendSuggestionItem from "../Widgets/FriendSuggestions/FriendSuggestionItem/FriendSuggestionItem";
+import { type } from "@testing-library/user-event/dist/type";
+import { Tab } from "@material-ui/core";
+import Configure from "../../Configure";
+import { useNavigate, Link } from "react-router-dom";
+import Sidebar from "../Sidebar/Sidebar";
+//import TrendAccounts from "./Trendaccounts";
+
+import { PoweroffOutlined } from "@ant-design/icons";
+/**Explore
+ * Shows explore page for the user
+ *
+ * @returns (Layout of explore page)
+ */
+
+function Explore() {
+  const [section, setSection] = useState(1);
+  const history = useNavigate();
+  const [data, setData] = useState(null);
+  const [id, setID] = useState();
+  
+
+  
+
+  const handleSubmit = (e) => {
+    if (e.key === "Enter") {
+      return (
+        
+        history("/Explor")
+
+        
+      );
+      
+    }
+  };
+
+ 
+
+  var sav;
+  function getData(val) {
+    setData(val.target.value);
+    localStorage.setItem("word1", val.target.value);
+ 
+    
+  }
+
+  let word = localStorage.getItem("word");
+
+  
+
+  const [user, setusername] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [tweets, showTweet] = useState([]);
+  const [twetted, postedtweet] = useState([]);
+  const [twette, postedtwee] = useState([]);
+  const [twettes, posted] = useState([]);
+  const [pe, people] = useState([]);
+  const [content, getcontent] = useState([]);
+
+  const [displayN, setDisplay] = useState([]);
+  const [tweet_id, setid_tweet] = useState([]);
+  const [date, setdate] = useState();
+  const [disp_img, getimg] = useState([]);
+
+  const [, updateState] = useState();
+  const forceUpdate = useCallback(() => updateState({}), []);
+
+ 
+
+  const p2 = BE.GetSearchedName();
+  console.log("console", p2);
+
+  const p3 = BE.GetSearchedUserName();
+
+  const ph = BE.GetSearchedPhotos();
+
+  const top = BE.GetSearchTop();
+
+  console.log(p2.data);
+
+  const usernametweet = BE.GetTweetsName();
+  console.log(p2.data);
+
+ 
+  console.log(tweets);
+ 
+  BE.getUserLook();
+
+
+
+  
+
+ 
+
+  
+
+
+  if (word) {
+    //console.log(word)
+    localStorage.setItem("searchData", word);
+    var body = {
+      data: word,
+    };
+  }
+  
+
+
+  localStorage.setItem("ID", id);
+  var body2 = {
+    id: id,
+  };
+
+  
+
+  
+
+  function saveUser() {
+    const promise = BE.Put_SaveUser();
+    
+    
+  }
+
+  console.log(localStorage.getItem("people"));
+  if (p2.status === 200 &amp;&amp; word[0] !== "@") {
+    var searcheduser = p2.data?.user[1];
+    console.log("user", searcheduser);
+  }
+
+  if (p3.status === 200 &amp;&amp; word[0] === "@") {
+    var searchedusername = p3.data?.usernames[1];
+    console.log("user", searchedusername);
+  }
+
+  var farah;
+  if (top.status === 200 &amp;&amp; word[0] !== "@") {
+    var searchedtop = top.data?.tweets;
+    farah = localStorage.getItem("userridd");
+    console.log(searchedtop);
+  }
+
+  if (top.status === 200 &amp;&amp; word[0] === "@") {
+    var m = top.data?.mentions;
+    console.log("hiiiiiiiihhh", top.data);
+  }
+
+  if (ph.status === 200 &amp;&amp; word[0] !== "@") {
+    var photos = ph.data?.tweets;
+    console.log("goooo yala", ph.data?.tweets[0].imageUrl.length);
+    console.log("hiiiiiiiihhh", top.data);
+  }
+
+  //console.log(info);
+  const userinfo = backend.GetUserInfo();
+  const [test, istest] = useState();
+  const user1 = backend.GetUserInfo(localStorage.getItem("idd"));
+  user1.then(function (result) {
+    // console.log("result", result);
+    istest(result);
+  });
+  var Url_avatar = [];
+
+  return (
+    &lt;div>
+      &lt;Sidebar />
+
+      {/* &lt;SearchInput  placeholder="Search Twitter" /> */}
+      &lt;div className="Expmenu">
+        {/* onKeyPress={handleSubmit} */}
+        &lt;Form>
+          &lt;Form.Item name="n">
+            &lt;input
+              onChange={getData}
+              onKeyPress={handleSubmit.bind(this)}
+              id="search"
+              className="trend__contr "
+              type="text"
+              placeholder="Search Twitter"
+            >&lt;/input>
+          &lt;/Form.Item>
+        &lt;/Form>
+       
+
+        {p2.status === 200 || p3.status === 200 ? (
+          &lt;Button type="primary" onClick={saveUser}>
+            SAVE USER
+          &lt;/Button>
+        ) : (
+          &lt;Button type="primary" loading>
+            {" "}
+            Loading{" "}
+          &lt;/Button>
+        )}
+
+        &lt;div className="notificationsCategory">
+          &lt;div
+            className={section === 1 &amp;&amp; "notificationActive"}
+            onClick={() => setSection(1)}
+          >
+            &lt;span>Top&lt;/span>
+          &lt;/div>
+          &lt;div
+            className={section === 2 &amp;&amp; "notificationActive"}
+            onClick={() => setSection(2)}
+          >
+            &lt;span>Latest&lt;/span>
+          &lt;/div>
+          &lt;div
+            className={section === 3 &amp;&amp; "notificationActive"}
+            onClick={() => setSection(3)}
+          >
+            &lt;span>People&lt;/span>
+          &lt;/div>
+          &lt;div
+            className={section === 4 &amp;&amp; "notificationActive"}
+            onClick={() => setSection(4)}
+          >
+            &lt;span>Photos&lt;/span>
+          &lt;/div>
+        &lt;/div>
+
+        &lt;div>
+          &lt;RecoilRoot>
+            {section === 1 &amp;&amp; (data || word || word === "@") ? (
+              //Tabs()
+              &lt;>
+                &lt;>
+              
+
+                  &lt;>
+                  
+                    {ph.data?.tweets[0].imageUrl.length === 1 ||
+                    ph.data?.tweets[0].imageUrl.length === 2 ||
+                    ph.data?.tweets[0].imageUrl.length === 3 ||
+                    ph.data?.tweets[0].imageUrl.length === 4 ? (
+                      &lt;>
+                        &lt;article>
+                          {photos?.map((userlist, index) => (
+                            &lt;Post
+                              key={index}
+                              //props={userlist}
+                              displayName={localStorage.getItem(
+                                `nametweet ${index}`
+                              )}
+                              username={localStorage.getItem(
+                                `usernametweet ${index}`
+                              )}
+                              tweet_id={userlist._id}
+                              user_tweeted_id={userlist.user}
+                              text={userlist.text}
+                              date={userlist.created_at}
+                              user_id={localStorage.getItem("userId")}
+                              image={userlist.imageUrl}
+                              logedin_user_id={localStorage.getItem("userId")}
+                              //displayName={userlist.user}
+                            />
+                          ))}
+                        &lt;/article>
+                      &lt;/>
+                    ) : (
+                      &lt;>
+                        &lt;article>
+                          {searchedtop?.map((userlist, index) => (
+                            &lt;Post
+                              key={index}
+                              //props={userlist}
+                              displayName={localStorage.getItem(
+                                `nametweet ${index}`
+                              )}
+                              username={localStorage.getItem(
+                                `usernametweet ${index}`
+                              )}
+                              tweet_id={userlist._id}
+                              user_tweeted_id={userlist.user}
+                              logedin_user_id={localStorage.getItem("userId")}
+                              text={userlist.text}
+                              date={userlist.created_at}
+
+                              //displayName={userlist.user}
+                            />
+                          ))}
+                        &lt;/article>
+                      &lt;/>
+                    )}
+                    &lt;article>
+                      {m?.map((userlist, index) => (
+                        &lt;Post
+                          key={index}
+                          //props={userlist}
+                          displayName={localStorage.getItem(
+                            `nametweet ${index}`
+                          )}
+                          username={localStorage.getItem(
+                            `usernametweet ${index}`
+                          )}
+                          text={userlist.text}
+                          tweet_id={userlist._id}
+                          user_tweeted_id={userlist.user}
+                          logedin_user_id={localStorage.getItem("userId")}
+                          date={userlist.created_at}
+                          user_id={localStorage.getItem("userId")}
+                          mention={userlist.mention}
+                          avatar={`${Configure.backURL}${Url_avatar}`}
+                          image={userlist.imageUrl}
+                          //displayName={userlist.user}
+                        />
+                      ))}
+                    &lt;/article>
+                    &lt;article>
+                      {searcheduser?.map((userlist, index) => (
+                        &lt;FriendSuggestionItem
+                          key={index}
+                          props={userlist}
+                          //displayName={localStorage.getItem(`people ${index}`)}
+                        />
+                      ))}
+                    &lt;/article>
+                    &lt;article>
+                      {searchedusername?.map((userlist, index) => (
+                        &lt;FriendSuggestionItem
+                          key={index}
+                          props={userlist}
+                          //displayName={localStorage.getItem(`people ${index}`)}
+                        />
+                      ))}
+                    &lt;/article>
+                  &lt;/>
+                &lt;/>
+              &lt;/>
+            ) : section === 2 ? (
+              //console.log("hello")
+              &lt;>
+                &lt;article>
+                  {searchedtop?.map((userlist, index) => (
+                    &lt;Post
+                      key={index}
+                      //props={userlist}
+                      displayName={localStorage.getItem(`nametweet ${index}`)}
+                      username={localStorage.getItem(`usernametweet ${index}`)}
+                      text={userlist.text}
+                      date={userlist.created_at}
+                      tweet_id={userlist._id}
+                      user_tweeted_id={userlist.user}
+                      logedin_user_id={localStorage.getItem("userId")}
+                      user_id={localStorage.getItem("userId")}
+                      //displayName={userlist.user}
+                    />
+                  ))}
+                &lt;/article>
+
+                
+              &lt;/>
+            ) : section === 3 ? (
+              &lt;>
+                &lt;article>
+                  {searcheduser?.map((userlist, index) => (
+                    &lt;FriendSuggestionItem
+                      key={index}
+                      props={userlist}
+                      //displayName={localStorage.getItem(`people ${index}`)}
+                    />
+                  ))}
+                &lt;/article>
+                &lt;article>
+                  {searchedusername?.map((userlist, index) => (
+                    &lt;FriendSuggestionItem
+                      key={index}
+                      props={userlist}
+                      //displayName={localStorage.getItem(`people ${index}`)}
+                    />
+                  ))}
+                &lt;/article>
+               
+              &lt;/>
+            ) : (
+              &lt;>
+                &lt;article>
+                  {photos?.map((userlist, index) => (
+                    &lt;Post
+                      key={index}
+                      //props={userlist}
+                      displayName={localStorage.getItem(`nametweet ${index}`)}
+                      username={localStorage.getItem(`usernametweet ${index}`)}
+                      text={userlist.text}
+                      date={userlist.created_at}
+                      tweet_id={userlist._id}
+                      user_tweeted_id={userlist.user}
+                      logedin_user_id={localStorage.getItem("userId")}
+                      user_id={localStorage.getItem("userId")}
+                      image={userlist.imageUrl}
+                      //displayName={userlist.user}
+                    />
+                  ))}
+                &lt;/article>
+              &lt;/>
+            )}
+
+            {/* (
+             // Tabs()
+             console.log(item)
+             
+            //console.log("offf")
+            
+            )//:(console.log("yaa")) */}
+          &lt;/RecoilRoot>
+        &lt;/div>
+      &lt;/div>
+
+      &lt;Trends />
+    &lt;/div>
+  );
+}
+export default Explore;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#AccountInfoMenuss">AccountInfoMenuss</a></li><li><a href="global.html#AccountInformation">AccountInformation</a></li><li><a href="global.html#backEndGoogleLogIn">backEndGoogleLogIn</a></li><li><a href="global.html#backEndGooglePost">backEndGooglePost</a></li><li><a href="global.html#backEndLatest">backEndLatest</a></li><li><a href="global.html#backEndLogIn">backEndLogIn</a></li><li><a href="global.html#backEndP">backEndP</a></li><li><a href="global.html#backEndPost">backEndPost</a></li><li><a href="global.html#Blocked">Blocked</a></li><li><a href="global.html#Blocked_days">Blocked_days</a></li><li><a href="global.html#BlockedAccounts">BlockedAccounts</a></li><li><a href="global.html#BlockForm">BlockForm</a></li><li><a href="global.html#Bookmarks">Bookmarks</a></li><li><a href="global.html#ChangeEmail">ChangeEmail</a></li><li><a href="global.html#Changepassword">Changepassword</a></li><li><a href="global.html#Changephone">Changephone</a></li><li><a href="global.html#ChangeUsername">ChangeUsername</a></li><li><a href="global.html#columns">columns</a></li><li><a href="global.html#DeactivateAcc">DeactivateAcc</a></li><li><a href="global.html#Delete_SaveUser">Delete_SaveUser</a></li><li><a href="global.html#Explore">Explore</a></li><li><a href="global.html#Feed">Feed</a></li><li><a href="global.html#FollowedYou">FollowedYou</a></li><li><a href="global.html#Followers">Followers</a></li><li><a href="global.html#FollowersList">FollowersList</a></li><li><a href="global.html#Following">Following</a></li><li><a href="global.html#FollowingList">FollowingList</a></li><li><a href="global.html#ForgetPassword">ForgetPassword</a></li><li><a href="global.html#forgetPassword">forgetPassword</a></li><li><a href="global.html#FriendSuggestions">FriendSuggestions</a></li><li><a href="global.html#GetNotificationsFavourites">GetNotificationsFavourites</a></li><li><a href="global.html#GetSearchedPhotos">GetSearchedPhotos</a></li><li><a href="global.html#getTopUsers">getTopUsers</a></li><li><a href="global.html#getUserLook">getUserLook</a></li><li><a href="global.html#GoogleSignUp">GoogleSignUp</a></li><li><a href="global.html#ImageBox">ImageBox</a></li><li><a href="global.html#LikedYou">LikedYou</a></li><li><a href="global.html#LikedYouBe">LikedYouBe</a></li><li><a href="global.html#LogIn">LogIn</a></li><li><a href="global.html#LogOut">LogOut</a></li><li><a href="global.html#MainSettings">MainSettings</a></li><li><a href="global.html#mock">mock</a></li><li><a href="global.html#MuteandBlock">MuteandBlock</a></li><li><a href="global.html#Muted">Muted</a></li><li><a href="global.html#MutedAccounts">MutedAccounts</a></li><li><a href="global.html#Notifications">Notifications</a></li><li><a href="global.html#Notified">Notified</a></li><li><a href="global.html#Post">Post</a></li><li><a href="global.html#Post_ChangePassword">Post_ChangePassword</a></li><li><a href="global.html#PrivacyAndSafety">PrivacyAndSafety</a></li><li><a href="global.html#Profile">Profile</a></li><li><a href="global.html#Put_SaveUser">Put_SaveUser</a></li><li><a href="global.html#reactivateAccount">reactivateAccount</a></li><li><a href="global.html#resendEmail">resendEmail</a></li><li><a href="global.html#resendSMS">resendSMS</a></li><li><a href="global.html#resetPassword">resetPassword</a></li><li><a href="global.html#SavedSearch">SavedSearch</a></li><li><a href="global.html#SecurityContent">SecurityContent</a></li><li><a href="global.html#Settings">Settings</a></li><li><a href="global.html#SettingsContent">SettingsContent</a></li><li><a href="global.html#SettingsContentInMenus">SettingsContentInMenus</a></li><li><a href="global.html#Sidebar">Sidebar</a></li><li><a href="global.html#SignUp">SignUp</a></li><li><a href="global.html#StartPage">StartPage</a></li><li><a href="global.html#SubsettingsContent">SubsettingsContent</a></li><li><a href="global.html#TopHashtagComponent">TopHashtagComponent</a></li><li><a href="global.html#Topics">Topics</a></li><li><a href="global.html#TopUsers">TopUsers</a></li><li><a href="global.html#Trends">Trends</a></li><li><a href="global.html#Tweetbox">Tweetbox</a></li><li><a href="global.html#User">User</a></li><li><a href="global.html#userridd">userridd</a></li><li><a href="global.html#validateEmail">validateEmail</a></li><li><a href="global.html#validatePassword">validatePassword</a></li><li><a href="global.html#validateUserName">validateUserName</a></li><li><a href="global.html#verifyEmail">verifyEmail</a></li><li><a href="global.html#verifyEmailForgetPassword">verifyEmailForgetPassword</a></li><li><a href="global.html#YourAccount">YourAccount</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Wed May 25 2022 00:42:32 GMT+0200 (Eastern European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -4,29 +4,26 @@ import "./Bookmarks.css";
 import "../StartPage/StartPage.css";
 import Trends from "../Widgets/Trends";
 import bookmarksImg from "../images/bookmarksImg.png";
-import React, {useState} from "react";
-import {GetPostTweet} from "../homepage/feedmock";
+import React, { useState } from "react";
+import { GetPostTweet } from "../homepage/feedmock";
 import Post from "../homepage/Post";
-import {RecoilRoot} from "recoil";
-import {BiDotsHorizontal} from "react-icons/bi";
-import {Modal, Popover} from "antd";
-import {Link} from "react-router-dom";
+import { RecoilRoot } from "recoil";
+import { BiDotsHorizontal } from "react-icons/bi";
+import { Modal, Popover } from "antd";
+import { Link } from "react-router-dom";
 
 import * as BE from "./backEndBookmarks";
-import {setTwoToneColor} from "@ant-design/icons";
+import { setTwoToneColor } from "@ant-design/icons";
+
+/**
+ *Bookmarks
+ *allows user to save any tweet and delete it if wanted
+ * @returns saved tweets
+ */
 
 function Bookmarks() {
-  // const[img,setImg]=useState();
-  // setImg({bookmarksImg});
   const [tweeted, postedtweet] = React.useState([]);
   const [empty, setEmpty] = React.useState(true);
-  const [user, setUser] = React.useState([]);
-  const [name, setName] = React.useState("");
-  const [bookmarkAdded, setBookmarkAdded] = useState(false);
-  const [remove, setRemove] = useState();
-  const [val, setval] = useState();
-  const [checkout, setCheckout] = useState({});
-  let count = 0;
 
   const content = (
     <Link
@@ -40,14 +37,11 @@ function Bookmarks() {
       Clear all Bookmarks
     </Link>
   );
-  // setEmpty(true)
-  const countRef = React.useRef(0);
 
   var userIds = [];
   React.useEffect(() => {
     (async () => {
       const resp = await BE.GetBookmarks();
-      setBookmarkAdded(resp.length);
 
       for (let i = 0; i < resp.length; i++) {
         userIds += resp[i].user + ",";
@@ -55,18 +49,12 @@ function Bookmarks() {
 
       userIds = userIds.slice(0, -1);
       localStorage.setItem("tag", userIds);
-      console.log(userIds.length);
-      setRemove(userIds.length);
       postedtweet(resp);
       if (resp.length !== 0) {
         setEmpty(false);
       }
       if (userIds.length !== 0) {
         const userResp = BE.getUserLookup();
-
-        // userResp.then(function (tempresult) {
-        //   setval(tempresult);
-        // });
       }
     })();
   }, []);

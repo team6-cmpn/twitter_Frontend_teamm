@@ -5,7 +5,7 @@ import * as backend from "./backendFeed";
 import HomeTweet from "./Header_Tweet";
 import Feed from "./Feed";
 
-function Home_feed(event) {
+function Home_look(event) {
   const [postData, setpostData] = useState([]);
   const [isEnded, setisEnded] = useState(false);
 
@@ -31,4 +31,4 @@ function Home_feed(event) {
     </div>
   );
 }
-export default Home_feed;
+export default Home_look;

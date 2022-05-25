@@ -6,7 +6,7 @@ import "./userchart.css";
  * 
  * this function returns a chart that shows
  * pie chart that shows percentages for ages ranges for users in twitter clone
- * @returns 
+ * 
  */
 
 export default function UserChart() {

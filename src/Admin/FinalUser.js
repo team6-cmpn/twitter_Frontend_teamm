@@ -11,7 +11,7 @@ import BlockedUser from "./Users/BlockedUser";
  *
  * this component returns final page that have users grid and charts
  * for users per month, users per year and ages chart
- * @returns
+ * 
  */
 export default function FinalUser() {
   return (

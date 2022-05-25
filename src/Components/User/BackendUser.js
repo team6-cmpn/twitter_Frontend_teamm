@@ -25,6 +25,7 @@ export async function GetUserInfo(id) {
   return info;
 }
 
+
 export function GetTweetList() {
   const [tweetList, setTweetList] = React.useState([]);
   var id = localStorage.getItem("clicked_userID");
@@ -49,7 +50,7 @@ var idss=[];
 
 export function GetLikedTweetList() {
   const [tweetList, setTweetList] = React.useState([]);
-  var id = localStorage.getItem("userId");
+  var id = localStorage.getItem("clicked_userID");
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -105,7 +106,7 @@ export async function getUserLook(){
 
 export function GetMediaList() {
   const [tweetList, setTweetList] = React.useState([]);
-  var id = localStorage.getItem("userId");
+  var id = localStorage.getItem("clicked_userID");
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -155,9 +156,9 @@ export function GetMediaList() {
   export async function destroyFollow() {
     var user;
     var id=localStorage.getItem("clicked_userID");
-    
+    const body={}
     await axios
-      .get(`${Configure.backURL}friendships/destroy/${id}`, {
+      .post(`${Configure.backURL}friendships/destroy/${id}`, body,{
         headers: {
           "Content-Type": "application/json",
           "x-access-token": `${localStorage.getItem("token")}`,

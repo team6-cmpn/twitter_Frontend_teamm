@@ -12,7 +12,7 @@ import { toast, ToastContainer } from "react-toastify";
  *
  * this function returns a block form which you input number of days that the admin
  * make to block the user and this number must be greater than 0
- * @returns
+ *
  */
 
 function BlockForm() {
@@ -32,8 +32,18 @@ function BlockForm() {
   //     position: toast.POSITION.BOTTOM_CENTER,
   //   });
   // };
-  const notify = () => {
-    toast.info("Error Please Enter Valid Number Of Days", {
+  const notifyNegative = () => {
+    toast.info("Error Please Enter Positive Number Of Days", {
+      position: toast.POSITION.BOTTOM_CENTER,
+    });
+  };
+  const notifyWhole = () => {
+    toast.info("Number of Days Must Be Whole Number", {
+      position: toast.POSITION.BOTTOM_CENTER,
+    });
+  };
+  const notifyBoth = () => {
+    toast.info("Number of Days Must Be Whole Number And Positive", {
       position: toast.POSITION.BOTTOM_CENTER,
     });
   };
@@ -41,13 +51,16 @@ function BlockForm() {
   const [test, istest] = React.useState();
   const handleSubmit = async (e) => {
     const resp = BLockUser(body);
-    if (duration < 0) {
-      {
-        notify();
-
+    if (duration < 0 || duration % 1 !== 0) {
+      if (duration < 0) {
+        notifyNegative();
+      }else{
+        {
+        notifyWhole();
+        }
       }
-      e.preventDefault(); //prevent refresh of page
 
+      e.preventDefault(); //prevent refresh of page
     } else {
       localStorage.setItem("selectedIDs", null);
       console.log("..", resp);

@@ -11,7 +11,7 @@ import TopFiveHashtags from "./TopFiveHashtags";
  * this component returns sidebar and topbar and
  * components that shows tweets per month and tweets per year 
  * and top five liked tweets and top five followers account 
- * @returns 
+ *  
  */
 
 

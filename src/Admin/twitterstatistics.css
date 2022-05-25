@@ -34,10 +34,12 @@
 }
 @media screen and (max-width: 768px) {
   .adminstatisticsItem {
-    flex-direction: row;
-    width: 100%;
+    width: 70%;
   }
-  .adminstatistics {
-    display: inline;
+}
+@media screen and (max-width: 768px) {
+  .adminstatisticsItem {
+    width: 70%;
   }
+  
 }

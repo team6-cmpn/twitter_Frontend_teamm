@@ -10,11 +10,13 @@ import FollowingList from './FollowingList';
 // import {getFollowersList,getFollowingList} from './backEndProfile';
 import axios from 'axios';
 import Configure from '../../Configure'
+
 /**Following page
  * Shows following pages
  *  
  * @returns (Layout of following page)
  */
+
 function Following(){
     async function getFollowersList() {
         var id = localStorage.getItem("userId");

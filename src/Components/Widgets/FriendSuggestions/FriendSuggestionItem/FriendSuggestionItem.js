@@ -2,10 +2,10 @@ import { Avatar } from "@material-ui/core";
 import React, { useState } from "react";
 import { Modal } from "antd";
 import "./FriendSuggestionItem.css";
-import { Link } from "react-router-dom";
 import { GetSearchedName } from "../../../Explore/backEndSearch";
 import Configure from "../../../../Configure";
-import { MdVerified } from "react-icons/md";
+import {Follow,destroyFollow}from '../../../User/BackendUser';
+import {  toast } from "react-toastify";
 
 const FriendSuggestionItem = ({ props }) => {
   const [isModalVisible, setModalVisible] = useState(false);
@@ -15,7 +15,7 @@ const FriendSuggestionItem = ({ props }) => {
   const onExist = () => {
     setModalVisible(false);
   };
-  //const [stat,ToggleBuuton]= useState(false);
+  
   const [textState, setTextState] = useState("Follow");
   const toggleText = () => {
     setTextState((state) => (state === "Following" ? "Follow" : "Following"));
@@ -41,61 +41,43 @@ const FriendSuggestionItem = ({ props }) => {
     window.location.href = `/${props.username}`;
   };
 
-  console.log("fawzyyyyyyyyyyyy", info);
-  console.log("fawzyyyyyyy", Url);
+  function FollowButtonActions(){
+    const resp = Follow();
+    resp.then(function (tempresult) {
+      console.log(tempresult);
+      if (tempresult === "the user is already following the user" && textState==="Follow") {
+        toast.dark(`You're already following this user!`);
+      }
+    })
+    if (textState==="Follow")
+    toggleText();
+    else
+    onSubModel();
+} 
+
+ 
   return (
     // <div className="key">
     <div className="friendSuggestionsItem">
       <Avatar style={{marginRight:"10px"}} src={`${Configure.backURL}${Url}`} />
 
-      {/* {console.log("fawzyyyyyyyyyyyyyy",`${Configure.backURL}${Url}`)} */}
-      {/* <Link to={`/${props.username}`} onClickCapture={store_userID} >{props.name}</Link>  */}
-
+    
       <div className="user_name">{props.username}</div> 
       <div className="searchedname" onClickCapture={store_userID}>
         {props.name}
       </div>
 
       <div className="friendFollowButton">
-        <button
-          className="butto"
-          onClick={() => {
-            if (textState === "Follow") toggleText();
-            else onSubModel();
-          }}
-        >
+      <button className="butto" id="Follow" onClick={() => FollowButtonActions()}>
           {textState}
         </button>
-        {/* <button className="butto" onClick={() => ToggleBuuton()}>
-            { stat === false ? "Follow":"Following"}
-        </button> */}
+        
       </div>
 
-      {/* <ul >
-       <li>
-       <a href="">
-          {displayName}</a>
-        </li>
-      </ul>
-        
-      <ul>
-       <li>
-          @{username}
-       </li>
-      </ul>
-      
-      <div className="friendFollowButton">
-        Follow
-      </div> */}
+     
 
       <Modal
-        // text={
-        //   <h1
-        //     style={{fontSize: "200%", marginTop: "10px", color: "black" ,"border":"none"}}
-        //   >
-        //     Unfollow this user{" "}
-        //   </h1>
-        // }
+       
         style={{ textAlign: "center" }}
         visible={isModalVisible}
         bodyStyle={{ height: 300, font: "Helvetica", textAlign: "left" }}
@@ -123,6 +105,7 @@ const FriendSuggestionItem = ({ props }) => {
             onClick={() => {
               toggleText();
               onExist();
+              destroyFollow();
             }}
             className="followButton"
           >

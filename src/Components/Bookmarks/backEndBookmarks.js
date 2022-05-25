@@ -20,7 +20,7 @@ export async function addBookmarks(){
          
         })
         .then((response) => {
-          console.log(response);
+          // console.log(response);
           if (response.status === 200) {
             message=response.data.message;
             localStorage.setItem('userIdBookmarks', response.data.savedbookMark.user);

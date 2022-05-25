@@ -50,18 +50,20 @@ function BlockForm() {
 
   const [test, istest] = React.useState();
   const handleSubmit = async (e) => {
-    const resp = BLockUser(body);
     if (duration < 0 || duration % 1 !== 0) {
       if (duration < 0) {
         notifyNegative();
-      }else{
+      } else {
         {
-        notifyWhole();
+          notifyWhole();
         }
       }
+      console.log("not blocked");
 
       e.preventDefault(); //prevent refresh of page
     } else {
+      const resp = BLockUser(body);
+
       localStorage.setItem("selectedIDs", null);
       console.log("..", resp);
       var promiseB = resp.then(function (result) {

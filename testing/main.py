@@ -53,9 +53,9 @@ class TwitterHomePage(unittest.TestCase):
         signIn_Page.enter_EmailOrUsername("@omargabr")
         signIn_Page.click_Next()
         signIn_Page.enter_Password("Egyptionnn123_!")
-        time.sleep(3)
+        time.sleep(7)
         (signIn_Page.click_LogIn())
-        self.driver.implicitly_wait(100)
+        self.driver.implicitly_wait(300)
         #////////////////////////////////////////////////
         
         #self.driver.get("http://www.twi-jay.xyz/home")
@@ -77,9 +77,9 @@ class TwitterHomePage(unittest.TestCase):
         signIn_Page.enter_EmailOrUsername("@omargabr")
         signIn_Page.click_Next()
         signIn_Page.enter_Password("Egyptionnn123_!")
-        time.sleep(3)
+        time.sleep(7)
         (signIn_Page.click_LogIn())
-        self.driver.implicitly_wait(100)
+        self.driver.implicitly_wait(300)
         #////////////////////////////////////////////////
 
         #self.driver.get("http://www.twi-jay.xyz/home")
@@ -98,9 +98,9 @@ class TwitterHomePage(unittest.TestCase):
         signIn_Page.enter_EmailOrUsername("@omargabr")
         signIn_Page.click_Next()
         signIn_Page.enter_Password("Egyptionnn123_!")
-        time.sleep(3)
+        time.sleep(7)
         (signIn_Page.click_LogIn())
-        self.driver.implicitly_wait(100)
+        self.driver.implicitly_wait(300)
         #////////////////////////////////////////////////
 
         #self.driver.get("http://localhost:3000/home")
@@ -108,7 +108,7 @@ class TwitterHomePage(unittest.TestCase):
         self.assertFalse(Main_Page.click_Notifications())
         #notifications_page = page.NotificationsPage(self.driver)
         #notifications_page.click_All()
-        #self.driver.implicitly_wait(100)
+        #self.driver.implicitly_wait(300)
         #notifications_page.click_Mentions()
         
     def test_ProfileEdit(self):
@@ -120,9 +120,9 @@ class TwitterHomePage(unittest.TestCase):
         signIn_Page.enter_EmailOrUsername("@omargabr")
         signIn_Page.click_Next()
         signIn_Page.enter_Password("Egyptionnn123_!")
-        time.sleep(3)
+        time.sleep(7)
         (signIn_Page.click_LogIn())
-        self.driver.implicitly_wait(100)
+        self.driver.implicitly_wait(300)
         #////////////////////////////////////////////////
 
         #self.driver.get("http://www.twi-jay.xyz/home")
@@ -148,9 +148,9 @@ class TwitterHomePage(unittest.TestCase):
         signIn_Page.enter_EmailOrUsername("@omargabr")
         signIn_Page.click_Next()
         signIn_Page.enter_Password("Egyptionnn123_!")
-        time.sleep(3)
+        time.sleep(7)
         (signIn_Page.click_LogIn())
-        self.driver.implicitly_wait(100)
+        self.driver.implicitly_wait(300)
         #////////////////////////////////////////////////
 
         #self.driver.get("http://www.twi-jay.xyz/home")
@@ -172,9 +172,9 @@ class TwitterHomePage(unittest.TestCase):
         signIn_Page.enter_EmailOrUsername("@Mahmoud")
         signIn_Page.click_Next()
         signIn_Page.enter_Password("123456Fa@")
-        time.sleep(3)
+        time.sleep(7)
         (signIn_Page.click_LogIn())
-        self.driver.implicitly_wait(100)
+        self.driver.implicitly_wait(300)
         #////////////////////////////////////////////////
 
         mainpage2= page.MainPage2(self.driver)
@@ -182,9 +182,9 @@ class TwitterHomePage(unittest.TestCase):
         #self.driver.get("http://www.twi-jay.xyz/adminpage")
         admin_page = page.AdminPage(self.driver)
         admin_page.click_Home()
-        self.driver.implicitly_wait(100)
+        self.driver.implicitly_wait(300)
         admin_page.click_Statistics()
-        self.driver.implicitly_wait(100)
+        self.driver.implicitly_wait(300)
         admin_page.click_Users()
         self.driver.get("http://www.twi-jay.xyz/BlockForm")
         admin_page.enter_Days("2")
@@ -203,15 +203,15 @@ class TwitterHomePage(unittest.TestCase):
         signIn_Page.enter_EmailOrUsername("@omargabr")
         signIn_Page.click_Next()
         signIn_Page.enter_Password("Egyptionnn123_!")
-        time.sleep(3)
+        time.sleep(7)
         (signIn_Page.click_LogIn())
-        self.driver.implicitly_wait(100)
+        self.driver.implicitly_wait(300)
         #////////////////////////////////////////////////
 
         #self.driver.get("http://www.twi-jay.xyz/home")
         Main_page = page.MainPage2(self.driver)
         Main_page.click_Settings()
-        self.driver.implicitly_wait(100) 
+        self.driver.implicitly_wait(300) 
         Settings_Page = page.Settings(self.driver)
         #Settings_Page.click_YourAccount()
         self.driver.get("http://www.twi-jay.xyz/Settings/your-account")
@@ -220,7 +220,7 @@ class TwitterHomePage(unittest.TestCase):
         #Settings_Page.click_Username()
         self.driver.get("http://www.twi-jay.xyz/Settings/change-username")
         Settings_Page.enter_Username("@omargabr")
-        self.driver.implicitly_wait(100)
+        self.driver.implicitly_wait(300)
         Settings_Page.click_SaveUsername()
 
         #Settings_Page.click_YourAccount()
@@ -230,7 +230,7 @@ class TwitterHomePage(unittest.TestCase):
         #Settings_Page.click_Phone()
         self.driver.get("http://www.twi-jay.xyz/Settings/change-phone-number")
         Settings_Page.enter_Phone("+201061524100")
-        self.driver.implicitly_wait(100)
+        self.driver.implicitly_wait(300)
         Settings_Page.click_SaveNumber()
 
         #Settings_Page.click_YourAccount()
@@ -240,7 +240,7 @@ class TwitterHomePage(unittest.TestCase):
         #Settings_Page.click_Email()
         self.driver.get("http://www.twi-jay.xyz/Settings/change-email")
         Settings_Page.enter_Email("mohamed.k.elrafie@gmail.com")
-        self.driver.implicitly_wait(100)
+        self.driver.implicitly_wait(300)
         Settings_Page.click_SaveMail()
         
         #Settings_Page.click_YourAccount()
@@ -267,7 +267,7 @@ class TwitterHomePage(unittest.TestCase):
 
         #Settings_Page.click_YourAccount()
         #Settings_Page.click_DeactivateYourAccount()
-        #self.driver.implicitly_wait(100)
+        #self.driver.implicitly_wait(300)
         #self.assertFalse(Settings_Page.click_Deactivate())
 
 
@@ -280,9 +280,9 @@ class TwitterHomePage(unittest.TestCase):
         signIn_Page.enter_EmailOrUsername("@omargabr")
         signIn_Page.click_Next()
         signIn_Page.enter_Password("Egyptionnn123_!")
-        time.sleep(3)
+        time.sleep(7)
         (signIn_Page.click_LogIn())
-        self.driver.implicitly_wait(100)
+        self.driver.implicitly_wait(300)
         #////////////////////////////////////////////////
 
         #self.driver.get("http://www.twi-jay.xyz/home")
@@ -303,9 +303,9 @@ class TwitterHomePage(unittest.TestCase):
         signIn_Page.enter_EmailOrUsername("@omargabr")
         signIn_Page.click_Next()
         signIn_Page.enter_Password("Egyptionnn123_!")
-        time.sleep(3)
+        time.sleep(7)
         (signIn_Page.click_LogIn())
-        self.driver.implicitly_wait(100)
+        self.driver.implicitly_wait(300)
         #////////////////////////////////////////////////
 
         #self.driver.get("http://www.twi-jay.xyz/home")
@@ -323,15 +323,15 @@ class TwitterHomePage(unittest.TestCase):
         signIn_Page.enter_EmailOrUsername("@omargabr")
         signIn_Page.click_Next()
         signIn_Page.enter_Password("Egyptionnn123_!")
-        time.sleep(3)
+        time.sleep(7)
         (signIn_Page.click_LogIn())
-        self.driver.implicitly_wait(100)
+        self.driver.implicitly_wait(300)
         #////////////////////////////////////////////////
 
         #self.driver.get("http://www.twi-jay.xyz/home")
         Main_Page = page.MainPage2(self.driver)
         Main_Page.click_WhoToFollow()
-        self.driver.implicitly_wait(100)
+        self.driver.implicitly_wait(300)
         Main_Page.click_WhoToFollow()
         time.sleep(1)
         self.assertFalse(Main_Page.click_Unfollow())
@@ -344,7 +344,7 @@ class TwitterHomePage(unittest.TestCase):
         Tweet_Page = page.TweetPage(self.driver)
         Tweet_Page.enter_Tweet("Hello World")
         #Tweet_Page.enter_Mentions("@F")
-        self.driver.implicitly_wait(100)
+        self.driver.implicitly_wait(300)
         Tweet_Page.click_Tweet()'''
 
 
@@ -371,7 +371,7 @@ class TwitterHomePage(unittest.TestCase):
         #Clicks On Sign Up with google button
         (main_page.click_SignUpWithGoogle_Button(),'Button Didnt Press')
         self.driver.get("https://accounts.google.com/o/oauth2/auth/identifier?redirect_uri=storagerelay%3A%2F%2Fhttp%2Flocalhost%3A3000%3Fid%3Dauth877532&response_type=permission%20id_token&scope=email%20profile%20openid&openid.realm&include_granted_scopes=true&client_id=335712697506-0rdelma7j4jgcc6bicuhnn20e2l8m0fm.apps.googleusercontent.com&ss_domain=http%3A%2F%2Flocalhost%3A3000&prompt&fetch_basic_profile=true&gsiwebsdk=2&flowName=GeneralOAuthFlow")
-        #self.driver.implicitly_wait(100)
+        #self.driver.implicitly_wait(300)
         Enter_Google_Email_Page = page.EnterGoogleEmailPage(self.driver)
         (Enter_Google_Email_Page.click_EnterEmail("mohamed.k.elrafie@gmail.com"))
         self.assertFalse(Enter_Google_Email_Page.click_Next())
@@ -394,9 +394,9 @@ class TwitterHomePage(unittest.TestCase):
         signUpPhoneOrMail_Page.click_Next_1()
         self.driver.implicitly_wait(2000)
         signUpPhoneOrMail_Page.click_Next_2()
-        time.sleep(3)
+        time.sleep(7)
         self.assertFalse(signUpPhoneOrMail_Page.SignUpButton())
-        #self.driver.implicitly_wait(100)
+        #self.driver.implicitly_wait(300)
         #self.assertFalse(signUpPhoneOrMail_Page.click_Next_3())
 
     
@@ -408,7 +408,7 @@ class TwitterHomePage(unittest.TestCase):
         time.sleep(2)
         (main_page.click_SignIn(),'Button Didnt Press')
         signIn_Page = page.SignInPage(self.driver)
-        self.driver.implicitly_wait(100)
+        self.driver.implicitly_wait(300)
         signIn_Page.click_SignInGoogle()
         self.driver.get("https://accounts.google.com/o/oauth2/auth/identifier?redirect_uri=storagerelay%3A%2F%2Fhttp%2Flocalhost%3A3000%3Fid%3Dauth778568&response_type=permission%20id_token&scope=email%20profile%20openid&openid.realm&include_granted_scopes=true&client_id=335712697506-0rdelma7j4jgcc6bicuhnn20e2l8m0fm.apps.googleusercontent.com&ss_domain=http%3A%2F%2Flocalhost%3A3000&prompt&fetch_basic_profile=true&gsiwebsdk=2&flowName=GeneralOAuthFlow")
         Enter_Google_Email_Page = page.EnterGoogleEmailPage(self.driver)
@@ -424,9 +424,9 @@ class TwitterHomePage(unittest.TestCase):
         signIn_Page = page.SignInPage(self.driver)
         signIn_Page.enter_EmailOrUsername("@omargabr")
         signIn_Page.click_Next()
-        self.driver.implicitly_wait(100)
+        self.driver.implicitly_wait(300)
         signIn_Page.click_ForgetPassword_2()
-        self.driver.implicitly_wait(100)
+        self.driver.implicitly_wait(300)
         signIn_Page.enter_Username2("@OmarGabr")
         signIn_Page.enter_Email2("hello.hello@gmail.com")
         self.assertFalse(signIn_Page.click_Search())

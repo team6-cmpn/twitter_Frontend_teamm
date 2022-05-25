@@ -65,7 +65,7 @@ import { useEffect } from "react";
 
   return (
     <div className="chartone">
-      <Carousel>
+      <Carousel className="carouselitem">
         <ResponsiveContainer width="100%" aspect={4 / 2}>
           <BarChart
             data={GetDashBoardstat()[9]?.tweets_Per_Month}

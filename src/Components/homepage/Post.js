@@ -137,20 +137,14 @@ const Post = ({
    *updates after deleting a bookmark
    * @returns deletion of tweet bookmark
    */
-  function UpdateBookmarks() {
-    if (BookmarkState === "Unadd") {
-      addOrDeleteBookmarks().then(() => BE.GetBookmarks());
-    } else {
-      addOrDeleteBookmarks();
-    }
-  }
+
   const content = (
     <div>
       <Link
         to=""
         id="addOrDeleteBookmarks"
         onClick={() => {
-          UpdateBookmarks();
+          addOrDeleteBookmarks();
         }}
       >
         {BookmarkState}

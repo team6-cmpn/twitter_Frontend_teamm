@@ -9,7 +9,7 @@
   border-style: solid;
   width: 90px;
   height:40px;
-  position: relative;
+  position: sticky;
   left: 220px;
   }
   .ButtonFollow:hover {
